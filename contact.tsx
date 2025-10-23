@@ -146,7 +146,7 @@ const SkipToContentLink = () => (
     </a>
 );
 
-const Header = () => {
+const Header = ({ theme }) => {
   const [scrolled, setScrolled] = useState(false);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
@@ -232,7 +232,7 @@ const Header = () => {
     }
   };
 
-  const headerClasses = `app-header ${scrolled ? 'scrolled' : ''} on-light`;
+  const headerClasses = `app-header ${scrolled ? 'scrolled' : ''} on-${theme}`;
 
   return (
     <header className={headerClasses}>
@@ -510,11 +510,11 @@ const ContactForm = () => {
                         <input type="email" id="email" name="email" required />
                     </div>
                 </div>
-                 <div className="form-group">
+                 <div className="form-group full-width">
                     <label htmlFor="subject">Subject</label>
-                    <input type="text" id="subject" name="subject" required style={{width: '100%'}}/>
+                    <input type="text" id="subject" name="subject" required />
                 </div>
-                <div className="form-group">
+                <div className="form-group full-width">
                     <label htmlFor="message">Message</label>
                     <textarea id="message" name="message" rows={6} required></textarea>
                 </div>
@@ -562,18 +562,14 @@ const ContactPage = () => {
         </div>
       </section>
 
-      <section id="contact-details" className="content-section">
+      <section id="contact-content" className="contact-content-section content-section">
         <div className="container">
-            <h2 className="section-title scroll-trigger fade-up" style={{textAlign: 'center', marginBottom: '60px'}}>Contact <strong>Information</strong></h2>
-            <div className="contact-grid">
-                <div className="contact-info-items scroll-trigger fade-up" style={{transitionDelay: '0.1s'}}>
-                    <div className="contact-info-item">
-                        <div className="icon-wrapper"><i className="fas fa-map-marker-alt" aria-hidden="true"></i></div>
-                        <div>
-                            <h4>Our Location</h4>
-                            <p>14th floor, Al Jazeera tower, Westbay, Doha, Qatar</p>
-                        </div>
-                    </div>
+          <div className="contact-card scroll-trigger fade-up">
+            <div className="contact-page-grid">
+              <div className="contact-details-col">
+                <h3>Contact Information</h3>
+                <p>Fill up the form and our Team will get back to you within 24 hours.</p>
+                <div className="contact-info-items">
                     <div className="contact-info-item">
                         <div className="icon-wrapper"><i className="fas fa-phone" aria-hidden="true"></i></div>
                         <div>
@@ -588,16 +584,31 @@ const ContactPage = () => {
                             <p><a href="mailto:info@tajdc.com">info@tajdc.com</a></p>
                         </div>
                     </div>
+                    <div className="contact-info-item">
+                        <div className="icon-wrapper"><i className="fas fa-map-marker-alt" aria-hidden="true"></i></div>
+                        <div>
+                            <h4>Our Location</h4>
+                            <p>14th floor, Al Jazeera tower, Westbay, Doha, Qatar</p>
+                        </div>
+                    </div>
                 </div>
+                <div className="map-container">
+                    <a href="https://www.google.com/maps/place/Al+Jazeera+Tower/@25.3228394,51.523588,17z/" target="_blank" rel="noopener noreferrer" aria-label="View location on Google Maps">
+                        <img src="https://images.unsplash.com/photo-1594398932145-81755a5a2283?w=1200&auto=format&fit=crop&q=60" alt="Map showing the location of Taj Design Consult"/>
+                        <div className="map-overlay">
+                            <i className="fas fa-external-link-alt" aria-hidden="true"></i>
+                            <span>Open Map</span>
+                        </div>
+                    </a>
+                </div>
+              </div>
+              <div className="contact-form-col">
+                <h2 id="contact-form-title" className="section-title">Send Us A <strong>Message</strong></h2>
+                <div role="region" aria-labelledby="contact-form-title">
+                  <ContactForm />
+                </div>
+              </div>
             </div>
-        </div>
-      </section>
-
-      <section className="contact-form-section content-section">
-        <div className="container">
-           <h2 id="contact-form-title" className="section-title scroll-trigger fade-up" style={{textAlign: 'center'}}>Send Us A <strong>Message</strong></h2>
-           <div className="scroll-trigger fade-up" role="region" aria-labelledby="contact-form-title">
-            <ContactForm />
           </div>
         </div>
       </section>
@@ -610,7 +621,7 @@ const App = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        document.body.style.backgroundColor = '#fff';
+        document.body.style.backgroundColor = '#f4f5f7';
         const timer = setTimeout(() => setLoading(false), 200);
         return () => {
             document.body.style.backgroundColor = '';
@@ -619,11 +630,11 @@ const App = () => {
     }, []);
 
     return (
-        <div className={`app ${loading ? 'loading' : ''} no-sidebar`}>
+        <div className={`app ${loading ? 'loading' : ''}`}>
             <SkipToContentLink />
             <CustomCursor />
             <WhatsAppChatWidget />
-            <Header />
+            <Header theme="dark" />
             <main className="main-content" id="main-content" tabIndex={-1}>
                 <ContactPage />
             </main>
