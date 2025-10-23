@@ -1,6 +1,9 @@
 
+
 import React, { useState, useEffect, useRef, memo, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
+
+declare const gsap: any;
 
 const servicesSubLinks = [
   { name: 'Architectural Design', href: 'architectural-design.html', icon: 'fas fa-archway', description: 'Innovative and functional spaces from concept to construction.', image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&auto=format&fit=crop&q=60' },
@@ -382,6 +385,82 @@ const WaveAnimation = memo(() => {
     return <canvas ref={canvasRef} id="footer-wave-canvas" aria-hidden="true" />;
 });
 
+const CustomCursor = memo(() => {
+    const dotRef = useRef<HTMLDivElement>(null);
+    const outlineRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion) return;
+
+        const dot = dotRef.current;
+        const outline = outlineRef.current;
+        if (!dot || !outline) return;
+
+        gsap.set([dot, outline], { xPercent: -50, yPercent: -50 });
+
+        const dotX = gsap.quickTo(dot, "x", { duration: 0.1, ease: "power3" });
+        const dotY = gsap.quickTo(dot, "y", { duration: 0.1, ease: "power3" });
+        const outlineX = gsap.quickTo(outline, "x", { duration: 0.3, ease: "power3" });
+        const outlineY = gsap.quickTo(outline, "y", { duration: 0.3, ease: "power3" });
+
+        const mouseMove = (e: MouseEvent) => {
+            dotX(e.clientX);
+            dotY(e.clientY);
+            outlineX(e.clientX);
+            outlineY(e.clientY);
+        };
+        
+        const showCursor = () => {
+            dot.classList.add('visible');
+            outline.classList.add('visible');
+        };
+        const hideCursor = () => {
+            dot.classList.remove('visible');
+            outline.classList.remove('visible');
+        };
+        
+        const handleMouseEnterHoverTarget = () => {
+            dot.classList.add('cursor-hover');
+            outline.classList.add('cursor-hover');
+        };
+
+        const handleMouseLeaveHoverTarget = () => {
+            dot.classList.remove('cursor-hover');
+            outline.classList.remove('cursor-hover');
+        };
+        
+        window.addEventListener("mousemove", mouseMove);
+        document.body.addEventListener("mouseleave", hideCursor);
+        document.body.addEventListener("mouseenter", showCursor);
+
+        const hoverTargets = document.querySelectorAll(
+            'a, button, [role="button"], .whatsapp-widget, .project-card'
+        );
+        hoverTargets.forEach(target => {
+            target.addEventListener('mouseenter', handleMouseEnterHoverTarget);
+            target.addEventListener('mouseleave', handleMouseLeaveHoverTarget);
+        });
+
+        return () => {
+            window.removeEventListener("mousemove", mouseMove);
+            document.body.removeEventListener("mouseleave", hideCursor);
+            document.body.removeEventListener("mouseenter", showCursor);
+            hoverTargets.forEach(target => {
+                target.removeEventListener('mouseenter', handleMouseEnterHoverTarget);
+                target.removeEventListener('mouseleave', handleMouseLeaveHoverTarget);
+            });
+        };
+    }, []);
+
+    return (
+        <>
+            <div ref={outlineRef} className="custom-cursor-outline"></div>
+            <div ref={dotRef} className="custom-cursor-dot"></div>
+        </>
+    );
+});
+
 const WhatsAppChatWidget = () => (
     <a
         href="https://wa.me/97477123400"
@@ -469,20 +548,21 @@ const ServicePage = () => {
   ];
 
   const relatedProjects = [
-    { image: "https://www.constructionworld.in/assets/uploads/403b29c9cc1a965d134f78330756702e.jpg", title: "Pearl-Qatar Tower", category: "Structural Design" },
-    { image: "https://www.marsh.com/content/dam/marsh/Imagery/marsh-a-z/m/Marsh-MEP-1200x627.jpg", title: "Doha Oasis MEP Works", category: "MEP Engineering" },
-    { image: "https://www.severfield.com/images/1500/800/1/media-library/Case%20Studies/Lusail%20Stadium/Lusail-1.jpg", title: "Lusail Stadium Infrastructure", category: "Civil & Geotechnical" },
+    { image: "https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&auto=format&fit=crop&q=60", title: "Skybridge Tower", category: "Structural Engineering" },
+    { image: "https://images.unsplash.com/photo-1518692113669-e34fa251a37c?w=800&auto=format&fit=crop&q=60", title: "Metropolitan Hospital", category: "MEP Engineering" },
+    { image: "https://i.pinimg.com/736x/0b/8c/86/0b8c8615aa86527ab87496b87d4d5d07.jpg", title: "Cityline Metro Expansion", category: "Civil & Infrastructure" },
   ];
 
   return (
     <div className={`app ${loading ? 'loading' : ''}`}>
       <SkipToContentLink />
+      <CustomCursor />
       <WhatsAppChatWidget />
       <Header theme="light" />
       <div className="main-container">
         <LeftSidebar />
         <main className="main-content" id="main-content" tabIndex={-1}>
-          <section className="service-hero-section scroll-trigger fade-up" style={{ backgroundImage: `url('https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://images.ctfassets.net/wp1lcwdav1p1/17MEOgCd3uhDI8TaTp5m9h/8d09b3a36b6239b569653b70f62733c1/Teamwork-in-construction-industry---two-engineers-working-together-on-construction-site-with-blueprints-and-plans-645373486.jpeg?w=1500&h=680&q=60&fit=fill&f=faces&fm=jpg&fl=progressive&auto=format%2Ccompress&dpr=1&w=1000')`}}>
+          <section className="service-hero-section scroll-trigger fade-up" style={{ backgroundImage: `url('https://media.istockphoto.com/id/1944772735/photo/closeup-of-team-of-industrial-engineers-meeting-analyze-machinery-blueprints-consult-project.jpg?s=612x612&w=0&k=20&c=ztBo9tQc/wwkmcyoqFtJhh0u31K+Q6jYjeicsGJJ7bbEq8LwPWV/w0cnzOqR2m694/Af6hpFayLJZkG2VQ==')`}}>
             <div className="container">
               <h1 className="scroll-trigger fade-up" style={{transitionDelay: '0.1s'}}>Engineering <strong>Consultancy</strong></h1>
             </div>
@@ -492,15 +572,15 @@ const ServicePage = () => {
             <div className="container">
               <div className="service-content-grid scroll-trigger fade-up" style={{transitionDelay: '0.2s'}}>
                 <div className="service-main-content">
-                    <p>
-                        Our Engineering Consultancy division provides the technical backbone for visionary architecture. We deliver integrated, multidisciplinary engineering solutions that are innovative, efficient, and resilient. Our expert teams in structural, MEP, civil, and specialized engineering disciplines work collaboratively to solve complex challenges and ensure that every design is buildable, sustainable, and optimized for performance. We merge technical excellence with a deep understanding of our clients’ goals to deliver projects that stand the test of time.
-                    </p>
-                    <p>
-                        From initial feasibility studies to detailed design and construction support, we are committed to precision and quality. We leverage cutting-edge software and analysis tools to model and test our designs, ensuring they meet the highest standards of safety and efficiency. Our proactive approach to coordination and problem-solving helps streamline the construction process, minimize risks, and deliver exceptional value. We are dedicated to engineering excellence that supports architectural creativity and delivers lasting results.
-                    </p>
+                  <p>
+                    Our Engineering Consultancy division provides the technical backbone for visionary architecture. We deliver integrated, multidisciplinary engineering solutions that are innovative, efficient, and resilient. Our expert teams in structural, MEP, civil, and specialized engineering disciplines work collaboratively to solve complex challenges and ensure that every design is buildable, sustainable, and optimized for performance. We merge technical excellence with a deep understanding of our clients’ goals to deliver projects that stand the test of time.
+                  </p>
+                  <p>
+                    From initial feasibility studies to detailed design and construction support, we are committed to precision and quality. We leverage cutting-edge software and analysis tools to model and test our designs, ensuring they meet the highest standards of safety and efficiency. Our proactive approach to coordination and problem-solving helps streamline the construction process, minimize risks, and deliver exceptional value. We are dedicated to engineering excellence that supports architectural creativity and delivers lasting results.
+                  </p>
                 </div>
                 <div className="service-sidebar-image">
-                  <img src="https://website-media.com/beacon-hospitality/beacon-hospitality-2024/2023/08/13174251/Structural-engineer-and-architect-working-with-blueprints.jpeg" alt="Engineers collaborating on a blueprint." />
+                  <img src="https://media.istockphoto.com/id/1387565694/photo/digital-technology-used-for-construction-work.jpg?s=612x612&w=0&k=20&c=4JaaPwyqAcjD-cq90Jbecyz1T5K2ZJgIRA5PWcqd_BU=" alt="Engineers collaborating on a blueprint." />
                 </div>
               </div>
 
