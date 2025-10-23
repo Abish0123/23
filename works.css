@@ -66,6 +66,14 @@ html, body {
 .app {
   opacity: 1;
   transition: opacity 0.8s ease-in;
+  cursor: none !important;
+}
+
+.app a,
+.app button,
+.app [role="button"],
+.app input {
+    cursor: none !important;
 }
 
 .app.loading {
