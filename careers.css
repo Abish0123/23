@@ -898,7 +898,7 @@
   
   @media (max-width: 992px) {
       .main-nav { display: none; } 
-      .burger-menu { display: block; }
+      .burger-menu { display: flex; }
       .custom-cursor-dot, .custom-cursor-outline { display: none; }
       .app, .app a, .app button, .app [role="button"], .app input { cursor: auto !important; }
       .desktop-logo {
