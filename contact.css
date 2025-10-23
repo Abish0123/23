@@ -1,3 +1,4 @@
+
 :root {
   --dark-bg: #111111;
   --dark-bg-secondary: #1c1c1c;
@@ -277,7 +278,7 @@ html, body {
 }
 .contact-info-item {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 20px;
 }
 .contact-info-item .icon-wrapper {
@@ -312,6 +313,40 @@ html, body {
 .contact-info-item a:hover {
     color: var(--accent-color);
 }
+
+.location-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.get-directions-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    padding: 6px 12px;
+    background-color: transparent;
+    border: 1px solid var(--accent-color);
+    border-radius: 20px;
+    color: var(--accent-color);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    align-self: flex-start;
+}
+
+.get-directions-link .fas {
+    font-size: 12px;
+}
+
+.get-directions-link:hover,
+.get-directions-link:focus {
+    background-color: var(--accent-color);
+    color: var(--dark-bg);
+    outline: none;
+}
+
 
 /* Map */
 .map-container {
