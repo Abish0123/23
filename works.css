@@ -1,5 +1,3 @@
-
-
 :root {
   --dark-bg: #111111;
   --dark-bg-secondary: #1c1c1c;
@@ -175,6 +173,10 @@ html, body {
   transition: background-color 0.4s ease, box-shadow 0.4s ease;
 }
 
+.logo { order: 1; }
+.main-nav { order: 2; }
+.burger-menu { order: 3; }
+
 .app-header.scrolled.on-light {
     background-color: #fff;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
@@ -219,17 +221,60 @@ html, body {
 .app-header.on-dark .dropdown-link-item:hover, .app-header.on-dark .dropdown-link-item:focus { background-color: rgba(255, 255, 255, 0.08); color: #fff; }
 .app-header.on-light .dropdown-link-item:hover, .app-header.on-light .dropdown-link-item:focus { background-color: #f0f0f0; color: #111; }
 
-.burger-menu { display: none; background: none; border: none; font-size: 24px; z-index: 1002; padding: 5px; }
-.app-header.on-dark .burger-menu { color: var(--text-light); }
-.app-header.on-light .burger-menu { color: var(--text-dark); }
+.burger-menu {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    width: 48px;
+    height: 48px;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    z-index: 1002;
+    transition: transform 0.2s ease;
+}
+.burger-menu:active {
+    transform: scale(0.9);
+}
+.burger-bar {
+    display: block;
+    width: 28px;
+    height: 3px;
+    background-color: var(--text-light);
+    border-radius: 3px;
+    transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
+    transform-origin: center;
+}
+.app-header.on-light .burger-bar {
+    background-color: var(--text-dark);
+}
+.burger-menu.open .burger-bar {
+    background-color: var(--text-light);
+}
+.burger-menu.open .burger-bar:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+}
+.burger-menu.open .burger-bar:nth-child(2) {
+    opacity: 0;
+}
+.burger-menu.open .burger-bar:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+}
 
 .mobile-nav-overlay { position: fixed; top: 0; right: 0; width: 100%; height: 100%; background-color: rgba(17, 17, 17, 0.98); z-index: 1001; transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.645, 0.045, 0.355, 1); display: flex; flex-direction: column; align-items: center; justify-content: center; }
 .mobile-nav-overlay.open { transform: translateX(0); }
-.mobile-nav-close { position: absolute; top: 30px; right: 40px; background: none; border: none; color: var(--text-light); font-size: 32px; padding: 5px; }
 .mobile-nav ul { list-style: none; text-align: center; }
 .mobile-nav ul li { margin: 20px 0; opacity: 0; transform: translateY(20px); transition: opacity 0.3s ease, transform 0.3s ease; }
 .mobile-nav-overlay.open .mobile-nav ul li { opacity: 1; transform: translateY(0); }
-/* ... mobile nav transition delays ... */
+.mobile-nav-overlay.open .mobile-nav ul li:nth-child(1) { transition-delay: 0.2s; }
+.mobile-nav-overlay.open .mobile-nav ul li:nth-child(2) { transition-delay: 0.25s; }
+.mobile-nav-overlay.open .mobile-nav ul li:nth-child(3) { transition-delay: 0.3s; }
+.mobile-nav-overlay.open .mobile-nav ul li:nth-child(4) { transition-delay: 0.35s; }
+.mobile-nav-overlay.open .mobile-nav ul li:nth-child(5) { transition-delay: 0.4s; }
+.mobile-nav-overlay.open .mobile-nav ul li:nth-child(6) { transition-delay: 0.45s; }
 .mobile-nav ul li a { color: var(--text-light); text-decoration: none; font-size: 24px; font-weight: 300; text-transform: uppercase; letter-spacing: 2px; position: relative; padding: 10px; }
 .mobile-nav ul li a .dropdown-indicator { font-size: 16px; margin-left: 10px; transition: transform 0.3s ease; }
 .mobile-nav ul li a .dropdown-indicator.open { transform: rotate(180deg); }
@@ -277,7 +322,7 @@ html, body {
 .works-list {
     display: flex;
     flex-direction: column;
-    gap: 120px;
+    gap: 80px;
 }
 .work-item .grid {
     display: grid;
@@ -335,6 +380,32 @@ html, body {
     color: #666;
     margin-top: 20px;
 }
+
+.challenges-solutions {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+.challenges-solutions h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.challenges-solutions p {
+    font-size: 15px;
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 10px;
+}
+.challenges-solutions strong {
+    color: var(--text-dark);
+    font-weight: 700;
+}
+
+
 .work-title-overlay {
     position: absolute; top: 0; left: 0;
     width: 100%; height: 100%;
@@ -420,7 +491,10 @@ html, body {
 .project-modal-details .modal-title { font-size: 28px; font-weight: 700; margin-bottom: 15px; color: var(--accent-color); }
 .project-modal-details .modal-location { display: flex; align-items: center; gap: 10px; margin-bottom: 25px; color: #ccc; }
 .project-modal-details .modal-description { line-height: 1.8; color: #ddd; }
-
+.project-modal-details .challenges-solutions { border-top-color: var(--border-light); }
+.project-modal-details .challenges-solutions h4 { color: #fff; }
+.project-modal-details .challenges-solutions p { color: #ccc; }
+.project-modal-details .challenges-solutions strong { color: var(--accent-color); }
 
 /* Other shared components */
 .app-footer { background-color: var(--dark-bg-secondary); color: #aaa; padding: 80px 60px 40px; position: relative; overflow: hidden; }
@@ -457,13 +531,30 @@ html, body {
 }
 @media (max-width: 992px) {
     .main-nav { display: none; }
-    .burger-menu { display: block; }
+    .burger-menu { display: flex; }
     .custom-cursor-dot, .custom-cursor-outline { display: none; }
     .app, .app a, .app button, .app [role="button"], .app input { cursor: auto !important; }
-    .works-list { gap: 80px; }
+    .works-list { gap: 60px; }
     .work-item .grid, .work-item.reverse .grid { grid-template-columns: 1fr; }
     .work-item.reverse .work-image { order: 1; }
     .work-item.reverse .work-info { order: 2; }
+
+    .work-title-overlay {
+        opacity: 1;
+        transform: translateY(0);
+        background: linear-gradient(to top, rgba(17, 17, 17, 0.9) 0%, rgba(17, 17, 17, 0.7) 50%, transparent 100%);
+        justify-content: flex-end;
+        align-items: flex-start;
+        text-align: left;
+        padding: 20px;
+    }
+
+    .work-title-overlay h3,
+    .work-title-overlay .view-projects-btn {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
     .project-modal-content { grid-template-columns: 1fr; grid-template-rows: 60vh 40vh; max-height: 90vh; }
     .project-modal-details { border-top: 1px solid var(--border-light); }
     .gallery-nav-btn { display: none; }
