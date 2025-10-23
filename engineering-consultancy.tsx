@@ -549,7 +549,7 @@ const ServicePage = () => {
 
   const relatedProjects = [
     { image: "https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&auto=format&fit=crop&q=60", title: "Skybridge Tower", category: "Structural Engineering" },
-    { image: "https://images.unsplash.com/photo-1518692113669-e34fa251a37c?w=800&auto=format&fit=crop&q=60", title: "Metropolitan Hospital", category: "MEP Engineering" },
+    { image: "https://img.freepik.com/free-photo/empty-hallway-background_23-2149408808.jpg?semt=ais_hybrid&w=740&q=80", title: "Metropolitan Hospital", category: "MEP Engineering" },
     { image: "https://i.pinimg.com/736x/0b/8c/86/0b8c8615aa86527ab87496b87d4d5d07.jpg", title: "Cityline Metro Expansion", category: "Civil & Infrastructure" },
   ];
 
