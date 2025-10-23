@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect, useRef, memo, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -593,7 +591,7 @@ const ContactPage = () => {
                     </div>
                 </div>
                 <div className="map-container">
-                    <a href="https://www.google.com/maps/place/Al+Jazeera+Tower/@25.3228394,51.523588,17z/" target="_blank" rel="noopener noreferrer" aria-label="View location on Google Maps">
+                    <a href="https://maps.app.goo.gl/yHvdbrHNhGK66VZA6" target="_blank" rel="noopener noreferrer" aria-label="View location on Google Maps">
                         <img src="https://images.unsplash.com/photo-1594398932145-81755a5a2283?w=1200&auto=format&fit=crop&q=60" alt="Map showing the location of Taj Design Consult"/>
                         <div className="map-overlay">
                             <i className="fas fa-external-link-alt" aria-hidden="true"></i>
