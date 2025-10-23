@@ -884,3 +884,8 @@
       .main-content { margin-left: 0; width: 100%; }
       .app-header { left: 0; width: 100%; padding: 20px; }
   }
+
+#application-form .section-title {
+  text-align: center;
+  margin-left: 0;
+}
