@@ -599,18 +599,6 @@ const ContactPage = () => {
                         </div>
                     </div>
                 </div>
-                <div className="map-container">
-                   <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3606.331665400582!2d51.53335427538749!3d25.326466925562694!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e45c5a17f1a132d%3A0x8f4a97f2a8ca3d78!2sAl%20Jazeera%20Tower!5e0!3m2!1sen!2sqa"
-                        width="100%"
-                        height="100%"
-                        style={{ border: 0 }}
-                        allowFullScreen
-                        loading="lazy"
-                        referrerPolicy="no-referrer-when-downgrade"
-                        title="Location of Taj Design Consult on Google Maps"
-                    ></iframe>
-                </div>
               </div>
               <div className="contact-form-col">
                 <h2 id="contact-form-title" className="section-title">Send Us A <strong>Message</strong></h2>
