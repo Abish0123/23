@@ -11,6 +11,7 @@ const servicesSubLinks = [
   { name: 'Engineering Consultancy', href: 'engineering-consultancy.html', icon: 'fas fa-cogs' },
   { name: 'Project Management Consultancy', href: 'project-management.html', icon: 'fas fa-tasks' },
   { name: 'Sustainability & Energy', href: 'sustainability-energy.html', icon: 'fas fa-leaf' },
+  { name: 'Construction Approval', href: 'construction-approval.html', icon: 'fas fa-check-double' },
 ];
 
 const navLinks = [
@@ -24,6 +25,13 @@ const navLinks = [
 ];
 
 const workItems = [
+    { 
+        image: "https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224706/WhatsApp_Image_2025-10-22_at_23.46.06_e814e5d0_uqphxj.png", 
+        meta: "Design and Build of Office Interior", 
+        title: "TrustLink Office", 
+        description: "Complete office interior design, supervision, and authority compliance from concept to handover.",
+        detailPage: "/trustlink-office.html" 
+    },
     { image: "https://images.adsttc.com/media/images/5de8/8330/3312/fd9f/fd00/01d3/large_jpg/08_Architect-Offices-Rivierstaete-Kantoren-Amsterdam-MVSA-%C2%A9Barwerd_van_der_Plas_W.jpg?1575519018", meta: "Architectural Design & Layout Planning", title: "Jazeera Business Center", description: "Office floors - Glass partitions - Reception & meeting suites" },
     { image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200&auto=format&fit=crop&q=60", meta: "Architectural Design", title: "Lusail Mixed-Use", description: "Retail podium - Serviced offices - Public realm upgrades" },
     { image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200&auto=format&fit=crop&q=60", meta: "Space & Layout Planning", title: "Residential Villas", description: "Efficient plans - Daylighting - Contemporary finishes" }
@@ -562,24 +570,46 @@ const WorksPage = () => {
       <section id="works-list" className="works-list-section">
           <div className="container">
               <div className="works-list">
-                  {workItems.map((item, index) => (
-                      <div className={`work-item ${index % 2 === 1 ? 'reverse' : ''} scroll-trigger fade-up`} key={index}>
-                          <div className="grid">
-                               <div className="work-image" onClick={() => setLightboxImage({ src: item.image, title: item.title })}>
-                                  <div className="work-title-overlay">
-                                      <h3>{item.title}</h3>
-                                      <button className="view-projects-btn" aria-label={`View enlarged image for ${item.title}`}>View Project</button>
-                                  </div>
-                                  <img src={item.image} alt={item.description} />
+                  {workItems.map((item, index) => {
+                      const isReversed = index % 2 === 1;
+                      const workImageContent = (
+                          <div className="work-image">
+                              <div className="work-title-overlay">
+                                  <h3>{item.title}</h3>
+                                  <span className="view-projects-btn" aria-hidden="true">View Project</span>
                               </div>
-                              <div className="work-info">
-                                  <p className="meta">{item.meta}</p>
-                                  <h3 className="work-title"><strong>{item.title}</strong></h3>
-                                  <p className="work-description">{item.description}</p>
+                              <img src={item.image} alt={item.description} />
+                          </div>
+                      );
+
+                      return (
+                          <div className={`work-item ${isReversed ? 'reverse' : ''} scroll-trigger fade-up`} key={index}>
+                              <div className="grid">
+                                  {item.detailPage ? (
+                                      <a href={item.detailPage} className="work-image-link" aria-label={`View details for ${item.title}`}>
+                                          {workImageContent}
+                                      </a>
+                                  ) : (
+                                      <div 
+                                          className="work-image" 
+                                          onClick={() => setLightboxImage({ src: item.image, title: item.title })}
+                                          role="button"
+                                          tabIndex={0}
+                                          onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && setLightboxImage({ src: item.image, title: item.title })}
+                                          aria-label={`View enlarged image for ${item.title}`}
+                                      >
+                                          {workImageContent}
+                                      </div>
+                                  )}
+                                  <div className="work-info">
+                                      <p className="meta">{item.meta}</p>
+                                      <h3 className="work-title"><strong>{item.title}</strong></h3>
+                                      <p className="work-description">{item.description}</p>
+                                  </div>
                               </div>
                           </div>
-                      </div>
-                  ))}
+                      );
+                  })}
               </div>
           </div>
       </section>
@@ -600,7 +630,7 @@ const App = () => {
             <SkipToContentLink />
             <CustomCursor />
             <WhatsAppChatWidget />
-            <Header theme="dark" />
+            <Header theme="light" />
             <div className="main-container">
                 <LeftSidebar pageName="WORKS" />
                 <main className="main-content" id="main-content" tabIndex={-1}>
