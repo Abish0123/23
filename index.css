@@ -1169,87 +1169,85 @@
   
   /* --- OUR SERVICES & SECTORS REDESIGN --- */
 
-  /* New Dark Theme for Services Section */
-  #our-services {
-    background-color: #1a1a1a;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  #our-services .section-title {
-    color: var(--text-light);
-  }
-  
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-    margin-top: 60px;
-  }
-  
-  .service-item {
-    background: var(--dark-bg-secondary);
-    color: #ccc;
-    border-radius: 8px;
-    border: 1px solid var(--border-light);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    padding: 40px 30px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .service-item:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4), 0 0 20px rgba(212, 175, 55, 0.2);
-    border-color: rgba(212, 175, 55, 0.4);
-  }
-  
-  .service-item h3 {
-    color: #fff;
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 15px;
-  }
-  
-  .service-item p {
-    font-size: 15px;
-    line-height: 1.7;
-    color: #aaa;
-    flex-grow: 1;
-  }
+/* Light Theme Redesign for Services Section */
+#our-services {
+  background-color: #f9f9f9; /* Light grey background */
+  position: relative;
+  overflow: hidden;
+}
 
-  .service-item .service-icon-wrapper {
-    background-color: rgba(0,0,0,0.2);
-    border: 1px solid var(--border-light);
-  }
-  
-  .service-item:hover .service-icon-wrapper {
-    background-color: var(--accent-color);
-    border-color: var(--accent-color);
-    box-shadow: var(--accent-color-shadow-small);
-  }
-  
-  .service-item .service-icon {
-    color: var(--accent-color);
-  }
+#our-services .section-title {
+  color: var(--text-dark);
+}
 
-  .service-item:hover .service-icon {
-    color: #111;
-    transform: scale(1.1) rotate(15deg);
-    text-shadow: none;
-  }
-  
-  .service-item .read-more-btn {
-    color: var(--accent-color);
-  }
-  
-  .service-item .read-more-btn:hover {
-    text-shadow: var(--accent-color-shadow-small);
-  }
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-top: 60px;
+}
+
+.service-item {
+  background: #fff;
+  color: #666;
+  border-radius: 8px;
+  border: 1px solid #eee;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+  padding: 40px 30px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.service-item:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+}
+
+.service-item h3 {
+  color: var(--text-dark);
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.service-item p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #666;
+  flex-grow: 1;
+}
+
+.service-item .service-icon-wrapper {
+  background-color: #f0f0f0;
+  border: none;
+}
+
+.service-item:hover .service-icon-wrapper {
+  background-color: var(--accent-color);
+  box-shadow: none;
+}
+
+.service-item .service-icon {
+  color: var(--accent-color);
+}
+
+.service-item:hover .service-icon {
+  color: #fff;
+  transform: scale(1.1) rotate(15deg);
+  text-shadow: none;
+}
+
+.service-item .read-more-btn {
+  color: var(--accent-color-dark-text);
+}
+
+.service-item .read-more-btn:hover {
+  color: var(--accent-color);
+}
   
   /* Preserving original styles for Sectors Section */
   .sectors-grid {
