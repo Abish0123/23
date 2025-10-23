@@ -7,11 +7,10 @@ declare const gsap: any;
 // --- DATA & CONFIG ---
 
 const servicesSubLinks = [
-  { name: 'Architectural Design', href: 'architectural-design.html', icon: 'fas fa-archway', description: 'Innovative and functional spaces from concept to construction.', image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&auto=format&fit=crop&q=60' },
-  { name: 'Engineering Consultancy', href: 'engineering-consultancy.html', icon: 'fas fa-cogs', description: 'Expert technical advice and solutions for robust project outcomes.', image: 'https://images.unsplash.com/photo-1518692113669-e34fa251a37c?w=800&auto=format&fit=crop&q=60' },
-  { name: 'Project Management Consultancy', href: 'project-management.html', icon: 'fas fa-tasks', description: 'Overseeing projects from inception to completion on time and budget.', image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&auto=format&fit=crop&q=60' },
-  { name: 'Sustainability & Energy', href: 'sustainability-energy.html', icon: 'fas fa-leaf', description: 'Integrating green principles for environmentally responsible designs.', image: 'https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=800&auto=format&fit=crop&q=60' },
-  { name: 'Construction Approval', href: 'construction-approval.html', icon: 'fas fa-check-double', description: 'Navigating regulatory hurdles to secure all necessary construction permits and approvals efficiently.', image: 'https://images.unsplash.com/photo-1563291074-2bf8677ac0e5?w=800&auto=format&fit=crop&q=60' },
+  { name: 'Architectural Design', href: 'architectural-design.html', icon: 'fas fa-archway' },
+  { name: 'Engineering Consultancy', href: 'engineering-consultancy.html', icon: 'fas fa-cogs' },
+  { name: 'Project Management Consultancy', href: 'project-management.html', icon: 'fas fa-tasks' },
+  { name: 'Sustainability & Energy', href: 'sustainability-energy.html', icon: 'fas fa-leaf' },
 ];
 
 const navLinks = [
@@ -25,24 +24,9 @@ const navLinks = [
 ];
 
 const workItems = [
-    { 
-        image: "https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224706/WhatsApp_Image_2025-10-22_at_23.46.06_e814e5d0_uqphxj.png", 
-        meta: "Design and Build of Office Interior", 
-        title: "TrustLink office", 
-        description: "We provide end-to-end office interior design and on-site supervision—covering space planning, materials and finishes, MEP coordination, and quality control—to deliver functional, branded workplaces on time and within budget. Our team manages contractors, shop drawings, and inspections, ensuring QCDD/NFPA and Baladiya compliance from concept to handover for a smooth, approval-ready fit-out." 
-    },
-    { 
-        image: "https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233154/Screenshot_2025-10-23_205440_v03f6p.png", 
-        meta: "Design and Supervision of Office Interior", 
-        title: "World Wide Business Center", 
-        description: "World Wide Business Center — a 2,000 sqm office interior designed and supervised by our team — blends elegant aesthetics with high functionality, featuring a welcoming reception, multiple meeting rooms, a fully equipped conference room, collaborative zones, and a dedicated games area. Smart space planning, premium finishes, and coordinated MEP deliver a polished, efficient workplace, with on-site supervision ensuring quality control, safety, and timely approvals through to handover."
-    },
-    { 
-        image: "https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233291/Screenshot_2025-10-23_205736_iddw10.png", 
-        meta: "Design and Municipality Approvals for Commercial Building", 
-        title: "Al Jabor Building", 
-        description: "Designed and delivered to meet the client’s specific requirements, this project involved a full interior reconfiguration of the commercial building based on a targeted market-demand analysis (tenant mix, unit sizing, amenities, and circulation). Our team developed code-compliant drawings, coordinated MEP/architectural details, and secured rapid approvals from QCDD and Baladiya in line with QCDD regulations—expediting the permitting path and enabling a faster time-to-market for the owner."
-    }
+    { image: "https://images.adsttc.com/media/images/5de8/8330/3312/fd9f/fd00/01d3/large_jpg/08_Architect-Offices-Rivierstaete-Kantoren-Amsterdam-MVSA-%C2%A9Barwerd_van_der_Plas_W.jpg?1575519018", meta: "Architectural Design & Layout Planning", title: "Jazeera Business Center", description: "Office floors - Glass partitions - Reception & meeting suites" },
+    { image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200&auto=format&fit=crop&q=60", meta: "Architectural Design", title: "Lusail Mixed-Use", description: "Retail podium - Serviced offices - Public realm upgrades" },
+    { image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200&auto=format&fit=crop&q=60", meta: "Space & Layout Planning", title: "Residential Villas", description: "Efficient plans - Daylighting - Contemporary finishes" }
 ];
 
 // --- SHARED & LAYOUT COMPONENTS ---
@@ -613,7 +597,7 @@ const App = () => {
             <SkipToContentLink />
             <CustomCursor />
             <WhatsAppChatWidget />
-            <Header theme="light" />
+            <Header theme="dark" />
             <div className="main-container">
                 <LeftSidebar pageName="WORKS" />
                 <main className="main-content" id="main-content" tabIndex={-1}>
