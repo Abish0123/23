@@ -22,6 +22,7 @@ export default defineConfig(({ mode }) => {
             'engineering-consultancy': path.resolve('engineering-consultancy.html'),
             'project-management': path.resolve('project-management.html'),
             'sustainability-energy': path.resolve('sustainability-energy.html'),
+            'construction-approval': path.resolve('construction-approval.html'),
             works: path.resolve('works.html'),
           },
         },
