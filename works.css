@@ -202,7 +202,7 @@ html, body {
 .app-header.on-dark .main-nav a:hover, .app-header.on-dark .main-nav a:focus { color: var(--accent-color); text-shadow: var(--accent-color-shadow); outline: none; }
 .app-header.on-light .main-nav a:hover, .app-header.on-light .main-nav a:focus { color: var(--accent-color); text-shadow: none; }
 
-.main-nav ul li.has-dropdown > a { display: flex; align-items: center; gap: 5px; }
+.main-nav ul li.has-dropdown > a { display: flex; align-items: center; gap: 5px; top: 4px; }
 .dropdown-indicator { font-size: 10px; transition: transform 0.3s ease; }
 .has-dropdown.open .dropdown-indicator { transform: rotate(180deg); }
 
