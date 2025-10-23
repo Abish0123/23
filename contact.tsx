@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect, useRef, memo, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -22,13 +23,13 @@ const navLinks = [
   { name: 'Contact', href: '/contact.html' },
 ];
 
-const AppLink = ({ href, className = '', children, onClick, ...props }: {
+const AppLink = React.forwardRef<HTMLAnchorElement, {
   href: string;
   className?: string;
   children: React.ReactNode;
   onClick?: MouseEventHandler<HTMLAnchorElement>;
   [key: string]: any;
-}) => {
+}>(({ href, className = '', children, onClick, ...props }, ref) => {
     const isToggle = href === '#';
 
     const handleClick: MouseEventHandler<HTMLAnchorElement> = (e) => {
@@ -43,6 +44,7 @@ const AppLink = ({ href, className = '', children, onClick, ...props }: {
 
     return (
         <a 
+            ref={ref}
             href={href} 
             className={className} 
             onClick={onClick ? handleClick : undefined} 
@@ -51,9 +53,8 @@ const AppLink = ({ href, className = '', children, onClick, ...props }: {
             {children}
         </a>
     );
-};
+});
 
-// FIX: Updated MobileNav to be consistent with the more accessible version in other files.
 const MobileNav = ({ isOpen, onClose }) => {
     const [isServicesOpen, setIsServicesOpen] = useState(false);
     const navContainerRef = useRef<HTMLDivElement>(null);
@@ -105,9 +106,6 @@ const MobileNav = ({ isOpen, onClose }) => {
     
     return (
         <div ref={navContainerRef} className={`mobile-nav-overlay ${isOpen ? 'open' : ''}`} role="dialog" aria-modal="true" aria-hidden={!isOpen} id="mobile-nav">
-            <button className="mobile-nav-close" onClick={onClose} aria-label="Close navigation menu">
-                <i className="fas fa-times" aria-hidden="true"></i>
-            </button>
             <nav className="mobile-nav">
                 <ul>
                     {navLinks.map(link => (
@@ -148,7 +146,6 @@ const SkipToContentLink = () => (
     </a>
 );
 
-// FIX: Updated Header to be consistent with the more accessible and feature-rich version in other files.
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
@@ -157,6 +154,15 @@ const Header = () => {
   const burgerMenuRef = useRef<HTMLButtonElement>(null);
   const servicesToggleRef = useRef<HTMLAnchorElement>(null);
   const servicesDropdownContainerRef = useRef<HTMLLIElement>(null);
+
+  const toggleMobileNav = () => {
+    setIsMobileNavOpen(prev => !prev);
+  };
+
+  const closeMobileNav = () => {
+    setIsMobileNavOpen(false);
+    burgerMenuRef.current?.focus();
+  };
 
   const closeServicesDropdown = (shouldFocusToggle = true) => {
     if (isServicesDropdownOpen) {
@@ -169,7 +175,7 @@ const Header = () => {
 
   useEffect(() => {
     if (isServicesDropdownOpen) {
-      const firstItem = servicesDropdownContainerRef.current?.querySelector<HTMLAnchorElement>('.dropdown-menu a');
+      const firstItem = servicesDropdownContainerRef.current?.querySelector<HTMLAnchorElement>('.dropdown-link-item');
       firstItem?.focus();
     }
   }, [isServicesDropdownOpen]);
@@ -284,17 +290,19 @@ const Header = () => {
           <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Design Consult Logo" className="logo-image" />
         </AppLink>
       </div>
-      <button 
+      <button
         ref={burgerMenuRef}
-        className="burger-menu" 
-        onClick={() => setIsMobileNavOpen(true)}
-        aria-label="Open navigation menu"
+        className={`burger-menu ${isMobileNavOpen ? 'open' : ''}`}
+        onClick={toggleMobileNav}
+        aria-label={isMobileNavOpen ? "Close navigation menu" : "Open navigation menu"}
         aria-controls="mobile-nav"
         aria-expanded={isMobileNavOpen}
       >
-        <i className="fas fa-bars" aria-hidden="true"></i>
+        <span className="burger-bar"></span>
+        <span className="burger-bar"></span>
+        <span className="burger-bar"></span>
       </button>
-      <MobileNav isOpen={isMobileNavOpen} onClose={() => setIsMobileNavOpen(false)} />
+      <MobileNav isOpen={isMobileNavOpen} onClose={closeMobileNav} />
     </header>
   );
 };
