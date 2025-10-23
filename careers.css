@@ -680,7 +680,7 @@
   }
   
   .submit-btn {
-      display: inline-block;
+      display: block;
       padding: 12px 30px;
       background-color: var(--accent-color);
       color: var(--text-dark);
@@ -690,9 +690,10 @@
       letter-spacing: 1px;
       border: 1px solid var(--accent-color);
       transition: all 0.3s ease;
-      width: 100%;
+      width: auto;
       font-weight: 700;
       cursor: pointer;
+      margin: 0 auto;
   }
   .submit-btn:hover {
       background-color: transparent;
