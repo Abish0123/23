@@ -562,7 +562,7 @@ const ServicePage = () => {
       <div className="main-container">
         <LeftSidebar />
         <main className="main-content" id="main-content" tabIndex={-1}>
-          <section className="service-hero-section scroll-trigger fade-up" style={{ backgroundImage: `url('https://media.istockphoto.com/id/1944772735/photo/closeup-of-team-of-industrial-engineers-meeting-analyze-machinery-blueprints-consult-project.jpg?s=612x612&w=0&k=20&c=ztBo9tQc/wwkmcyoqFtJhh0u31K+Q6jYjeicsGJJ7bbEq8LwPWV/w0cnzOqR2m694/Af6hpFayLJZkG2VQ==')`}}>
+          <section className="service-hero-section scroll-trigger fade-up" style={{ backgroundImage: `url('https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://images.ctfassets.net/wp1lcwdav1p1/17MEOgCd3uhDI8TaTp5m9h/8d09b3a36b6239b569653b70f62733c1/Teamwork-in-construction-industry---two-engineers-working-together-on-construction-site-with-blueprints-and-plans-645373486.jpeg?w=1500&h=680&q=60&fit=fill&f=faces&fm=jpg&fl=progressive&auto=format%2Ccompress&dpr=1&w=1000')`}}>
             <div className="container">
               <h1 className="scroll-trigger fade-up" style={{transitionDelay: '0.1s'}}>Engineering <strong>Consultancy</strong></h1>
             </div>
