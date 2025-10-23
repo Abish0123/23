@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef, memo, createContext, useContext, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -1394,9 +1393,6 @@ const HomePage = () => {
           <div className="services-grid">
             {services.map((service, index) => (
               <div className="service-item scroll-trigger fade-up" style={{ transitionDelay: `${index * 0.1}s` }} key={index}>
-                <svg className="service-border-svg" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <rect className="service-border-rect" x="1" y="1" width="calc(100% - 2px)" height="calc(100% - 2px)" rx="7" pathLength="1" />
-                </svg>
                 <div className="service-icon-wrapper">
                   <i className={`service-icon ${service.icon}`} aria-hidden="true"></i>
                 </div>
