@@ -2294,6 +2294,9 @@
     .services-grid, .sectors-grid {
         grid-template-columns: 1fr;
     }
+    .fa-classic, .fa-regular, .fa-solid, .far, .fas fa-times{
+        margin-left:25px;
+    }
     .clients-grid {
         grid-template-columns: repeat(2, 1fr);
     }
