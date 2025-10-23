@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef, memo, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -584,9 +585,17 @@ const ContactPage = () => {
                     </div>
                     <div className="contact-info-item">
                         <div className="icon-wrapper"><i className="fas fa-map-marker-alt" aria-hidden="true"></i></div>
-                        <div>
+                        <div className="location-details">
                             <h4>Our Location</h4>
                             <p>14th floor, Al Jazeera tower, Westbay, Doha, Qatar</p>
+                            <a 
+                                href="https://www.google.com/maps/dir/?api=1&destination=Al%20Jazeera%20Tower,%20Doha,%20Qatar"
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="get-directions-link"
+                            >
+                                <i className="fas fa-route" aria-hidden="true"></i> Get Directions
+                            </a>
                         </div>
                     </div>
                 </div>
