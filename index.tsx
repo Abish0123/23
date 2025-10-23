@@ -211,82 +211,6 @@ const SkipToContentLink = () => (
     </a>
 );
 
-const CustomCursor = memo(() => {
-    const dotRef = useRef<HTMLDivElement>(null);
-    const outlineRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (prefersReducedMotion) return;
-
-        const dot = dotRef.current;
-        const outline = outlineRef.current;
-        if (!dot || !outline) return;
-
-        gsap.set([dot, outline], { xPercent: -50, yPercent: -50 });
-
-        const dotX = gsap.quickTo(dot, "x", { duration: 0.1, ease: "power3" });
-        const dotY = gsap.quickTo(dot, "y", { duration: 0.1, ease: "power3" });
-        const outlineX = gsap.quickTo(outline, "x", { duration: 0.3, ease: "power3" });
-        const outlineY = gsap.quickTo(outline, "y", { duration: 0.3, ease: "power3" });
-
-        const mouseMove = (e: MouseEvent) => {
-            dotX(e.clientX);
-            dotY(e.clientY);
-            outlineX(e.clientX);
-            outlineY(e.clientY);
-        };
-        
-        const showCursor = () => {
-            dot.classList.add('visible');
-            outline.classList.add('visible');
-        };
-        const hideCursor = () => {
-            dot.classList.remove('visible');
-            outline.classList.remove('visible');
-        };
-        
-        const handleMouseEnterHoverTarget = () => {
-            dot.classList.add('cursor-hover');
-            outline.classList.add('cursor-hover');
-        };
-
-        const handleMouseLeaveHoverTarget = () => {
-            dot.classList.remove('cursor-hover');
-            outline.classList.remove('cursor-hover');
-        };
-        
-        window.addEventListener("mousemove", mouseMove);
-        document.body.addEventListener("mouseleave", hideCursor);
-        document.body.addEventListener("mouseenter", showCursor);
-
-        const hoverTargets = document.querySelectorAll(
-            'a, button, [role="button"], input, .testimonial-slide, .dot, .service-item, .process-item, .blog-item, .work-image, .lightbox-close, .job-item-header, .sector-item, .whatsapp-widget, select, textarea, label, .thumbnail-item, .gallery-nav-btn, .project-modal-close'
-        );
-        hoverTargets.forEach(target => {
-            target.addEventListener('mouseenter', handleMouseEnterHoverTarget);
-            target.addEventListener('mouseleave', handleMouseLeaveHoverTarget);
-        });
-
-        return () => {
-            window.removeEventListener("mousemove", mouseMove);
-            document.body.removeEventListener("mouseleave", hideCursor);
-            document.body.removeEventListener("mouseenter", showCursor);
-            hoverTargets.forEach(target => {
-                target.removeEventListener('mouseenter', handleMouseEnterHoverTarget);
-                target.removeEventListener('mouseleave', handleMouseLeaveHoverTarget);
-            });
-        };
-    }, []);
-
-    return (
-        <>
-            <div ref={outlineRef} className="custom-cursor-outline"></div>
-            <div ref={dotRef} className="custom-cursor-dot"></div>
-        </>
-    );
-});
-
 const WaveAnimation = memo(() => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
@@ -1394,9 +1318,6 @@ const HomePage = () => {
           <div className="services-grid">
             {services.map((service, index) => (
               <div className="service-item scroll-trigger fade-up" style={{ transitionDelay: `${index * 0.1}s` }} key={index}>
-                <svg className="service-border-svg" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <rect className="service-border-rect" x="1" y="1" width="calc(100% - 2px)" height="calc(100% - 2px)" rx="7" pathLength="1" />
-                </svg>
                 <div className="service-icon-wrapper">
                   <i className={`service-icon ${service.icon}`} aria-hidden="true"></i>
                 </div>
@@ -1519,7 +1440,6 @@ const App = () => {
   return (
       <div className={`app ${loading ? 'loading' : ''}`}>
         <SkipToContentLink />
-        <CustomCursor />
         <WhatsAppChatWidget />
         <Header theme={headerTheme} />
         <div className="main-container">
