@@ -513,6 +513,7 @@
       text-transform: uppercase;
       letter-spacing: 2px;
       color: var(--text-dark);
+      margin-left: 260px;
   }
   .section-title strong {
       font-weight: 700;
