@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef, memo, createContext, useContext, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -215,15 +216,8 @@ const CustomCursor = memo(() => {
     const outlineRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        
-        if (isTouchDevice || prefersReducedMotion) {
-            return; // Exit if touch device or user prefers reduced motion
-        }
-
-        // Hide system cursor via JS for accessibility fallback
-        document.documentElement.style.cursor = 'none';
+        if (prefersReducedMotion) return;
 
         const dot = dotRef.current;
         const outline = outlineRef.current;
@@ -231,11 +225,10 @@ const CustomCursor = memo(() => {
 
         gsap.set([dot, outline], { xPercent: -50, yPercent: -50 });
 
-        // Faster dot for responsiveness, smoother outline trail
-        const dotX = gsap.quickTo(dot, "x", { duration: 0.08, ease: "power3" });
-        const dotY = gsap.quickTo(dot, "y", { duration: 0.08, ease: "power3" });
-        const outlineX = gsap.quickTo(outline, "x", { duration: 0.4, ease: "power3" });
-        const outlineY = gsap.quickTo(outline, "y", { duration: 0.4, ease: "power3" });
+        const dotX = gsap.quickTo(dot, "x", { duration: 0.1, ease: "power3" });
+        const dotY = gsap.quickTo(dot, "y", { duration: 0.1, ease: "power3" });
+        const outlineX = gsap.quickTo(outline, "x", { duration: 0.3, ease: "power3" });
+        const outlineY = gsap.quickTo(outline, "y", { duration: 0.3, ease: "power3" });
 
         const mouseMove = (e: MouseEvent) => {
             dotX(e.clientX);
@@ -276,8 +269,6 @@ const CustomCursor = memo(() => {
         });
 
         return () => {
-            // Restore system cursor on cleanup
-            document.documentElement.style.cursor = '';
             window.removeEventListener("mousemove", mouseMove);
             document.body.removeEventListener("mouseleave", hideCursor);
             document.body.removeEventListener("mouseenter", showCursor);
@@ -1403,6 +1394,9 @@ const HomePage = () => {
           <div className="services-grid">
             {services.map((service, index) => (
               <div className="service-item scroll-trigger fade-up" style={{ transitionDelay: `${index * 0.1}s` }} key={index}>
+                <svg className="service-border-svg" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <rect className="service-border-rect" x="1" y="1" width="calc(100% - 2px)" height="calc(100% - 2px)" rx="7" pathLength="1" />
+                </svg>
                 <div className="service-icon-wrapper">
                   <i className={`service-icon ${service.icon}`} aria-hidden="true"></i>
                 </div>
