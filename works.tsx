@@ -28,7 +28,7 @@ const workItems = [
       title: 'TrustLink office',
       meta: 'Design and Build of Office Interior',
       location: 'Bin Mahmoud',
-      description: 'We provide end-to-end office interior design and on-site supervision—covering space planning, materials and finishes, MEP coordination, and quality control—to deliver functional, branded workplaces on time and within budget. Our team manages contractors, shop drawings, and inspections, ensuring QCDD/NFPA and Baladiya compliance from concept to handover for a smooth, approval-ready fit-out.',
+      description: 'A complete design-and-build project for a modern office interior. We delivered a functional, branded workplace on a fast-track schedule, managing everything from space planning to securing final authority approvals for a seamless handover.',
       mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224706/WhatsApp_Image_2025-10-22_at_23.46.06_e814e5d0_uqphxj.png',
       gallery: [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224706/WhatsApp_Image_2025-10-22_at_23.46.06_e814e5d0_uqphxj.png',
@@ -44,7 +44,7 @@ const workItems = [
       title: 'World Wide Business Center',
       meta: 'Design and Supervision of Office Interior',
       location: 'D Ring Road',
-      description: 'World Wide Business Center — a 2,000 sqm office interior designed and supervised by our team — blends elegant aesthetics with high functionality, featuring a welcoming reception, multiple meeting rooms, a fully equipped conference room, collaborative zones, and a dedicated games area. Smart space planning, premium finishes, and coordinated MEP deliver a polished, efficient workplace, with on-site supervision ensuring quality control, safety, and timely approvals through to handover.',
+      description: 'Our team designed and supervised this expansive 2,000 sqm office interior, creating a sophisticated environment with premium finishes, smart space zoning for collaborative and private areas, and integrated smart lighting systems to ensure a high-quality build.',
       mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761148974/Screenshot_2025-10-22_212932_uarlk8.png',
       gallery: [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761148974/Screenshot_2025-10-22_212932_uarlk8.png',
@@ -61,7 +61,7 @@ const workItems = [
       title: 'Al Jabor Building',
       meta: 'Design and Municipality Approvals for Commercial Building',
       location: 'Al Hilal',
-      description: 'Designed and delivered to meet the client’s specific requirements, this project involved a full interior reconfiguration of the commercial building based on a targeted market-demand analysis (tenant mix, unit sizing, amenities, and circulation). Our team developed code-compliant drawings, coordinated MEP/architectural details, and secured rapid approvals from QCDD and Baladiya in line with QCDD regulations—expediting the permitting path and enabling a faster time-to-market for the owner.',
+      description: 'This project involved a full interior reconfiguration of a commercial building. We conducted a market-demand analysis to optimize the layout and tenant mix, then fast-tracked all necessary municipality and Civil Defense approvals to ensure a swift time-to-market.',
       mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233291/Screenshot_2025-10-23_205736_iddw10.png',
       gallery: [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233291/Screenshot_2025-10-23_205736_iddw10.png',
@@ -673,13 +673,6 @@ const WorksPage = () => {
                                   <p className="meta">{item.meta}</p>
                                   <h3 className="work-title"><strong>{item.title}</strong></h3>
                                   <p className="work-description">{item.description}</p>
-                                   {item.challengesAndSolutions && (
-                                    <div className="challenges-solutions">
-                                        <h4>Key Challenges &amp; Solutions</h4>
-                                        <p><strong>Challenge:</strong> {item.challengesAndSolutions.challenge}</p>
-                                        <p><strong>Solution:</strong> {item.challengesAndSolutions.solution}</p>
-                                    </div>
-                                  )}
                               </div>
                           </div>
                       </div>
