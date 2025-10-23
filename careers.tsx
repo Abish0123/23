@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect, useRef, memo, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -122,9 +123,6 @@ const MobileNav = ({ isOpen, onClose }) => {
     
     return (
         <div ref={navContainerRef} className={`mobile-nav-overlay ${isOpen ? 'open' : ''}`} role="dialog" aria-modal="true" aria-hidden={!isOpen} id="mobile-nav">
-            <button className="mobile-nav-close" onClick={onClose} aria-label="Close navigation menu">
-                <i className="fas fa-times" aria-hidden="true"></i>
-            </button>
             <nav className="mobile-nav">
                 <ul>
                     {navLinks.map(link => (
@@ -170,6 +168,10 @@ const Header = () => {
   const burgerMenuRef = useRef<HTMLButtonElement>(null);
   const servicesToggleRef = useRef<HTMLAnchorElement>(null);
   const servicesDropdownContainerRef = useRef<HTMLLIElement>(null);
+
+  const toggleMobileNav = () => {
+    setIsMobileNavOpen(prev => !prev);
+  };
 
   const closeMobileNav = () => {
     setIsMobileNavOpen(false);
@@ -308,15 +310,17 @@ const Header = () => {
           <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Design Consult Logo" className="logo-image mobile-logo" />
         </AppLink>
       </div>
-      <button 
+      <button
         ref={burgerMenuRef}
-        className="burger-menu" 
-        onClick={() => setIsMobileNavOpen(true)}
-        aria-label="Open navigation menu"
+        className={`burger-menu ${isMobileNavOpen ? 'open' : ''}`}
+        onClick={toggleMobileNav}
+        aria-label={isMobileNavOpen ? "Close navigation menu" : "Open navigation menu"}
         aria-controls="mobile-nav"
         aria-expanded={isMobileNavOpen}
       >
-        <i className="fas fa-bars" aria-hidden="true"></i>
+        <span className="burger-bar"></span>
+        <span className="burger-bar"></span>
+        <span className="burger-bar"></span>
       </button>
       <MobileNav isOpen={isMobileNavOpen} onClose={closeMobileNav} />
     </header>
