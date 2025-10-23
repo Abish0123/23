@@ -589,7 +589,7 @@ const ContactPage = () => {
                             <h4>Our Location</h4>
                             <p>14th floor, Al Jazeera tower, Westbay, Doha, Qatar</p>
                             <a 
-                                href="https://www.google.com/maps/dir/?api=1&destination=Al%20Jazeera%20Tower,%20Doha,%20Qatar"
+                                href="https://www.google.com/maps/dir/?api=1&destination=Al+Jazeera+Tower&destination_place_id=ChIJ_4-yIqZfJz4R7s-Z2b3bY2w"
                                 target="_blank" 
                                 rel="noopener noreferrer"
                                 className="get-directions-link"
@@ -601,11 +601,11 @@ const ContactPage = () => {
                 </div>
                 <div className="map-container">
                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3606.883737227188!2d51.52185067538573!3d25.30825312529969!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e45c4b183359169%3A0xf635b75468453f93!2sAl%20Jazeera%20Tower!5e0!3m2!1sen!2s"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3606.3316654005845!2d51.53335427591689!3d25.32646692556272!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e45c5a17f1a132d%3A0x8f4a97f2a8ca3d78!2sAl%20Jazeera%20Tower!5e0!3m2!1sen!2sqa"
                         width="100%"
                         height="100%"
                         style={{ border: 0 }}
-                        allowFullScreen={false}
+                        allowFullScreen
                         loading="lazy"
                         referrerPolicy="no-referrer-when-downgrade"
                         title="Location of Taj Design Consult on Google Maps"
