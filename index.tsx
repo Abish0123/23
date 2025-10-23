@@ -1144,22 +1144,22 @@ const HomePage = () => {
   
   const workItems = [
     { 
-      image: "https://res.cloudinary.com/dj3vhocuf/image/upload/v1761148974/Screenshot_2025-10-22_212932_uarlk8.png", 
-      meta: "Design and Build of Office Interior", 
-      title: "TrustLink Office", 
-      description: "End-to-end office interior design and on-site supervision, ensuring QCDD/NFPA and Baladiya compliance for a smooth, approval-ready fit-out." 
+      title: 'TrustLink office',
+      meta: 'Design and Build of Office Interior',
+      description: 'We provide end-to-end office interior design and on-site supervision—covering space planning, materials and finishes, MEP coordination, and quality control—to deliver functional, branded workplaces on time and within budget.',
+      image: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224706/WhatsApp_Image_2025-10-22_at_23.46.06_e814e5d0_uqphxj.png'
     },
     { 
-      image: "https://res.cloudinary.com/dj3vhocuf/image/upload/v1761148974/Screenshot_2025-10-22_212957_yzlxxb.png", 
-      meta: "Design and Supervision of Office Interior", 
-      title: "World Wide Business Center", 
-      description: "A 2,000 sqm office blending elegant aesthetics with high functionality, featuring collaborative zones, meeting rooms, and a dedicated games area." 
+      title: 'World Wide Business Center',
+      meta: 'Design and Supervision of Office Interior',
+      description: 'World Wide Business Center — a 2,000 sqm office interior designed and supervised by our team — blends elegant aesthetics with high functionality, featuring a welcoming reception, multiple meeting rooms, a fully equipped conference room, collaborative zones, and a dedicated games area.',
+      image: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761148974/Screenshot_2025-10-22_212932_uarlk8.png'
     },
     { 
-      image: "https://res.cloudinary.com/dj3vhocuf/image/upload/v1761148974/Screenshot_2025-10-22_213038_l4jyns.png", 
-      meta: "Design and Municipality Approvals", 
-      title: "Al Jabor Building", 
-      description: "Full interior reconfiguration of a commercial building, expediting the permitting path with QCDD and Baladiya approvals for a faster time-to-market." 
+      title: 'Al Jabor Building',
+      meta: 'Design and Municipality Approvals for Commercial Building',
+      description: 'Designed and delivered to meet the client’s specific requirements, this project involved a full interior reconfiguration of the commercial building based on a targeted market-demand analysis.',
+      image: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233291/Screenshot_2025-10-23_205736_iddw10.png'
     }
   ];
 
