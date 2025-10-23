@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect, useRef, memo, createContext, useContext, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -441,9 +442,6 @@ const MobileNav = ({ isOpen, onClose }) => {
     
     return (
         <div ref={navContainerRef} className={`mobile-nav-overlay ${isOpen ? 'open' : ''}`} role="dialog" aria-modal="true" aria-hidden={!isOpen} id="mobile-nav">
-            <button className="mobile-nav-close" onClick={onClose} aria-label="Close navigation menu">
-                <i className="fas fa-times" aria-hidden="true"></i>
-            </button>
             <nav className="mobile-nav">
                 <ul>
                     {navLinks.map(link => (
@@ -487,6 +485,10 @@ const Header = ({ theme }) => {
   const burgerMenuRef = useRef<HTMLButtonElement>(null);
   const servicesToggleRef = useRef<HTMLAnchorElement>(null);
   const servicesDropdownContainerRef = useRef<HTMLLIElement>(null);
+
+  const toggleMobileNav = () => {
+    setIsMobileNavOpen(prev => !prev);
+  };
 
   const closeMobileNav = () => {
     setIsMobileNavOpen(false);
@@ -625,15 +627,17 @@ const Header = ({ theme }) => {
       </div>
       <button
         ref={burgerMenuRef}
-        className="burger-menu"
-        onClick={() => setIsMobileNavOpen(true)}
-        aria-label="Open navigation menu"
+        className={`burger-menu ${isMobileNavOpen ? 'open' : ''}`}
+        onClick={toggleMobileNav}
+        aria-label={isMobileNavOpen ? "Close navigation menu" : "Open navigation menu"}
         aria-controls="mobile-nav"
         aria-expanded={isMobileNavOpen}
       >
-        <i className="fas fa-bars" aria-hidden="true"></i>
+        <span className="burger-bar"></span>
+        <span className="burger-bar"></span>
+        <span className="burger-bar"></span>
       </button>
-      <MobileNav isOpen={isMobileNavOpen} onClose={() => setIsMobileNavOpen(false)} />
+      <MobileNav isOpen={isMobileNavOpen} onClose={closeMobileNav} />
     </header>
   );
 };
