@@ -294,6 +294,6 @@ html, body {
     .form-row { flex-direction: column; gap: 0; margin-bottom: 0; }
     .copyright-section { flex-direction: column; gap: 20px; text-align: center; }
     .logo-image {
-      height: 50px;
+      height: 60px;
     }
 }
