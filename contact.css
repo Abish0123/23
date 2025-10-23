@@ -243,7 +243,7 @@ html, body {
 .section-title strong { font-weight: 700; }
 
 /* Details Section */
-.contact-grid { max-width: 550px; margin-right: 10px; }
+.contact-grid { max-width: 550px; margin-right: 100px; }
 .contact-info-items { display: flex; flex-direction: column; gap: 30px; }
 .contact-info-item { display: flex; align-items: center; gap: 20px; text-align: left; }
 .contact-info-item .icon-wrapper { flex-shrink: 0; width: 60px; height: 60px; border-radius: 50%; background-color: #f4f4f4; color: var(--accent-color); display: flex; align-items: center; justify-content: center; font-size: 24px; transition: all 0.3s ease; }
