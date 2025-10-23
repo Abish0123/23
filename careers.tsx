@@ -38,13 +38,13 @@ const careerOpenings = [
     },
 ];
 
-const AppLink = ({ href, className = '', children, onClick, ...props }: {
+const AppLink = React.forwardRef<HTMLAnchorElement, {
   href: string;
   className?: string;
   children: React.ReactNode;
   onClick?: MouseEventHandler<HTMLAnchorElement>;
   [key: string]: any;
-}) => {
+}>(({ href, className = '', children, onClick, ...props }, ref) => {
     const isToggle = href === '#';
 
     const handleClick: MouseEventHandler<HTMLAnchorElement> = (e) => {
@@ -59,6 +59,7 @@ const AppLink = ({ href, className = '', children, onClick, ...props }: {
 
     return (
         <a 
+            ref={ref}
             href={href} 
             className={className} 
             onClick={onClick ? handleClick : undefined} 
@@ -67,7 +68,7 @@ const AppLink = ({ href, className = '', children, onClick, ...props }: {
             {children}
         </a>
     );
-};
+});
 
 const MobileNav = ({ isOpen, onClose }) => {
     const [isServicesOpen, setIsServicesOpen] = useState(false);
