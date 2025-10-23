@@ -1172,6 +1172,7 @@
   #our-services {
       position: relative;
       overflow: hidden;
+      background-color: #f9fafb;
   }
   
   #our-services::before {
@@ -1188,6 +1189,7 @@
       z-index: 0;
       opacity: 0.15;
       will-change: transform;
+      display: none; /* Hiding parallax as it conflicts with new background */
   }
   
   #our-services .container,
@@ -1199,7 +1201,7 @@
   .services-grid,
   .sectors-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 30px;
     margin-top: 60px;
   }
@@ -1208,7 +1210,8 @@
   .sector-item {
     background-color: #fff;
     padding: 40px 30px;
-    border: 1px solid #e9e9e9;
+    border: 1px solid transparent;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     border-radius: 8px;
     transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, border-color 0.4s ease-out;
     position: relative;
@@ -1221,7 +1224,7 @@
   .sector-item:hover {
     transform: translateY(-10px);
     border-color: transparent;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
   }
   
   .service-border-svg {
