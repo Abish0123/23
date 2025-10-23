@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect, useRef, memo, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -36,7 +34,11 @@ const workItems = [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224706/WhatsApp_Image_2025-10-22_at_23.46.06_e814e5d0_uqphxj.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224698/WhatsApp_Image_2025-10-22_at_23.46.07_714b8d87_1_eljwpn.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224698/WhatsApp_Image_2025-10-22_at_23.46.07_d6db18c5_tovqbt.png'
-      ]
+      ],
+      challengesAndSolutions: {
+        challenge: 'Integrating the client’s strong brand identity into a compact office space while adhering to a very tight project timeline.',
+        solution: 'We employed a fast-track project management approach and developed custom-designed joinery and branding elements that were fabricated off-site. This parallel workflow allowed for seamless integration on-site, saving time and ensuring a high-quality finish that perfectly matched the brand aesthetic.'
+      }
     },
     { 
       title: 'World Wide Business Center',
@@ -49,7 +51,11 @@ const workItems = [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233154/Screenshot_2025-10-23_205440_v03f6p.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233154/Screenshot_2025-10-23_205523_gnzr9l.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233156/Screenshot_2025-10-23_205416_azvx5j.png'
-      ]
+      ],
+      challengesAndSolutions: {
+        challenge: 'Creating distinct functional zones within a large, 2,000 sqm open-plan space without sacrificing the feeling of openness and collaboration, while also managing acoustic privacy.',
+        solution: 'Strategic space zoning was achieved using custom glass partitions, varied flooring materials, and suspended acoustic ceiling panels. This defined areas like meeting rooms and collaborative zones while maintaining visual connectivity. Premium materials and an integrated smart lighting system ensured a cohesive, high-end aesthetic throughout.'
+      }
     },
     {
       title: 'Al Jabor Building',
@@ -60,7 +66,11 @@ const workItems = [
       gallery: [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233291/Screenshot_2025-10-23_205736_iddw10.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233292/Screenshot_2025-10-23_205706_h6f2z7.png'
-      ]
+      ],
+      challengesAndSolutions: {
+        challenge: 'Reconfiguring an existing building structure to meet modern commercial demands required navigating a complex web of regulatory approvals for change-of-use and structural modifications.',
+        solution: 'Our in-house approvals team conducted a thorough pre-design compliance check and maintained close liaison with both QCDD and Baladiya authorities. By producing meticulously detailed, code-compliant drawings and proactively addressing potential issues, we were able to fast-track the permitting process, saving the client significant time and avoiding costly delays.'
+      }
     }
 ];
 
@@ -241,13 +251,12 @@ const MobileNav = ({ isOpen, onClose }) => {
         return () => { document.body.style.overflow = ''; };
     }, [isOpen, onClose]);
 
-    const handleServicesToggle = () => setIsServicesOpen(prev => !prev);
+    const handleServicesToggle = () => {
+        setIsServicesOpen(prev => !prev);
+    }
     
     return (
         <div ref={navContainerRef} className={`mobile-nav-overlay ${isOpen ? 'open' : ''}`} role="dialog" aria-modal="true" aria-hidden={!isOpen} id="mobile-nav">
-            <button className="mobile-nav-close" onClick={onClose} aria-label="Close navigation menu">
-                <i className="fas fa-times" aria-hidden="true"></i>
-            </button>
             <nav className="mobile-nav">
                 <ul>
                     {navLinks.map(link => (
@@ -284,12 +293,17 @@ const MobileNav = ({ isOpen, onClose }) => {
 
 const Header = ({ theme }) => {
   const [scrolled, setScrolled] = useState(false);
+  const navRef = useRef<HTMLUListElement>(null);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
   
   const burgerMenuRef = useRef<HTMLButtonElement>(null);
   const servicesToggleRef = useRef<HTMLAnchorElement>(null);
   const servicesDropdownContainerRef = useRef<HTMLLIElement>(null);
+
+  const toggleMobileNav = () => {
+    setIsMobileNavOpen(prev => !prev);
+  };
 
   const closeMobileNav = () => {
     setIsMobileNavOpen(false);
@@ -337,7 +351,9 @@ const Header = ({ theme }) => {
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+        window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   const handleServicesClick = (e: React.MouseEvent) => {
@@ -374,9 +390,9 @@ const Header = ({ theme }) => {
         </AppLink>
       </div>
       <nav className="main-nav" aria-label="Main navigation">
-        <ul>
+        <ul ref={navRef}>
           {navLinks.map((link) => (
-             <li 
+            <li 
               key={link.name} 
               className={`${link.subLinks ? 'has-dropdown' : ''} ${link.name === 'Services' && isServicesDropdownOpen ? 'open' : ''}`}
               ref={link.name === 'Services' ? servicesDropdownContainerRef : null}
@@ -422,15 +438,17 @@ const Header = ({ theme }) => {
           ))}
         </ul>
       </nav>
-      <button 
+      <button
         ref={burgerMenuRef}
-        className="burger-menu" 
-        onClick={() => setIsMobileNavOpen(true)}
-        aria-label="Open navigation menu"
+        className={`burger-menu ${isMobileNavOpen ? 'open' : ''}`}
+        onClick={toggleMobileNav}
+        aria-label={isMobileNavOpen ? "Close navigation menu" : "Open navigation menu"}
         aria-controls="mobile-nav"
         aria-expanded={isMobileNavOpen}
       >
-        <i className="fas fa-bars" aria-hidden="true"></i>
+        <span className="burger-bar"></span>
+        <span className="burger-bar"></span>
+        <span className="burger-bar"></span>
       </button>
       <MobileNav isOpen={isMobileNavOpen} onClose={closeMobileNav} />
     </header>
@@ -599,6 +617,13 @@ const ProjectGalleryModal = ({ project, onClose }) => {
                     <h3 id="modal-title" className="modal-title">{project.title}</h3>
                     <p className="modal-location"><i className="fas fa-map-marker-alt" aria-hidden="true"></i> {project.location}</p>
                     <p className="modal-description">{project.description}</p>
+                    {project.challengesAndSolutions && (
+                        <div className="challenges-solutions">
+                            <h4>Key Challenges &amp; Solutions</h4>
+                            <p><strong>Challenge:</strong> {project.challengesAndSolutions.challenge}</p>
+                            <p><strong>Solution:</strong> {project.challengesAndSolutions.solution}</p>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
@@ -648,6 +673,13 @@ const WorksPage = () => {
                                   <p className="meta">{item.meta}</p>
                                   <h3 className="work-title"><strong>{item.title}</strong></h3>
                                   <p className="work-description">{item.description}</p>
+                                   {item.challengesAndSolutions && (
+                                    <div className="challenges-solutions">
+                                        <h4>Key Challenges &amp; Solutions</h4>
+                                        <p><strong>Challenge:</strong> {item.challengesAndSolutions.challenge}</p>
+                                        <p><strong>Solution:</strong> {item.challengesAndSolutions.solution}</p>
+                                    </div>
+                                  )}
                               </div>
                           </div>
                       </div>
