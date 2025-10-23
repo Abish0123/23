@@ -63,14 +63,6 @@
   .app {
     opacity: 1;
     transition: opacity 0.8s ease-in;
-    cursor: none !important;
-  }
-  
-  .app a,
-  .app button,
-  .app [role="button"],
-  .app input {
-      cursor: none !important;
   }
   
   
@@ -361,7 +353,7 @@
   .burger-menu {
     background: transparent;
     border: none;
-    cursor: none;
+    cursor: pointer;
     padding: 0;
     width: 48px;
     height: 48px;
@@ -788,43 +780,6 @@
   .to-top:hover {
       text-shadow: var(--accent-color-shadow);
   }
-  /* Custom Cursor */
-  .custom-cursor-dot,
-  .custom-cursor-outline {
-      position: fixed;
-      top: 0;
-      left: 0;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-      z-index: 9999;
-      border-radius: 50%;
-      will-change: transform, opacity;
-      opacity: 0;
-      transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, width 0.3s ease, height 0.3s ease;
-  }
-  .custom-cursor-dot.visible,
-  .custom-cursor-outline.visible {
-      opacity: 1;
-  }
-  .custom-cursor-dot {
-      width: 8px;
-      height: 8px;
-      background-color: var(--accent-color);
-  }
-  .custom-cursor-outline {
-      width: 40px;
-      height: 40px;
-      border: 2px solid var(--accent-color);
-  }
-  .custom-cursor-outline.cursor-hover {
-      transform: translate(-50%, -50%) scale(1.6);
-      background-color: var(--accent-color);
-      border-color: transparent;
-      opacity: 0.25 !important;
-  }
-  .custom-cursor-dot.cursor-hover {
-      transform: translate(-50%, -50%) scale(0);
-  }
   /* WhatsApp Widget */
   .whatsapp-widget {
       position: fixed;
@@ -901,8 +856,6 @@
   @media (max-width: 992px) {
       .main-nav { display: none; } 
       .burger-menu { display: flex; }
-      .custom-cursor-dot, .custom-cursor-outline { display: none; }
-      .app, .app a, .app button, .app [role="button"], .app input { cursor: auto !important; }
       .desktop-logo {
         display: none;
       }
