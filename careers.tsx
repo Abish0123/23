@@ -1,9 +1,6 @@
 
-
 import React, { useState, useEffect, useRef, memo, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
-
-declare const gsap: any;
 
 const servicesSubLinks = [
   { name: 'Architectural Design', href: 'architectural-design.html', icon: 'fas fa-archway', description: 'Innovative and functional spaces from concept to construction.', image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&auto=format&fit=crop&q=60' },
@@ -419,82 +416,6 @@ const Footer = () => {
           </footer>
     )
 }
-  
-const CustomCursor = memo(() => {
-    const dotRef = useRef<HTMLDivElement>(null);
-    const outlineRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (prefersReducedMotion) return;
-
-        const dot = dotRef.current;
-        const outline = outlineRef.current;
-        if (!dot || !outline) return;
-
-        gsap.set([dot, outline], { xPercent: -50, yPercent: -50 });
-
-        const dotX = gsap.quickTo(dot, "x", { duration: 0.1, ease: "power3" });
-        const dotY = gsap.quickTo(dot, "y", { duration: 0.1, ease: "power3" });
-        const outlineX = gsap.quickTo(outline, "x", { duration: 0.3, ease: "power3" });
-        const outlineY = gsap.quickTo(outline, "y", { duration: 0.3, ease: "power3" });
-
-        const mouseMove = (e: MouseEvent) => {
-            dotX(e.clientX);
-            dotY(e.clientY);
-            outlineX(e.clientX);
-            outlineY(e.clientY);
-        };
-        
-        const showCursor = () => {
-            dot.classList.add('visible');
-            outline.classList.add('visible');
-        };
-        const hideCursor = () => {
-            dot.classList.remove('visible');
-            outline.classList.remove('visible');
-        };
-        
-        const handleMouseEnterHoverTarget = () => {
-            dot.classList.add('cursor-hover');
-            outline.classList.add('cursor-hover');
-        };
-
-        const handleMouseLeaveHoverTarget = () => {
-            dot.classList.remove('cursor-hover');
-            outline.classList.remove('cursor-hover');
-        };
-        
-        window.addEventListener("mousemove", mouseMove);
-        document.body.addEventListener("mouseleave", hideCursor);
-        document.body.addEventListener("mouseenter", showCursor);
-
-        const hoverTargets = document.querySelectorAll(
-            'a, button, [role="button"], input, .whatsapp-widget, select, textarea, label'
-        );
-        hoverTargets.forEach(target => {
-            target.addEventListener('mouseenter', handleMouseEnterHoverTarget);
-            target.addEventListener('mouseleave', handleMouseLeaveHoverTarget);
-        });
-
-        return () => {
-            window.removeEventListener("mousemove", mouseMove);
-            document.body.removeEventListener("mouseleave", hideCursor);
-            document.body.removeEventListener("mouseenter", showCursor);
-            hoverTargets.forEach(target => {
-                target.removeEventListener('mouseenter', handleMouseEnterHoverTarget);
-                target.removeEventListener('mouseleave', handleMouseLeaveHoverTarget);
-            });
-        };
-    }, []);
-
-    return (
-        <>
-            <div ref={outlineRef} className="custom-cursor-outline"></div>
-            <div ref={dotRef} className="custom-cursor-dot"></div>
-        </>
-    );
-});
 
 const WhatsAppChatWidget = () => (
     <a
@@ -544,7 +465,7 @@ const CareersPage = () => {
 
       <section id="open-positions" className="content-section">
         <div className="container">
-            <h2 className="section-title scroll-trigger fade-up">Current <strong>Openings</strong></h2>
+            <h2 className="section-title scroll-trigger fade-up" style={{ textAlign: 'center' }}>Current <strong>Openings</strong></h2>
             <div className="openings-list">
                 {careerOpenings.map((job, index) => (
                     <div className="opening-item scroll-trigger fade-up" key={index} style={{ transitionDelay: `${index * 0.1}s` }}>
@@ -639,7 +560,6 @@ const App = () => {
     return (
         <div className={`app ${loading ? 'loading' : ''}`}>
             <SkipToContentLink />
-            <CustomCursor />
             <WhatsAppChatWidget />
             <Header />
             <div className="main-container">
