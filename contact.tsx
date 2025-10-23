@@ -591,13 +591,16 @@ const ContactPage = () => {
                     </div>
                 </div>
                 <div className="map-container">
-                    <a href="https://maps.app.goo.gl/yHvdbrHNhGK66VZA6" target="_blank" rel="noopener noreferrer" aria-label="View location on Google Maps">
-                        <img src="https://images.unsplash.com/photo-1594398932145-81755a5a2283?w=1200&auto=format&fit=crop&q=60" alt="Map showing the location of Taj Design Consult"/>
-                        <div className="map-overlay">
-                            <i className="fas fa-external-link-alt" aria-hidden="true"></i>
-                            <span>Open Map</span>
-                        </div>
-                    </a>
+                   <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3606.883737227188!2d51.52185067538573!3d25.30825312529969!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e45c4b183359169%3A0xf635b75468453f93!2sAl%20Jazeera%20Tower!5e0!3m2!1sen!2s"
+                        width="100%"
+                        height="100%"
+                        style={{ border: 0 }}
+                        allowFullScreen={false}
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                        title="Location of Taj Design Consult on Google Maps"
+                    ></iframe>
                 </div>
               </div>
               <div className="contact-form-col">
