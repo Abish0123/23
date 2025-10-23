@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect, useRef, memo, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -11,6 +12,7 @@ const servicesSubLinks = [
   { name: 'Engineering Consultancy', href: 'engineering-consultancy.html', icon: 'fas fa-cogs' },
   { name: 'Project Management Consultancy', href: 'project-management.html', icon: 'fas fa-tasks' },
   { name: 'Sustainability & Energy', href: 'sustainability-energy.html', icon: 'fas fa-leaf' },
+  { name: 'Construction Approval', href: 'construction-approval.html', icon: 'fas fa-check-double' },
 ];
 
 const navLinks = [
@@ -24,9 +26,42 @@ const navLinks = [
 ];
 
 const workItems = [
-    { image: "https://images.adsttc.com/media/images/5de8/8330/3312/fd9f/fd00/01d3/large_jpg/08_Architect-Offices-Rivierstaete-Kantoren-Amsterdam-MVSA-%C2%A9Barwerd_van_der_Plas_W.jpg?1575519018", meta: "Architectural Design & Layout Planning", title: "Jazeera Business Center", description: "Office floors - Glass partitions - Reception & meeting suites" },
-    { image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200&auto=format&fit=crop&q=60", meta: "Architectural Design", title: "Lusail Mixed-Use", description: "Retail podium - Serviced offices - Public realm upgrades" },
-    { image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200&auto=format&fit=crop&q=60", meta: "Space & Layout Planning", title: "Residential Villas", description: "Efficient plans - Daylighting - Contemporary finishes" }
+    { 
+      title: 'TrustLink office',
+      meta: 'Design and Build of Office Interior',
+      location: 'Bin Mahmoud',
+      description: 'We provide end-to-end office interior design and on-site supervision—covering space planning, materials and finishes, MEP coordination, and quality control—to deliver functional, branded workplaces on time and within budget. Our team manages contractors, shop drawings, and inspections, ensuring QCDD/NFPA and Baladiya compliance from concept to handover for a smooth, approval-ready fit-out.',
+      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224706/WhatsApp_Image_2025-10-22_at_23.46.06_e814e5d0_uqphxj.png',
+      gallery: [
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224706/WhatsApp_Image_2025-10-22_at_23.46.06_e814e5d0_uqphxj.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224698/WhatsApp_Image_2025-10-22_at_23.46.07_714b8d87_1_eljwpn.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224698/WhatsApp_Image_2025-10-22_at_23.46.07_d6db18c5_tovqbt.png'
+      ]
+    },
+    { 
+      title: 'World Wide Business Center',
+      meta: 'Design and Supervision of Office Interior',
+      location: 'D Ring Road',
+      description: 'World Wide Business Center — a 2,000 sqm office interior designed and supervised by our team — blends elegant aesthetics with high functionality, featuring a welcoming reception, multiple meeting rooms, a fully equipped conference room, collaborative zones, and a dedicated games area. Smart space planning, premium finishes, and coordinated MEP deliver a polished, efficient workplace, with on-site supervision ensuring quality control, safety, and timely approvals through to handover.',
+      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761148974/Screenshot_2025-10-22_212932_uarlk8.png',
+      gallery: [
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761148974/Screenshot_2025-10-22_212932_uarlk8.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233154/Screenshot_2025-10-23_205440_v03f6p.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233154/Screenshot_2025-10-23_205523_gnzr9l.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233156/Screenshot_2025-10-23_205416_azvx5j.png'
+      ]
+    },
+    {
+      title: 'Al Jabor Building',
+      meta: 'Design and Municipality Approvals for Commercial Building',
+      location: 'Al Hilal',
+      description: 'Designed and delivered to meet the client’s specific requirements, this project involved a full interior reconfiguration of the commercial building based on a targeted market-demand analysis (tenant mix, unit sizing, amenities, and circulation). Our team developed code-compliant drawings, coordinated MEP/architectural details, and secured rapid approvals from QCDD and Baladiya in line with QCDD regulations—expediting the permitting path and enabling a faster time-to-market for the owner.',
+      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233291/Screenshot_2025-10-23_205736_iddw10.png',
+      gallery: [
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233291/Screenshot_2025-10-23_205736_iddw10.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233292/Screenshot_2025-10-23_205706_h6f2z7.png'
+      ]
+    }
 ];
 
 // --- SHARED & LAYOUT COMPONENTS ---
@@ -87,7 +122,7 @@ const CustomCursor = memo(() => {
         document.body.addEventListener("mouseenter", showCursor);
 
         const hoverTargets = document.querySelectorAll(
-            'a, button, [role="button"], input, .work-image, .whatsapp-widget, select, textarea, label'
+            'a, button, [role="button"], input, .work-image, .whatsapp-widget, select, textarea, label, .thumbnail-item, .gallery-nav-btn, .project-modal-close'
         );
         hoverTargets.forEach(target => {
             target.addEventListener('mouseenter', handleMouseEnterHoverTarget);
@@ -494,44 +529,84 @@ const Footer = () => {
     )
 }
 
-const Lightbox = ({ image, onClose }) => {
-    const contentRef = useRef<HTMLDivElement>(null);
+const ProjectGalleryModal = ({ project, onClose }) => {
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const modalRef = useRef<HTMLDivElement>(null);
     const lastFocusedElement = useRef<HTMLElement | null>(null);
 
     useEffect(() => {
-        if (image) {
+        if (project) {
+            setCurrentIndex(0);
             lastFocusedElement.current = document.activeElement as HTMLElement;
-            setTimeout(() => { contentRef.current?.focus(); }, 100);
+            setTimeout(() => modalRef.current?.focus(), 100);
 
             const handleKeyDown = (e: KeyboardEvent) => {
                 if (e.key === 'Escape') onClose();
+                else if (e.key === 'ArrowRight') goToNext();
+                else if (e.key === 'ArrowLeft') goToPrevious();
                 else if (e.key === 'Tab') {
-                    const focusableElements = contentRef.current?.querySelectorAll<HTMLElement>('button');
+                     const focusableElements = modalRef.current?.querySelectorAll<HTMLElement>('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
                     if (!focusableElements || focusableElements.length === 0) return;
-                    if (document.activeElement === focusableElements[0]) {
-                        focusableElements[0].focus(); e.preventDefault();
-                    }
+                    const firstElement = focusableElements[0];
+                    const lastElement = focusableElements[focusableElements.length - 1];
+                    if (e.shiftKey) { if (document.activeElement === firstElement) { lastElement.focus(); e.preventDefault(); }}
+                    else { if (document.activeElement === lastElement) { firstElement.focus(); e.preventDefault(); }}
                 }
             };
-            document.addEventListener('keydown', handleKeyDown);
-            return () => { document.removeEventListener('keydown', handleKeyDown); lastFocusedElement.current?.focus(); };
-        }
-    }, [image, onClose]);
 
-    if (!image) return null;
+            document.addEventListener('keydown', handleKeyDown);
+            return () => { 
+                document.removeEventListener('keydown', handleKeyDown);
+                lastFocusedElement.current?.focus();
+            };
+        }
+    }, [project, onClose]);
+
+    if (!project) return null;
+
+    const goToPrevious = () => setCurrentIndex(prev => (prev === 0 ? project.gallery.length - 1 : prev - 1));
+    const goToNext = () => setCurrentIndex(prev => (prev === project.gallery.length - 1 ? 0 : prev + 1));
 
     return (
-        <div className="lightbox-overlay" onClick={onClose} role="dialog" aria-modal="true" aria-label={`${image.title} - Project image viewer`}>
-            <div ref={contentRef} className="lightbox-content" onClick={(e) => e.stopPropagation()} tabIndex={-1}>
-                <img src={image.src} alt={image.title} className="lightbox-image" />
-                <button onClick={onClose} className="lightbox-close" aria-label="Close image viewer">&times;</button>
+        <div className="project-modal-overlay" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <div ref={modalRef} className="project-modal-content" onClick={e => e.stopPropagation()} tabIndex={-1}>
+                <button onClick={onClose} className="project-modal-close" aria-label="Close project gallery">&times;</button>
+                <div className="project-modal-gallery">
+                    <div className="gallery-main-image">
+                        <img src={project.gallery[currentIndex]} alt={`${project.title} - Image ${currentIndex + 1}`} />
+                    </div>
+                    {project.gallery.length > 1 && (
+                        <>
+                            <button onClick={goToPrevious} className="gallery-nav-btn prev" aria-label="Previous image"><i className="fas fa-chevron-left"></i></button>
+                            <button onClick={goToNext} className="gallery-nav-btn next" aria-label="Next image"><i className="fas fa-chevron-right"></i></button>
+                            <div className="gallery-thumbnails">
+                                {project.gallery.map((img, index) => (
+                                    <button 
+                                      key={index} 
+                                      className={`thumbnail-item ${index === currentIndex ? 'active' : ''}`} 
+                                      onClick={() => setCurrentIndex(index)}
+                                      aria-label={`View image ${index + 1}`}
+                                    >
+                                        <img src={img} alt={`Thumbnail ${index + 1}`} />
+                                    </button>
+                                ))}
+                            </div>
+                        </>
+                    )}
+                </div>
+                <div className="project-modal-details">
+                    <p className="modal-meta">{project.meta}</p>
+                    <h3 id="modal-title" className="modal-title">{project.title}</h3>
+                    <p className="modal-location"><i className="fas fa-map-marker-alt" aria-hidden="true"></i> {project.location}</p>
+                    <p className="modal-description">{project.description}</p>
+                </div>
             </div>
         </div>
     );
 };
 
 const WorksPage = () => {
-  const [lightboxImage, setLightboxImage] = useState<{ src: string; title: string } | null>(null);
+  const [selectedProject, setSelectedProject] = useState(null);
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -550,7 +625,7 @@ const WorksPage = () => {
   
   return (
     <>
-      <Lightbox image={lightboxImage} onClose={() => setLightboxImage(null)} />
+      <ProjectGalleryModal project={selectedProject} onClose={() => setSelectedProject(null)} />
       
       <section id="works-hero" className="works-hero-section scroll-trigger fade-up">
           <h1>Our Featured <strong>Projects</strong></h1>
@@ -562,12 +637,12 @@ const WorksPage = () => {
                   {workItems.map((item, index) => (
                       <div className={`work-item ${index % 2 === 1 ? 'reverse' : ''} scroll-trigger fade-up`} key={index}>
                           <div className="grid">
-                               <div className="work-image" onClick={() => setLightboxImage({ src: item.image, title: item.title })}>
+                               <div className="work-image" onClick={() => setSelectedProject(item)}>
                                   <div className="work-title-overlay">
                                       <h3>{item.title}</h3>
-                                      <button className="view-projects-btn" aria-label={`View enlarged image for ${item.title}`}>View Project</button>
+                                      <button className="view-projects-btn" aria-label={`View project details for ${item.title}`}>View Project</button>
                                   </div>
-                                  <img src={item.image} alt={item.description} />
+                                  <img src={item.mainImage} alt={item.title} />
                               </div>
                               <div className="work-info">
                                   <p className="meta">{item.meta}</p>
