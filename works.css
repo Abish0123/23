@@ -1,3 +1,4 @@
+
 :root {
   --dark-bg: #111111;
   --dark-bg-secondary: #1c1c1c;
@@ -294,8 +295,7 @@ html, body {
 }
 .works-hero-section::before {
     content: '';
-    position: absolute;
-    top: 0; left: 0;
+    position: absolute; top: 0; left: 0;
     width: 100%; height: 100%;
     background-color: rgba(17, 17, 17, 0.6);
     z-index: 1;
@@ -322,7 +322,7 @@ html, body {
 .works-list {
     display: flex;
     flex-direction: column;
-    gap: 60px;
+    gap: 80px;
 }
 .work-item .grid {
     display: grid;
@@ -380,31 +380,6 @@ html, body {
     color: #666;
     margin-top: 20px;
 }
-
-.challenges-solutions {
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid #eee;
-}
-.challenges-solutions h4 {
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--text-dark);
-    margin-bottom: 15px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-.challenges-solutions p {
-    font-size: 15px;
-    color: #555;
-    line-height: 1.7;
-    margin-bottom: 10px;
-}
-.challenges-solutions strong {
-    color: var(--text-dark);
-    font-weight: 700;
-}
-
 
 .work-title-overlay {
     position: absolute; top: 0; left: 0;
@@ -491,9 +466,9 @@ html, body {
 .project-modal-details .modal-title { font-size: 28px; font-weight: 700; margin-bottom: 15px; color: var(--accent-color); }
 .project-modal-details .modal-location { display: flex; align-items: center; gap: 10px; margin-bottom: 25px; color: #ccc; }
 .project-modal-details .modal-description { line-height: 1.8; color: #ddd; }
-.project-modal-details .challenges-solutions { border-top-color: var(--border-light); }
-.project-modal-details .challenges-solutions h4 { color: #fff; }
-.project-modal-details .challenges-solutions p { color: #ccc; }
+.project-modal-details .challenges-solutions { border-top-color: var(--border-light); margin-top: 30px; padding-top: 20px; border-top: 1px solid #333; }
+.project-modal-details .challenges-solutions h4 { color: #fff; font-size: 16px; margin-bottom: 15px; }
+.project-modal-details .challenges-solutions p { color: #ccc; margin-bottom: 10px; }
 .project-modal-details .challenges-solutions strong { color: var(--accent-color); }
 
 /* Other shared components */
@@ -536,17 +511,22 @@ html, body {
     .app, .app a, .app button, .app [role="button"], .app input { cursor: auto !important; }
     
     .works-list-section {
-        padding: 80px 40px;
+        padding: 80px 20px;
     }
     .works-list { 
-        gap: 40px; 
+        gap: 50px; 
     }
+
+    /* MOBILE LAYOUT OVERHAUL */
     .work-item .grid, .work-item.reverse .grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
     }
-    .work-item.reverse .work-image { order: 1; }
-    .work-item.reverse .work-info { order: 2; }
+    .work-item.reverse .work-image,
+    .work-item.reverse .work-info {
+        order: initial; /* Reset order to follow DOM order: image then info */
+    }
 
     .work-title-overlay {
         opacity: 1;
