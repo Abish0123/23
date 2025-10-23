@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef, memo, createContext, useContext, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -600,7 +599,7 @@ const Footer = () => {
                          <div className="footer-contact-info">
                             <p><i className="fas fa-phone" aria-hidden="true"></i> <a href="tel:+97477123400">+974 7712 3400</a></p>
                             <p><i className="fas fa-envelope" aria-hidden="true"></i> <a href="mailto:info@tajdc.com">info@tajdc.com</a></p>
-                            <p><i className="fas fa-map-marker-alt" aria-hidden="true"></i> 14th floor, Al Jazeera tower, Westbay, Doha Qatar</p>
+                            <p><i className="fas fa-map-marker-alt" aria-hidden="true"></i> 14th floor, Al Jazeera tower, Westbay, Doha, Qatar</p>
                         </div>
                     </div>
                     <div className="footer-item scroll-trigger fade-up" style={{transitionDelay: '0.2s'}}>
@@ -1059,6 +1058,13 @@ const ProjectGalleryModal = ({ project, onClose }) => {
                     <h3 id="modal-title" className="modal-title">{project.title}</h3>
                     <p className="modal-location"><i className="fas fa-map-marker-alt" aria-hidden="true"></i> {project.location}</p>
                     <p className="modal-description">{project.description}</p>
+                     {project.challengesAndSolutions && (
+                        <div className="challenges-solutions">
+                            <h4>Key Challenges &amp; Solutions</h4>
+                            <p><strong>Challenge:</strong> {project.challengesAndSolutions.challenge}</p>
+                            <p><strong>Solution:</strong> {project.challengesAndSolutions.solution}</p>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
@@ -1116,7 +1122,11 @@ const HomePage = () => {
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224706/WhatsApp_Image_2025-10-22_at_23.46.06_e814e5d0_uqphxj.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224698/WhatsApp_Image_2025-10-22_at_23.46.07_714b8d87_1_eljwpn.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224698/WhatsApp_Image_2025-10-22_at_23.46.07_d6db18c5_tovqbt.png'
-      ]
+      ],
+      challengesAndSolutions: {
+        challenge: 'Integrating the client’s strong brand identity into a compact office space while adhering to a very tight project timeline.',
+        solution: 'We employed a fast-track project management approach and developed custom-designed joinery and branding elements that were fabricated off-site. This parallel workflow allowed for seamless integration on-site, saving time and ensuring a high-quality finish that perfectly matched the brand aesthetic.'
+      }
     },
     { 
       title: 'World Wide Business Center',
@@ -1129,7 +1139,11 @@ const HomePage = () => {
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233154/Screenshot_2025-10-23_205440_v03f6p.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233154/Screenshot_2025-10-23_205523_gnzr9l.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233156/Screenshot_2025-10-23_205416_azvx5j.png'
-      ]
+      ],
+      challengesAndSolutions: {
+        challenge: 'Creating distinct functional zones within a large, 2,000 sqm open-plan space without sacrificing the feeling of openness and collaboration, while also managing acoustic privacy.',
+        solution: 'Strategic space zoning was achieved using custom glass partitions, varied flooring materials, and suspended acoustic ceiling panels. This defined areas like meeting rooms and collaborative zones while maintaining visual connectivity. Premium materials and an integrated smart lighting system ensured a cohesive, high-end aesthetic throughout.'
+      }
     },
     { 
       title: 'Al Jabor Building',
@@ -1140,7 +1154,11 @@ const HomePage = () => {
       gallery: [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233291/Screenshot_2025-10-23_205736_iddw10.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233292/Screenshot_2025-10-23_205706_h6f2z7.png'
-      ]
+      ],
+      challengesAndSolutions: {
+        challenge: 'Reconfiguring an existing building structure to meet modern commercial demands required navigating a complex web of regulatory approvals for change-of-use and structural modifications.',
+        solution: 'Our in-house approvals team conducted a thorough pre-design compliance check and maintained close liaison with both QCDD and Baladiya authorities. By producing meticulously detailed, code-compliant drawings and proactively addressing potential issues, we were able to fast-track the permitting process, saving the client significant time and avoiding costly delays.'
+      }
     }
   ];
 
