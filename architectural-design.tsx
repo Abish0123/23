@@ -15,7 +15,7 @@ const servicesSubLinks = [
 const navLinks = [
   { name: 'Home', href: '/index.html' },
   { name: 'About Us', href: '/about.html' },
-  { name: 'Works/Projects', href: '/index.html#works' },
+  { name: 'Works/Projects', href: '/works.html' },
   { name: 'Services', href: '/index.html#our-services', subLinks: servicesSubLinks },
   { name: 'Blog', href: '/index.html#blog' },
   { name: 'Careers', href: '/careers.html' },
