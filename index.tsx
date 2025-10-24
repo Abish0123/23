@@ -900,7 +900,7 @@ const TestimonialsCarousel = ({ testimonials }) => {
                     {testimonials.map((testimonial, index) => (
                         <div className="testimonial-slide" key={index} role="group" aria-roledescription="slide" aria-hidden={currentIndex !== index}>
                             <div className="testimonial-card">
-                                <img src={testimonial.image} alt={testimonial.author} className="testimonial-avatar" />
+                                <img src={testimonial.image} alt={`Photograph of ${testimonial.author}`} className="testimonial-avatar" />
                                 <p className="testimonial-quote">"{testimonial.quote}"</p>
                                 <span className="testimonial-author">{testimonial.author}</span>
                             </div>
@@ -924,19 +924,12 @@ const TestimonialsCarousel = ({ testimonials }) => {
     );
 };
 
-const ClientsCarousel = () => {
-    const clientLogos = [
-        { url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPTwxAXnyJ94XVj2GIYoPuZtQ0I5MJGpmreA&s", name: "Ministry of Interior, Qatar" },
-        { url: "https://www.trustlinkqatar.com/assets/images/trustlinkqatar-logo-colored.png", name: "TrustLink Qatar" },
-        { url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRayiNTv2-vuoIvjHtg0Y0TwwUX0ZzaPTqT5g&s", name: "Qatar Foundation" },
-        { url: "https://pbs.twimg.com/profile_images/1508776406137856008/57PHPv7w_400x400.jpg", name: "Kahramaa" },
-    ];
-    
+const ClientsCarousel = ({ logos }) => {
     // Duplicate logos for seamless scrolling effect
-    const duplicatedLogos = [...clientLogos, ...clientLogos, ...clientLogos, ...clientLogos];
+    const duplicatedLogos = [...logos, ...logos, ...logos, ...logos];
 
     return (
-        <div className="clients-scroller">
+        <div className="clients-scroller" aria-hidden="true">
             <div className="clients-scroller-inner">
                 {duplicatedLogos.map((logo, index) => (
                     <div className="client-logo" key={index}>
@@ -993,7 +986,7 @@ const ProjectGalleryModal = ({ project, onClose }) => {
                 <button onClick={onClose} className="project-modal-close" aria-label="Close project gallery">&times;</button>
                 <div className="project-modal-gallery">
                     <div className="gallery-main-image">
-                        <img src={project.gallery[currentIndex]} alt={`${project.title} - Image ${currentIndex + 1}`} />
+                        <img src={project.gallery[currentIndex]} alt={`Image ${currentIndex + 1} of ${project.gallery.length} for project: ${project.title}`} />
                     </div>
                     {project.gallery.length > 1 && (
                         <>
@@ -1007,7 +1000,7 @@ const ProjectGalleryModal = ({ project, onClose }) => {
                                       onClick={() => setCurrentIndex(index)}
                                       aria-label={`View image ${index + 1}`}
                                     >
-                                        <img src={img} alt={`Thumbnail ${index + 1}`} />
+                                        <img src={img} alt={`Thumbnail of image ${index + 1} for ${project.title}`} />
                                     </button>
                                 ))}
                             </div>
@@ -1098,10 +1091,11 @@ const HomePage = () => {
       meta: 'Design and Municipality Approvals for Commercial Building',
       location: 'Al Hilal',
       description: 'Designed and delivered to meet the client’s specific requirements, this project involved a full interior reconfiguration of the commercial building based on a targeted market-demand analysis.',
-      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233291/Screenshot_2025-10-23_205736_iddw10.png',
+      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761313661/Untitled_opakzs.jpg',
       gallery: [
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233291/Screenshot_2025-10-23_205736_iddw10.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233292/Screenshot_2025-10-23_205706_h6f2z7.png'
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761313661/Untitled_opakzs.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233292/Screenshot_2025-10-23_205706_h6f2z7.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761313660/site_web_rlxcfy.jpg'
       ]
     }
   ];
@@ -1139,6 +1133,13 @@ const HomePage = () => {
     { image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800&auto=format&fit=crop&q=60", category: "Technology", date: "August 15, 2024", title: "The Future of BIM: AI and Generative Design", href: "blog-bim-ai.html", },
     { image: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&auto=format&fit=crop&q=60", category: "Architecture", date: "August 10, 2024", title: "Sustainable Materials in Modern Construction", href: "blog-sustainable-materials.html", },
     { image: "https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&auto=format&fit=crop&q=60", category: "Interior Design", date: "August 05, 2024", title: "Minimalism and Light: Crafting Serene Spaces", href: "blog-minimalism-light.html", }
+  ];
+
+  const clientLogos = [
+    { url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPTwxAXnyJ94XVj2GIYoPuZtQ0I5MJGpmreA&s", name: "Ministry of Interior, Qatar" },
+    { url: "https://www.trustlinkqatar.com/assets/images/trustlinkqatar-logo-colored.png", name: "TrustLink Qatar" },
+    { url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRayiNTv2-vuoIvjHtg0Y0TwwUX0ZzaPTqT5g&s", name: "Qatar Foundation" },
+    { url: "https://pbs.twimg.com/profile_images/1508776406137856008/57PHPv7w_400x400.jpg", name: "Kahramaa" },
   ];
 
    useEffect(() => {
@@ -1350,7 +1351,14 @@ const HomePage = () => {
         <SectionDivider />
         <div className="container">
           <h2 className="section-title scroll-trigger fade-up" style={{ textAlign: 'center' }}>Our <strong>Clients</strong></h2>
-           <ClientsCarousel />
+           <ClientsCarousel logos={clientLogos} />
+            <div className="sr-only" aria-label="A list of our clients">
+                <ul>
+                    {clientLogos.map((logo) => (
+                        <li key={logo.name}>{logo.name}</li>
+                    ))}
+                </ul>
+            </div>
         </div>
       </section>
 
