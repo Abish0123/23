@@ -1,5 +1,4 @@
 
-
 import React, { useState, useEffect, useRef, memo, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -23,13 +22,14 @@ const navLinks = [
   { name: 'Contact', href: '/contact.html' },
 ];
 
-const AppLink = ({ href, className = '', children, onClick, ...props }: {
+// @Fix: Converted AppLink to use React.forwardRef to properly handle refs passed from parent components like Header.
+const AppLink = React.forwardRef<HTMLAnchorElement, {
   href: string;
   className?: string;
   children: React.ReactNode;
   onClick?: MouseEventHandler<HTMLAnchorElement>;
   [key: string]: any;
-}) => {
+}>(({ href, className = '', children, onClick, ...props }, ref) => {
     const isToggle = href === '#';
 
     const handleClick: MouseEventHandler<HTMLAnchorElement> = (e) => {
@@ -44,6 +44,7 @@ const AppLink = ({ href, className = '', children, onClick, ...props }: {
 
     return (
         <a 
+            ref={ref}
             href={href} 
             className={className} 
             onClick={onClick ? handleClick : undefined} 
@@ -52,7 +53,7 @@ const AppLink = ({ href, className = '', children, onClick, ...props }: {
             {children}
         </a>
     );
-};
+});
 
 const MobileNav = ({ isOpen, onClose }) => {
     const [isServicesOpen, setIsServicesOpen] = useState(false);
@@ -113,7 +114,8 @@ const MobileNav = ({ isOpen, onClose }) => {
                          <li key={link.name}>
                              <AppLink 
                                 href={link.subLinks ? '#' : link.href} 
-                                onClick={link.subLinks ? handleServicesToggle : onClose}
+                                // @Fix: Wrapped parameter-less event handlers in arrow functions to match expected signature.
+                                onClick={link.subLinks ? handleServicesToggle : () => onClose()}
                                 aria-haspopup={!!link.subLinks}
                                 aria-expanded={link.subLinks ? isServicesOpen : undefined}
                                 aria-controls={link.subLinks ? `mobile-${link.name}-submenu` : undefined}
@@ -125,7 +127,10 @@ const MobileNav = ({ isOpen, onClose }) => {
                              {link.subLinks && (
                                  <ul id={`mobile-${link.name}-submenu`} className={`mobile-submenu ${isServicesOpen ? 'open' : ''}`} aria-hidden={!isServicesOpen}>
                                      {link.subLinks.map(subLink => (
-                                         <li key={subLink.name}><AppLink href={subLink.href} onClick={onClose}>{subLink.name}</AppLink></li>
+                                         // @Fix: Wrapped parameter-less event handlers in arrow functions to match expected signature and fixed JSX structure.
+                                         <li key={subLink.name}>
+                                            <AppLink href={subLink.href} onClick={() => onClose()}>{subLink.name}</AppLink>
+                                         </li>
                                      ))}
                                  </ul>
                              )}
@@ -172,7 +177,8 @@ const Header = ({ theme }) => {
 
   useEffect(() => {
     if (isServicesDropdownOpen) {
-      const firstItem = servicesDropdownContainerRef.current?.querySelector<HTMLAnchorElement>('.dropdown-menu a');
+      // @Fix: Added explicit type to assist TypeScript's type inference.
+      const firstItem: HTMLAnchorElement | null = servicesDropdownContainerRef.current?.querySelector('.dropdown-menu a');
       firstItem?.focus();
     }
   }, [isServicesDropdownOpen]);
@@ -198,7 +204,7 @@ const Header = ({ theme }) => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isServicesDropdownOpen]);
-
+  
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -209,14 +215,15 @@ const Header = ({ theme }) => {
         window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-
+  
   const handleServicesClick = (e: React.MouseEvent) => {
     e.preventDefault();
     setIsServicesDropdownOpen(prev => !prev);
   };
 
   const handleDropdownItemKeyDown = (e: React.KeyboardEvent<HTMLAnchorElement>) => {
-    const items = Array.from(
+    // @Fix: Added explicit type to assist TypeScript's type inference.
+    const items: HTMLAnchorElement[] = Array.from(
       servicesDropdownContainerRef.current?.querySelectorAll<HTMLAnchorElement>('.dropdown-link-item') || []
     );
     const currentIndex = items.indexOf(e.currentTarget);
@@ -233,20 +240,20 @@ const Header = ({ theme }) => {
       closeServicesDropdown(false);
     }
   };
-
+  
   const headerClasses = `app-header ${scrolled ? 'scrolled' : ''} on-${theme}`;
 
   return (
     <header className={headerClasses}>
       <div className="logo">
         <AppLink href="/index.html">
-          <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Design Consult Logo" className="logo-image" />
+          <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Consultancy Logo" className="logo-image" />
         </AppLink>
       </div>
       <nav className="main-nav" aria-label="Main navigation">
         <ul>
           {navLinks.map((link) => (
-            <li 
+             <li 
               key={link.name} 
               className={`${link.subLinks ? 'has-dropdown' : ''} ${link.name === 'Services' && isServicesDropdownOpen ? 'open' : ''}`}
               ref={link.name === 'Services' ? servicesDropdownContainerRef : null}
@@ -323,7 +330,7 @@ const LeftSidebar = () => {
         <a href="#" aria-label="LinkedIn"><i className="fab fa-linkedin-in" aria-hidden="true"></i></a>
       </div>
       <div className="sidebar-footer">
-        <p>© Taj Design Consult 2024. All rights reserved.</p>
+        <p>© Taj Consultancy 2024. All rights reserved.</p>
       </div>
     </aside>
   );
@@ -385,6 +392,7 @@ const WaveAnimation = memo(() => {
     return <canvas ref={canvasRef} id="footer-wave-canvas" aria-hidden="true" />;
 });
 
+// @Fix: Corrected the CustomCursor component by adding the missing JSX return statement.
 const CustomCursor = memo(() => {
     const dotRef = useRef<HTMLDivElement>(null);
     const outlineRef = useRef<HTMLDivElement>(null);
@@ -435,7 +443,7 @@ const CustomCursor = memo(() => {
         document.body.addEventListener("mouseenter", showCursor);
 
         const hoverTargets = document.querySelectorAll(
-            'a, button, [role="button"], .whatsapp-widget, .project-card'
+            'a, button, [role="button"], .whatsapp-widget, .carousel-dot, .carousel-nav-btn, .project-card'
         );
         hoverTargets.forEach(target => {
             target.addEventListener('mouseenter', handleMouseEnterHoverTarget);
@@ -473,27 +481,6 @@ const WhatsAppChatWidget = () => (
         <div className="whatsapp-ring-delay"></div>
         <i className="fab fa-whatsapp whatsapp-icon" aria-hidden="true"></i>
     </a>
-);
-
-const RelatedProjects = ({ projects, title }) => (
-    <section className="related-projects-section content-section scroll-trigger fade-up">
-        <div className="container">
-            <h2 className="section-title" style={{ textAlign: 'center' }}>Our Work in <strong>{title}</strong></h2>
-            <div className="project-grid">
-                {projects.map((project, index) => (
-                    <div className="project-card scroll-trigger fade-up" key={index} style={{ transitionDelay: `${index * 0.1}s` }}>
-                        <div className="project-card-image">
-                            <img src={project.image} alt={project.title} />
-                        </div>
-                        <div className="project-card-content">
-                            <h3>{project.title}</h3>
-                            <p>{project.category}</p>
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </div>
-    </section>
 );
 
 const CallToAction = () => (
@@ -534,25 +521,6 @@ const ServicePage = () => {
     }
   }, []);
 
-  const services = [
-    'Initial Project Assessment & Regulatory Compliance Check',
-    'Building Permit (BP) Application Management (Baladiya)',
-    'DC1 & DC2 Submission, Tracking, and Follow-up',
-    'Utility Connections & NOCs (Kahramaa, Ooredoo)',
-    'Civil Defense (QCDD) Approval Coordination and Inspection Facilitation',
-    'Roads & Drainage NOCs (Ashghal)',
-    'Environmental Permits (Ministry of Environment and Climate Change)',
-    'Building Completion Certificate (BCC) Application and Acquisition',
-    'Regular Status Reporting and Authority Liaison',
-    'Comprehensive Management of All Required Documentation and Drawings',
-  ];
-
-  const relatedProjects = [
-    { image: "https://etimg.etb2bimg.com/photo/123564565.cms", title: "Al Sadd Commercial Tower", category: "Full Permit Lifecycle Management" },
-    { image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&auto=format&fit=crop&q=60", title: "West Bay Lagoon Villas", category: "Multi-Authority NOC Coordination" },
-    { image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&auto=format&fit=crop&q=60", title: "Industrial Area Warehouse Complex", category: "Civil Defense & Environmental Clearances" },
-  ];
-
   return (
     <div className={`app ${loading ? 'loading' : ''}`}>
       <SkipToContentLink />
@@ -562,7 +530,7 @@ const ServicePage = () => {
       <div className="main-container">
         <LeftSidebar />
         <main className="main-content" id="main-content" tabIndex={-1}>
-          <section className="service-hero-section scroll-trigger fade-up" style={{ backgroundImage: `url('https://media.licdn.com/dms/image/v2/D5612AQEPHDa_jIUW7Q/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1697475482996?e=2147483647&v=beta&t=W5MXkjDsRTLPnFm86_9pZBlOevq4E3AXCRzXbk8rFZc')`}}>
+          <section className="service-hero-section scroll-trigger fade-up" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1563291074-2bf8677ac0e5?w=1200&auto=format&fit=crop&q=60')` }}>
             <div className="container">
               <h1 className="scroll-trigger fade-up" style={{transitionDelay: '0.1s'}}>Construction <strong>Approval</strong></h1>
             </div>
@@ -570,39 +538,163 @@ const ServicePage = () => {
 
           <section className="content-section">
             <div className="container">
-              <div className="service-content-grid scroll-trigger fade-up" style={{transitionDelay: '0.2s'}}>
-                <div className="service-main-content">
-                    <p>Navigating Qatar’s complex regulatory landscape is one of the most critical challenges in any construction project. Our dedicated Construction Approval team specializes in streamlining this process, acting as your expert liaison with all government authorities. We manage the entire lifecycle of approvals, from initial compliance checks to securing the final Building Completion Certificate (BCC). Our deep understanding of the requirements set by Baladiya (Municipality), the Building Permit Complex (DC1/DC2), Kahramaa, Ooredoo, Ashghal, and the Qatar Civil Defense Department (QCDD) ensures a smooth and predictable path to construction.</p>
-                    <p>By entrusting us with your project approvals, you mitigate risks, avoid costly delays, and ensure full compliance with all local laws and building codes. Our established relationships with key authorities and our meticulous approach to documentation management allow us to anticipate hurdles and resolve issues proactively. We provide complete transparency throughout the process, giving you the peace of mind to focus on your core project objectives while we handle the critical administrative and regulatory groundwork.</p>
-                </div>
-                <div className="service-sidebar-image">
-                  <img src="https://media.istockphoto.com/id/1486553791/photo/approved-buildings-permit-concept-with-approved-residential-building-project.jpg?s=612x612&w=0&k=20&c=tCqipzCoTY5usczu8nhsCGSliycCPOEqYQqnPHkHVcw=" alt="Official documents and a hard hat on a blueprint." />
-                </div>
-              </div>
+              <div className="service-main-content scroll-trigger fade-up" style={{transitionDelay: '0.2s'}}>
+                <h2 className="section-title">Approvals</h2>
+                <p>Aligned with client objectives, we secure the right approvals, in the right order, with minimal rework. Our Authority Liaison team manages end-to-end submissions and inspections across Qatar’s agencies—Baladiya (MME), QCDD (Civil Defense), KAHRAMAA, Ashghal, Ooredoo/Vodafone, Qatar Cool, MOCI, and special authorities (MoH, MoE, QFZA, QFC) when applicable.</p>
+                <p>From feasibility and code checks to shop drawings, portal submissions, site inspections, and final Completion Certificate, we keep your project compliant and on schedule.</p>
+                <p>With deep knowledge of QCS, NFPA 101 Life Safety, local fire & MEP codes, signage and fit-out rules, we streamline coordination between designers, contractors and authorities—reducing iteration loops and accelerating approvals.</p>
 
-              <div className="service-list-section scroll-trigger fade-up" style={{transitionDelay: '0.3s'}}>
-                <h2 className="section-title">Our Construction Approval services include:</h2>
-                <ul className="service-list">
-                  {services.map((service, index) => (
-                    <li key={index}>
-                      <i className="fas fa-check-circle" aria-hidden="true"></i>
-                      <span>{service}</span>
-                    </li>
-                  ))}
+                <h3 className="section-title" style={{fontSize: '24px', marginTop: '40px'}}>Our Construction Approval Services include:</h3>
+                
+                <h4 style={{fontWeight: 700, fontSize: '18px', marginBottom: '15px', color: '#111'}}>Permitting & NOCs</h4>
+                <ul className="service-list" style={{columnCount: 1, marginBottom: '30px'}}>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>Baladiya Building Permit, Fit-Out Permit, Change of Use, Mezzanine/partition approvals</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>QCDD: Fire & Life Safety drawings, hydraulic calculations, material approvals, inspections & final acceptance</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>KAHRAMAA: Electrical load application, SLD approvals, meter releases; Water/Plumbing NOC</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>Ashghal: Drainage connections, road opening NOC (if required)</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>Telecom & Cooling: Ooredoo/Vodafone pathways NOC; Qatar Cool capacity NOC</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>Signage/Facade permits (external & internal wayfinding)</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>Health/FOH permits for F&B, clinics, salons (when relevant)</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>Temporary Works permits: hoarding, scaffolding, cranes, road diversions</span></li>
+                </ul>
+
+                <h4 style={{fontWeight: 700, fontSize: '18px', marginBottom: '15px', color: '#111'}}>Technical Submissions & Drawings</h4>
+                <ul className="service-list" style={{columnCount: 1, marginBottom: '30px'}}>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>Authority-compliant architectural, structural, and MEP drawings (CAD/Revit)</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>Fire alarm, sprinkler, emergency lighting, ventilation & smoke control</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>Load calculations (ETABS/SAP/SAFE), SLDs, pump room schematics, shop drawings, as-builts</span></li>
+                </ul>
+
+                <h4 style={{fontWeight: 700, fontSize: '18px', marginBottom: '15px', color: '#111'}}>Code & Compliance</h4>
+                <ul className="service-list" style={{columnCount: 1, marginBottom: '30px'}}>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>QCS, NFPA 101, QCDD guidelines, ADA/accessibility, egress & occupant load checks</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>Energy & ventilation requirements (IAQ), acoustic, lighting LUX and diversity checks</span></li>
+                </ul>
+
+                <h4 style={{fontWeight: 700, fontSize: '18px', marginBottom: '15px', color: '#111'}}>Project Administration</h4>
+                <ul className="service-list" style={{columnCount: 1, marginBottom: '30px'}}>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>Portal creation & tracking, fee calculations, receipts, correspondence logs</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>Inspection scheduling and close-out snag management</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>Completion Certificate / Building Completion documentation set</span></li>
+                </ul>
+
+                <h4 style={{fontWeight: 700, fontSize: '18px', marginBottom: '15px', color: '#111'}}>Business & Licensing Alignment</h4>
+                <ul className="service-list" style={{columnCount: 1, marginBottom: '30px'}}>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>MOCI activity matching (e.g., Business Center 25% rule, change of activity)</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>QFC/QFZA liaison where jurisdiction differs</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>Mall/landlord fit-out handbook compliance</span></li>
+                </ul>
+
+                <h3 className="section-title" style={{fontSize: '24px', marginTop: '40px'}}>Our 6-Step Approval Process</h3>
+                <ol className="service-list" style={{listStyleType: 'decimal', paddingLeft: '20px', columnCount: 1}}>
+                    <li><span><strong>Feasibility & Code Scan</strong> – review base-build constraints, egress, loads, fire strategy, activity compliance.</span></li>
+                    <li><span><strong>Authority Strategy & Timeline</strong> – map required NOCs, sequence, fees, and critical path.</span></li>
+                    <li><span><strong>Drawings & Calculations</strong> – prepare/adjust A-S-MEP and FLS packages to authority standards.</span></li>
+                    <li><span><strong>Submissions</strong> – lodge through relevant portals; respond to comments/RFIs swiftly.</span></li>
+                    <li><span><strong>Inspections</strong> – coordinate contractors, pre-snag, accompany authorities, close comments.</span></li>
+                    <li><span><strong>Close-Out</strong> – obtain approvals, Completion Certificate, meter energization, and as-builts.</span></li>
+                </ol>
+
+                <h3 className="section-title" style={{fontSize: '24px', marginTop: '40px'}}>Typical Timeframes (guidance only)</h3>
+                <ul className="service-list" style={{columnCount: 1}}>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>Fit-out permit (Baladiya): ~2–4 weeks after complete submission</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>QCDD drawing approval: ~2–3 weeks; site acceptance: +1–2 weeks post-readiness</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>KAHRAMAA meter release: ~1–3 weeks after SLD approval & site readiness</span></li>
+                </ul>
+                <p style={{color: '#555', marginTop: '-10px', marginBottom: '30px'}}>(Durations vary by scope, landlord requirements, and submission quality.)</p>
+
+                <h3 className="section-title" style={{fontSize: '24px', marginTop: '40px'}}>Deliverables You Receive</h3>
+                <ul className="service-list" style={{columnCount: 1}}>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>Approved permit sets (stamped PDFs), NOCs, approval letters</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>Inspection reports, comment trackers, close-out documentation</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>As-built drawings, O&M manuals (if required), Completion Certificate</span></li>
+                </ul>
+                
+                <h3 className="section-title" style={{fontSize: '24px', marginTop: '40px'}}>What We Need From You (Checklist)</h3>
+                <ul className="service-list" style={{columnCount: 1}}>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>Title deed/lease & landlord NOC</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>CR/QID copies (company & representative), Consultant/Contractor appointments</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>Base-build drawings, tenancy layout, materials/equipment specs</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>Existing KAHRAMAA account details (if any)</span></li>
+                </ul>
+
+                <h3 className="section-title" style={{fontSize: '24px', marginTop: '40px'}}>Why Choose Us</h3>
+                <ul className="service-list" style={{columnCount: 1}}>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>Local authority specialists with proven relationships and submission templates</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>One team covering Architecture, MEP, Structural, and Fire—fewer iterations</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>Transparent tracking & weekly status reports until certificate in hand</span></li>
                 </ul>
               </div>
 
+              <hr style={{margin: '80px 0', border: 'none', borderTop: '1px solid #eee'}} />
+
+              <div className="service-main-content scroll-trigger fade-up">
+                <h2 className="section-title">BIM & 3D Visualization</h2>
+                <p>We deliver coordinated, constructible BIM models and photorealistic visuals that cut rework, speed approvals, and help clients make faster decisions. From LOD-defined authoring to clash detection, 4D/5D planning, and VR walk-throughs, our team supports projects across design, tender, construction, and handover.</p>
+                <p>We work to ISO 19650 principles with IFC-based exchange and clear model responsibilities, ensuring smooth coordination between Architecture, Structure, and MEP—and alignment with Qatar authority requirements (Baladiya/QCDD submissions, KAHRAMAA loads, as-built deliverables).</p>
+
+                <h3 className="section-title" style={{fontSize: '24px', marginTop: '40px'}}>Our BIM & 3D Visualization services include:</h3>
+                <ul className="service-list" style={{columnCount: 1}}>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>BIM Authoring (Revit/Civil 3D) – Architectural, Structural, and MEP systems, LOD 200–400; families/content creation.</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>Model Coordination & Clash Detection – Navisworks/ACC Model Coordination, issue tracking (BIM 360/Autodesk Construction Cloud).</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>4D / 5D Simulation – Link model to schedule (Primavera/MSP) and cost (BoQ), visualize phasing and cashflow curves.</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>Quantity Take-Off (QTO) – Model-based quantification and cost checks; VE alternatives.</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>Construction Sequencing & Site Logistics – Animated build sequence, hoarding/crane layouts, temporary works.</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>Shop Drawings & As-Builts – Coordinated layouts, sleeve/opening drawings, penetration drawings, COBie asset data.</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>BIM for Authority Submissions – Extract 2D sheets, fire & life safety views, schedules for QCDD/Baladiya.</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>3D Visualization – Photorealistic renders, aerials, material boards; Enscape/Lumion/Twinmotion animations.</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>Immersive Reviews – Web/VR walk-throughs, stakeholder design reviews, options comparison.</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>Digital Handover – COBie/IFC for FM, asset tagging, O&M links, model health checks.</span></li>
+                </ul>
+
+                <h3 className="section-title" style={{fontSize: '24px', marginTop: '40px'}}>Workflow we follow</h3>
+                <ol className="service-list" style={{listStyleType: 'decimal', paddingLeft: '20px', columnCount: 1}}>
+                    <li><span><strong>Kickoff & BEP</strong> – Define BIM Execution Plan (standards, LOD, naming, CDE, responsibilities).</span></li>
+                    <li><span><strong>Model Setup</strong> – Shared coordinates, levels/grids, worksets, templates; federated model strategy.</span></li>
+                    <li><span><strong>Authoring & QA</strong> – Discipline models with weekly QA; parameter and family standards.</span></li>
+                    <li><span><strong>Coordination</strong> – Regular clash sessions; issue logs with due dates and owners.</span></li>
+                    <li><span><strong>4D/5D & Visuals</strong> – Link programme and cost; produce renders/animations and option studies.</span></li>
+                    <li><span><strong>Deliverables & Handover</strong> – Sheets, QTOs, as-builts, COBie/IFC, viewer files; training for client/contractor.</span></li>
+                </ol>
+
+                <h3 className="section-title" style={{fontSize: '24px', marginTop: '40px'}}>Software Stack</h3>
+                <p>Autodesk Revit, Navisworks Manage, ACC/BIM 360, AutoCAD, Civil 3D, Dynamo (automation), ETABS/SAP/SAFE (structural refs), Enscape/Lumion/Twinmotion (visuals), Unreal/Sketchfab (web), Excel/Power BI (cost/quantities).</p>
+                
+                <h3 className="section-title" style={{fontSize: '24px', marginTop: '40px'}}>Typical Deliverables</h3>
+                <ul className="service-list" style={{columnCount: 1}}>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>Federated RVT/NWD & IFC models, discipline models</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>Coordination reports & clash matrices, issue tracker</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>2D sheets (plans/sections/details), shop drawings</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>QTO/BoQ extracts; 4D simulations; cost snapshots</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>High-resolution stills, animations, web/VR walkthroughs</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>As-builts and COBie asset registers for FM</span></li>
+                </ul>
+
+                <h3 className="section-title" style={{fontSize: '24px', marginTop: '40px'}}>Benefits</h3>
+                <ul className="service-list" style={{columnCount: 1}}>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>Fewer site clashes & variations (early detection)</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>Faster approvals via clear, authority-ready outputs</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>Transparent cost & time with 4D/5D visibility</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>Better client buy-in using visuals & VR reviews</span></li>
+                </ul>
+
+                <h3 className="section-title" style={{fontSize: '24px', marginTop: '40px'}}>What we need from you</h3>
+                <ul className="service-list" style={{columnCount: 1}}>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>Base-build drawings/surveys, project brief, brand/material palette</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>Agreed schedule/cost data for 4D/5D (when applicable)</span></li>
+                    <li><i className="fas fa-check-circle" aria-hidden="true"></i><span>Contractor/consultant appointments & CDE access</span></li>
+                </ul>
+              </div>
             </div>
           </section>
 
-          <RelatedProjects projects={relatedProjects} title="Permit Approvals" />
           <CallToAction />
 
           <footer id="footer" className="app-footer">
             <WaveAnimation />
             <div className="container">
                 <div className="copyright-section">
-                    <span>2024 © Taj Design Consult. All rights reserved.</span>
+                    <span>2024 © Taj Consultancy. All rights reserved.</span>
                     <button className="to-top" onClick={scrollToTop} aria-label="Scroll back to top">To Top ↑</button>
                 </div>
             </div>
