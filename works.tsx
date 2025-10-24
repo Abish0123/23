@@ -43,20 +43,11 @@ const workItems = [
       meta: 'Design and Supervision of Office Interior',
       location: 'D Ring Road',
       description: 'World Wide Business Center — a 2,000 sqm office interior designed and supervised by our team — blends elegant aesthetics with high functionality, featuring a welcoming reception, multiple meeting rooms, a fully equipped conference room, collaborative zones, and a dedicated games area. Smart space planning, premium finishes, and coordinated MEP deliver a polished, efficient workplace, with on-site supervision ensuring quality control, safety, and timely approvals through to handover.',
-      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761148974/Screenshot_2025-10-22_212932_uarlk8.png',
+      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304504/_DSC9859_sx03dr.jpg',
       gallery: [
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761148974/Screenshot_2025-10-22_212932_uarlk8.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233154/Screenshot_2025-10-23_205440_v03f6p.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233154/Screenshot_2025-10-23_205523_gnzr9l.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233156/Screenshot_2025-10-23_205416_azvx5j.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304504/_DSC9859_sx03dr.jpg',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304501/_DSC9888_rkhjis.jpg',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304500/_DSC9901_beo4mx.jpg',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304500/_DSC9872_oskp3y.jpg',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304498/_DSC9893_ocqnlg.jpg',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304498/_DSC9870_hyaor0.jpg',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304498/_DSC9799_trlsr9.jpg',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304497/_DSC9866_aq8w9n.jpg'
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304500/_DSC9901_beo4mx.jpg'
       ]
     },
     {
@@ -170,7 +161,6 @@ const WhatsAppChatWidget = () => (
     </a>
 );
 
-// @Fix: Converted AppLink to use React.forwardRef to properly handle refs passed from parent components like Header.
 const AppLink = React.forwardRef<HTMLAnchorElement, {
   href: string;
   className?: string;
@@ -262,8 +252,7 @@ const MobileNav = ({ isOpen, onClose }) => {
                          <li key={link.name}>
                              <AppLink 
                                 href={link.subLinks ? '#' : link.href} 
-                                // @Fix: Wrapped parameter-less event handler in an arrow function to match expected type signature.
-                                onClick={link.subLinks ? handleServicesToggle : () => onClose()}
+                                onClick={link.subLinks ? handleServicesToggle : onClose}
                                 aria-haspopup={!!link.subLinks}
                                 aria-expanded={link.subLinks ? isServicesOpen : undefined}
                                 aria-controls={link.subLinks ? `mobile-${link.name}-submenu` : undefined}
@@ -276,8 +265,7 @@ const MobileNav = ({ isOpen, onClose }) => {
                                  <ul id={`mobile-${link.name}-submenu`} className={`mobile-submenu ${isServicesOpen ? 'open' : ''}`} aria-hidden={!isServicesOpen}>
                                      {link.subLinks.map(subLink => (
                                          <li key={subLink.name}>
-                                            {/* @Fix: Wrapped parameter-less event handler in an arrow function to match expected type signature. */}
-                                            <AppLink href={subLink.href} onClick={() => onClose()}>
+                                            <AppLink href={subLink.href} onClick={onClose}>
                                                 {subLink.name}
                                             </AppLink>
                                         </li>
