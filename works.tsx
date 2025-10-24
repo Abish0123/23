@@ -1,3 +1,5 @@
+
+
 import React, { useState, useEffect, useRef, memo, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -28,49 +30,41 @@ const workItems = [
       title: 'TrustLink office',
       meta: 'Design and Build of Office Interior',
       location: 'Bin Mahmoud',
-      description: 'A complete design-and-build project for a modern office interior. We delivered a functional, branded workplace on a fast-track schedule, managing everything from space planning to securing final authority approvals for a seamless handover.',
+      description: 'We provide end-to-end office interior design and on-site supervision—covering space planning, materials and finishes, MEP coordination, and quality control—to deliver functional, branded workplaces on time and within budget. Our team manages contractors, shop drawings, and inspections, ensuring QCDD/NFPA and Baladiya compliance from concept to handover for a smooth, approval-ready fit-out.',
       mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224706/WhatsApp_Image_2025-10-22_at_23.46.06_e814e5d0_uqphxj.png',
       gallery: [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224706/WhatsApp_Image_2025-10-22_at_23.46.06_e814e5d0_uqphxj.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224698/WhatsApp_Image_2025-10-22_at_23.46.07_714b8d87_1_eljwpn.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224698/WhatsApp_Image_2025-10-22_at_23.46.07_d6db18c5_tovqbt.png'
-      ],
-      challengesAndSolutions: {
-        challenge: 'Integrating the client’s strong brand identity into a compact office space while adhering to a very tight project timeline.',
-        solution: 'We employed a fast-track project management approach and developed custom-designed joinery and branding elements that were fabricated off-site. This parallel workflow allowed for seamless integration on-site, saving time and ensuring a high-quality finish that perfectly matched the brand aesthetic.'
-      }
+      ]
     },
     { 
       title: 'World Wide Business Center',
       meta: 'Design and Supervision of Office Interior',
       location: 'D Ring Road',
-      description: 'Our team designed and supervised this expansive 2,000 sqm office interior, creating a sophisticated environment with premium finishes, smart space zoning for collaborative and private areas, and integrated smart lighting systems to ensure a high-quality build.',
-      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761148974/Screenshot_2025-10-22_212932_uarlk8.png',
+      description: 'World Wide Business Center — a 2,000 sqm office interior designed and supervised by our team — blends elegant aesthetics with high functionality, featuring a welcoming reception, multiple meeting rooms, a fully equipped conference room, collaborative zones, and a dedicated games area. Smart space planning, premium finishes, and coordinated MEP deliver a polished, efficient workplace, with on-site supervision ensuring quality control, safety, and timely approvals through to handover.',
+      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304504/_DSC9859_sx03dr.jpg',
       gallery: [
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761148974/Screenshot_2025-10-22_212932_uarlk8.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233154/Screenshot_2025-10-23_205440_v03f6p.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233154/Screenshot_2025-10-23_205523_gnzr9l.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233156/Screenshot_2025-10-23_205416_azvx5j.png'
-      ],
-      challengesAndSolutions: {
-        challenge: 'Creating distinct functional zones within a large, 2,000 sqm open-plan space without sacrificing the feeling of openness and collaboration, while also managing acoustic privacy.',
-        solution: 'Strategic space zoning was achieved using custom glass partitions, varied flooring materials, and suspended acoustic ceiling panels. This defined areas like meeting rooms and collaborative zones while maintaining visual connectivity. Premium materials and an integrated smart lighting system ensured a cohesive, high-end aesthetic throughout.'
-      }
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304504/_DSC9859_sx03dr.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304501/_DSC9888_rkhjis.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304500/_DSC9901_beo4mx.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304500/_DSC9872_oskp3y.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304498/_DSC9893_ocqnlg.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304498/_DSC9870_hyaor0.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304498/_DSC9799_trlsr9.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304497/_DSC9866_aq8w9n.jpg'
+      ]
     },
     {
       title: 'Al Jabor Building',
       meta: 'Design and Municipality Approvals for Commercial Building',
       location: 'Al Hilal',
-      description: 'This project involved a full interior reconfiguration of a commercial building. We conducted a market-demand analysis to optimize the layout and tenant mix, then fast-tracked all necessary municipality and Civil Defense approvals to ensure a swift time-to-market.',
+      description: 'Designed and delivered to meet the client’s specific requirements, this project involved a full interior reconfiguration of the commercial building based on a targeted market-demand analysis (tenant mix, unit sizing, amenities, and circulation). Our team developed code-compliant drawings, coordinated MEP/architectural details, and secured rapid approvals from QCDD and Baladiya in line with QCDD regulations—expediting the permitting path and enabling a faster time-to-market for the owner.',
       mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233291/Screenshot_2025-10-23_205736_iddw10.png',
       gallery: [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233291/Screenshot_2025-10-23_205736_iddw10.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233292/Screenshot_2025-10-23_205706_h6f2z7.png'
-      ],
-      challengesAndSolutions: {
-        challenge: 'Reconfiguring an existing building structure to meet modern commercial demands required navigating a complex web of regulatory approvals for change-of-use and structural modifications.',
-        solution: 'Our in-house approvals team conducted a thorough pre-design compliance check and maintained close liaison with both QCDD and Baladiya authorities. By producing meticulously detailed, code-compliant drawings and proactively addressing potential issues, we were able to fast-track the permitting process, saving the client significant time and avoiding costly delays.'
-      }
+      ]
     }
 ];
 
@@ -617,13 +611,6 @@ const ProjectGalleryModal = ({ project, onClose }) => {
                     <h3 id="modal-title" className="modal-title">{project.title}</h3>
                     <p className="modal-location"><i className="fas fa-map-marker-alt" aria-hidden="true"></i> {project.location}</p>
                     <p className="modal-description">{project.description}</p>
-                    {project.challengesAndSolutions && (
-                        <div className="challenges-solutions">
-                            <h4>Key Challenges &amp; Solutions</h4>
-                            <p><strong>Challenge:</strong> {project.challengesAndSolutions.challenge}</p>
-                            <p><strong>Solution:</strong> {project.challengesAndSolutions.solution}</p>
-                        </div>
-                    )}
                 </div>
             </div>
         </div>
