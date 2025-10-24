@@ -169,7 +169,7 @@ const blogPageData = {
             'At the forefront of this movement is mass timber, particularly Cross-Laminated Timber (CLT). CLT panels are made by gluing layers of solid-sawn lumber together at right angles, creating a product that is exceptionally strong, lightweight, and dimensionally stable. It can replace concrete and steel in many applications, significantly reducing the carbon footprint of a building. As a renewable resource, timber sequesters carbon throughout its life, making it a key player in the fight against climate change.',
             'Beyond timber, a host of innovative materials are gaining traction. Bamboo, a rapidly renewable grass, offers incredible tensile strength. Recycled steel reduces the energy-intensive process of virgin steel production. Hempcrete, a mixture of hemp fibers and lime, is a carbon-negative insulation material. Even more futuristic materials like mycelium (the root structure of fungi) are being explored to grow bricks and insulation with minimal environmental impact.',
             'Choosing the right material involves more than just its origin. A Life Cycle Assessment (LCA) is a crucial tool that evaluates the environmental impact of a material from cradle to grave—from raw material extraction through manufacturing, use, and eventual disposal or recycling. This holistic view ensures that we make informed decisions that genuinely reduce a project\'s overall environmental footprint.',
-            'At Taj Design Consult, we are deeply committed to integrating sustainable materials and practices into our projects. We believe that thoughtful material selection is fundamental to creating resilient, healthy, and environmentally responsible buildings that will stand the test of time and contribute positively to our planet\'s future.',
+            'At Taj Consultancy, we are deeply committed to integrating sustainable materials and practices into our projects. We believe that thoughtful material selection is fundamental to creating resilient, healthy, and environmentally responsible buildings that will stand the test of time and contribute positively to our planet\'s future.',
         ],
     },
     '/blog-minimalism-light.html': {
@@ -553,7 +553,7 @@ const Header = ({ theme }) => {
       </nav>
       <div className="logo">
         <AppLink href="/index.html">
-          <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Design Consult Logo" className="logo-image" />
+          <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Consultancy Logo" className="logo-image" />
         </AppLink>
       </div>
       <button
@@ -587,7 +587,7 @@ const LeftSidebar = ({ pageName }) => {
         <a href="#" aria-label="LinkedIn"><i className="fab fa-linkedin-in" aria-hidden="true"></i></a>
       </div>
       <div className="sidebar-footer">
-        <p>© Taj Design Consult 2024. All rights reserved.</p>
+        <p>© Taj Consultancy 2024. All rights reserved.</p>
       </div>
     </aside>
   );
@@ -602,7 +602,7 @@ const Footer = () => {
             <div className="container">
                 <div className="footer-grid">
                     <div className="footer-item footer-logo scroll-trigger fade-up" style={{transitionDelay: '0.1s'}}>
-                        <div className="logo-text">Taj Design Consult</div>
+                        <div className="logo-text">Taj Consultancy</div>
                         <p>Our team takes over everything, from an idea and concept development to realization. We believe in traditions and incorporate them within our innovations.</p>
                          <div className="footer-contact-info">
                             <p><i className="fas fa-phone" aria-hidden="true"></i> <a href="tel:+97477123400">+974 7712 3400</a></p>
@@ -616,7 +616,7 @@ const Footer = () => {
                     </div>
                 </div>
                 <div className="copyright-section">
-                    <span>2024 © Taj Design Consult. All rights reserved.</span>
+                    <span>2024 © Taj Consultancy. All rights reserved.</span>
                     <button className="to-top" onClick={scrollToTop} aria-label="Scroll back to top">To Top ↑</button>
                 </div>
             </div>
@@ -925,76 +925,29 @@ const TestimonialsCarousel = ({ testimonials }) => {
 };
 
 const ClientsCarousel = () => {
-    const [logosPerPage, setLogosPerPage] = useState(6);
-    const [isPaused, setIsPaused] = useState(false);
     const clientLogos = [
-        "https://amecdesign.com/wp-content/uploads/2024/01/rose-sweet.jpg", "https://amecdesign.com/wp-content/uploads/2024/01/papa-johns.jpg",
-        "https://amecdesign.com/wp-content/uploads/2024/01/madi.jpg", "https://amecdesign.com/wp-content/uploads/2024/01/Loydence.jpg",
-        "https://amecdesign.com/wp-content/uploads/2024/01/holiday-villa.jpeg", "https://amecdesign.com/wp-content/uploads/2024/01/dipndip.jpg",
-        "https://amecdesign.com/wp-content/uploads/2024/01/almana.jpg", "https://amecdesign.com/wp-content/uploads/2024/01/Adwar.jpg",
-        "https://amecdesign.com/wp-content/uploads/2024/01/AAC.jpg", "https://amecdesign.com/wp-content/uploads/2024/01/Macdonald2.jpg",
-        "https://amecdesign.com/wp-content/uploads/2024/01/mavi-bonjuk2.jpg", "https://amecdesign.com/wp-content/uploads/2024/01/talabat2.jpg"
+        { url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPTwxAXnyJ94XVj2GIYoPuZtQ0I5MJGpmreA&s", name: "Ministry of Interior, Qatar", isLarge: true },
+        { url: "https://www.trustlinkqatar.com/assets/images/trustlinkqatar-logo-colored.png", name: "TrustLink Qatar" },
+        { url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRayiNTv2-vuoIvjHtg0Y0TwwUX0ZzaPTqT5g&s", name: "Qatar Foundation" },
+        { url: "https://pbs.twimg.com/profile_images/1508776406137856008/57PHPv7w_400x400.jpg", name: "Kahramaa" },
     ];
     
-    useEffect(() => {
-        const handleResize = () => {
-            if (window.innerWidth <= 576) setLogosPerPage(3);
-            else if (window.innerWidth <= 992) setLogosPerPage(4);
-            else setLogosPerPage(6);
-        };
-        handleResize(); window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
-    
-    const totalPages = logosPerPage > 0 ? Math.ceil(clientLogos.length / logosPerPage) : 0;
-    const [currentPage, setCurrentPage] = useState(0);
-
-    useEffect(() => { setCurrentPage(0); }, [totalPages]);
-    
-    useEffect(() => {
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (prefersReducedMotion || totalPages <= 1) return;
-        const timer = setInterval(() => { if (!isPaused) setCurrentPage(prev => (prev + 1) % totalPages); }, 3000);
-        return () => clearInterval(timer);
-    }, [totalPages, isPaused]);
-
-    const transformValue = `translateX(-${currentPage * 100}%)`;
-    const logoPages = [];
-    if (logosPerPage > 0) {
-        for (let i = 0; i < clientLogos.length; i += logosPerPage) {
-            logoPages.push(clientLogos.slice(i, i + logosPerPage));
-        }
-    }
-
-    const getClientNameFromUrl = (url: string) => {
-        try {
-            const fileName = url.substring(url.lastIndexOf('/') + 1);
-            const namePart = fileName.split('.')[0]; const name = namePart.replace(/\d+$/, '');
-            return name.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-        } catch (e) { return `Client logo`; }
-    };
+    // Duplicate logos for seamless scrolling effect
+    const duplicatedLogos = [...clientLogos, ...clientLogos, ...clientLogos, ...clientLogos];
 
     return (
-        <div className="clients-carousel" onMouseEnter={() => setIsPaused(true)} onMouseLeave={() => setIsPaused(false)} onFocus={() => setIsPaused(true)} onBlur={() => setIsPaused(false)}>
-            <button className="clients-carousel-pause-btn" onClick={() => setIsPaused(p => !p)} aria-label={isPaused ? "Play clients carousel" : "Pause clients carousel"}>
-              <i className={`fas ${isPaused ? 'fa-play' : 'fa-pause'}`} aria-hidden="true"></i>
-            </button>
-            <div className="clients-carousel-wrapper">
-                <div className="clients-track" style={{ width: `${totalPages * 100}%`, transform: transformValue }}>
-                    {logoPages.map((page, pageIndex) => (
-                        <div className="clients-grid" key={pageIndex}>
-                             {page.map((logo, logoIndex) => (
-                                <div key={logoIndex} className="client-logo">
-                                    <img src={logo} alt={`${getClientNameFromUrl(logo)} Logo`} />
-                                </div>
-                            ))}
-                        </div>
-                    ))}
-                </div>
+        <div className="clients-scroller">
+            <div className="clients-scroller-inner">
+                {duplicatedLogos.map((logo, index) => (
+                    <div className={`client-logo ${logo.isLarge ? 'client-logo--large' : ''}`} key={index}>
+                        <img src={logo.url} alt={`${logo.name} Logo`} />
+                    </div>
+                ))}
             </div>
         </div>
     );
 };
+
 
 const ProjectGalleryModal = ({ project, onClose }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -1130,12 +1083,16 @@ const HomePage = () => {
       meta: 'Design and Supervision of Office Interior',
       location: 'D Ring Road',
       description: 'World Wide Business Center — a 2,000 sqm office interior designed and supervised by our team — blends elegant aesthetics with high functionality, featuring a welcoming reception, multiple meeting rooms, a fully equipped conference room, collaborative zones, and a dedicated games area.',
-      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761148974/Screenshot_2025-10-22_212932_uarlk8.png',
+      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304504/_DSC9859_sx03dr.jpg',
       gallery: [
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761148974/Screenshot_2025-10-22_212932_uarlk8.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233154/Screenshot_2025-10-23_205440_v03f6p.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233154/Screenshot_2025-10-23_205523_gnzr9l.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233156/Screenshot_2025-10-23_205416_azvx5j.png'
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304504/_DSC9859_sx03dr.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304501/_DSC9888_rkhjis.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304500/_DSC9901_beo4mx.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304500/_DSC9872_oskp3y.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304498/_DSC9893_ocqnlg.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304498/_DSC9870_hyaor0.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304498/_DSC9799_trlsr9.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304497/_DSC9866_aq8w9n.jpg'
       ]
     },
     { 
@@ -1154,7 +1111,7 @@ const HomePage = () => {
   const testimonials = [
     { quote: "The design was flawless. Their attention to detail and coordination saved us significant time and budget on our high-rise project.", author: "Project Manager, High-Rise Development", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&h=500&auto=format&fit=crop&q=60", },
     { quote: "The supervision and management for our villa were exceptional. The team was professional, transparent, and delivered beyond our expectations.", author: "Private Villa Owner, Doha", image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=500&h=500&auto=format&fit=crop&q=60", },
-    { quote: "Their innovative approach to engineering challenges is commendable. Taj Design Consult is a reliable partner for any complex construction endeavor.", author: "Lead Architect, Hospitality Project", image: "https://images.unsplash.com/photo-1556157382-97eda2d62296?w=500&h=500&auto=format&fit=crop&q=60", }
+    { quote: "Their innovative approach to engineering challenges is commendable. Taj Consultancy is a reliable partner for any complex construction endeavor.", author: "Lead Architect, Hospitality Project", image: "https://images.unsplash.com/photo-1556157382-97eda2d62296?w=500&h=500&auto=format&fit=crop&q=60", }
   ];
 
   const processSteps = [
@@ -1291,7 +1248,7 @@ const HomePage = () => {
                          <h2 className="section-title scroll-trigger fade-up">Some Interesting <strong>Facts</strong></h2>
                     </div>
                     <div className="facts-text">
-                        <p className="scroll-trigger fade-up" style={{transitionDelay: '0.1s'}}><strong>Taj Design Consult</strong> operates on the belief that evidence-led design and technical precision create lasting value.</p>
+                        <p className="scroll-trigger fade-up" style={{transitionDelay: '0.1s'}}><strong>Taj Consultancy</strong> operates on the belief that evidence-led design and technical precision create lasting value.</p>
                         <p className="scroll-trigger fade-up" style={{transitionDelay: '0.2s'}}>Our integrated teams bring together architecture, interiors, landscape, and urban design under one roof — ensuring seamless collaboration and faster delivery.</p>
                          <div className="facts-counters">
                             <div className="counter-item scroll-trigger fade-up" style={{ transitionDelay: '0.3s' }}>
