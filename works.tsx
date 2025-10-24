@@ -634,70 +634,73 @@ const WorksPage = () => {
     elementsToReveal.forEach((el) => observer.observe(el));
     return () => elementsToReveal.forEach((el) => observer.unobserve(el));
   }, []);
-  
+
   return (
     <>
       <ProjectGalleryModal project={selectedProject} onClose={() => setSelectedProject(null)} />
       
-      <section id="works-hero" className="works-hero-section scroll-trigger fade-up">
-          <h1>Our Featured <strong>Projects</strong></h1>
+      <section className="works-hero-section scroll-trigger fade-up">
+        <h1>Our <strong>Works</strong></h1>
       </section>
 
-      <section id="works-list" className="works-list-section">
-          <div className="container">
-              <div className="works-list">
-                  {workItems.map((item, index) => (
-                      <div className={`work-item ${index % 2 === 1 ? 'reverse' : ''} scroll-trigger fade-up`} key={index}>
-                          <div className="grid">
-                               <div className="work-image" onClick={() => setSelectedProject(item)}>
-                                  <div className="work-title-overlay">
-                                      <h3>{item.title}</h3>
-                                      <button className="view-projects-btn" aria-label={`View project details for ${item.title}`}>View Project</button>
-                                  </div>
-                                  <img src={item.mainImage} alt={item.title} />
-                              </div>
-                              <div className="work-info">
-                                  <p className="meta">{item.meta}</p>
-                                  <h3 className="work-title"><strong>{item.title}</strong></h3>
-                                  <p className="work-description">{item.description}</p>
-                              </div>
-                          </div>
-                      </div>
-                  ))}
-              </div>
-          </div>
+      <section className="works-list-section">
+        <div className="container">
+            <div className="works-list">
+                {workItems.map((item, index) => (
+                    <div className={`work-item ${index % 2 === 1 ? 'reverse' : ''} scroll-trigger fade-up`} key={index}>
+                        <div className="grid">
+                            <div className="work-image" onClick={() => setSelectedProject(item)}>
+                                <div className="work-title-overlay">
+                                    <h3>{item.title}</h3>
+                                    <button className="view-projects-btn" aria-label={`View project details for ${item.title}`}>View Project</button>
+                                </div>
+                                <img src={item.mainImage} alt={item.description} />
+                            </div>
+                            <div className="work-info">
+                                <p className="meta">{item.meta}</p>
+                                <h2 className="work-title">{item.title}</h2>
+                                <p className="work-description">{item.description}</p>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
       </section>
+
     </>
   );
 };
 
 const App = () => {
-    const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const timer = setTimeout(() => setLoading(false), 200);
-        return () => clearTimeout(timer);
-    }, []);
+  useEffect(() => {
+    document.body.style.backgroundColor = '#fff';
+    const timer = setTimeout(() => setLoading(false), 200);
+    return () => {
+        document.body.style.backgroundColor = '';
+        clearTimeout(timer);
+    };
+  }, []);
 
-    return (
-        <div className={`app ${loading ? 'loading' : ''}`}>
-            <SkipToContentLink />
-            <CustomCursor />
-            <WhatsAppChatWidget />
-            <Header theme="dark" />
-            <div className="main-container">
-                <LeftSidebar pageName="WORKS" />
-                <main className="main-content" id="main-content" tabIndex={-1}>
-                    <WorksPage />
-                    <Footer />
-                </main>
-            </div>
+  return (
+      <div className={`app ${loading ? 'loading' : ''}`}>
+        <SkipToContentLink />
+        <CustomCursor />
+        <WhatsAppChatWidget />
+        <Header theme="light" />
+        <div className="main-container">
+          <LeftSidebar pageName="WORKS" />
+          <main className="main-content" id="main-content" tabIndex={-1}>
+            <WorksPage />
+            <Footer />
+          </main>
         </div>
-    );
+      </div>
+  );
 };
 
 const container = document.getElementById('root');
-if (container) {
-    const root = createRoot(container);
-    root.render(<App />);
-}
+const root = createRoot(container!);
+root.render(<App />);
