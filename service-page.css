@@ -1,5 +1,4 @@
 
-
 :root {
   --dark-bg: #111111;
   --dark-bg-secondary: #1c1c1c;
@@ -81,7 +80,7 @@ html, body {
   top: 0;
   left: 0;
   height: 100vh;
-  width: 80px;
+  width: 40px;
   background-color: var(--dark-bg);
   border-right: 1px solid var(--border-light);
   display: flex;
@@ -151,8 +150,8 @@ html, body {
 }
 
 .main-content {
-  margin-left: 80px;
-  width: calc(100% - 80px);
+  margin-left: 40px;
+  width: calc(100% - 40px);
   position: relative;
   background-color: #fff;
 }
@@ -164,8 +163,8 @@ html, body {
 .app-header {
   position: fixed;
   top: 0;
-  left: 80px;
-  width: calc(100% - 80px);
+  left: 40px;
+  width: calc(100% - 40px);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -851,6 +850,149 @@ html, body {
   transform: none;
 }
 
+/* NEW UI ENHANCEMENT STYLES */
+.service-subsection {
+    margin-top: 80px;
+    padding-top: 60px;
+    border-top: 1px solid #eee;
+  }
+  
+  .service-subsection-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 40px;
+    color: #111;
+    text-align: center;
+  }
+  
+  /* Process Stepper */
+  .process-stepper {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin: 60px 0;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .process-stepper::before {
+    content: '';
+    position: absolute;
+    top: 35px;
+    left: 5%;
+    width: 90%;
+    height: 2px;
+    background-color: #e0e0e0;
+  }
+  .step-item {
+    position: relative;
+    text-align: center;
+    width: 15%;
+    flex-grow: 1;
+  }
+  .step-number {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: #fff;
+    border: 2px solid #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--accent-color);
+    margin: 0 auto 20px;
+    transition: all 0.3s ease;
+  }
+  .step-item:hover .step-number {
+    background-color: var(--accent-color);
+    color: #fff;
+    border-color: var(--accent-color);
+    transform: scale(1.1);
+  }
+  .step-item h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  .step-item p {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+  }
+  
+  /* Info Grid */
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+  }
+  .info-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    border-left: 4px solid var(--accent-color);
+  }
+  .info-card h4 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #111;
+    display: flex;
+    align-items: center;
+  }
+  .info-card h4 i {
+    margin-right: 12px;
+    color: var(--accent-color);
+    font-size: 20px;
+    width: 24px;
+    text-align: center;
+  }
+  .info-card ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  .info-card li {
+    margin-bottom: 10px;
+    color: #555;
+    display: flex;
+  }
+  .info-card li i {
+    margin-right: 10px;
+    color: #aaa;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  .info-card p {
+      color: #555;
+      font-style: italic;
+      font-size: 14px;
+  }
+  
+  /* Software Stack */
+  .software-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+  }
+  .software-item {
+      background-color: #f0f0f0;
+      color: #555;
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+  }
+  .software-item:hover {
+      background-color: var(--accent-color);
+      color: #fff;
+      transform: translateY(-2px);
+  }
+
+
 /* Responsive Styles */
 @media (max-width: 1200px) {
     .content-section { padding: 100px 40px; }
@@ -867,6 +1009,9 @@ html, body {
     .service-sidebar-image { display: none; }
     .service-list { column-count: 1; }
     .project-grid { grid-template-columns: repeat(2, 1fr); }
+    .process-stepper { flex-direction: column; gap: 40px; }
+    .process-stepper::before { display: none; }
+    .step-item { width: 100%; }
 
     .desktop-logo {
         display: none;
