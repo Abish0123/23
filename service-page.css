@@ -1,5 +1,6 @@
 
 
+
 :root {
   --dark-bg: #111111;
   --dark-bg-secondary: #1c1c1c;
@@ -851,91 +852,19 @@ html, body {
   transform: none;
 }
 
-/* NEW UI ENHANCEMENT STYLES */
+/* --- NEW UI/UX IMPROVEMENT STYLES --- */
 .service-subsection {
-    margin-top: 60px;
-    padding-top: 60px;
-    border-top: 1px solid #f0f0f0;
+    margin-top: 80px;
 }
+  
 .service-subsection:first-of-type {
     margin-top: 0;
-    padding-top: 0;
-    border-top: none;
-}
-  
-.service-subsection-title {
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 40px;
-    color: #111;
-    text-align: center;
-}
-  
-/* Process Stepper */
-.process-stepper {
-    display: flex;
-    justify-content: space-between;
-    position: relative;
-    margin-top: 60px;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-.process-stepper::before {
-    content: '';
-    position: absolute;
-    top: 35px;
-    left: 5%;
-    width: 90%;
-    height: 2px;
-    background-color: #e0e0e0;
-    z-index: 0;
-}
-.step-item {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-    width: 15%;
-    flex-grow: 1;
-    min-width: 150px;
-}
-.step-number {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    background-color: #fff;
-    border: 2px solid #e0e0e0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 28px;
-    font-weight: 700;
-    color: var(--accent-color);
-    margin: 0 auto 20px;
-    transition: all 0.3s ease;
-}
-.step-item:hover .step-number {
-    background-color: var(--accent-color);
-    color: #fff;
-    border-color: var(--accent-color);
-    transform: scale(1.1);
-    box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
-}
-.step-item h4 {
-    font-size: 16px;
-    font-weight: 700;
-    color: #333;
-    margin-bottom: 10px;
-}
-.step-item p {
-    font-size: 14px;
-    color: #666;
-    line-height: 1.6;
 }
   
 /* Info Grid & Cards */
 .info-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 30px;
     margin-top: 40px;
 }
@@ -946,6 +875,8 @@ html, body {
     box-shadow: 0 5px 20px rgba(0,0,0,0.05);
     border-top: 4px solid var(--accent-color);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
 }
 .info-card:hover {
     transform: translateY(-5px);
@@ -968,12 +899,14 @@ html, body {
 .info-card ul {
     list-style: none;
     padding-left: 0;
+    flex-grow: 1;
 }
 .info-card li {
     margin-bottom: 12px;
     color: #555;
     display: flex;
     align-items: flex-start;
+    font-size: 15px;
 }
 .info-card li i {
     margin-right: 10px;
@@ -993,7 +926,8 @@ html, body {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    margin-top: 15px;
+    flex-grow: 1;
+    align-content: flex-start;
 }
 .software-item {
     background-color: #f0f0f0;
@@ -1009,7 +943,6 @@ html, body {
     color: #fff;
     transform: translateY(-2px);
 }
-
 
 /* Responsive Styles */
 @media (max-width: 1200px) {
@@ -1027,10 +960,7 @@ html, body {
     .service-sidebar-image { display: none; }
     .service-list { column-count: 1; }
     .project-grid { grid-template-columns: repeat(2, 1fr); }
-    .process-stepper { flex-direction: column; gap: 40px; align-items: center; }
-    .process-stepper::before { display: none; }
-    .step-item { width: 100%; max-width: 400px; }
-
+    
     .desktop-logo {
         display: none;
     }
@@ -1051,6 +981,7 @@ html, body {
     .service-hero-section h1 { font-size: 36px; }
     .copyright-section { flex-direction: column; gap: 20px; text-align: center; }
     .project-grid { grid-template-columns: 1fr; }
+    .info-grid { grid-template-columns: 1fr; }
 
     .app-header {
         padding: 15px 20px;
