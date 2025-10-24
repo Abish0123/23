@@ -5,11 +5,11 @@ import { createRoot } from 'react-dom/client';
 declare const gsap: any;
 
 const servicesSubLinks = [
-  { name: 'Architectural Design', href: 'architectural-design.html', icon: 'fas fa-archway', description: 'Innovative and functional spaces from concept to construction.', image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&auto=format&fit=crop&q=60' },
-  { name: 'Engineering Consultancy', href: 'engineering-consultancy.html', icon: 'fas fa-cogs', description: 'Expert technical advice and solutions for robust project outcomes.', image: 'https://images.unsplash.com/photo-1518692113669-e34fa251a37c?w=800&auto=format&fit=crop&q=60' },
-  { name: 'Project Management Consultancy', href: 'project-management.html', icon: 'fas fa-tasks', description: 'Overseeing projects from inception to completion on time and budget.', image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&auto=format&fit=crop&q=60' },
-  { name: 'Sustainability & Energy', href: 'sustainability-energy.html', icon: 'fas fa-leaf', description: 'Integrating green principles for environmentally responsible designs.', image: 'https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=800&auto=format&fit=crop&q=60' },
-  { name: 'Construction Approval', href: 'construction-approval.html', icon: 'fas fa-check-double', description: 'Navigating regulatory hurdles to secure all necessary construction permits and approvals efficiently.', image: 'https://images.unsplash.com/photo-1563291074-2bf8677ac0e5?w=800&auto=format&fit=crop&q=60' },
+  { name: 'Architectural Design', href: 'architectural-design.html', icon: 'fas fa-archway', description: 'Innovative and functional spaces from concept to construction.', image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&auto.format&fit=crop&q=60' },
+  { name: 'Engineering Consultancy', href: 'engineering-consultancy.html', icon: 'fas fa-cogs', description: 'Expert technical advice and solutions for robust project outcomes.', image: 'https://images.unsplash.com/photo-1518692113669-e34fa251a37c?w=800&auto.format&fit=crop&q=60' },
+  { name: 'Project Management Consultancy', href: 'project-management.html', icon: 'fas fa-tasks', description: 'Overseeing projects from inception to completion on time and budget.', image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&auto.format&fit=crop&q=60' },
+  { name: 'Sustainability & Energy', href: 'sustainability-energy.html', icon: 'fas fa-leaf', description: 'Integrating green principles for environmentally responsible designs.', image: 'https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=800&auto.format&fit=crop&q=60' },
+  { name: 'Construction Approval', href: 'construction-approval.html', icon: 'fas fa-check-double', description: 'Navigating regulatory hurdles to secure all necessary construction permits and approvals efficiently.', image: 'https://images.unsplash.com/photo-1563291074-2bf8677ac0e5?w=800&auto.format&fit=crop&q=60' },
 ];
 
 const navLinks = [
@@ -480,32 +480,17 @@ const WhatsAppChatWidget = () => (
 const CallToAction = () => (
     <section className="cta-section scroll-trigger fade-up">
         <div className="container">
-            <h2 className="scroll-trigger fade-up" style={{ transitionDelay: '0.1s' }}>Let's Build the Future Together</h2>
+            <h2 className="scroll-trigger fade-up" style={{ transitionDelay: '0.1s' }}>Ready to Start Your Project?</h2>
             <p className="scroll-trigger fade-up" style={{ transitionDelay: '0.2s' }}>
-                Have a vision for your next project? Our team of experts is ready to help you bring it to life. Contact us today to discuss your ideas.
+                Let our experts handle the complexities of construction approvals so you can focus on building your vision. Contact us today for a consultation.
             </p>
             <a href="contact.html" className="cta-button scroll-trigger fade-up" style={{ transitionDelay: '0.3s' }}>Get in Touch</a>
         </div>
     </section>
 );
 
-const ProcessStepper = ({ steps, title }) => (
-    <div className="service-subsection scroll-trigger fade-up">
-      <h3 className="service-subsection-title scroll-trigger fade-up">{title}</h3>
-      <div className="process-stepper">
-        {steps.map((step, index) => (
-          <div className="step-item scroll-trigger fade-up" key={index} style={{ transitionDelay: `${index * 0.1}s` }}>
-            <div className="step-number">{index + 1}</div>
-            <h4>{step.title}</h4>
-            <p>{step.description}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-
-const InfoCard = ({ title, icon, items, children }: { title: string, icon: string, items?: string[], children?: React.ReactNode }) => (
-    <div className="info-card">
+const InfoCard = ({ title, icon, items, children }: { title: string, icon: string, items?: (string | React.ReactNode)[], children?: React.ReactNode }) => (
+    <div className="info-card scroll-trigger fade-up">
         <h4><i className={`fas ${icon}`} aria-hidden="true"></i> {title}</h4>
         {items && (
             <ul>
@@ -517,6 +502,142 @@ const InfoCard = ({ title, icon, items, children }: { title: string, icon: strin
         {children}
     </div>
 );
+
+
+const approvalServicesCards = [
+    { 
+        title: "Permitting & NOCs", 
+        icon: "fa-file-signature", 
+        items: [
+            'Baladiya: Building Permits, Fit-Out, Change of Use',
+            'QCDD: Fire & Life Safety drawings & approvals',
+            'KAHRAMAA: Electricity & Water utility NOCs',
+            'Ashghal: Drainage & Road Opening NOCs',
+            'Telecom (Ooredoo/Vodafone) & District Cooling NOCs',
+            'Signage, Façade, and Health/FOH permits',
+            'Temporary Works permits (hoarding, scaffolding)',
+        ] 
+    },
+    { 
+        title: "Technical Submissions", 
+        icon: "fa-ruler-combined", 
+        items: [
+            'Authority-compliant architectural, structural & MEP drawings',
+            'Fire alarm, sprinkler, and emergency system schematics',
+            'Load calculations (ETABS/SAP/SAFE) & SLDs',
+            'Shop drawings & as-built submissions'
+        ] 
+    },
+    { 
+        title: "Code & Compliance", 
+        icon: "fa-check-double", 
+        items: [
+            'QCS, NFPA 101, QCDD guidelines',
+            'ADA/accessibility compliance',
+            'Egress & occupant load checks',
+            'Energy & ventilation (IAQ) requirements'
+        ] 
+    },
+    { 
+        title: "Project Administration", 
+        icon: "fa-folder-open", 
+        items: [
+            'Authority portal creation & tracking',
+            'Fee calculations, receipts & correspondence logs',
+            'Inspection scheduling & close-out snag management',
+            'Completion Certificate (BCC) documentation set',
+        ] 
+    },
+    { 
+        title: "Business & Licensing", 
+        icon: "fa-briefcase", 
+        items: [
+            'MOCI activity matching & compliance',
+            'QFC/QFZA liaison where jurisdiction differs',
+            'Mall/landlord fit-out handbook compliance',
+        ] 
+    },
+];
+
+const projectFrameworkCards = [
+    { 
+        title: "Typical Timeframes", 
+        icon: "fa-clock", 
+        items: [
+            'Fit-out permit (Baladiya): ~2-4 weeks post-submission',
+            'QCDD drawing approval: ~2-3 weeks, plus site acceptance',
+            'KAHRAMAA meter release: ~1-3 weeks after SLD approval',
+            '(Durations vary by scope, requirements, and submission quality.)'
+        ] 
+    },
+    { 
+        title: "Deliverables You Receive", 
+        icon: "fa-box-archive", 
+        items: [
+            'Approved permit sets (stamped PDFs), NOCs',
+            'Inspection reports & close-out documentation',
+            'As-built drawings & O&M Manuals (if required)',
+            'Final Building Completion Certificate',
+        ] 
+    },
+    { 
+        title: "What We Need From You", 
+        icon: "fa-clipboard-list", 
+        items: [
+            'Title deed/lease & landlord NOC',
+            'CR/QID copies (company & representative)',
+            'Consultant/Contractor appointment letters',
+            'Base-build drawings & tenancy layout',
+            'Existing KAHRAMAA account details (if any)',
+        ] 
+    },
+    { 
+        title: "Why Choose Us", 
+        icon: "fa-star", 
+        items: [
+            'Local authority specialists with proven relationships',
+            'One team for Architecture, MEP, Structural, and Fire',
+            'Fewer iterations through authority-ready templates',
+            'Transparent tracking until certificate is in hand'
+        ] 
+    }
+];
+
+const bimServicesCards = [
+    {
+        title: "Typical Deliverables",
+        icon: "fa-cubes",
+        items: [
+            'Federated RVT/NWD & IFC models',
+            'Coordination reports & clash matrices',
+            '2D sheets (plans, sections, details), shop drawings',
+            'QTO/BoQ extracts, 4D simulations, cost snapshots',
+            'High-resolution stills, animations, Web/VR walkthroughs',
+            'As-builts and COBie asset registers for FM',
+        ]
+    },
+    {
+        title: "Benefits",
+        icon: "fa-thumbs-up",
+        items: [
+            'Fewer site clashes & variations (early detection)',
+            'Faster approvals with clear, authority-ready outputs',
+            'Transparent cost & time with 4D/5D visibility',
+            'Better client buy-in using visuals & VR reviews'
+        ]
+    },
+    {
+        title: "What We Need From You",
+        icon: "fa-file-import",
+        items: [
+            'Base-build drawings, surveys, project brief',
+            'Agreed schedule/cost data for 4D/5D (when applicable)',
+            'Contractor/consultant appointments & CDE access',
+        ]
+    },
+];
+
+const softwareStack = ['Autodesk Revit', 'Navisworks Manage', 'ACC/BIM 360', 'AutoCAD', 'Civil 3D', 'Dynamo', 'ETABS/SAP/SAFE', 'Enscape/Lumion', 'Unreal/Sketchfab'];
 
 const ServicePage = () => {
   const [loading, setLoading] = useState(true);
@@ -543,42 +664,7 @@ const ServicePage = () => {
         elementsToReveal.forEach((el) => observer.unobserve(el));
     }
   }, []);
-
-  const approvalProcessSteps = [
-    { title: 'Feasibility & Code Scan', description: 'Review base-build constraints, egress, loads, fire strategy, activity compliance.' },
-    { title: 'Authority Strategy & Timeline', description: 'Map required NOCs, sequence, fees, and critical path.' },
-    { title: 'Drawings & Calculations', description: 'Prepare/adjust A-S-MEP and FLS packages to authority standards.' },
-    { title: 'Submissions', description: 'Lodge through relevant portals; respond to comments/RFIs swiftly.' },
-    { title: 'Inspections', description: 'Coordinate contractors, pre-snag, accompany authorities, close comments.' },
-    { title: 'Close-Out', description: 'Obtain approvals, Completion Certificate, meter energization, and as-builts.' },
-  ];
-
-  const bimWorkflowSteps = [
-    { title: 'Kickoff & BEP', description: 'Define BIM Execution Plan (standards, LOD, naming, CDE, responsibilities).' },
-    { title: 'Model Setup', description: 'Shared coordinates, levels/grids, worksets, templates; federated model strategy.' },
-    { title: 'Authoring & QA', description: 'Discipline models with weekly QA; parameter and family standards.' },
-    { title: 'Coordination', description: 'Regular clash sessions; issue logs with due dates and owners.' },
-    { title: '4D/5D & Visuals', description: 'Link programme and cost; produce renders/animations and option studies.' },
-    { title: 'Deliverables & Handover', description: 'Sheets, QTOs, as-builts, COBie/IFC, viewer files; training for client/contractor.' },
-  ];
   
-  const bimServices = [
-    'BIM Authoring (Revit/Civil 3D) – Architectural, Structural, and MEP systems, LOD 200–400; families/content creation.',
-    'Model Coordination & Clash Detection – Navisworks/ACC Model Coordination, issue tracking (BIM 360/Autodesk Construction Cloud).',
-    '4D / 5D Simulation – Link model to schedule (Primavera/MSP) and cost (BoQ), visualize phasing and cashflow curves.',
-    'Quantity Take-Off (QTO) – Model-based quantification and cost checks; VE alternatives.',
-    'Construction Sequencing & Site Logistics – Animated build sequence, hoarding/crane layouts, temporary works.',
-    'Shop Drawings & As-Builts – Coordinated layouts, sleeve/opening drawings, penetration drawings, COBie asset data.',
-    'BIM for Authority Submissions – Extract 2D sheets, fire & life safety views, schedules for QCDD/Baladiya.',
-    '3D Visualization – Photorealistic renders, aerials, material boards; Enscape/Lumion/Twinmotion animations.',
-    'Immersive Reviews – Web/VR walk-throughs, stakeholder design reviews, options comparison.',
-    'Digital Handover – COBie/IFC for FM, asset tagging, O&M links, model health checks.',
-  ];
-
-  const softwareStack = [
-    'Autodesk Revit', 'Navisworks Manage', 'ACC/BIM 360', 'AutoCAD', 'Civil 3D', 'Dynamo', 'ETABS/SAP/SAFE', 'Enscape/Lumion/Twinmotion', 'Unreal/Sketchfab', 'Excel/Power BI'
-  ];
-
   return (
     <div className={`app ${loading ? 'loading' : ''}`}>
       <SkipToContentLink />
@@ -588,81 +674,46 @@ const ServicePage = () => {
       <div className="main-container">
         <LeftSidebar />
         <main className="main-content" id="main-content" tabIndex={-1}>
-          <section className="service-hero-section scroll-trigger fade-up" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1563291074-2bf8677ac0e5?w=1200&auto=format&fit=crop&q=60')` }}>
+          <section className="service-hero-section scroll-trigger fade-up" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1563291074-2bf8677ac0e5?w=1200&auto.format&fit=crop&q=60')` }}>
             <div className="container">
-              <h1 className="scroll-trigger fade-up" style={{transitionDelay: '0.1s'}}>Construction <strong>Approval</strong></h1>
+              <h1 className="scroll-trigger fade-up" style={{transitionDelay: '0.1s'}}>Construction Approvals & <strong>BIM Services</strong></h1>
             </div>
           </section>
 
           <section className="content-section">
             <div className="container">
-              <div className="service-main-content scroll-trigger fade-up" style={{transitionDelay: '0.2s'}}>
-                <h2 className="section-title" style={{textAlign: 'center'}}>Approvals</h2>
-                <p>Aligned with client objectives, we secure the right approvals, in the right order, with minimal rework. Our Authority Liaison team manages end-to-end submissions and inspections across Qatar’s agencies—Baladiya (MME), QCDD (Civil Defense), KAHRAMAA, Ashghal, Ooredoo/Vodafone, Qatar Cool, MOCI, and special authorities (MoH, MoE, QFZA, QFC) when applicable.</p>
-                <p>From feasibility and code checks to shop drawings, portal submissions, site inspections, and final Completion Certificate, we keep your project compliant and on schedule.</p>
-                <p>With deep knowledge of QCS, NFPA 101 Life Safety, local fire & MEP codes, signage and fit-out rules, we streamline coordination between designers, contractors and authorities—reducing iteration loops and accelerating approvals.</p>
-              </div>
 
-                <div className="service-subsection scroll-trigger fade-up">
-                    <h3 className="service-subsection-title scroll-trigger fade-up">Our Construction Approval Services</h3>
-                    <div className="info-grid" style={{gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))'}}>
-                        <div className="scroll-trigger fade-up" style={{ transitionDelay: '0.1s' }}><InfoCard title="Permitting & NOCs" icon="fa-file-signature" items={[ 'Baladiya Building Permit, Fit-Out Permit, Change of Use, Mezzanine/partition approvals', 'QCDD: Fire & Life Safety drawings, hydraulic calculations, material approvals, inspections & final acceptance', 'KAHRAMAA: Electrical load application, SLD approvals, meter releases; Water/Plumbing NOC', 'Ashghal: Drainage connections, road opening NOC (if required)', 'Telecom & Cooling: Ooredoo/Vodafone pathways NOC; Qatar Cool capacity NOC', 'Signage/Facade permits (external & internal wayfinding)', 'Health/FOH permits for F&B, clinics, salons (when relevant)', 'Temporary Works permits: hoarding, scaffolding, cranes, road diversions', ]} /></div>
-                        <div className="scroll-trigger fade-up" style={{ transitionDelay: '0.2s' }}><InfoCard title="Technical Submissions & Drawings" icon="fa-ruler-combined" items={[ 'Authority-compliant architectural, structural, and MEP drawings (CAD/Revit)', 'Fire alarm, sprinkler, emergency lighting, ventilation & smoke control', 'Load calculations (ETABS/SAP/SAFE), SLDs, pump room schematics, shop drawings, as-builts', ]} /></div>
-                        <div className="scroll-trigger fade-up" style={{ transitionDelay: '0.3s' }}><InfoCard title="Code & Compliance" icon="fa-check-double" items={[ 'QCS, NFPA 101, QCDD guidelines, ADA/accessibility, egress & occupant load checks', 'Energy & ventilation requirements (IAQ), acoustic, lighting LUX and diversity checks', ]} /></div>
-                        <div className="scroll-trigger fade-up" style={{ transitionDelay: '0.4s' }}><InfoCard title="Project Administration" icon="fa-folder-open" items={[ 'Portal creation & tracking, fee calculations, receipts, correspondence logs', 'Inspection scheduling and close-out snag management', 'Completion Certificate / Building Completion documentation set', ]} /></div>
-                        <div className="scroll-trigger fade-up" style={{ transitionDelay: '0.5s' }}><InfoCard title="Business & Licensing Alignment" icon="fa-briefcase" items={[ 'MOCI activity matching (e.g., Business Center 25% rule, change of activity)', 'QFC/QFZA liaison where jurisdiction differs', 'Mall/landlord fit-out handbook compliance', ]} /></div>
+                <div className="service-subsection">
+                    <h2 className="section-title scroll-trigger fade-up" style={{textAlign: 'center'}}>Our Construction Approval Services</h2>
+                    <div className="info-grid">
+                        {approvalServicesCards.map((card, index) => (
+                           <InfoCard key={index} title={card.title} icon={card.icon} items={card.items} />
+                        ))}
+                    </div>
+                </div>
+                
+                <div className="service-subsection">
+                    <h2 className="section-title scroll-trigger fade-up" style={{textAlign: 'center'}}>Project Framework</h2>
+                    <div className="info-grid">
+                        {projectFrameworkCards.map((card, index) => (
+                           <InfoCard key={index} title={card.title} icon={card.icon} items={card.items} />
+                        ))}
                     </div>
                 </div>
 
-              <ProcessStepper title="Our 6-Step Approval Process" steps={approvalProcessSteps} />
-
-              <div className="service-subsection scroll-trigger fade-up" style={{ transitionDelay: '0.2s' }}>
-                <div className="info-grid" style={{alignItems: 'start'}}>
-                  <div className="scroll-trigger fade-up" style={{ transitionDelay: '0.1s' }}><InfoCard title="Typical Timeframes" icon="fa-clock" items={['Fit-out permit (Baladiya): ~2–4 weeks after complete submission','QCDD drawing approval: ~2–3 weeks; site acceptance: +1–2 weeks post-readiness','KAHRAMAA meter release: ~1–3 weeks after SLD approval & site readiness',]}>
-                    <p>(Durations vary by scope, landlord requirements, and submission quality.)</p>
-                  </InfoCard></div>
-                  <div className="scroll-trigger fade-up" style={{ transitionDelay: '0.2s' }}><InfoCard title="Deliverables You Receive" icon="fa-box-archive" items={['Approved permit sets (stamped PDFs), NOCs, approval letters','Inspection reports, comment trackers, close-out documentation','As-built drawings, O&M manuals (if required), Completion Certificate',]} /></div>
-                  <div className="scroll-trigger fade-up" style={{ transitionDelay: '0.3s' }}><InfoCard title="What We Need From You" icon="fa-clipboard-list" items={['Title deed/lease & landlord NOC','CR/QID copies (company & representative), Consultant/Contractor appointments','Base-build drawings, tenancy layout, materials/equipment specs','Existing KAHRAMAA account details (if any)',]} /></div>
-                  <div className="scroll-trigger fade-up" style={{ transitionDelay: '0.4s' }}><InfoCard title="Why Choose Us" icon="fa-star" items={['Local authority specialists with proven relationships and submission templates','One team covering Architecture, MEP, Structural, and Fire—fewer iterations','Transparent tracking & weekly status reports until certificate in hand',]} /></div>
-                </div>
-              </div>
-
-              <hr style={{margin: '80px 0', border: 'none', borderTop: '1px solid #eee'}} />
-
-              <div className="service-main-content scroll-trigger fade-up">
-                <h2 className="section-title" style={{textAlign: 'center'}}>BIM & 3D Visualization</h2>
-                <p>We deliver coordinated, constructible BIM models and photorealistic visuals that cut rework, speed approvals, and help clients make faster decisions. From LOD-defined authoring to clash detection, 4D/5D planning, and VR walk-throughs, our team supports projects across design, tender, construction, and handover.</p>
-                <p>We work to ISO 19650 principles with IFC-based exchange and clear model responsibilities, ensuring smooth coordination between Architecture, Structure, and MEP—and alignment with Qatar authority requirements (Baladiya/QCDD submissions, KAHRAMAA loads, as-built deliverables).</p>
-              </div>
-
-              <div className="service-subsection scroll-trigger fade-up">
-                <h3 className="service-subsection-title scroll-trigger fade-up">Our BIM & 3D Visualization Services</h3>
-                <ul className="service-list" style={{columnCount: 2}}>
-                    {bimServices.map((service, index) => (
-                        <li className="scroll-trigger fade-up" key={index} style={{ transitionDelay: `${index * 0.05}s` }}>
-                            <i className="fas fa-check-circle" aria-hidden="true"></i><span>{service}</span>
-                        </li>
-                    ))}
-                </ul>
-              </div>
-
-              <ProcessStepper title="Our BIM Workflow" steps={bimWorkflowSteps} />
-              
-              <div className="service-subsection scroll-trigger fade-up" style={{ transitionDelay: '0.2s' }}>
-                <div className="info-grid" style={{alignItems: 'start'}}>
-                    <div className="scroll-trigger fade-up" style={{ transitionDelay: '0.1s' }}>
-                        <InfoCard title="Software Stack" icon="fa-cubes-stacked">
-                            <div className="software-stack">
-                                {softwareStack.map(item => <span className="software-item" key={item}>{item}</span>)}
+                <div className="service-subsection">
+                    <h2 className="section-title scroll-trigger fade-up" style={{textAlign: 'center'}}>Integrated BIM Services</h2>
+                     <div className="info-grid">
+                        <InfoCard title="Software Stack" icon="fa-cogs">
+                             <div className="software-stack">
+                                {softwareStack.map((item) => <span className="software-item" key={item}>{item}</span>)}
                             </div>
                         </InfoCard>
+                        {bimServicesCards.map((card, index) => (
+                           <InfoCard key={index} title={card.title} icon={card.icon} items={card.items} />
+                        ))}
                     </div>
-                    <div className="scroll-trigger fade-up" style={{ transitionDelay: '0.2s' }}><InfoCard title="Typical Deliverables" icon="fa-file-zipper" items={['Federated RVT/NWD & IFC models, discipline models','Coordination reports & clash matrices, issue tracker','2D sheets (plans/sections/details), shop drawings','QTO/BoQ extracts; 4D simulations; cost snapshots','High-resolution stills, animations, web/VR walkthroughs','As-builts and COBie asset registers for FM']} /></div>
-                    <div className="scroll-trigger fade-up" style={{ transitionDelay: '0.3s' }}><InfoCard title="Benefits" icon="fa-thumbs-up" items={['Fewer site clashes & variations (early detection)','Faster approvals via clear, authority-ready outputs','Transparent cost & time with 4D/5D visibility','Better client buy-in using visuals & VR reviews']} /></div>
-                    <div className="scroll-trigger fade-up" style={{ transitionDelay: '0.4s' }}><InfoCard title="What We Need From You" icon="fa-clipboard-check" items={['Base-build drawings/surveys, project brief, brand/material palette','Agreed schedule/cost data for 4D/5D (when applicable)','Contractor/consultant appointments & CDE access']} /></div>
                 </div>
-              </div>
-
             </div>
           </section>
 
