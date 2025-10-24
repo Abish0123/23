@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef, memo, createContext, useContext, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -169,7 +168,7 @@ const blogPageData = {
             'At the forefront of this movement is mass timber, particularly Cross-Laminated Timber (CLT). CLT panels are made by gluing layers of solid-sawn lumber together at right angles, creating a product that is exceptionally strong, lightweight, and dimensionally stable. It can replace concrete and steel in many applications, significantly reducing the carbon footprint of a building. As a renewable resource, timber sequesters carbon throughout its life, making it a key player in the fight against climate change.',
             'Beyond timber, a host of innovative materials are gaining traction. Bamboo, a rapidly renewable grass, offers incredible tensile strength. Recycled steel reduces the energy-intensive process of virgin steel production. Hempcrete, a mixture of hemp fibers and lime, is a carbon-negative insulation material. Even more futuristic materials like mycelium (the root structure of fungi) are being explored to grow bricks and insulation with minimal environmental impact.',
             'Choosing the right material involves more than just its origin. A Life Cycle Assessment (LCA) is a crucial tool that evaluates the environmental impact of a material from cradle to grave—from raw material extraction through manufacturing, use, and eventual disposal or recycling. This holistic view ensures that we make informed decisions that genuinely reduce a project\'s overall environmental footprint.',
-            'At Taj Consultancy, we are deeply committed to integrating sustainable materials and practices into our projects. We believe that thoughtful material selection is fundamental to creating resilient, healthy, and environmentally responsible buildings that will stand the test of time and contribute positively to our planet\'s future.',
+            'At Taj Design Consult, we are deeply committed to integrating sustainable materials and practices into our projects. We believe that thoughtful material selection is fundamental to creating resilient, healthy, and environmentally responsible buildings that will stand the test of time and contribute positively to our planet\'s future.',
         ],
     },
     '/blog-minimalism-light.html': {
@@ -282,14 +281,13 @@ const WhatsAppChatWidget = () => (
     </a>
 );
 
-// @Fix: Converted AppLink to use React.forwardRef to properly handle refs passed from parent components like Header.
-const AppLink = React.forwardRef<HTMLAnchorElement, {
+const AppLink = ({ href, className = '', children, onClick, ...props }: {
   href: string;
   className?: string;
   children: React.ReactNode;
   onClick?: MouseEventHandler<HTMLAnchorElement>;
   [key: string]: any;
-}>(({ href, className = '', children, onClick, ...props }, ref) => {
+}) => {
     const isToggle = href === '#';
 
     const handleClick: MouseEventHandler<HTMLAnchorElement> = (e) => {
@@ -304,7 +302,6 @@ const AppLink = React.forwardRef<HTMLAnchorElement, {
 
     return (
         <a
-            ref={ref}
             href={href}
             className={className}
             onClick={onClick ? handleClick : undefined}
@@ -313,8 +310,7 @@ const AppLink = React.forwardRef<HTMLAnchorElement, {
             {children}
         </a>
     );
-});
-
+};
 
 const MobileNav = ({ isOpen, onClose }) => {
     const [isServicesOpen, setIsServicesOpen] = useState(false);
@@ -375,7 +371,6 @@ const MobileNav = ({ isOpen, onClose }) => {
                          <li key={link.name}>
                              <AppLink 
                                 href={link.subLinks ? '#' : link.href} 
-                                // @Fix: Wrapped parameter-less event handlers in arrow functions to match expected signature.
                                 onClick={link.subLinks ? handleServicesToggle : onClose}
                                 aria-haspopup={!!link.subLinks}
                                 aria-expanded={link.subLinks ? isServicesOpen : undefined}
@@ -389,8 +384,7 @@ const MobileNav = ({ isOpen, onClose }) => {
                                  <ul id={`mobile-${link.name}-submenu`} className={`mobile-submenu ${isServicesOpen ? 'open' : ''}`} aria-hidden={!isServicesOpen}>
                                      {link.subLinks.map(subLink => (
                                          <li key={subLink.name}>
-                                            {/* @Fix: Wrapped parameter-less event handlers in arrow functions to match expected signature. */}
-                                            <AppLink href={subLink.href} onClick={() => onClose()}>
+                                            <AppLink href={subLink.href} onClick={onClose}>
                                                 {subLink.name}
                                             </AppLink>
                                         </li>
@@ -435,8 +429,7 @@ const Header = ({ theme }) => {
 
   useEffect(() => {
     if (isServicesDropdownOpen) {
-      // @Fix: Added explicit type to assist TypeScript's type inference.
-      const firstItem: HTMLAnchorElement | null = servicesDropdownContainerRef.current?.querySelector('.dropdown-menu a');
+      const firstItem = servicesDropdownContainerRef.current?.querySelector<HTMLAnchorElement>('.dropdown-menu a');
       firstItem?.focus();
     }
   }, [isServicesDropdownOpen]);
@@ -479,9 +472,8 @@ const Header = ({ theme }) => {
   };
   
   const handleDropdownItemKeyDown = (e: React.KeyboardEvent<HTMLAnchorElement>) => {
-    // @Fix: Added explicit type to assist TypeScript's type inference.
-    const items: HTMLAnchorElement[] = Array.from(
-      servicesDropdownContainerRef.current?.querySelectorAll('.dropdown-link-item') || []
+    const items = Array.from(
+      servicesDropdownContainerRef.current?.querySelectorAll<HTMLAnchorElement>('.dropdown-link-item') || []
     );
     const currentIndex = items.indexOf(e.currentTarget);
 
@@ -553,7 +545,7 @@ const Header = ({ theme }) => {
       </nav>
       <div className="logo">
         <AppLink href="/index.html">
-          <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Consultancy Logo" className="logo-image" />
+          <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Design Consult Logo" className="logo-image" />
         </AppLink>
       </div>
       <button
@@ -587,7 +579,7 @@ const LeftSidebar = ({ pageName }) => {
         <a href="#" aria-label="LinkedIn"><i className="fab fa-linkedin-in" aria-hidden="true"></i></a>
       </div>
       <div className="sidebar-footer">
-        <p>© Taj Consultancy 2024. All rights reserved.</p>
+        <p>© Taj Design Consult 2024. All rights reserved.</p>
       </div>
     </aside>
   );
@@ -602,12 +594,12 @@ const Footer = () => {
             <div className="container">
                 <div className="footer-grid">
                     <div className="footer-item footer-logo scroll-trigger fade-up" style={{transitionDelay: '0.1s'}}>
-                        <div className="logo-text">Taj Consultancy</div>
+                        <div className="logo-text">Taj Design Consult</div>
                         <p>Our team takes over everything, from an idea and concept development to realization. We believe in traditions and incorporate them within our innovations.</p>
                          <div className="footer-contact-info">
                             <p><i className="fas fa-phone" aria-hidden="true"></i> <a href="tel:+97477123400">+974 7712 3400</a></p>
                             <p><i className="fas fa-envelope" aria-hidden="true"></i> <a href="mailto:info@tajdc.com">info@tajdc.com</a></p>
-                            <p><i className="fas fa-map-marker-alt" aria-hidden="true"></i> 14th floor, Al Jazeera tower, Westbay, Doha Qatar</p>
+                            <p><i className="fas fa-map-marker-alt" aria-hidden="true"></i> 14th floor, Al Jazeera tower, Westbay, Doha, Qatar</p>
                         </div>
                     </div>
                     <div className="footer-item scroll-trigger fade-up" style={{transitionDelay: '0.2s'}}>
@@ -616,7 +608,7 @@ const Footer = () => {
                     </div>
                 </div>
                 <div className="copyright-section">
-                    <span>2024 © Taj Consultancy. All rights reserved.</span>
+                    <span>2024 © Taj Design Consult. All rights reserved.</span>
                     <button className="to-top" onClick={scrollToTop} aria-label="Scroll back to top">To Top ↑</button>
                 </div>
             </div>
@@ -925,29 +917,76 @@ const TestimonialsCarousel = ({ testimonials }) => {
 };
 
 const ClientsCarousel = () => {
+    const [logosPerPage, setLogosPerPage] = useState(6);
+    const [isPaused, setIsPaused] = useState(false);
     const clientLogos = [
-        { url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPTwxAXnyJ94XVj2GIYoPuZtQ0I5MJGpmreA&s", name: "Ministry of Interior, Qatar", isLarge: true },
-        { url: "https://www.trustlinkqatar.com/assets/images/trustlinkqatar-logo-colored.png", name: "TrustLink Qatar" },
-        { url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRayiNTv2-vuoIvjHtg0Y0TwwUX0ZzaPTqT5g&s", name: "Qatar Foundation" },
-        { url: "https://pbs.twimg.com/profile_images/1508776406137856008/57PHPv7w_400x400.jpg", name: "Kahramaa" },
+        "https://amecdesign.com/wp-content/uploads/2024/01/rose-sweet.jpg", "https://amecdesign.com/wp-content/uploads/2024/01/papa-johns.jpg",
+        "https://amecdesign.com/wp-content/uploads/2024/01/madi.jpg", "https://amecdesign.com/wp-content/uploads/2024/01/Loydence.jpg",
+        "https://amecdesign.com/wp-content/uploads/2024/01/holiday-villa.jpeg", "https://amecdesign.com/wp-content/uploads/2024/01/dipndip.jpg",
+        "https://amecdesign.com/wp-content/uploads/2024/01/almana.jpg", "https://amecdesign.com/wp-content/uploads/2024/01/Adwar.jpg",
+        "https://amecdesign.com/wp-content/uploads/2024/01/AAC.jpg", "https://amecdesign.com/wp-content/uploads/2024/01/Macdonald2.jpg",
+        "https://amecdesign.com/wp-content/uploads/2024/01/mavi-bonjuk2.jpg", "https://amecdesign.com/wp-content/uploads/2024/01/talabat2.jpg"
     ];
     
-    // Duplicate logos for seamless scrolling effect
-    const duplicatedLogos = [...clientLogos, ...clientLogos, ...clientLogos, ...clientLogos];
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth <= 576) setLogosPerPage(3);
+            else if (window.innerWidth <= 992) setLogosPerPage(4);
+            else setLogosPerPage(6);
+        };
+        handleResize(); window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+    
+    const totalPages = logosPerPage > 0 ? Math.ceil(clientLogos.length / logosPerPage) : 0;
+    const [currentPage, setCurrentPage] = useState(0);
+
+    useEffect(() => { setCurrentPage(0); }, [totalPages]);
+    
+    useEffect(() => {
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion || totalPages <= 1) return;
+        const timer = setInterval(() => { if (!isPaused) setCurrentPage(prev => (prev + 1) % totalPages); }, 3000);
+        return () => clearInterval(timer);
+    }, [totalPages, isPaused]);
+
+    const transformValue = `translateX(-${currentPage * 100}%)`;
+    const logoPages = [];
+    if (logosPerPage > 0) {
+        for (let i = 0; i < clientLogos.length; i += logosPerPage) {
+            logoPages.push(clientLogos.slice(i, i + logosPerPage));
+        }
+    }
+
+    const getClientNameFromUrl = (url: string) => {
+        try {
+            const fileName = url.substring(url.lastIndexOf('/') + 1);
+            const namePart = fileName.split('.')[0]; const name = namePart.replace(/\d+$/, '');
+            return name.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        } catch (e) { return `Client logo`; }
+    };
 
     return (
-        <div className="clients-scroller">
-            <div className="clients-scroller-inner">
-                {duplicatedLogos.map((logo, index) => (
-                    <div className={`client-logo ${logo.isLarge ? 'client-logo--large' : ''}`} key={index}>
-                        <img src={logo.url} alt={`${logo.name} Logo`} />
-                    </div>
-                ))}
+        <div className="clients-carousel" onMouseEnter={() => setIsPaused(true)} onMouseLeave={() => setIsPaused(false)} onFocus={() => setIsPaused(true)} onBlur={() => setIsPaused(false)}>
+            <button className="clients-carousel-pause-btn" onClick={() => setIsPaused(p => !p)} aria-label={isPaused ? "Play clients carousel" : "Pause clients carousel"}>
+              <i className={`fas ${isPaused ? 'fa-play' : 'fa-pause'}`} aria-hidden="true"></i>
+            </button>
+            <div className="clients-carousel-wrapper">
+                <div className="clients-track" style={{ width: `${totalPages * 100}%`, transform: transformValue }}>
+                    {logoPages.map((page, pageIndex) => (
+                        <div className="clients-grid" key={pageIndex}>
+                             {page.map((logo, logoIndex) => (
+                                <div key={logoIndex} className="client-logo">
+                                    <img src={logo} alt={`${getClientNameFromUrl(logo)} Logo`} />
+                                </div>
+                            ))}
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     );
 };
-
 
 const ProjectGalleryModal = ({ project, onClose }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -1019,6 +1058,13 @@ const ProjectGalleryModal = ({ project, onClose }) => {
                     <h3 id="modal-title" className="modal-title">{project.title}</h3>
                     <p className="modal-location"><i className="fas fa-map-marker-alt" aria-hidden="true"></i> {project.location}</p>
                     <p className="modal-description">{project.description}</p>
+                     {project.challengesAndSolutions && (
+                        <div className="challenges-solutions">
+                            <h4>Key Challenges &amp; Solutions</h4>
+                            <p><strong>Challenge:</strong> {project.challengesAndSolutions.challenge}</p>
+                            <p><strong>Solution:</strong> {project.challengesAndSolutions.solution}</p>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
@@ -1076,24 +1122,28 @@ const HomePage = () => {
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224706/WhatsApp_Image_2025-10-22_at_23.46.06_e814e5d0_uqphxj.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224698/WhatsApp_Image_2025-10-22_at_23.46.07_714b8d87_1_eljwpn.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224698/WhatsApp_Image_2025-10-22_at_23.46.07_d6db18c5_tovqbt.png'
-      ]
+      ],
+      challengesAndSolutions: {
+        challenge: 'Integrating the client’s strong brand identity into a compact office space while adhering to a very tight project timeline.',
+        solution: 'We employed a fast-track project management approach and developed custom-designed joinery and branding elements that were fabricated off-site. This parallel workflow allowed for seamless integration on-site, saving time and ensuring a high-quality finish that perfectly matched the brand aesthetic.'
+      }
     },
     { 
       title: 'World Wide Business Center',
       meta: 'Design and Supervision of Office Interior',
       location: 'D Ring Road',
       description: 'World Wide Business Center — a 2,000 sqm office interior designed and supervised by our team — blends elegant aesthetics with high functionality, featuring a welcoming reception, multiple meeting rooms, a fully equipped conference room, collaborative zones, and a dedicated games area.',
-      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304504/_DSC9859_sx03dr.jpg',
+      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761148974/Screenshot_2025-10-22_212932_uarlk8.png',
       gallery: [
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304504/_DSC9859_sx03dr.jpg',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304501/_DSC9888_rkhjis.jpg',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304500/_DSC9901_beo4mx.jpg',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304500/_DSC9872_oskp3y.jpg',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304498/_DSC9893_ocqnlg.jpg',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304498/_DSC9870_hyaor0.jpg',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304498/_DSC9799_trlsr9.jpg',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304497/_DSC9866_aq8w9n.jpg'
-      ]
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761148974/Screenshot_2025-10-22_212932_uarlk8.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233154/Screenshot_2025-10-23_205440_v03f6p.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233154/Screenshot_2025-10-23_205523_gnzr9l.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233156/Screenshot_2025-10-23_205416_azvx5j.png'
+      ],
+      challengesAndSolutions: {
+        challenge: 'Creating distinct functional zones within a large, 2,000 sqm open-plan space without sacrificing the feeling of openness and collaboration, while also managing acoustic privacy.',
+        solution: 'Strategic space zoning was achieved using custom glass partitions, varied flooring materials, and suspended acoustic ceiling panels. This defined areas like meeting rooms and collaborative zones while maintaining visual connectivity. Premium materials and an integrated smart lighting system ensured a cohesive, high-end aesthetic throughout.'
+      }
     },
     { 
       title: 'Al Jabor Building',
@@ -1104,14 +1154,18 @@ const HomePage = () => {
       gallery: [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233291/Screenshot_2025-10-23_205736_iddw10.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233292/Screenshot_2025-10-23_205706_h6f2z7.png'
-      ]
+      ],
+      challengesAndSolutions: {
+        challenge: 'Reconfiguring an existing building structure to meet modern commercial demands required navigating a complex web of regulatory approvals for change-of-use and structural modifications.',
+        solution: 'Our in-house approvals team conducted a thorough pre-design compliance check and maintained close liaison with both QCDD and Baladiya authorities. By producing meticulously detailed, code-compliant drawings and proactively addressing potential issues, we were able to fast-track the permitting process, saving the client significant time and avoiding costly delays.'
+      }
     }
   ];
 
   const testimonials = [
     { quote: "The design was flawless. Their attention to detail and coordination saved us significant time and budget on our high-rise project.", author: "Project Manager, High-Rise Development", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&h=500&auto=format&fit=crop&q=60", },
     { quote: "The supervision and management for our villa were exceptional. The team was professional, transparent, and delivered beyond our expectations.", author: "Private Villa Owner, Doha", image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=500&h=500&auto=format&fit=crop&q=60", },
-    { quote: "Their innovative approach to engineering challenges is commendable. Taj Consultancy is a reliable partner for any complex construction endeavor.", author: "Lead Architect, Hospitality Project", image: "https://images.unsplash.com/photo-1556157382-97eda2d62296?w=500&h=500&auto=format&fit=crop&q=60", }
+    { quote: "Their innovative approach to engineering challenges is commendable. Taj Design Consult is a reliable partner for any complex construction endeavor.", author: "Lead Architect, Hospitality Project", image: "https://images.unsplash.com/photo-1556157382-97eda2d62296?w=500&h=500&auto=format&fit=crop&q=60", }
   ];
 
   const processSteps = [
@@ -1132,9 +1186,9 @@ const HomePage = () => {
   ];
 
   const sectors = [
-    { name: 'Private Sector', icon: 'fas fa-building' }, { name: 'Refurbishment & Small Works', icon: 'fas fa-hammer' }, { name: 'Commercial & Mixed-Use', icon: 'fas fa-store-alt' }, 
-    { name: 'Residential', icon: 'fas fa-home' }, { name: 'Industrial', icon: 'fas fa-industry' }, { name: 'Sports & Entertainment', icon: 'fas fa-futbol' }, 
-    { name: 'Hospitality & Leisure', icon: 'fas fa-concierge-bell' }, { name: 'Education & Healthcare', icon: 'fas fa-graduation-cap' }, { name: 'Government & Public Sector', icon: 'fas fa-landmark' },
+    { name: 'Government & Public Sector', icon: 'fas fa-landmark' }, { name: 'Commercial & Mixed-Use', icon: 'fas fa-store-alt' }, { name: 'Residential', icon: 'fas fa-home' },
+    { name: 'Industrial', icon: 'fas fa-industry' }, { name: 'Sports & Entertainment', icon: 'fas fa-futbol' }, { name: 'Hospitality & Leisure', icon: 'fas fa-concierge-bell' },
+    { name: 'Education & Healthcare', icon: 'fas fa-graduation-cap' },
   ];
 
   const blogPosts = [
@@ -1248,7 +1302,7 @@ const HomePage = () => {
                          <h2 className="section-title scroll-trigger fade-up">Some Interesting <strong>Facts</strong></h2>
                     </div>
                     <div className="facts-text">
-                        <p className="scroll-trigger fade-up" style={{transitionDelay: '0.1s'}}><strong>Taj Consultancy</strong> operates on the belief that evidence-led design and technical precision create lasting value.</p>
+                        <p className="scroll-trigger fade-up" style={{transitionDelay: '0.1s'}}><strong>Taj Design Consult</strong> operates on the belief that evidence-led design and technical precision create lasting value.</p>
                         <p className="scroll-trigger fade-up" style={{transitionDelay: '0.2s'}}>Our integrated teams bring together architecture, interiors, landscape, and urban design under one roof — ensuring seamless collaboration and faster delivery.</p>
                          <div className="facts-counters">
                             <div className="counter-item scroll-trigger fade-up" style={{ transitionDelay: '0.3s' }}>
