@@ -583,7 +583,7 @@ const ProjectGalleryModal = ({ project, onClose }) => {
                 <button onClick={onClose} className="project-modal-close" aria-label="Close project gallery">&times;</button>
                 <div className="project-modal-gallery">
                     <div className="gallery-main-image">
-                        <img src={project.gallery[currentIndex]} alt={`Image ${currentIndex + 1} of ${project.gallery.length} for project: ${project.title}`} />
+                        <img src={project.gallery[currentIndex]} alt={`${project.title} - Image ${currentIndex + 1}`} />
                     </div>
                     {project.gallery.length > 1 && (
                         <>
@@ -597,7 +597,7 @@ const ProjectGalleryModal = ({ project, onClose }) => {
                                       onClick={() => setCurrentIndex(index)}
                                       aria-label={`View image ${index + 1}`}
                                     >
-                                        <img src={img} alt={`Thumbnail of image ${index + 1} for ${project.title}`} />
+                                        <img src={img} alt={`Thumbnail ${index + 1}`} />
                                     </button>
                                 ))}
                             </div>
@@ -652,7 +652,7 @@ const WorksPage = () => {
                                       <h3>{item.title}</h3>
                                       <button className="view-projects-btn" aria-label={`View project details for ${item.title}`}>View Project</button>
                                   </div>
-                                  <img src={item.mainImage} alt={item.description} />
+                                  <img src={item.mainImage} alt={item.title} />
                               </div>
                               <div className="work-info">
                                   <p className="meta">{item.meta}</p>
