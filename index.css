@@ -1262,10 +1262,10 @@
   }
   
   .work-image img {
-      width: 100%;
-      transform: scale(1.15) translateY(var(--parallax-y, 0px));
-      transition: transform 0.1s linear;
-      will-change: transform;
+    width: 100%;
+    transform: translateY(var(--parallax-y, 0px));
+    transition: transform 0.4s ease-out;
+    will-change: transform;
   }
   
   .work-info {
@@ -1854,9 +1854,9 @@
 
 @media (hover: hover) and (pointer: fine) {
     .explore-btn:hover {
-      background-color: black;
-      color: #fff;
-      border-color: #fff;
+      background-color: var(--accent-color);
+      color: #000;
+      border-color: var(--accent-color);
       box-shadow: 0 0 10px var(--accent-color), 0 0 25px var(--accent-color);
       transform: translateY(-2px);
     }
@@ -1915,6 +1915,9 @@
     #works .work-item:hover .grid {
         background-color: rgba(34, 34, 34, 0.7);
         border-color: #444;
+    }
+    .work-image:hover img {
+        transform: scale(1.05) translateY(var(--parallax-y, 0px));
     }
     .work-image:hover .work-title-overlay {
         transform: translateY(0);
