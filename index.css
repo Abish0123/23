@@ -645,15 +645,14 @@
     display: inline-block;
     margin-top: 30px;
     padding: 12px 30px;
-    background-color: #000;
-    color: var(--accent-color);
+    background-color: var(--accent-color);
+    color: var(--text-dark);
     text-decoration: none;
     text-transform: uppercase;
     font-size: 14px;
     letter-spacing: 2px;
     border: 1px solid var(--accent-color);
     transition: all 0.3s ease;
-    box-shadow: 0 0 10px rgba(212, 175, 55, 0.7);
     font-weight: 700;
   }
   
@@ -1854,10 +1853,11 @@
 
 @media (hover: hover) and (pointer: fine) {
     .explore-btn:hover {
-        color: #fff;
-        background-color: #000;
-        box-shadow: 0 0 15px var(--accent-color), 0 0 25px var(--accent-color);
-        text-shadow: 0 0 5px #fff;
+      background-color: #eab940;
+      color: var(--text-dark);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transform: translateY(-2px);
+      text-shadow: none;
     }
     .social-icons a:hover {
         color: var(--accent-color);
