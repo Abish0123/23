@@ -557,8 +557,10 @@ const ProjectGalleryModal = ({ project, onClose }) => {
                 else if (e.key === 'Tab') {
                      const focusableElements = modalRef.current?.querySelectorAll<HTMLElement>('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
                     if (!focusableElements || focusableElements.length === 0) return;
-                    const firstElement = focusableElements[0];
-                    const lastElement = focusableElements[focusableElements.length - 1];
+                    // @Fix: Added explicit type to assist TypeScript's type inference.
+                    const firstElement: HTMLElement = focusableElements[0];
+                    // @Fix: Added explicit type to assist TypeScript's type inference.
+                    const lastElement: HTMLElement = focusableElements[focusableElements.length - 1];
                     if (e.shiftKey) { if (document.activeElement === firstElement) { lastElement.focus(); e.preventDefault(); }}
                     else { if (document.activeElement === lastElement) { firstElement.focus(); e.preventDefault(); }}
                 }
@@ -647,13 +649,13 @@ const WorksPage = () => {
                   {workItems.map((item, index) => (
                       <div className={`work-item ${index % 2 === 1 ? 'reverse' : ''} scroll-trigger fade-up`} key={index}>
                           <div className="grid">
-                               <div className="work-image" onClick={() => setSelectedProject(item)}>
+                               <button className="work-image" onClick={() => setSelectedProject(item)} aria-label={`View project details for ${item.title}`}>
                                   <div className="work-title-overlay">
                                       <h3>{item.title}</h3>
-                                      <button className="view-projects-btn" aria-label={`View project details for ${item.title}`}>View Project</button>
+                                      <span className="view-projects-btn" aria-hidden="true">View Project</span>
                                   </div>
-                                  <img src={item.mainImage} alt={item.title} />
-                              </div>
+                                  <img src={item.mainImage} alt={`A photo of the ${item.title} project.`} />
+                              </button>
                               <div className="work-info">
                                   <p className="meta">{item.meta}</p>
                                   <h3 className="work-title"><strong>{item.title}</strong></h3>
