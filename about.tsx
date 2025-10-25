@@ -292,7 +292,7 @@ const Header = ({ theme }) => {
       </nav>
       <div className="logo">
         <AppLink href="/index.html">
-          <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Design Consult Logo" className="logo-image" />
+          <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Design Consultancy Logo" className="logo-image" />
         </AppLink>
       </div>
       <button
@@ -326,7 +326,7 @@ const LeftSidebar = () => {
         <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i className="fab fa-linkedin-in" aria-hidden="true"></i></a>
       </div>
       <div className="sidebar-footer">
-        <p>© Taj Design Consult 2024. All rights reserved.</p>
+        <p>© Taj Design Consultancy 2024. All rights reserved.</p>
       </div>
     </aside>
   );
@@ -500,7 +500,7 @@ const Footer = () => {
             <WaveAnimation />
             <div className="container">
                 <div className="copyright-section">
-                    <span>2024 © Taj Design Consult. All rights reserved.</span>
+                    <span>2024 © Taj Design Consultancy. All rights reserved.</span>
                     <button className="to-top" onClick={scrollToTop} aria-label="Scroll back to top">To Top ↑</button>
                 </div>
             </div>
@@ -536,7 +536,7 @@ const AboutPage = () => {
   return (
     <>
       <section id="about-hero" className="about-hero-section scroll-trigger fade-up">
-        <h1>About <strong>Taj Design Consult</strong></h1>
+        <h1>About <strong>Taj Design Consultancy </strong></h1>
       </section>
 
       <section id="who-we-are" className="content-section">
@@ -545,7 +545,7 @@ const AboutPage = () => {
                 <div className="about-main-content scroll-trigger fade-up" style={{transitionDelay: '0.1s'}}>
                     <h2 className="section-title">Who <strong>We Are</strong></h2>
                     <p>
-                        Established with a vision to redefine the architectural and engineering landscape in Qatar, Taj Design Consult is a premier multidisciplinary consultancy firm. We are a collective of passionate architects, engineers, project managers, and sustainability experts dedicated to creating spaces that are not only aesthetically compelling but also functionally robust and environmentally responsible.
+                        Established with a vision to redefine the architectural and engineering landscape in Qatar, Taj Design Consultancy is a premier multidisciplinary consultancy firm. We are a collective of passionate architects, engineers, project managers, and sustainability experts dedicated to creating spaces that are not only aesthetically compelling but also functionally robust and environmentally responsible.
                     </p>
                     <p>
                         Our portfolio spans a diverse range of sectors, including commercial, residential, hospitality, and public infrastructure. At the core of our philosophy is a commitment to evidence-led design, where every decision is informed by rigorous analysis, technical precision, and a deep understanding of our clients' aspirations. We pride ourselves on turning ambitious ideas into tangible, high-quality realities, delivered on time and within budget.
