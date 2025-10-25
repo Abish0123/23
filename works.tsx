@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect, useRef, memo, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -647,13 +648,13 @@ const WorksPage = () => {
                   {workItems.map((item, index) => (
                       <div className={`work-item ${index % 2 === 1 ? 'reverse' : ''} scroll-trigger fade-up`} key={index}>
                           <div className="grid">
-                               <div className="work-image" onClick={() => setSelectedProject(item)}>
-                                  <div className="work-title-overlay">
+                               <button className="work-image" onClick={() => setSelectedProject(item)} aria-label={`View project details for ${item.title}`}>
+                                  <div className="work-title-overlay" aria-hidden="true">
                                       <h3>{item.title}</h3>
-                                      <button className="view-projects-btn" aria-label={`View project details for ${item.title}`}>View Project</button>
+                                      <span className="view-projects-btn">View Project</span>
                                   </div>
                                   <img src={item.mainImage} alt={item.title} />
-                              </div>
+                              </button>
                               <div className="work-info">
                                   <p className="meta">{item.meta}</p>
                                   <h3 className="work-title"><strong>{item.title}</strong></h3>
