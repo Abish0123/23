@@ -645,15 +645,15 @@
     display: inline-block;
     margin-top: 30px;
     padding: 12px 30px;
-    background-color: var(--accent-color);
-    color: var(--text-dark);
+    background-color: #000;
+    color: var(--accent-color);
     text-decoration: none;
     text-transform: uppercase;
     font-size: 14px;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     border: 1px solid var(--accent-color);
     transition: all 0.3s ease;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.7);
     font-weight: 700;
   }
   
@@ -1853,24 +1853,20 @@
   }
 
 @media (hover: hover) and (pointer: fine) {
+    .explore-btn:hover {
+        color: #fff;
+        background-color: #000;
+        box-shadow: 0 0 15px var(--accent-color), 0 0 25px var(--accent-color);
+        text-shadow: 0 0 5px #fff;
+    }
     .social-icons a:hover {
         color: var(--accent-color);
         text-shadow: var(--accent-color-shadow);
     }
-    .app-header.on-dark .main-nav a:hover, .app-header.on-dark .main-nav a:focus { color: var(--accent-color); text-shadow: var(--accent-color-shadow); outline: none; }
-    .app-header.on-light .main-nav a:hover, .app-header.on-light .main-nav a:focus { color: var(--accent-color); text-shadow: none; }
-    .main-nav a:hover::after, .main-nav a:focus::after { width: 100%; }
-    .app-header.on-dark .dropdown-link-item:hover, .app-header.on-dark .dropdown-link-item:focus { background-color: rgba(255, 255, 255, 0.08); color: #fff; }
-    .app-header.on-light .dropdown-link-item:hover, .app-header.on-light .dropdown-link-item:focus { background-color: #f0f0f0; color: #111; }
     .mobile-submenu li a:hover { color: var(--accent-color); }
     .scroll-down-indicator:hover {
         opacity: 1;
         text-shadow: var(--accent-color-shadow-small);
-    }
-    .explore-btn:hover {
-        background-color: transparent;
-        color: var(--accent-color);
-        box-shadow: var(--accent-color-shadow-small);
     }
     .about-image:hover::after { opacity: 1; }
     .about-image:hover img { transform: scale(1.05); }
