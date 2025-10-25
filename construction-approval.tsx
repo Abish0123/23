@@ -650,7 +650,7 @@ const ServicePage = () => {
       <div className="main-container">
         <LeftSidebar />
         <main className="main-content" id="main-content" tabIndex={-1}>
-          <section className="service-hero-section scroll-trigger fade-up" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1563291074-2bf8677ac0e5?w=1200&auto.format&fit=crop&q=60')` }}>
+          <section className="service-hero-section scroll-trigger fade-up" style={{ backgroundImage: `url('https://media.licdn.com/dms/image/v2/D5612AQEPHDa_jIUW7Q/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1697475482996?e=2147483647&v=beta&t=W5MXkjDsRTLPnFm86_9pZBlOevq4E3AXCRzXbk8rFZc')` }}>
             <div className="container">
               <h1 className="scroll-trigger fade-up" style={{transitionDelay: '0.1s'}}>Construction Approvals & <strong>BIM Services</strong></h1>
             </div>

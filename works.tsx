@@ -1,5 +1,4 @@
 
-
 import React, { useState, useEffect, useRef, memo, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -58,11 +57,41 @@ const workItems = [
       meta: 'Design and Municipality Approvals for Commercial Building',
       location: 'Al Hilal',
       description: 'Designed and delivered to meet the client’s specific requirements, this project involved a full interior reconfiguration of the commercial building based on a targeted market-demand analysis (tenant mix, unit sizing, amenities, and circulation). Our team developed code-compliant drawings, coordinated MEP/architectural details, and secured rapid approvals from QCDD and Baladiya in line with QCDD regulations—expediting the permitting path and enabling a faster time-to-market for the owner.',
-      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761313661/Untitled_opakzs.jpg',
+      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761425803/Untitled_16_x_9_in_2_aypzfx.png',
       gallery: [
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761313661/Untitled_opakzs.jpg',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233292/Screenshot_2025-10-23_205706_h6f2z7.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761313660/site_web_rlxcfy.jpg'
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761425803/Untitled_16_x_9_in_2_aypzfx.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761425803/Untitled_16_x_9_in_3_m7smfu.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761425803/Untitled_16_x_9_in_1_ht1iux.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761425806/Untitled_16_x_9_in_mi6glx.png'
+      ]
+    },
+    {
+      title: 'Legal office for Shaiek Jassim Al Thani',
+      meta: 'End-to-end interior design and fit-out supervision',
+      location: 'Westbay',
+      description: 'Interior design and supervision for turnkey fit-out works—covering concept to handover—with full life-safety compliance to QCDD/NFPA codes. Services include 3D renders and visualizations, coordinated MEP layouts, furniture and finishes selection, technical specifications, detailed BOQs, and on-site supervision/QA to ensure quality, budget control, and timely delivery.',
+      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761394147/10_gtnarf.png',
+      gallery: [
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761394147/10_gtnarf.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761394141/6_ypphq2.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761394138/5_qr7poc.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761394123/12_pqzmgc.png'
+      ]
+    },
+    { 
+      title: 'Al Jazeera Tower',
+      meta: 'End-to-end interior design and fit-out supervision',
+      location: 'Dafna',
+      description: 'Office space design, supervision, and photorealistic renders for a high-rise project in Dafna (4 floors)—including workplace planning, detailed interiors, coordinated MEP, QCDD/NFPA life-safety compliance, supervision for design compliance, adherence to tower standards/procedures, full snagging/rectification, QA/QC, and handover—plus contractor pre-qualification and selection, tendering support, quotation/bid evaluation with comparative summaries, value engineering, and award recommendations.',
+      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761403731/WhatsApp_Image_2025-05-10_at_15.22.46_2_k989qm.jpg',
+      gallery: [
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761403731/WhatsApp_Image_2025-05-10_at_15.22.46_2_k989qm.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761403730/WhatsApp_Image_2025-05-06_at_22.26.44_gutr4h.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761403729/WhatsApp_Image_2025-05-03_at_22.27.08_ieb0bh.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761403729/WhatsApp_Image_2025-05-03_at_22.27.08_4_jdxyiq.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761403729/WhatsApp_Image_2025-05-06_at_21.44.35_2_ada0bu.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761403728/WhatsApp_Image_2025-05-06_at_22.26.44_3_ohtele.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761403570/WhatsApp_Image_2025-05-03_at_22.27.08_2_fnf82u.jpg'
       ]
     }
 ];
