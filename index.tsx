@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect, useRef, memo, createContext, useContext, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -169,7 +170,7 @@ const blogPageData = {
             'At the forefront of this movement is mass timber, particularly Cross-Laminated Timber (CLT). CLT panels are made by gluing layers of solid-sawn lumber together at right angles, creating a product that is exceptionally strong, lightweight, and dimensionally stable. It can replace concrete and steel in many applications, significantly reducing the carbon footprint of a building. As a renewable resource, timber sequesters carbon throughout its life, making it a key player in the fight against climate change.',
             'Beyond timber, a host of innovative materials are gaining traction. Bamboo, a rapidly renewable grass, offers incredible tensile strength. Recycled steel reduces the energy-intensive process of virgin steel production. Hempcrete, a mixture of hemp fibers and lime, is a carbon-negative insulation material. Even more futuristic materials like mycelium (the root structure of fungi) are being explored to grow bricks and insulation with minimal environmental impact.',
             'Choosing the right material involves more than just its origin. A Life Cycle Assessment (LCA) is a crucial tool that evaluates the environmental impact of a material from cradle to grave—from raw material extraction through manufacturing, use, and eventual disposal or recycling. This holistic view ensures that we make informed decisions that genuinely reduce a project\'s overall environmental footprint.',
-            'At Taj Design Consult, we are deeply committed to integrating sustainable materials and practices into our projects. We believe that thoughtful material selection is fundamental to creating resilient, healthy, and environmentally responsible buildings that will stand the test of time and contribute positively to our planet\'s future.',
+            'At Taj Design Consultancy, we are deeply committed to integrating sustainable materials and practices into our projects. We believe that thoughtful material selection is fundamental to creating resilient, healthy, and environmentally responsible buildings that will stand the test of time and contribute positively to our planet\'s future.',
         ],
     },
     '/blog-minimalism-light.html': {
@@ -553,7 +554,7 @@ const Header = ({ theme }) => {
       </nav>
       <div className="logo">
         <AppLink href="/index.html">
-          <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Design Consult Logo" className="logo-image" />
+          <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Design Consultancy Logo" className="logo-image" />
         </AppLink>
       </div>
       <button
@@ -587,7 +588,7 @@ const LeftSidebar = ({ pageName }) => {
         <a href="#" aria-label="LinkedIn"><i className="fab fa-linkedin-in" aria-hidden="true"></i></a>
       </div>
       <div className="sidebar-footer">
-        <p>© Taj Design Consult 2024. All rights reserved.</p>
+        <p>© Taj Design Consultancy 2024. All rights reserved.</p>
       </div>
     </aside>
   );
@@ -602,7 +603,7 @@ const Footer = () => {
             <div className="container">
                 <div className="footer-grid">
                     <div className="footer-item footer-logo scroll-trigger fade-up" style={{transitionDelay: '0.1s'}}>
-                        <div className="logo-text">Taj Design Consult</div>
+                        <div className="logo-text">Taj Design Consultancy</div>
                         <p>Our team takes over everything, from an idea and concept development to realization. We believe in traditions and incorporate them within our innovations.</p>
                          <div className="footer-contact-info">
                             <p><i className="fas fa-phone" aria-hidden="true"></i> <a href="tel:+97477123400">+974 7712 3400</a></p>
@@ -616,7 +617,7 @@ const Footer = () => {
                     </div>
                 </div>
                 <div className="copyright-section">
-                    <span>2024 © Taj Design Consult. All rights reserved.</span>
+                    <span>2024 © Taj Design Consultancy. All rights reserved.</span>
                     <button className="to-top" onClick={scrollToTop} aria-label="Scroll back to top">To Top ↑</button>
                 </div>
             </div>
@@ -1110,7 +1111,7 @@ const HomePage = () => {
   const testimonials = [
     { quote: "The design was flawless. Their attention to detail and coordination saved us significant time and budget on our high-rise project.", author: "Project Manager, High-Rise Development", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&h=500&auto=format&fit=crop&q=60", },
     { quote: "The supervision and management for our villa were exceptional. The team was professional, transparent, and delivered beyond our expectations.", author: "Private Villa Owner, Doha", image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=500&h=500&auto=format&fit=crop&q=60", },
-    { quote: "Their innovative approach to engineering challenges is commendable. Taj Design Consult is a reliable partner for any complex construction endeavor.", author: "Lead Architect, Hospitality Project", image: "https://images.unsplash.com/photo-1556157382-97eda2d62296?w=500&h=500&auto=format&fit=crop&q=60", }
+    { quote: "Their innovative approach to engineering challenges is commendable. Taj Design Consultancy is a reliable partner for any complex construction endeavor.", author: "Lead Architect, Hospitality Project", image: "https://images.unsplash.com/photo-1556157382-97eda2d62296?w=500&h=500&auto=format&fit=crop&q=60", }
   ];
 
   const processSteps = [
@@ -1247,7 +1248,7 @@ const HomePage = () => {
                          <h2 className="section-title scroll-trigger fade-up">Some Interesting <strong>Facts</strong></h2>
                     </div>
                     <div className="facts-text">
-                        <p className="scroll-trigger fade-up" style={{transitionDelay: '0.1s'}}><strong>Taj Design Consult</strong> operates on the belief that evidence-led design and technical precision create lasting value.</p>
+                        <p className="scroll-trigger fade-up" style={{transitionDelay: '0.1s'}}><strong>Taj Design Consultancy</strong> operates on the belief that evidence-led design and technical precision create lasting value.</p>
                         <p className="scroll-trigger fade-up" style={{transitionDelay: '0.2s'}}>Our integrated teams bring together architecture, interiors, landscape, and urban design under one roof — ensuring seamless collaboration and faster delivery.</p>
                          <div className="facts-counters">
                             <div className="counter-item scroll-trigger fade-up" style={{ transitionDelay: '0.3s' }}>
@@ -1328,13 +1329,13 @@ const HomePage = () => {
                 {workItems.map((item, index) => (
                     <div className={`work-item ${index % 2 === 1 ? 'reverse' : ''} scroll-trigger fade-up`} key={index}>
                         <div className="grid">
-                             <div className="work-image" onClick={() => setSelectedProject(item)}>
-                                <div className="work-title-overlay">
+                             <button className="work-image" onClick={() => setSelectedProject(item)} aria-label={`View project details for ${item.title}`}>
+                                <div className="work-title-overlay" aria-hidden="true">
                                     <h3>{item.title}</h3>
-                                    <button className="view-projects-btn" aria-label={`View project details for ${item.title}`}>View Project</button>
+                                    <span className="view-projects-btn">View Project</span>
                                 </div>
                                 <img src={item.mainImage} alt={item.description} />
-                            </div>
+                            </button>
                             <div className="work-info">
                                 <p className="meta">{item.meta}</p>
                                 <h3 className="section-title" style={{marginBottom: '20px', fontSize: '28px'}}><strong>{item.title}</strong></h3>
