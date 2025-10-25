@@ -408,7 +408,7 @@ const Header = ({ theme }) => {
     <header className={headerClasses}>
       <div className="logo">
         <AppLink href="/index.html">
-          <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Design Consultancy Logo" className="logo-image" />
+          <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Design Consultancyancy Logo" className="logo-image" />
         </AppLink>
       </div>
       <nav className="main-nav" aria-label="Main navigation">
@@ -491,7 +491,7 @@ const LeftSidebar = ({ pageName }) => {
         <a href="#" aria-label="LinkedIn"><i className="fab fa-linkedin-in" aria-hidden="true"></i></a>
       </div>
       <div className="sidebar-footer">
-        <p>© Taj Design Consultancy 2024. All rights reserved.</p>
+        <p>© Taj Design Consultancyancy 2024. All rights reserved.</p>
       </div>
     </aside>
   );
@@ -561,7 +561,7 @@ const Footer = () => {
             <WaveAnimation />
             <div className="container">
                 <div className="copyright-section">
-                    <span>2024 © Taj Design Consultancy. All rights reserved.</span>
+                    <span>2024 © Taj Design Consultancyancy. All rights reserved.</span>
                     <button className="to-top" onClick={scrollToTop} aria-label="Scroll back to top">To Top ↑</button>
                 </div>
             </div>
