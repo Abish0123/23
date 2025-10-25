@@ -1,4 +1,3 @@
-
 :root {
   --dark-bg: #111111;
   --dark-bg-secondary: #1c1c1c;
@@ -459,14 +458,13 @@ html, body {
 .project-modal-gallery { position: relative; background: #000; display: flex; flex-direction: column; }
 .gallery-main-image {
   flex-grow: 1;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
   overflow-y: auto;
+  text-align: center;
 }
 .gallery-main-image img {
-  width: 100%;
+  max-width: 100%;
   height: auto;
+  display: inline-block;
 }
 .gallery-nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255, 255, 255, 0.1); border: none; color: white; font-size: 24px; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; transition: background-color 0.3s ease; z-index: 10; display: flex; align-items: center; justify-content: center; }
 .gallery-nav-btn:hover { background: var(--accent-color); }
