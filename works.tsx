@@ -1,491 +1,703 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QATAR EDUCATION LEADERSHIP EXPO 2026</title>
-    <link rel="stylesheet" href="index.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-</head>
-<body>
+import React, { useState, useEffect, useRef, memo, MouseEventHandler } from 'react';
+import { createRoot } from 'react-dom/client';
 
-    <header class="main-header" id="main-header">
-        <div class="container">
-            <a href="index.html" class="logo"><img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1761210698/logo500x250_i8opbv.png" alt="QELE 2026 Logo"></a>
-            <button class="nav-toggle" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="hamburger-box">
-                    <span class="hamburger-inner"></span>
-                </span>
-            </button>
-            <nav id="main-nav">
-                 <ul>
-                    <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="about.html" class="nav-link">About Expo</a></li>
-                    <li class="has-dropdown">
-                        <a href="#" class="nav-link">Visit <i class="fas fa-angle-down"></i></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="why-attend.html">Why Attend</a></li>
-                            <li><a href="plan-your-trip.html">Plan Your Trip</a></li>
-                        </ul>
-                    </li>
-                    <li class="has-dropdown">
-                        <a href="#" class="nav-link">For Students <i class="fas fa-angle-down"></i></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="universities.html">Student Registration</a></li>
-                            <li><a href="career-counselling.html">Career Counselling</a></li>
-                            <li><a href="workshops.html">Workshop Schedule</a></li>
-                        </ul>
-                    </li>
-                    <li class="has-dropdown">
-                        <a href="why-exhibit.html" class="nav-link">For Exhibitors <i class="fas fa-angle-down"></i></a>
-                         <ul class="dropdown-menu">
-                            <li><a href="why-exhibit.html">Why Exhibit</a></li>
-                            <li><a href="booth-features.html">Booth Features</a></li>
-                             <li><a href="booth-registration.html">Book Your Booth</a></li>
-                        </ul>
-                    </li>
-                    <li class="has-dropdown">
-                        <a href="sponsorship-tiers.html" class="nav-link">For Sponsors <i class="fas fa-angle-down"></i></a>
-                         <ul class="dropdown-menu">
-                            <li><a href="sponsorship-tiers.html">Sponsorship Tiers</a></li>
-                            <li><a href="brand-exposure.html">Brand Exposure</a></li>
-                            <li><a href="sponsorship-registration.html">Become a Sponsor</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+declare const gsap: any;
+
+// --- DATA & CONFIG ---
+
+const servicesSubLinks = [
+  { name: 'Architectural Design', href: 'architectural-design.html', icon: 'fas fa-archway' },
+  { name: 'Engineering Consultancy', href: 'engineering-consultancy.html', icon: 'fas fa-cogs' },
+  { name: 'Project Management Consultancy', href: 'project-management.html', icon: 'fas fa-tasks' },
+  { name: 'Sustainability & Energy', href: 'sustainability-energy.html', icon: 'fas fa-leaf' },
+  { name: 'Construction Approval', href: 'construction-approval.html', icon: 'fas fa-check-double' },
+];
+
+const navLinks = [
+  { name: 'Home', href: '/index.html' },
+  { name: 'About Us', href: '/about.html' },
+  { name: 'Works/Projects', href: '/works.html' },
+  { name: 'Services', href: '/index.html#our-services', subLinks: servicesSubLinks },
+  { name: 'Blog', href: '/index.html#blog' },
+  { name: 'Careers', href: '/careers.html' },
+  { name: 'Contact', href: '/contact.html' },
+];
+
+const workItems = [
+    { 
+      title: 'TrustLink office',
+      meta: 'Design and Build of Office Interior',
+      location: 'Bin Mahmoud',
+      description: 'We provide end-to-end office interior design and on-site supervision—covering space planning, materials and finishes, MEP coordination, and quality control—to deliver functional, branded workplaces on time and within budget. Our team manages contractors, shop drawings, and inspections, ensuring QCDD/NFPA and Baladiya compliance from concept to handover for a smooth, approval-ready fit-out.',
+      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224706/WhatsApp_Image_2025-10-22_at_23.46.06_e814e5d0_uqphxj.png',
+      gallery: [
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224706/WhatsApp_Image_2025-10-22_at_23.46.06_e814e5d0_uqphxj.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224698/WhatsApp_Image_2025-10-22_at_23.46.07_714b8d87_1_eljwpn.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224698/WhatsApp_Image_2025-10-22_at_23.46.07_d6db18c5_tovqbt.png'
+      ]
+    },
+    { 
+      title: 'World Wide Business Center',
+      meta: 'Design and Supervision of Office Interior',
+      location: 'D Ring Road',
+      description: 'World Wide Business Center — a 2,000 sqm office interior designed and supervised by our team — blends elegant aesthetics with high functionality, featuring a welcoming reception, multiple meeting rooms, a fully equipped conference room, collaborative zones, and a dedicated games area. Smart space planning, premium finishes, and coordinated MEP deliver a polished, efficient workplace, with on-site supervision ensuring quality control, safety, and timely approvals through to handover.',
+      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304504/_DSC9859_sx03dr.jpg',
+      gallery: [
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304504/_DSC9859_sx03dr.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304501/_DSC9888_rkhjis.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304500/_DSC9901_beo4mx.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304498/_DSC9870_hyaor0.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304498/_DSC9893_ocqnlg.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304497/_DSC9866_aq8w9n.jpg'
+      ]
+    },
+    {
+      title: 'Al Jabor Building',
+      meta: 'Design and Municipality Approvals for Commercial Building',
+      location: 'Al Hilal',
+      description: 'Designed and delivered to meet the client’s specific requirements, this project involved a full interior reconfiguration of the commercial building based on a targeted market-demand analysis (tenant mix, unit sizing, amenities, and circulation). Our team developed code-compliant drawings, coordinated MEP/architectural details, and secured rapid approvals from QCDD and Baladiya in line with QCDD regulations—expediting the permitting path and enabling a faster time-to-market for the owner.',
+      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761313661/Untitled_opakzs.jpg',
+      gallery: [
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761313661/Untitled_opakzs.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761233292/Screenshot_2025-10-23_205706_h6f2z7.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761313660/site_web_rlxcfy.jpg'
+      ]
+    }
+];
+
+// --- SHARED & LAYOUT COMPONENTS ---
+
+const SkipToContentLink = () => (
+    <a href="#main-content" className="skip-to-content-link">
+        Skip to main content
+    </a>
+);
+
+const CustomCursor = memo(() => {
+    const dotRef = useRef<HTMLDivElement>(null);
+    const outlineRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion) return;
+
+        const dot = dotRef.current;
+        const outline = outlineRef.current;
+        if (!dot || !outline) return;
+
+        gsap.set([dot, outline], { xPercent: -50, yPercent: -50 });
+
+        const dotX = gsap.quickTo(dot, "x", { duration: 0.1, ease: "power3" });
+        const dotY = gsap.quickTo(dot, "y", { duration: 0.1, ease: "power3" });
+        const outlineX = gsap.quickTo(outline, "x", { duration: 0.3, ease: "power3" });
+        const outlineY = gsap.quickTo(outline, "y", { duration: 0.3, ease: "power3" });
+
+        const mouseMove = (e: MouseEvent) => {
+            dotX(e.clientX);
+            dotY(e.clientY);
+            outlineX(e.clientX);
+            outlineY(e.clientY);
+        };
+        
+        const showCursor = () => {
+            dot.classList.add('visible');
+            outline.classList.add('visible');
+        };
+        const hideCursor = () => {
+            dot.classList.remove('visible');
+            outline.classList.remove('visible');
+        };
+        
+        const handleMouseEnterHoverTarget = () => {
+            dot.classList.add('cursor-hover');
+            outline.classList.add('cursor-hover');
+        };
+
+        const handleMouseLeaveHoverTarget = () => {
+            dot.classList.remove('cursor-hover');
+            outline.classList.remove('cursor-hover');
+        };
+        
+        window.addEventListener("mousemove", mouseMove);
+        document.body.addEventListener("mouseleave", hideCursor);
+        document.body.addEventListener("mouseenter", showCursor);
+
+        const hoverTargets = document.querySelectorAll(
+            'a, button, [role="button"], input, .work-image, .whatsapp-widget, select, textarea, label, .thumbnail-item, .gallery-nav-btn, .project-modal-close'
+        );
+        hoverTargets.forEach(target => {
+            target.addEventListener('mouseenter', handleMouseEnterHoverTarget);
+            target.addEventListener('mouseleave', handleMouseLeaveHoverTarget);
+        });
+
+        return () => {
+            window.removeEventListener("mousemove", mouseMove);
+            document.body.removeEventListener("mouseleave", hideCursor);
+            document.body.removeEventListener("mouseenter", showCursor);
+            hoverTargets.forEach(target => {
+                target.removeEventListener('mouseenter', handleMouseEnterHoverTarget);
+                target.removeEventListener('mouseleave', handleMouseLeaveHoverTarget);
+            });
+        };
+    }, []);
+
+    return (
+        <>
+            <div ref={outlineRef} className="custom-cursor-outline"></div>
+            <div ref={dotRef} className="custom-cursor-dot"></div>
+        </>
+    );
+});
+
+const WhatsAppChatWidget = () => (
+    <a
+        href="https://wa.me/97477123400"
+        className="whatsapp-widget"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Chat with us on WhatsApp"
+    >
+        <div className="whatsapp-ring"></div>
+        <div className="whatsapp-ring-delay"></div>
+        <i className="fab fa-whatsapp whatsapp-icon" aria-hidden="true"></i>
+    </a>
+);
+
+const AppLink = React.forwardRef<HTMLAnchorElement, {
+  href: string;
+  className?: string;
+  children: React.ReactNode;
+  onClick?: MouseEventHandler<HTMLAnchorElement>;
+  [key: string]: any;
+}>(({ href, className = '', children, onClick, ...props }, ref) => {
+    const isToggle = href === '#';
+
+    const handleClick: MouseEventHandler<HTMLAnchorElement> = (e) => {
+        if (isToggle) {
+            e.preventDefault();
+        }
+
+        if (onClick) {
+            onClick(e);
+        }
+    };
+
+    return (
+        <a
+            ref={ref}
+            href={href}
+            className={className}
+            onClick={onClick ? handleClick : undefined}
+            {...props}
+        >
+            {children}
+        </a>
+    );
+});
+
+const MobileNav = ({ isOpen, onClose }) => {
+    const [isServicesOpen, setIsServicesOpen] = useState(false);
+    const navContainerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+            const focusableElements = navContainerRef.current?.querySelectorAll<HTMLElement>(
+                'a[href], button, [tabindex]:not([tabindex="-1"])'
+            );
+            if (!focusableElements || focusableElements.length === 0) return;
+
+            const firstElement = focusableElements[0];
+            const lastElement = focusableElements[focusableElements.length - 1];
+
+            setTimeout(() => firstElement.focus(), 100);
+
+            const handleKeyDown = (e: KeyboardEvent) => {
+                if (e.key === 'Escape') {
+                    onClose();
+                    return;
+                }
+                if (e.key === 'Tab') {
+                    if (e.shiftKey) { 
+                        if (document.activeElement === firstElement) {
+                            lastElement.focus();
+                            e.preventDefault();
+                        }
+                    } else { 
+                        if (document.activeElement === lastElement) {
+                            firstElement.focus();
+                            e.preventDefault();
+                        }
+                    }
+                }
+            };
+            
+            const container = navContainerRef.current;
+            container?.addEventListener('keydown', handleKeyDown);
+            return () => container?.removeEventListener('keydown', handleKeyDown);
+
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => { document.body.style.overflow = ''; };
+    }, [isOpen, onClose]);
+
+    const handleServicesToggle = () => {
+        setIsServicesOpen(prev => !prev);
+    }
+    
+    return (
+        <div ref={navContainerRef} className={`mobile-nav-overlay ${isOpen ? 'open' : ''}`} role="dialog" aria-modal="true" aria-hidden={!isOpen} id="mobile-nav">
+            <nav className="mobile-nav">
+                <ul>
+                    {navLinks.map(link => (
+                         <li key={link.name}>
+                             <AppLink 
+                                href={link.subLinks ? '#' : link.href} 
+                                onClick={link.subLinks ? handleServicesToggle : onClose}
+                                aria-haspopup={!!link.subLinks}
+                                aria-expanded={link.subLinks ? isServicesOpen : undefined}
+                                aria-controls={link.subLinks ? `mobile-${link.name}-submenu` : undefined}
+                                id={link.subLinks ? `mobile-${link.name}-toggle` : undefined}
+                             >
+                                 {link.name}
+                                 {link.subLinks && <i className={`fas fa-chevron-down dropdown-indicator ${isServicesOpen ? 'open' : ''}`} aria-hidden="true"></i>}
+                             </AppLink>
+                             {link.subLinks && (
+                                 <ul id={`mobile-${link.name}-submenu`} className={`mobile-submenu ${isServicesOpen ? 'open' : ''}`} aria-hidden={!isServicesOpen}>
+                                     {link.subLinks.map(subLink => (
+                                         <li key={subLink.name}>
+                                            <AppLink href={subLink.href} onClick={onClose}>
+                                                {subLink.name}
+                                            </AppLink>
+                                        </li>
+                                     ))}
+                                 </ul>
+                             )}
+                         </li>
+                    ))}
                 </ul>
             </nav>
-            <div class="header-ctas">
-                <a href="booth-registration.html" class="btn btn-primary btn-sm">Book a Booth</a>
-                <a href="sponsorship-registration.html" class="btn btn-primary btn-sm">Sponsor Now</a>
-            </div>
         </div>
+    );
+};
+
+const Header = ({ theme }) => {
+  const [scrolled, setScrolled] = useState(false);
+  const navRef = useRef<HTMLUListElement>(null);
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
+  
+  const burgerMenuRef = useRef<HTMLButtonElement>(null);
+  const servicesToggleRef = useRef<HTMLAnchorElement>(null);
+  const servicesDropdownContainerRef = useRef<HTMLLIElement>(null);
+
+  const toggleMobileNav = () => {
+    setIsMobileNavOpen(prev => !prev);
+  };
+
+  const closeMobileNav = () => {
+    setIsMobileNavOpen(false);
+    burgerMenuRef.current?.focus();
+  };
+
+  const closeServicesDropdown = (shouldFocusToggle = true) => {
+    if (isServicesDropdownOpen) {
+      setIsServicesDropdownOpen(false);
+      if (shouldFocusToggle) {
+        servicesToggleRef.current?.focus();
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (isServicesDropdownOpen) {
+      const firstItem = servicesDropdownContainerRef.current?.querySelector<HTMLAnchorElement>('.dropdown-menu a');
+      firstItem?.focus();
+    }
+  }, [isServicesDropdownOpen]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        closeServicesDropdown();
+      }
+    };
+    const handleClickOutside = (event: MouseEvent) => {
+      if (servicesDropdownContainerRef.current && !servicesDropdownContainerRef.current.contains(event.target as Node)) {
+        closeServicesDropdown(false);
+      }
+    };
+
+    if (isServicesDropdownOpen) {
+      document.addEventListener('keydown', handleKeyDown);
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isServicesDropdownOpen]);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+        window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  const handleServicesClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsServicesDropdownOpen(prev => !prev);
+  };
+  
+  const handleDropdownItemKeyDown = (e: React.KeyboardEvent<HTMLAnchorElement>) => {
+    const items = Array.from(
+      servicesDropdownContainerRef.current?.querySelectorAll<HTMLAnchorElement>('.dropdown-link-item') || []
+    );
+    const currentIndex = items.indexOf(e.currentTarget);
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      items[(currentIndex + 1) % items.length]?.focus();
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      items[(currentIndex - 1 + items.length) % items.length]?.focus();
+    } else if (e.key === 'Tab' && !e.shiftKey && currentIndex === items.length - 1) {
+      closeServicesDropdown(false);
+    } else if (e.key === 'Tab' && e.shiftKey && currentIndex === 0) {
+      closeServicesDropdown(false);
+    }
+  };
+
+  const headerClasses = `app-header ${scrolled ? 'scrolled' : ''} on-${theme}`;
+
+  return (
+    <header className={headerClasses}>
+      <div className="logo">
+        <AppLink href="/index.html">
+          <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Design Consult Logo" className="logo-image" />
+        </AppLink>
+      </div>
+      <nav className="main-nav" aria-label="Main navigation">
+        <ul ref={navRef}>
+          {navLinks.map((link) => (
+            <li 
+              key={link.name} 
+              className={`${link.subLinks ? 'has-dropdown' : ''} ${link.name === 'Services' && isServicesDropdownOpen ? 'open' : ''}`}
+              ref={link.name === 'Services' ? servicesDropdownContainerRef : null}
+            >
+              <AppLink 
+                ref={link.name === 'Services' ? servicesToggleRef : null}
+                href={link.href}
+                id={link.name === 'Services' ? 'services-menu-toggle' : undefined}
+                onClick={link.name === 'Services' ? handleServicesClick : undefined}
+                aria-haspopup={!!link.subLinks}
+                aria-expanded={link.name === 'Services' ? isServicesDropdownOpen : undefined}
+                aria-controls={link.name === 'Services' ? 'services-dropdown-menu' : undefined}
+              >
+                {link.name}
+                {link.subLinks && (
+                  <span className="dropdown-indicator-wrapper">
+                    <i className="fas fa-chevron-down dropdown-indicator" aria-hidden="true"></i>
+                  </span>
+                )}
+              </AppLink>
+              {link.subLinks && (
+                <div id="services-dropdown-menu" className="dropdown-menu" role="menu" aria-labelledby="services-menu-toggle">
+                  <ul className="dropdown-links" role="none">
+                      {link.subLinks.map((subLink, index) => (
+                          <li role="presentation" key={subLink.name}>
+                              <AppLink
+                                  href={subLink.href}
+                                  role="menuitem"
+                                  onKeyDown={handleDropdownItemKeyDown}
+                                  className="dropdown-link-item"
+                                  onClick={() => setIsServicesDropdownOpen(false)}
+                                  style={{ '--delay': `${index * 0.05}s` } as React.CSSProperties}
+                              >
+                                  <i className={`${subLink.icon} dropdown-link-icon`} aria-hidden="true"></i>
+                                  <span>{subLink.name}</span>
+                              </AppLink>
+                          </li>
+                      ))}
+                  </ul>
+                </div>
+              )}
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <button
+        ref={burgerMenuRef}
+        className={`burger-menu ${isMobileNavOpen ? 'open' : ''}`}
+        onClick={toggleMobileNav}
+        aria-label={isMobileNavOpen ? "Close navigation menu" : "Open navigation menu"}
+        aria-controls="mobile-nav"
+        aria-expanded={isMobileNavOpen}
+      >
+        <span className="burger-bar"></span>
+        <span className="burger-bar"></span>
+        <span className="burger-bar"></span>
+      </button>
+      <MobileNav isOpen={isMobileNavOpen} onClose={closeMobileNav} />
     </header>
+  );
+};
 
-    <main>
-        <!-- 1. HERO SECTION -->
-        <section id="hero">
-            <video autoplay loop muted playsinline id="hero-video" aria-hidden="true">
-                <source src="https://videos.pexels.com/video-files/3209828/3209828-hd_1920_1080_25fps.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <div class="container hero-content">
-                <div class="hero-text">
-                    <h1>Join the Region's Most Impactful Education Expo</h1>
-                    <p>
-                        <strong>April 19–20, 2026 | Sheraton Grand Doha Resort & Convention Hotel</strong>
-                        <br>
-                        Organized by Student Diwan, Qatar's leading EdTech platform
-                    </p>
-                    <div class="cta-group">
-                        <a href="booth-registration.html" id="hero-cta-booth" class="btn btn-primary">Reserve My Booth</a>
-                        <a href="sponsorship-registration.html" id="hero-cta-sponsor" class="btn btn-outline-light">Become a Sponsor</a>
-                    </div>
-                    <div class="urgency-trigger">
-                        <p><strong>Event Starts In:</strong></p>
-                    </div>
-                     <div id="countdown-timer">
-                        <div class="timer-unit">
-                            <span id="days">00</span>
-                            <p>Days</p>
-                        </div>
-                        <div class="timer-unit">
-                            <span id="hours">00</span>
-                            <p>Hours</p>
-                        </div>
-                        <div class="timer-unit">
-                            <span id="minutes">00</span>
-                            <p>Minutes</p>
-                        </div>
-                        <div class="timer-unit">
-                            <span id="seconds">00</span>
-                            <p>Seconds</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+const LeftSidebar = ({ pageName }) => {
+  return (
+    <aside className="left-sidebar">
+      <div className="sidebar-top">
+        <div className="divider" />
+        <div className="home-text">{pageName}</div>
+      </div>
+      <div className="social-icons">
+        <a href="#" aria-label="Facebook"><i className="fab fa-facebook-f" aria-hidden="true"></i></a>
+        <a href="#" aria-label="Twitter"><i className="fab fa-twitter" aria-hidden="true"></i></a>
+        <a href="#" aria-label="Instagram"><i className="fab fa-instagram" aria-hidden="true"></i></a>
+        <a href="#" aria-label="LinkedIn"><i className="fab fa-linkedin-in" aria-hidden="true"></i></a>
+      </div>
+      <div className="sidebar-footer">
+        <p>© Taj Design Consult 2024. All rights reserved.</p>
+      </div>
+    </aside>
+  );
+};
+
+const WaveAnimation = memo(() => {
+    const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+    useEffect(() => {
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion) return;
+
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+        let animationFrameId: number;
+
+        const waves = [
+            { amp: 15, freq: 0.02, phase: 0, color: 'rgba(212, 175, 55, 0.2)', speed: 0.01 },
+            { amp: 20, freq: 0.015, phase: 1, color: 'rgba(212, 175, 55, 0.3)', speed: 0.015 },
+            { amp: 25, freq: 0.01, phase: 2, color: 'rgba(212, 175, 55, 0.4)', speed: 0.02 },
+        ];
         
-        <!-- Scrolling Banner -->
-        <div class="scrolling-banner">
-            <div class="scrolling-text">
-                <span>⚡️ EARLY BIRD DISCOUNT ENDS NOVEMBER 20, 2025 ⚡️ CLAIM YOUR 15% OFF NOW</span>
-                <span>⚡️ EARLY BIRD DISCOUNT ENDS NOVEMBER 20, 2025 ⚡️ CLAIM YOUR 15% OFF NOW</span>
-            </div>
-        </div>
+        const resizeCanvas = () => {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+        };
 
-        <!-- NEW: PARTNERS SECTION -->
-        <section id="home-partners">
-             <div class="container">
-                <h2>Our Partners & Supporters</h2>
-                <p class="subtitle">We are proud to collaborate with leaders in education and technology to make QELE 2026 a landmark event.</p>
-                <div class="logo-grid" id="home-partners-grid">
-                    <!-- Partner logos will be injected here by JS -->
-                </div>
-            </div>
-        </section>
-
-        <!-- 5. WHO IS ATTENDING -->
-        <section id="who-is-attending">
-            <div class="container">
-                 <h2>Who Is Attending?</h2>
-                 <div class="attendee-grid">
-                    <div class="attendee-card"><i class="fas fa-university"></i> 100+ Universities & Colleges</div>
-                    <div class="attendee-card"><i class="fas fa-laptop-code"></i> 50+ Edutech Companies</div>
-                    <div class="attendee-card"><i class="fas fa-chalkboard-teacher"></i> 75+ Education Consultants</div>
-                    <div class="attendee-card"><i class="fas fa-user-tie"></i> K-12 Leaders & Students</div>
-                    <div class="attendee-card"><i class="fas fa-building-columns"></i> Government Representatives</div>
-                    <div class="attendee-card"><i class="fas fa-microphone-alt"></i> 120+ Speakers & Influencers</div>
-                    <div class="attendee-card"><i class="fas fa-hands-holding-circle"></i> Sponsors, Media & Investors</div>
-                    <div class="attendee-card"><i class="fas fa-graduation-cap"></i> 4000+ Students</div>
-                 </div>
-            </div>
-        </section>
-
-        <!-- EXHIBITOR BENEFITS SECTION (NEW) -->
-        <section id="exhibitor-benefits" class="bg-surface section-angled-top">
-            <div class="container">
-                 <h2>Exhibitor Benefits</h2>
-                 <p class="subtitle">Maximize your impact and achieve your goals at QELE 2026.</p>
-                 <div class="benefits-grid">
-                    <div class="benefit-card">
-                        <i class="fas fa-users"></i>
-                        <h3>Recruitment</h3>
-                        <p>Engage Grade 11–12 students with strong admission intent (D+I).</p>
-                    </div>
-                     <div class="benefit-card">
-                        <i class="fas fa-eye"></i>
-                        <h3>Visibility</h3>
-                        <p>Gain 1M+ brand impressions across digital & event platforms.</p>
-                    </div>
-                     <div class="benefit-card">
-                        <i class="fas fa-lightbulb"></i>
-                        <h3>Thought Leadership</h3>
-                        <p>Shape MENA’s education agenda through panels & roundtables.</p>
-                    </div>
-                     <div class="benefit-card">
-                        <i class="fas fa-handshake"></i>
-                        <h3>Partnerships</h3>
-                        <p>Connect with education leaders, government, & industry experts.</p>
-                    </div>
-                 </div>
-            </div>
-        </section>
-
-        <!-- WHO SHOULD EXHIBIT SECTION (NEW) -->
-        <section id="who-should-exhibit" class="bg-surface">
-            <div class="container">
-                <h2>Who Should Exhibit?</h2>
-                <p class="subtitle">If you provide solutions for the education ecosystem, QELE is your platform.</p>
-                <div class="exhibitor-types-grid">
-                    <div class="exhibitor-type-card">
-                        <i class="fas fa-university"></i>
-                        <p>Universities & Colleges</p>
-                    </div>
-                    <div class="exhibitor-type-card">
-                        <i class="fas fa-wifi"></i>
-                        <p>Online Learning Providers</p>
-                    </div>
-                    <div class="exhibitor-type-card">
-                        <i class="fas fa-microchip"></i>
-                        <p>Hardware Providers</p>
-                    </div>
-                    <div class="exhibitor-type-card">
-                        <i class="fas fa-head-side-virus"></i>
-                        <p>EdTech (AI, VR, Digital)</p>
-                    </div>
-                    <div class="exhibitor-type-card">
-                        <i class="fas fa-flask"></i>
-                        <p>STEM Education Tools</p>
-                    </div>
-                    <div class="exhibitor-type-card">
-                        <i class="fas fa-headset"></i>
-                        <p>Education Consultants</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- NEVER MISS A LEAD SECTION (NEW) -->
-        <section id="lead-capture">
-            <div class="container">
-                <div class="lead-capture-grid">
-                    <div class="lead-capture-text">
-                        <h2>Never Miss a Lead</h2>
-                        <h3>Instant Capture for Every Exhibitor</h3>
-                        <p>Turn every handshake into a qualified lead in seconds with our integrated lead capture system.</p>
-                        <ul class="lead-capture-features">
-                            <li><i class="fas fa-check-circle"></i><span><strong>Scan qualified visitors</strong> in seconds.</span></li>
-                            <li><i class="fas fa-check-circle"></i><span>Instantly capture Name, Role, Institution, Contact (Opt-in).</span></li>
-                            <li><i class="fas fa-check-circle"></i><span><strong>Real-time sync</strong> to your exhibitor dashboard.</span></li>
-                            <li><i class="fas fa-check-circle"></i><span>Instant <strong>CSV export</strong> for quick CRM import.</span></li>
-                            <li><i class="fas fa-check-circle"></i><span><strong>Works offline</strong>, auto-syncs when back online.</span></li>
-                        </ul>
-                        <a href="booth-registration.html" class="btn btn-primary">Capture Every Lead. Convert Faster.</a>
-                    </div>
-                    <div class="lead-capture-image">
-                        <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1722288339/lead-capture-qr_2_y3h1b8.png" alt="Phone scanning a QR code for lead capture">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- KEYNOTE SPEAKERS SECTION -->
-        <section id="keynote-speakers">
-            <div class="container">
-                <h2>Meet Our Keynote Speakers</h2>
-                <p class="subtitle">Insights from the vanguards of education, technology, and policy.</p>
-                <div class="speakers-grid">
-                    <!-- Speaker 1 -->
-                    <div class="speaker-card">
-                        <a href="#" class="speaker-linkedin" aria-label="Dr. Sarah Al-Mansouri's LinkedIn profile" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                        <img src="https://images.pexels.com/photos/762020/pexels-photo-762020.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Headshot of Dr. Sarah Al-Mansouri" class="speaker-photo">
-                        <h4>Dr. Sarah Al-Mansouri</h4>
-                        <p class="speaker-title">Director of Education Innovation</p>
-                        <p class="speaker-org">Qatar Foundation</p>
-                        <span class="speaker-tag">Digital Learning & EdTech</span>
-                    </div>
-                    <!-- Speaker 2 -->
-                    <div class="speaker-card">
-                        <a href="#" class="speaker-linkedin" aria-label="Prof. Ahmed Hassan's LinkedIn profile" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                        <img src="https://images.pexels.com/photos/1181599/pexels-photo-1181599.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Headshot of Prof. Ahmed Hassan" class="speaker-photo">
-                        <h4>Prof. Ahmed Hassan</h4>
-                        <p class="speaker-title">Dean of Engineering</p>
-                        <p class="speaker-org">Qatar University</p>
-                        <span class="speaker-tag">STEM Education</span>
-                    </div>
-                    <!-- Speaker 3 -->
-                    <div class="speaker-card">
-                        <a href="#" class="speaker-linkedin" aria-label="Ms. Fatima Al-Thani's LinkedIn profile" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                        <img src="https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Headshot of Ms. Fatima Al-Thani" class="speaker-photo">
-                        <h4>Ms. Fatima Al-Thani</h4>
-                        <p class="speaker-title">CEO</p>
-                        <p class="speaker-org">Education Excellence Institute</p>
-                        <span class="speaker-tag">Leadership in Education</span>
-                    </div>
-                    <!-- Speaker 4 -->
-                    <div class="speaker-card">
-                        <a href="#" class="speaker-linkedin" aria-label="Dr. Michael Chen's LinkedIn profile" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                        <img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Headshot of Dr. Michael Chen" class="speaker-photo">
-                        <h4>Dr. Michael Chen</h4>
-                        <p class="speaker-title">Research Director</p>
-                        <p class="speaker-org">Cambridge Assessment</p>
-                        <span class="speaker-tag">Assessment & Analytics</span>
-                    </div>
-                    <!-- Speaker 5 -->
-                    <div class="speaker-card">
-                        <a href="#" class="speaker-linkedin" aria-label="Dr. Layla Abdulrahman's LinkedIn profile" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                        <img src="https://images.pexels.com/photos/1181424/pexels-photo-1181424.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Headshot of Dr. Layla Abdulrahman" class="speaker-photo">
-                        <h4>Dr. Layla Abdulrahman</h4>
-                        <p class="speaker-title">Head of Curriculum</p>
-                        <p class="speaker-org">Ministry of Education</p>
-                        <span class="speaker-tag">Curriculum Development</span>
-                    </div>
-                    <!-- Speaker 6 -->
-                    <div class="speaker-card">
-                        <a href="#" class="speaker-linkedin" aria-label="Mr. James Wilson's LinkedIn profile" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                        <img src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Headshot of Mr. James Wilson" class="speaker-photo">
-                        <h4>Mr. James Wilson</h4>
-                        <p class="speaker-title">Global Education Consultant</p>
-                        <p class="speaker-org">UNESCO</p>
-                        <span class="speaker-tag">International Education</span>
-                    </div>
-                    <!-- Speaker 7 -->
-                    <div class="speaker-card">
-                        <a href="#" class="speaker-linkedin" aria-label="Dr. Noor Al-Kuwari's LinkedIn profile" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                        <img src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Headshot of Dr. Noor Al-Kuwari" class="speaker-photo">
-                        <h4>Dr. Noor Al-Kuwari</h4>
-                        <p class="speaker-title">Vice Principal</p>
-                        <p class="speaker-org">Doha International School</p>
-                        <span class="speaker-tag">Student Development</span>
-                    </div>
-                    <!-- Speaker 8 -->
-                    <div class="speaker-card">
-                        <a href="#" class="speaker-linkedin" aria-label="Prof. Robert Martinez's LinkedIn profile" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                        <img src="https://images.pexels.com/photos/1516680/pexels-photo-1516680.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Headshot of Prof. Robert Martinez" class="speaker-photo">
-                        <h4>Prof. Robert Martinez</h4>
-                        <p class="speaker-title">Education Technology Pioneer</p>
-                        <p class="speaker-org">EdTech Global</p>
-                        <span class="speaker-tag">AI in Education</span>
-                    </div>
-                </div>
-            </div>
-        </section>
+        const draw = () => {
+            if (!ctx) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            waves.forEach(wave => {
+                wave.phase += wave.speed;
+                ctx.beginPath();
+                ctx.moveTo(0, canvas.height);
+                for (let x = 0; x < canvas.width; x++) {
+                    const y = Math.sin(x * wave.freq + wave.phase) * wave.amp + (canvas.height / 1.5);
+                    ctx.lineTo(x, y);
+                }
+                ctx.lineTo(canvas.width, canvas.height);
+                ctx.closePath();
+                ctx.fillStyle = wave.color;
+                ctx.fill();
+            });
+            animationFrameId = requestAnimationFrame(draw);
+        };
         
-        <!-- 7. TESTIMONIALS -->
-        <section id="testimonials" class="bg-surface">
-            <div class="container">
-                <h2>Why Leaders are Backing QELE 2026</h2>
-                <p class="subtitle">Hear from industry experts on why this event is a crucial new platform for the MENA region.</p>
-                <div class="testimonials-grid">
-                    <div class="testimonial-card">
-                        <i class="fas fa-quote-left"></i>
-                        <blockquote>The quality of student interactions and B2B networking was exceptional. We exceeded our recruitment targets for the MENA region in just two days. A must-attend event.</blockquote>
-                        <div class="testimonial-author">
-                            <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="Photo of Dr. Anya Sharma.">
-                            <div>
-                                <strong>Dr. Anya Sharma</strong>
-                                <span>Director of International Admissions, Cambridge University</span>
-                            </div>
-                        </div>
-                    </div>
-                     <div class="testimonial-card">
-                        <i class="fas fa-quote-left"></i>
-                        <blockquote>QELE provided the perfect platform to launch our new EdTech solution. The access to school principals and government officials was unparalleled. The ROI was immediate.</blockquote>
-                        <div class="testimonial-author">
-                            <img src="https://i.pravatar.cc/150?u=a042581f4e29026704f" alt="Photo of Fatima Al-Khater.">
-                            <div>
-                                <strong>Fatima Al-Khater</strong>
-                                <span>CEO, EduVerse Technologies</span>
-                            </div>
-                        </div>
-                    </div>
-                     <div class="testimonial-card">
-                        <i class="fas fa-quote-left"></i>
-                        <blockquote>As a Platinum Sponsor, the brand visibility was phenomenal. The team ensured our logo and message were front and center, connecting us with key decision-makers effortlessly.</blockquote>
-                        <div class="testimonial-author">
-                            <img src="https://i.pravatar.cc/150?u=a042581f4e29026704e" alt="Photo of Johnathan Chen.">
-                            <div>
-                                <strong>Johnathan Chen</strong>
-                                <span>MENA Partnerships Lead, Global Learning Inc.</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+        draw();
 
-        <!-- 10. THREE WAYS TO JOIN -->
-        <section id="three-ways-to-join">
-            <div class="container">
-                <h2>Your 3 Ways to Join</h2>
-                <div class="ways-to-join-grid">
-                    <!-- Card 1: Exhibit -->
-                    <div class="way-card way-card--sponsor">
-                        <div class="way-card-badge">Featured</div>
-                        <img src="https://images.pexels.com/photos/1181625/pexels-photo-1181625.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="An engaging exhibition booth at a conference.">
-                        <div class="way-card-content">
-                            <h3>Exhibit</h3>
-                            <p>Showcase Your Institution – Claim Your Booth</p>
-                            <div class="way-card-cta">
-                                <a href="booth-registration.html" class="btn btn-outline-light">Reserve My Booth</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card 2: Speak (Highlighted) -->
-                    <div class="way-card way-card--speak way-card--sponsor">
-                        <div class="way-card-badge">Featured</div>
-                        <img src="https://images.pexels.com/photos/1181345/pexels-photo-1181345.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="A woman speaking at a professional event.">
-                        <div class="way-card-content">
-                            <h3>Speak</h3>
-                            <p>Inspire the Region – Host a Workshop or Talk</p>
-                             <div class="way-card-cta">
-                                <a href="speaker-registration.html" class="btn btn-outline-light">Join as a Speaker</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card 3: Sponsor (Premium) -->
-                    <div class="way-card way-card--sponsor">
-                        <div class="way-card-badge">Featured</div>
-                        <img src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Business professionals shaking hands, symbolizing sponsorship.">
-                        <div class="way-card-content">
-                            <h3>Sponsor</h3>
-                            <p>Lead the Change – Maximize MENA Visibility</p>
-                             <div class="way-card-cta">
-                                <a href="sponsorship-registration.html" class="btn btn-outline-light">Partner With Us</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                 <div class="section-cta">
-                    <a href="contact.html" class="btn btn-primary">Get in Touch</a>
+        return () => {
+            window.removeEventListener('resize', resizeCanvas);
+            cancelAnimationFrame(animationFrameId);
+        };
+    }, []);
+
+    return <canvas ref={canvasRef} id="footer-wave-canvas" aria-hidden="true" />;
+});
+
+const Footer = () => {
+    const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    return (
+        <footer id="footer" className="app-footer">
+            <WaveAnimation />
+            <div className="container">
+                <div className="copyright-section">
+                    <span>2024 © Taj Design Consult. All rights reserved.</span>
+                    <button className="to-top" onClick={scrollToTop} aria-label="Scroll back to top">To Top ↑</button>
                 </div>
             </div>
-        </section>
-    </main>
-    
-    <footer class="main-footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <a href="index.html" class="logo"><img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1761223357/logo-white_1_pqcaph.png" alt="QELE 2026 Logo"></a>
-                    <p>The premier event connecting educational leaders, institutions, and innovators in the MENA region.</p>
-                </div>
-                <div class="footer-col">
-                    <h3>Explore</h3>
-                    <ul class="footer-links">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="about.html">About Expo</a></li>
-                        <li><a href="why-exhibit.html">For Exhibitors</a></li>
-                        <li><a href="sponsorship-tiers.html">For Sponsors</a></li>
-                        <li><a href="universities.html">Student Registration</a></li>
-                    </ul>
-                </div>
-                 <div class="footer-col">
-                    <h3>Support</h3>
-                    <ul class="footer-links">
-                        <li><a href="contact.html">Contact</a></li>
-                        <li><a href="faq.html">FAQ</a></li>
-                        <li><a href="privacy.html">Privacy Policy</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h3>Connect With Us</h3>
-                    <ul class="footer-contact-info">
-                        <li>
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Sheraton Grand Doha, Qatar</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-envelope"></i>
-                            <a href="mailto:partnerships@eduexpoqatar.com">partnerships@eduexpoqatar.com</a>
-                        </li>
-                        <li>
-                            <i class="fas fa-phone"></i>
-                            <a href="tel:+97474449111">+974 7444 9111</a>
-                        </li>
-                    </ul>
-                    <div class="social-links">
-                        <a href="https://twitter.com/qatarexpo2026" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="https://linkedin.com/company/qatarexpo2026" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="https://instagram.com/qatarexpo2026" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          </footer>
+    )
+}
+
+const ProjectGalleryModal = ({ project, onClose }) => {
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const modalRef = useRef<HTMLDivElement>(null);
+    const lastFocusedElement = useRef<HTMLElement | null>(null);
+
+    useEffect(() => {
+        if (project) {
+            setCurrentIndex(0);
+            lastFocusedElement.current = document.activeElement as HTMLElement;
+            setTimeout(() => modalRef.current?.focus(), 100);
+
+            const handleKeyDown = (e: KeyboardEvent) => {
+                if (e.key === 'Escape') onClose();
+                else if (e.key === 'ArrowRight') goToNext();
+                else if (e.key === 'ArrowLeft') goToPrevious();
+                else if (e.key === 'Tab') {
+                     const focusableElements = modalRef.current?.querySelectorAll<HTMLElement>('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+                    if (!focusableElements || focusableElements.length === 0) return;
+                    // @Fix: Added explicit type to assist TypeScript's type inference.
+                    const firstElement: HTMLElement = focusableElements[0];
+                    // @Fix: Added explicit type to assist TypeScript's type inference.
+                    const lastElement: HTMLElement = focusableElements[focusableElements.length - 1];
+                    if (e.shiftKey) { if (document.activeElement === firstElement) { lastElement.focus(); e.preventDefault(); }}
+                    else { if (document.activeElement === lastElement) { firstElement.focus(); e.preventDefault(); }}
+                }
+            };
+
+            document.addEventListener('keydown', handleKeyDown);
+            return () => { 
+                document.removeEventListener('keydown', handleKeyDown);
+                lastFocusedElement.current?.focus();
+            };
+        }
+    }, [project, onClose]);
+
+    if (!project) return null;
+
+    const goToPrevious = () => setCurrentIndex(prev => (prev === 0 ? project.gallery.length - 1 : prev - 1));
+    const goToNext = () => setCurrentIndex(prev => (prev === project.gallery.length - 1 ? 0 : prev + 1));
+
+    return (
+        <div className="project-modal-overlay" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <div ref={modalRef} className="project-modal-content" onClick={e => e.stopPropagation()} tabIndex={-1}>
+                <button onClick={onClose} className="project-modal-close" aria-label="Close project gallery">&times;</button>
+                <div className="project-modal-gallery">
+                    <div className="gallery-main-image">
+                        <img src={project.gallery[currentIndex]} alt={`${project.title} - Image ${currentIndex + 1}`} />
                     </div>
+                    {project.gallery.length > 1 && (
+                        <>
+                            <button onClick={goToPrevious} className="gallery-nav-btn prev" aria-label="Previous image"><i className="fas fa-chevron-left"></i></button>
+                            <button onClick={goToNext} className="gallery-nav-btn next" aria-label="Next image"><i className="fas fa-chevron-right"></i></button>
+                            <div className="gallery-thumbnails">
+                                {project.gallery.map((img, index) => (
+                                    <button 
+                                      key={index} 
+                                      className={`thumbnail-item ${index === currentIndex ? 'active' : ''}`} 
+                                      onClick={() => setCurrentIndex(index)}
+                                      aria-label={`View image ${index + 1}`}
+                                    >
+                                        <img src={img} alt={`Thumbnail ${index + 1}`} />
+                                    </button>
+                                ))}
+                            </div>
+                        </>
+                    )}
                 </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 QELE. All Rights Reserved.</p>
+                <div className="project-modal-details">
+                    <p className="modal-meta">{project.meta}</p>
+                    <h3 id="modal-title" className="modal-title">{project.title}</h3>
+                    <p className="modal-location"><i className="fas fa-map-marker-alt" aria-hidden="true"></i> {project.location}</p>
+                    <p className="modal-description">{project.description}</p>
+                </div>
             </div>
         </div>
-    </footer>
+    );
+};
 
-    <!-- WhatsApp Chat -->
-    <a href="https://wa.me/97474449111" class="whatsapp-fab" target="_blank" aria-label="Chat on WhatsApp">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+const WorksPage = () => {
+  const [selectedProject, setSelectedProject] = useState(null);
 
-    <!-- Exit Intent Modal -->
-    <div id="exit-intent-modal" class="modal-overlay">
-        <div class="modal-content exit-intent-content" role="dialog" aria-modal="true" aria-labelledby="exit-modal-title">
-            <button class="modal-close-btn" aria-label="Close">&times;</button>
-            <h3 id="exit-modal-title">Download The Deck Before You Leave!</h3>
-            <p>Get our official Exhibitor & Sponsorship Deck, including the floor plan and ROI details, sent straight to your inbox.</p>
-            <a href="contact.html" class="btn btn-primary">Get The Deck</a>
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) { document.querySelectorAll('.scroll-trigger').forEach(el => el.classList.add('visible')); return; }
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) { entry.target.classList.add('visible'); obs.unobserve(entry.target); }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+    );
+    const elementsToReveal = document.querySelectorAll('.scroll-trigger');
+    elementsToReveal.forEach((el) => observer.observe(el));
+    return () => elementsToReveal.forEach((el) => observer.unobserve(el));
+  }, []);
+  
+  return (
+    <>
+      <ProjectGalleryModal project={selectedProject} onClose={() => setSelectedProject(null)} />
+      
+      <section id="works-hero" className="works-hero-section scroll-trigger fade-up">
+          <h1>Our Featured <strong>Projects</strong></h1>
+      </section>
+
+      <section id="works-list" className="works-list-section">
+          <div className="container">
+              <div className="works-list">
+                  {workItems.map((item, index) => (
+                      <div className={`work-item ${index % 2 === 1 ? 'reverse' : ''} scroll-trigger fade-up`} key={index}>
+                          <div className="grid">
+                               <button className="work-image" onClick={() => setSelectedProject(item)} aria-label={`View project details for ${item.title}`}>
+                                  <div className="work-title-overlay">
+                                      <h3>{item.title}</h3>
+                                      <span className="view-projects-btn" aria-hidden="true">View Project</span>
+                                  </div>
+                                  <img src={item.mainImage} alt={`A photo of the ${item.title} project.`} />
+                              </button>
+                              <div className="work-info">
+                                  <p className="meta">{item.meta}</p>
+                                  <h3 className="work-title"><strong>{item.title}</strong></h3>
+                                  <p className="work-description">{item.description}</p>
+                              </div>
+                          </div>
+                      </div>
+                  ))}
+              </div>
+          </div>
+      </section>
+    </>
+  );
+};
+
+const App = () => {
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => setLoading(false), 200);
+        return () => clearTimeout(timer);
+    }, []);
+
+    return (
+        <div className={`app ${loading ? 'loading' : ''}`}>
+            <SkipToContentLink />
+            <CustomCursor />
+            <WhatsAppChatWidget />
+            <Header theme="dark" />
+            <div className="main-container">
+                <LeftSidebar pageName="WORKS" />
+                <main className="main-content" id="main-content" tabIndex={-1}>
+                    <WorksPage />
+                    <Footer />
+                </main>
+            </div>
         </div>
-    </div>
+    );
+};
 
-    <!-- Mobile Sticky Bar -->
-    <div id="mobile-sticky-bar">
-        <a href="universities.html" class="mobile-cta-btn"><i class="fas fa-user-check"></i><span>Register</span></a>
-        <a href="universities.html" class="mobile-cta-btn"><i class="fas fa-graduation-cap"></i><span>Student</span></a>
-        <a href="booth-registration.html" class="mobile-cta-btn"><i class="fas fa-chalkboard-user"></i><span>Exhibitor</span></a>
-        <a href="sponsorship-registration.html" class="mobile-cta-btn"><i class="fas fa-star"></i><span>Sponsor</span></a>
-    </div>
-    
-    <script src="https://unpkg.com/@panzoom/panzoom@4.5.1/dist/panzoom.min.js"></script>
-    <script type="module" src="index.tsx"></script>
-</body>
-</html>
+const container = document.getElementById('root');
+if (container) {
+    const root = createRoot(container);
+    root.render(<App />);
+}
