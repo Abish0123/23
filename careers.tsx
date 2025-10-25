@@ -307,8 +307,8 @@ const Header = () => {
       </nav>
       <div className="logo">
         <AppLink href="/index.html">
-          <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Design Consult Logo" className="logo-image desktop-logo" />
-          <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Design Consult Logo" className="logo-image mobile-logo" />
+          <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Design Consultancy Logo" className="logo-image desktop-logo" />
+          <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Design Consultancy Logo" className="logo-image mobile-logo" />
         </AppLink>
       </div>
       <button
@@ -342,7 +342,7 @@ const LeftSidebar = () => {
           <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i className="fab fa-linkedin-in" aria-hidden="true"></i></a>
         </div>
         <div className="sidebar-footer">
-          <p>© Taj Design Consult 2024. All rights reserved.</p>
+          <p>© Taj Design Consultancy 2024. All rights reserved.</p>
         </div>
       </aside>
     );
@@ -412,7 +412,7 @@ const Footer = () => {
             <WaveAnimation />
             <div className="container">
                 <div className="copyright-section">
-                    <span>2024 © Taj Design Consult. All rights reserved.</span>
+                    <span>2024 © Taj Design Consultancy. All rights reserved.</span>
                     <button className="to-top" onClick={scrollToTop} aria-label="Scroll back to top">To Top ↑</button>
                 </div>
             </div>
@@ -539,7 +539,7 @@ const CareersPage = () => {
     <>
       <section id="careers-hero" className="careers-hero-section scroll-trigger fade-up">
         <h1>Join Our <strong>Team</strong></h1>
-        <p>We are always looking for passionate and talented individuals to join our growing team. Explore our open positions and find your place at Taj Design Consult.</p>
+        <p>We are always looking for passionate and talented individuals to join our growing team. Explore our open positions and find your place at Taj Design Consultancy.</p>
       </section>
 
       <section id="open-positions" className="content-section">
