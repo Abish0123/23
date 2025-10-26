@@ -35,7 +35,8 @@ const workItems = [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224706/WhatsApp_Image_2025-10-22_at_23.46.06_e814e5d0_uqphxj.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224698/WhatsApp_Image_2025-10-22_at_23.46.07_714b8d87_1_eljwpn.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224698/WhatsApp_Image_2025-10-22_at_23.46.07_d6db18c5_tovqbt.png'
-      ]
+      ],
+      category: 'Office Interior'
     },
     { 
       title: 'World Wide Business Center',
@@ -50,7 +51,21 @@ const workItems = [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304498/_DSC9870_hyaor0.jpg',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304498/_DSC9893_ocqnlg.jpg',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304497/_DSC9866_aq8w9n.jpg'
-      ]
+      ],
+      category: 'Office Interior'
+    },
+     {
+      title: 'Private Villa',
+      meta: 'Architectural Design and Supervision',
+      location: 'The Pearl, Qatar',
+      description: 'A luxury private villa featuring modern arabesque design, seamless indoor-outdoor living spaces, and state-of-the-art smart home technology. Our scope included full architectural design, authority approvals, and construction supervision to ensure the highest quality standards were met.',
+      mainImage: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&auto=format&fit=crop&q=60',
+      gallery: [
+        'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&auto=format&fit=crop&q=60',
+        'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800&auto=format&fit=crop&q=60',
+        'https://images.unsplash.com/photo-1613082512002-3d753b8b173c?w=800&auto=format&fit=crop&q=60'
+      ],
+      category: 'Residential'
     },
     {
       title: 'Al Jabor Building',
@@ -63,7 +78,8 @@ const workItems = [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761425803/Untitled_16_x_9_in_3_m7smfu.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761425803/Untitled_16_x_9_in_1_ht1iux.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761425806/Untitled_16_x_9_in_mi6glx.png'
-      ]
+      ],
+      category: 'Commercial'
     },
     {
       title: 'Legal office for Shaiek Jassim Al Thani',
@@ -76,7 +92,8 @@ const workItems = [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761394141/6_ypphq2.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761394138/5_qr7poc.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761394123/12_pqzmgc.png'
-      ]
+      ],
+      category: 'Office Interior'
     },
     { 
       title: 'Al Jazeera Tower',
@@ -92,7 +109,8 @@ const workItems = [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761403729/WhatsApp_Image_2025-05-06_at_21.44.35_2_ada0bu.jpg',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761403728/WhatsApp_Image_2025-05-06_at_22.26.44_3_ohtele.jpg',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761403570/WhatsApp_Image_2025-05-03_at_22.27.08_2_fnf82u.jpg'
-      ]
+      ],
+      category: 'High-Rise Fit-out'
     }
 ];
 
@@ -647,6 +665,9 @@ const ProjectGalleryModal = ({ project, onClose }) => {
 
 const WorksPage = () => {
   const [selectedProject, setSelectedProject] = useState(null);
+  const [activeFilter, setActiveFilter] = useState('All');
+
+  const categories = ['All', ...Array.from(new Set(workItems.map(item => item.category)))];
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -662,6 +683,10 @@ const WorksPage = () => {
     elementsToReveal.forEach((el) => observer.observe(el));
     return () => elementsToReveal.forEach((el) => observer.unobserve(el));
   }, []);
+
+  const filteredWorks = activeFilter === 'All' 
+    ? workItems 
+    : workItems.filter(item => item.category === activeFilter);
   
   return (
     <>
@@ -673,24 +698,39 @@ const WorksPage = () => {
 
       <section id="works-list" className="works-list-section">
           <div className="container">
-              <div className="works-list">
-                  {workItems.map((item, index) => (
-                      <div className={`work-item ${index % 2 === 1 ? 'reverse' : ''} scroll-trigger fade-up`} key={index}>
-                          <div className="grid">
-                               <button className="work-image" onClick={() => setSelectedProject(item)} aria-label={`View project details for ${item.title}`}>
-                                  <div className="work-title-overlay" aria-hidden="true">
-                                      <h3>{item.title}</h3>
-                                      <span className="view-projects-btn">View Project</span>
-                                  </div>
-                                  <img src={item.mainImage} alt={item.title} />
-                              </button>
-                              <div className="work-info">
-                                  <p className="meta">{item.meta}</p>
-                                  <h3 className="work-title"><strong>{item.title}</strong></h3>
-                                  <p className="work-description">{item.description}</p>
-                              </div>
+              <div className="works-filters scroll-trigger fade-up">
+                  {categories.map(category => (
+                      <button 
+                          key={category}
+                          className={`filter-btn ${activeFilter === category ? 'active' : ''}`}
+                          onClick={() => setActiveFilter(category)}
+                      >
+                          {category}
+                      </button>
+                  ))}
+              </div>
+              <div className="works-grid">
+                  {filteredWorks.map((item, index) => (
+                      <button 
+                          key={item.title} 
+                          className="project-card scroll-trigger fade-up"
+                          onClick={() => setSelectedProject(item)}
+                          style={{ transitionDelay: `${(index % 3) * 0.1}s` }}
+                          aria-label={`View project details for ${item.title}`}
+                      >
+                          <div className="project-card-image">
+                              <img src={item.mainImage} alt={item.title} />
                           </div>
-                      </div>
+                          <div className="project-card-overlay">
+                              <div className="project-card-content">
+                                  <p className="project-card-meta">{item.meta}</p>
+                                  <h3>{item.title}</h3>
+                              </div>
+                               <span className="project-card-cta" aria-hidden="true">
+                                  <i className="fas fa-arrow-right"></i>
+                              </span>
+                          </div>
+                      </button>
                   ))}
               </div>
           </div>
@@ -712,7 +752,7 @@ const App = () => {
             <SkipToContentLink />
             <CustomCursor />
             <WhatsAppChatWidget />
-            <Header theme="dark" />
+            <Header theme="light" />
             <div className="main-container">
                 <LeftSidebar pageName="WORKS" />
                 <main className="main-content" id="main-content" tabIndex={-1}>
