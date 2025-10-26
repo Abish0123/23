@@ -33,7 +33,7 @@ const workItems = [
       mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224706/WhatsApp_Image_2025-10-22_at_23.46.06_e814e5d0_uqphxj.png',
       gallery: [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224706/WhatsApp_Image_2025-10-22_at_23.46.06_e814e5d0_uqphxj.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224698/WhatsApp_Image_2025-10-22_at_23.46.07_714b8d87_1_eljwpn.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761475471/Untitled_16_x_9_in_4_kd0ayk.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224698/WhatsApp_Image_2025-10-22_at_23.46.07_d6db18c5_tovqbt.png'
       ]
     },
