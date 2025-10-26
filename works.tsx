@@ -41,7 +41,7 @@ const workItems = [
       title: 'World Wide Business Center',
       meta: 'Design and Supervision of Office Interior',
       location: 'D Ring Road',
-      description: 'World Wide Business Center — a 2,000 sqm office interior designed and supervised by our team — blends elegant aesthetics with high functionality, featuring a welcoming reception, multiple meeting rooms, a fully equipped conference room, collaborative zones, and a dedicated games area. Smart space planning, premium finishes, and coordinated MEP deliver a polished, efficient workplace, with on-site supervision ensuring quality control, safety, and timely approvals through to handover.',
+      description: 'Design and supervision for a 2,000 sqm office interior fit-out. Our services covered full space planning for a reception, multiple meeting rooms, conference room, and collaborative zones. The project included coordinated MEP layouts, premium material and finishes selection, and on-site supervision to ensure quality, safety, and authority approvals from concept to final handover.',
       mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761477630/Untitled_16_x_9_in_7_aobiqs.png',
       gallery: [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761477630/Untitled_16_x_9_in_7_aobiqs.png',
