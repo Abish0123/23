@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef, memo, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -113,6 +112,32 @@ const workItems = [
       category: 'High-Rise Fit-out'
     }
 ];
+
+// --- IMAGE HELPERS ---
+
+const generateCloudinaryUrl = (baseUrl: string, transformations: string) => {
+    if (!baseUrl || !baseUrl.includes('cloudinary.com')) return baseUrl;
+    const urlParts = baseUrl.split('/upload/');
+    if (urlParts.length !== 2) return baseUrl;
+    return `${urlParts[0]}/upload/${transformations}/${urlParts[1]}`;
+};
+
+const generateSrcSet = (imageUrl: string, widths: number[] = [400, 800, 1200]) => {
+    if (!imageUrl || !imageUrl.includes('cloudinary.com')) return undefined;
+    return widths
+        .map(width => {
+            const transformations = `w_${width},f_auto,q_auto`;
+            const url = generateCloudinaryUrl(imageUrl, transformations);
+            return `${url} ${width}w`;
+        })
+        .join(', ');
+};
+
+const generateThumbnailUrl = (imageUrl: string) => {
+    if (!imageUrl || !imageUrl.includes('cloudinary.com')) return imageUrl;
+    const transformations = 'w_200,h_120,c_fill,f_auto,q_auto';
+    return generateCloudinaryUrl(imageUrl, transformations);
+};
 
 // --- SHARED & LAYOUT COMPONENTS ---
 
@@ -631,7 +656,14 @@ const ProjectGalleryModal = ({ project, onClose }) => {
                 <button onClick={onClose} className="project-modal-close" aria-label="Close project gallery">&times;</button>
                 <div className="project-modal-gallery">
                     <div className="gallery-main-image">
-                        <img src={project.gallery[currentIndex]} alt={`${project.title} - Image ${currentIndex + 1}`} />
+                        <img
+                            key={project.gallery[currentIndex]}
+                            src={generateCloudinaryUrl(project.gallery[currentIndex], 'w_1200,f_auto,q_auto')}
+                            srcSet={generateSrcSet(project.gallery[currentIndex], [800, 1200, 1920])}
+                            sizes="(max-width: 992px) 90vw, 60vw"
+                            loading="lazy"
+                            alt={`${project.title} - Image ${currentIndex + 1}`} 
+                        />
                     </div>
                     {project.gallery.length > 1 && (
                         <>
@@ -645,7 +677,11 @@ const ProjectGalleryModal = ({ project, onClose }) => {
                                       onClick={() => setCurrentIndex(index)}
                                       aria-label={`View image ${index + 1}`}
                                     >
-                                        <img src={img} alt={`Thumbnail ${index + 1}`} />
+                                        <img 
+                                            src={generateThumbnailUrl(img)} 
+                                            loading="lazy"
+                                            alt={`Thumbnail ${index + 1}`} 
+                                        />
                                     </button>
                                 ))}
                             </div>
@@ -758,7 +794,13 @@ const WorksPage = () => {
                               aria-label={`View project details for ${item.title}`}
                           >
                               <div className="project-card-image">
-                                  <img src={item.mainImage} alt={`Exterior view of ${item.title}`} />
+                                  <img 
+                                      src={generateCloudinaryUrl(item.mainImage, 'w_800,f_auto,q_auto')}
+                                      srcSet={generateSrcSet(item.mainImage)}
+                                      sizes="(max-width: 576px) 90vw, (max-width: 992px) 45vw, 33vw"
+                                      loading="lazy"
+                                      alt={`Exterior view of ${item.title}`}
+                                  />
                               </div>
                               <div className="project-card-content">
                                   <div>
