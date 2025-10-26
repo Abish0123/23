@@ -39,9 +39,9 @@ const workItems = [
     },
     { 
       title: 'World Wide Business Center',
-      meta: 'Design and Supervision of Office Interior',
+      meta: 'End-to-end interior design and fit-out supervision',
       location: 'D Ring Road',
-      description: 'Design and supervision for a 2,000 sqm office interior fit-out. Our services covered full space planning for a reception, multiple meeting rooms, conference room, and collaborative zones. The project included coordinated MEP layouts, premium material and finishes selection, and on-site supervision to ensure quality, safety, and authority approvals from concept to final handover.',
+      description: 'Interior design and supervision for the turnkey fit-out of a 2,000 sqm business center. The scope covered concept to handover, ensuring full compliance with QCDD/NFPA life-safety codes. Our services included detailed space planning for reception, meeting rooms, and collaborative zones, plus 3D visualizations, coordinated MEP layouts, furniture and finishes selection, technical specifications, and on-site supervision to guarantee quality, budget adherence, and timely authority approvals.',
       mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761477630/Untitled_16_x_9_in_7_aobiqs.png',
       gallery: [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761477630/Untitled_16_x_9_in_7_aobiqs.png',
