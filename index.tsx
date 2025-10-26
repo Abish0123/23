@@ -781,7 +781,7 @@ const BlueprintAnimation = memo(() => {
 const HeroSection = () => {
     const [offsetY, setOffsetY] = useState(0);
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-    const titleLines = ["STRUCTURES WITH", "PURPOSE"];
+    const titleLines = ["DESIGN WITH", "PURPOSE"];
     const fullTitle = titleLines.join(' ');
 
     useEffect(() => {
