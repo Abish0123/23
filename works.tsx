@@ -24,25 +24,24 @@ const navLinks = [
   { name: 'Contact', href: '/contact.html' },
 ];
 
-const allProjects = [
+const workItems = [
     { 
       title: 'TrustLink office',
       meta: 'Design and Build of Office Interior',
       location: 'Bin Mahmoud',
-      description: 'We provide end-to-end office interior design and on-site supervision—covering space planning, materials and finishes, MEP coordination, and quality control—to deliver functional, branded workplaces on time and within budget.',
+      description: 'We provide end-to-end office interior design and on-site supervision—covering space planning, materials and finishes, MEP coordination, and quality control—to deliver functional, branded workplaces on time and within budget. Our team manages contractors, shop drawings, and inspections, ensuring QCDD/NFPA and Baladiya compliance from concept to handover for a smooth, approval-ready fit-out.',
       mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224706/WhatsApp_Image_2025-10-22_at_23.46.06_e814e5d0_uqphxj.png',
       gallery: [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224706/WhatsApp_Image_2025-10-22_at_23.46.06_e814e5d0_uqphxj.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224698/WhatsApp_Image_2025-10-22_at_23.46.07_714b8d87_1_eljwpn.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224698/WhatsApp_Image_2025-10-22_at_23.46.07_d6db18c5_tovqbt.png'
-      ],
-      category: 'Office Interior'
+      ]
     },
     { 
       title: 'World Wide Business Center',
       meta: 'Design and Supervision of Office Interior',
       location: 'D Ring Road',
-      description: 'World Wide Business Center — a 2,000 sqm office interior designed and supervised by our team — blends elegant aesthetics with high functionality, featuring a welcoming reception, multiple meeting rooms, a fully equipped conference room, collaborative zones, and a dedicated games area.',
+      description: 'World Wide Business Center — a 2,000 sqm office interior designed and supervised by our team — blends elegant aesthetics with high functionality, featuring a welcoming reception, multiple meeting rooms, a fully equipped conference room, collaborative zones, and a dedicated games area. Smart space planning, premium finishes, and coordinated MEP deliver a polished, efficient workplace, with on-site supervision ensuring quality control, safety, and timely approvals through to handover.',
       mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304504/_DSC9859_sx03dr.jpg',
       gallery: [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304504/_DSC9859_sx03dr.jpg',
@@ -51,22 +50,20 @@ const allProjects = [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304498/_DSC9870_hyaor0.jpg',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304498/_DSC9893_ocqnlg.jpg',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304497/_DSC9866_aq8w9n.jpg'
-      ],
-      category: 'Office Interior'
+      ]
     },
-    { 
+    {
       title: 'Al Jabor Building',
       meta: 'Design and Municipality Approvals for Commercial Building',
       location: 'Al Hilal',
-      description: 'Designed and delivered to meet the client’s specific requirements, this project involved a full interior reconfiguration of the commercial building based on a targeted market-demand analysis.',
+      description: 'Designed and delivered to meet the client’s specific requirements, this project involved a full interior reconfiguration of the commercial building based on a targeted market-demand analysis (tenant mix, unit sizing, amenities, and circulation). Our team developed code-compliant drawings, coordinated MEP/architectural details, and secured rapid approvals from QCDD and Baladiya in line with QCDD regulations—expediting the permitting path and enabling a faster time-to-market for the owner.',
       mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761425803/Untitled_16_x_9_in_2_aypzfx.png',
       gallery: [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761425803/Untitled_16_x_9_in_2_aypzfx.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761425803/Untitled_16_x_9_in_3_m7smfu.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761425803/Untitled_16_x_9_in_1_ht1iux.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761425806/Untitled_16_x_9_in_mi6glx.png'
-      ],
-      category: 'Commercial Building'
+      ]
     },
     {
       title: 'Legal office for Shaiek Jassim Al Thani',
@@ -79,44 +76,23 @@ const allProjects = [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761394141/6_ypphq2.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761394138/5_qr7poc.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761394123/12_pqzmgc.png'
-      ],
-      category: 'Office Interior'
+      ]
     },
     { 
       title: 'Al Jazeera Tower',
       meta: 'End-to-end interior design and fit-out supervision',
       location: 'Dafna',
-      description: 'Office space design, supervision, and photorealistic renders for a high-rise project in Dafna (4 floors)—including workplace planning, detailed interiors, coordinated MEP, QCDD/NFPA life-safety compliance, and supervision for design compliance.',
+      description: 'Office space design, supervision, and photorealistic renders for a high-rise project in Dafna (4 floors)—including workplace planning, detailed interiors, coordinated MEP, QCDD/NFPA life-safety compliance, supervision for design compliance, adherence to tower standards/procedures, full snagging/rectification, QA/QC, and handover—plus contractor pre-qualification and selection, tendering support, quotation/bid evaluation with comparative summaries, value engineering, and award recommendations.',
       mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761403731/WhatsApp_Image_2025-05-10_at_15.22.46_2_k989qm.jpg',
       gallery: [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761403731/WhatsApp_Image_2025-05-10_at_15.22.46_2_k989qm.jpg',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761403731/WhatsApp_Image_2025-05-07_at_00.29.27_2_nbi4dd.jpg'
-      ],
-      category: 'Office Interior'
-    },
-    {
-      title: 'The Pearl Villa',
-      meta: 'Luxury Residential Villa',
-      location: 'The Pearl, Qatar',
-      description: 'A bespoke luxury villa featuring modern arabesque design, infinity pool, and state-of-the-art home automation. Our scope included full architectural and interior design, from concept to final handover.',
-      mainImage: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&auto=format&fit=crop&q=60',
-      gallery: [
-        'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&auto=format&fit=crop&q=60',
-        'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800&auto=format&fit=crop&q=60'
-      ],
-      category: 'Residential'
-    },
-    {
-      title: 'Doha Sands Hotel',
-      meta: '5-Star Hotel & Resort',
-      location: 'Westbay, Doha',
-      description: 'Comprehensive project management consultancy for a 300-key luxury hotel, including two signature restaurants, a spa, and ballroom facilities. We ensured the project was delivered on time and to the highest quality standards.',
-      mainImage: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&auto=format&fit=crop&q=60',
-      gallery: [
-        'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&auto=format&fit=crop&q=60',
-        'https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&auto=format&fit=crop&q=60'
-      ],
-      category: 'Hospitality'
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761403730/WhatsApp_Image_2025-05-06_at_22.26.44_gutr4h.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761403729/WhatsApp_Image_2025-05-03_at_22.27.08_ieb0bh.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761403729/WhatsApp_Image_2025-05-03_at_22.27.08_4_jdxyiq.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761403729/WhatsApp_Image_2025-05-06_at_21.44.35_2_ada0bu.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761403728/WhatsApp_Image_2025-05-06_at_22.26.44_3_ohtele.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761403570/WhatsApp_Image_2025-05-03_at_22.27.08_2_fnf82u.jpg'
+      ]
     }
 ];
 
@@ -178,7 +154,7 @@ const CustomCursor = memo(() => {
         document.body.addEventListener("mouseenter", showCursor);
 
         const hoverTargets = document.querySelectorAll(
-            'a, button, [role="button"], .project-card, .whatsapp-widget, select, textarea, label, .thumbnail-item, .gallery-nav-btn, .project-modal-close'
+            'a, button, [role="button"], input, .work-image, .whatsapp-widget, select, textarea, label, .thumbnail-item, .gallery-nav-btn, .project-modal-close'
         );
         hoverTargets.forEach(target => {
             target.addEventListener('mouseenter', handleMouseEnterHoverTarget);
@@ -669,90 +645,58 @@ const ProjectGalleryModal = ({ project, onClose }) => {
     );
 };
 
-const ProjectCard = ({ project, onClick }) => {
-    return (
-        <div className="project-card scroll-trigger fade-up" onClick={onClick} onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && onClick()} role="button" tabIndex={0} aria-label={`View project: ${project.title}`}>
-            <img src={project.mainImage} alt={project.title} className="project-card-image" />
-            <div className="project-card-overlay">
-                <div className="project-card-content">
-                    <h3>{project.title}</h3>
-                    <p>{project.category}</p>
-                </div>
-                <div className="project-card-icon">
-                    <i className="fas fa-arrow-right"></i>
-                </div>
-            </div>
-        </div>
-    );
-};
-
-
 const WorksPage = () => {
-    const [selectedProject, setSelectedProject] = useState(null);
-    const [filter, setFilter] = useState('All');
+  const [selectedProject, setSelectedProject] = useState(null);
 
-    const categories = ['All', ...Array.from(new Set(allProjects.map(p => p.category)))];
-
-    const filteredProjects = filter === 'All'
-        ? allProjects
-        : allProjects.filter(p => p.category === filter);
-
-    useEffect(() => {
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (prefersReducedMotion) { document.querySelectorAll('.scroll-trigger').forEach(el => el.classList.add('visible')); return; }
-        
-        const observer = new IntersectionObserver(
-            (entries, obs) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) { 
-                        entry.target.classList.add('visible'); 
-                        obs.unobserve(entry.target); 
-                    }
-                });
-            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
-        );
-
-        const elementsToReveal = document.querySelectorAll('.scroll-trigger');
-        elementsToReveal.forEach((el) => observer.observe(el));
-        
-        return () => elementsToReveal.forEach((el) => observer.unobserve(el));
-    }, [filter]); // Rerun on filter change to animate in new items
-
-    return (
-        <>
-            <ProjectGalleryModal project={selectedProject} onClose={() => setSelectedProject(null)} />
-            
-            <section id="works-hero" className="works-hero-section scroll-trigger fade-up">
-                <h1>Our <strong>Portfolio</strong></h1>
-            </section>
-
-            <section id="works-list" className="works-list-section">
-                <div className="container">
-                    <div className="filter-bar scroll-trigger fade-up">
-                        {categories.map(category => (
-                            <button
-                                key={category}
-                                className={`filter-btn ${filter === category ? 'active' : ''}`}
-                                onClick={() => setFilter(category)}
-                                aria-pressed={filter === category}
-                            >
-                                {category}
-                            </button>
-                        ))}
-                    </div>
-                    <div className="projects-grid">
-                        {filteredProjects.map((project, index) => (
-                            <ProjectCard
-                                key={project.title + index}
-                                project={project}
-                                onClick={() => setSelectedProject(project)}
-                            />
-                        ))}
-                    </div>
-                </div>
-            </section>
-        </>
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) { document.querySelectorAll('.scroll-trigger').forEach(el => el.classList.add('visible')); return; }
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) { entry.target.classList.add('visible'); obs.unobserve(entry.target); }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
     );
+    const elementsToReveal = document.querySelectorAll('.scroll-trigger');
+    elementsToReveal.forEach((el) => observer.observe(el));
+    return () => elementsToReveal.forEach((el) => observer.unobserve(el));
+  }, []);
+  
+  return (
+    <>
+      <ProjectGalleryModal project={selectedProject} onClose={() => setSelectedProject(null)} />
+      
+      <section id="works-hero" className="works-hero-section scroll-trigger fade-up">
+          <h1>Our Featured <strong>Projects</strong></h1>
+      </section>
+
+      <section id="works-list" className="works-list-section">
+          <div className="container">
+              <div className="works-list">
+                  {workItems.map((item, index) => (
+                      <div className={`work-item ${index % 2 === 1 ? 'reverse' : ''} scroll-trigger fade-up`} key={index}>
+                          <div className="grid">
+                               <button className="work-image" onClick={() => setSelectedProject(item)} aria-label={`View project details for ${item.title}`}>
+                                  <div className="work-title-overlay" aria-hidden="true">
+                                      <h3>{item.title}</h3>
+                                      <span className="view-projects-btn">View Project</span>
+                                  </div>
+                                  <img src={item.mainImage} alt={item.title} />
+                              </button>
+                              <div className="work-info">
+                                  <p className="meta">{item.meta}</p>
+                                  <h3 className="work-title"><strong>{item.title}</strong></h3>
+                                  <p className="work-description">{item.description}</p>
+                              </div>
+                          </div>
+                      </div>
+                  ))}
+              </div>
+          </div>
+      </section>
+    </>
+  );
 };
 
 const App = () => {
@@ -768,7 +712,7 @@ const App = () => {
             <SkipToContentLink />
             <CustomCursor />
             <WhatsAppChatWidget />
-            <Header theme="light" />
+            <Header theme="dark" />
             <div className="main-container">
                 <LeftSidebar pageName="WORKS" />
                 <main className="main-content" id="main-content" tabIndex={-1}>
