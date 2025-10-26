@@ -1106,30 +1106,6 @@ const HomePage = () => {
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761425803/Untitled_16_x_9_in_1_ht1iux.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761425806/Untitled_16_x_9_in_mi6glx.png'
       ]
-    },
-    {
-      title: 'Legal office for Shaiek Jassim Al Thani',
-      meta: 'End-to-end interior design and fit-out supervision',
-      location: 'Westbay',
-      description: 'Interior design and supervision for turnkey fit-out works—covering concept to handover—with full life-safety compliance to QCDD/NFPA codes. Services include 3D renders and visualizations, coordinated MEP layouts, furniture and finishes selection, technical specifications, detailed BOQs, and on-site supervision/QA to ensure quality, budget control, and timely delivery.',
-      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761394147/10_gtnarf.png',
-      gallery: [
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761394147/10_gtnarf.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761394141/6_ypphq2.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761394138/5_qr7poc.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761394123/12_pqzmgc.png'
-      ]
-    },
-    { 
-      title: 'Al Jazeera Tower',
-      meta: 'End-to-end interior design and fit-out supervision',
-      location: 'Dafna',
-      description: 'Office space design, supervision, and photorealistic renders for a high-rise project in Dafna (4 floors)—including workplace planning, detailed interiors, coordinated MEP, QCDD/NFPA life-safety compliance, supervision for design compliance, adherence to tower standards/procedures, full snagging/rectification, QA/QC, and handover—plus contractor pre-qualification and selection, tendering support, quotation/bid evaluation with comparative summaries, value engineering, and award recommendations.',
-      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761403731/WhatsApp_Image_2025-05-10_at_15.22.46_2_k989qm.jpg',
-      gallery: [
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761403731/WhatsApp_Image_2025-05-10_at_15.22.46_2_k989qm.jpg',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761403731/WhatsApp_Image_2025-05-07_at_00.29.27_2_nbi4dd.jpg'
-      ]
     }
   ];
 
