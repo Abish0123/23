@@ -781,7 +781,7 @@ const BlueprintAnimation = memo(() => {
 const HeroSection = () => {
     const [offsetY, setOffsetY] = useState(0);
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-    const titleLines = ["DESIGN WITH", "PURPOSE"];
+    const titleLines = ["STRUCTURES WITH", "PURPOSE"];
     const fullTitle = titleLines.join(' ');
 
     useEffect(() => {
@@ -1074,7 +1074,7 @@ const HomePage = () => {
       mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224706/WhatsApp_Image_2025-10-22_at_23.46.06_e814e5d0_uqphxj.png',
       gallery: [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224706/WhatsApp_Image_2025-10-22_at_23.46.06_e814e5d0_uqphxj.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224698/WhatsApp_Image_2025-10-22_at_23.46.07_714b8d87_1_eljwpn.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761475471/Untitled_16_x_9_in_4_kd0ayk.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224698/WhatsApp_Image_2025-10-22_at_23.46.07_d6db18c5_tovqbt.png'
       ]
     },
@@ -1127,12 +1127,7 @@ const HomePage = () => {
       mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761403731/WhatsApp_Image_2025-05-10_at_15.22.46_2_k989qm.jpg',
       gallery: [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761403731/WhatsApp_Image_2025-05-10_at_15.22.46_2_k989qm.jpg',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761403730/WhatsApp_Image_2025-05-06_at_22.26.44_gutr4h.jpg',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761403729/WhatsApp_Image_2025-05-03_at_22.27.08_ieb0bh.jpg',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761403729/WhatsApp_Image_2025-05-03_at_22.27.08_4_jdxyiq.jpg',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761403729/WhatsApp_Image_2025-05-06_at_21.44.35_2_ada0bu.jpg',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761403728/WhatsApp_Image_2025-05-06_at_22.26.44_3_ohtele.jpg',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761403570/WhatsApp_Image_2025-05-03_at_22.27.08_2_fnf82u.jpg'
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761403731/WhatsApp_Image_2025-05-07_at_00.29.27_2_nbi4dd.jpg'
       ]
     }
   ];
