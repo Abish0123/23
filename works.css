@@ -516,14 +516,20 @@ html, body {
     .app, .app a, .app button, .app [role="button"], .app input { cursor: auto !important; }
 
     .works-list {
-        gap: 60px;
+        gap: 40px;
     }
     .work-item .grid, .work-item.reverse .grid { 
         grid-template-columns: 1fr;
-        gap: 30px;
+        gap: 20px;
     }
-    .work-item.reverse .work-image { order: 1; }
-    .work-item.reverse .work-info { order: 2; }
+    
+    /* Ensure consistent vertical stacking: Image -> Description */
+    .work-item .work-image, .work-item.reverse .work-image { 
+        order: 1; 
+    }
+    .work-item .work-info, .work-item.reverse .work-info { 
+        order: 2; 
+    }
 
     .work-title-overlay {
        display: none;
@@ -554,10 +560,10 @@ html, body {
     .copyright-section { flex-direction: column; gap: 20px; text-align: center; }
     .logo-image { height: 50px; }
     .works-list {
-        gap: 50px;
+        gap: 40px;
     }
     .work-item .grid, .work-item.reverse .grid {
-        gap: 25px;
+        gap: 20px;
     }
     .work-info .work-title {
         font-size: 28px;
