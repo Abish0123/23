@@ -1,3 +1,4 @@
+
 :root {
   --dark-bg: #111111;
   --dark-bg-secondary: #1c1c1c;
@@ -154,6 +155,7 @@ html, body {
   width: calc(100% - 30px);
   position: relative;
   background-color: #fff;
+  padding-top: 100px; /* Offset for fixed header */
 }
 
 .main-content:focus {
@@ -284,7 +286,8 @@ html, body {
 
 /* Works Page Hero */
 .works-hero-section {
-    padding: 180px 60px 100px;
+    padding: 80px 60px 60px;
+    margin-top: -100px; /* Counteract main-content padding-top */
     text-align: center;
     background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&auto=format&fit=crop&q=60');
     background-size: cover;
@@ -308,6 +311,7 @@ html, body {
     color: var(--text-light);
     position: relative;
     z-index: 3;
+    padding-top: 100px;
 }
 .works-hero-section h1 strong {
     font-weight: 700;
@@ -317,7 +321,7 @@ html, body {
 
 /* Works List */
 .works-list-section {
-    padding: 120px 60px;
+    padding: 100px 60px;
 }
 .works-list {
     display: flex;
@@ -342,7 +346,6 @@ html, body {
     cursor: pointer;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     border-radius: 8px;
-    /* Button resets for accessibility */
     border: none;
     background: transparent;
     padding: 0;
@@ -389,6 +392,7 @@ html, body {
     color: #666;
     margin-top: 20px;
 }
+
 .work-title-overlay {
     position: absolute; top: 0; left: 0;
     width: 100%; height: 100%;
@@ -430,46 +434,6 @@ html, body {
     transform: translateY(0); opacity: 1;
 }
 
-.work-image .gallery-nav-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.4);
-    border: none;
-    color: white;
-    font-size: 20px;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background-color 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
-    z-index: 4;
-    opacity: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    -webkit-backdrop-filter: blur(2px);
-    backdrop-filter: blur(2px);
-}
-
-.work-image:hover .gallery-nav-btn, .work-image:focus-within .gallery-nav-btn {
-    opacity: 1;
-}
-
-.work-image .gallery-nav-btn:hover {
-    background-color: var(--accent-color);
-    transform: translateY(-50%) scale(1.1);
-}
-
-.work-image .gallery-nav-btn.prev {
-    left: 20px;
-}
-
-.work-image .gallery-nav-btn.next {
-    right: 20px;
-}
-
-/* Project Gallery Modal */
 .project-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); display: flex; align-items: center; justify-content: center; z-index: 9998; animation: fadeIn 0.3s ease; }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
@@ -493,7 +457,6 @@ html, body {
 
 .project-modal-close { position: absolute; top: 15px; right: 20px; background: transparent; border: none; color: white; font-size: 36px; font-weight: 300; cursor: pointer; transition: color 0.3s ease, transform 0.3s ease; z-index: 10; padding: 0 10px; }
 .project-modal-close:hover { color: var(--accent-color); transform: rotate(90deg); }
-
 .project-modal-gallery { position: relative; background: #000; display: flex; flex-direction: column; }
 .gallery-main-image { flex-grow: 1; display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .gallery-main-image img { width: 100%; height: 100%; object-fit: contain; }
@@ -501,13 +464,11 @@ html, body {
 .gallery-nav-btn:hover { background: var(--accent-color); }
 .gallery-nav-btn.prev { left: 20px; }
 .gallery-nav-btn.next { right: 20px; }
-
 .gallery-thumbnails { background: rgba(0,0,0,0.4); padding: 10px; display: flex; gap: 10px; overflow-x: auto; flex-shrink: 0; }
 .thumbnail-item { background: none; border: 2px solid transparent; border-radius: 4px; padding: 0; height: 70px; aspect-ratio: 16/9; overflow: hidden; cursor: pointer; transition: border-color 0.3s, opacity 0.3s; opacity: 0.6; }
 .thumbnail-item img { width: 100%; height: 100%; object-fit: cover; }
 .thumbnail-item:hover, .thumbnail-item:focus { opacity: 1; border-color: var(--accent-gray); }
 .thumbnail-item.active { opacity: 1; border-color: var(--accent-color); }
-
 .project-modal-details { padding: 40px; overflow-y: auto; }
 .project-modal-details .modal-meta { font-size: 12px; color: var(--accent-gray); margin-bottom: 10px; letter-spacing: 1px; text-transform: uppercase; }
 .project-modal-details .modal-title { font-size: 28px; font-weight: 700; margin-bottom: 15px; color: var(--accent-color); }
@@ -555,7 +516,7 @@ html, body {
     .app, .app a, .app button, .app [role="button"], .app input { cursor: auto !important; }
 
     .works-list {
-        gap: 50px;
+        gap: 60px;
     }
     .work-item .grid, .work-item.reverse .grid { 
         grid-template-columns: 1fr;
@@ -573,20 +534,37 @@ html, body {
     .gallery-nav-btn { display: none; }
 }
 @media (max-width: 768px) {
-    .works-list-section { padding: 80px 20px; }
-    .works-hero-section { padding: 140px 20px 80px; }
-    .works-hero-section h1 { font-size: 36px; }
+    .app-header {
+        padding: 15px 20px;
+    }
+    .main-content {
+        padding-top: 80px;
+    }
+    .works-hero-section {
+        padding: 60px 20px;
+        margin-top: -80px;
+    }
+    .works-hero-section h1 {
+        padding-top: 80px;
+        font-size: 36px;
+    }
+    .works-list-section { 
+        padding: 60px 20px; 
+    }
     .copyright-section { flex-direction: column; gap: 20px; text-align: center; }
     .logo-image { height: 50px; }
     .works-list {
-        gap: 40px;
+        gap: 50px;
     }
     .work-item .grid, .work-item.reverse .grid {
-        gap: 20px;
+        gap: 25px;
+    }
+    .work-info .work-title {
+        font-size: 28px;
     }
 }
 @media (max-width: 576px) {
-    .work-info .work-title { font-size: 28px; }
+    .work-info .work-title { font-size: 24px; }
     .project-modal-content { grid-template-rows: 55vh 45vh; }
     .project-modal-details { padding: 25px; }
     .project-modal-details .modal-title { font-size: 24px; }
