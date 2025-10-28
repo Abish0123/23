@@ -34,7 +34,8 @@ const workItems = [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761224706/WhatsApp_Image_2025-10-22_at_23.46.06_e814e5d0_uqphxj.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761224698/WhatsApp_Image_2025-10-22_at_23.46.07_714b8d87_1_eljwpn.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761224698/WhatsApp_Image_2025-10-22_at_23.46.07_d6db18c5_tovqbt.png'
-      ]
+      ],
+      alt: 'Interior design of the modern TrustLink office in Bin Mahmoud, Doha.'
     },
     { 
       title: 'World Wide Business Center',
@@ -49,7 +50,8 @@ const workItems = [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304498/_DSC9870_hyaor0.jpg',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304498/_DSC9893_ocqnlg.jpg',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304497/_DSC9866_aq8w9n.jpg'
-      ]
+      ],
+      alt: 'Spacious and modern interior of World Wide Business Center on D Ring Road, Doha.'
     },
     { 
       title: 'Al Jabor Building',
@@ -62,7 +64,8 @@ const workItems = [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761425803/Untitled_16_x_9_in_3_m7smfu.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761425803/Untitled_16_x_9_in_1_ht1iux.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761425806/Untitled_16_x_9_in_mi6glx.png'
-      ]
+      ],
+      alt: 'Architectural redesign of the Al Jabor commercial building in Al Hilal, Qatar.'
     },
     {
       title: 'Legal office for Shaiek Jassim Al Thani',
@@ -75,7 +78,8 @@ const workItems = [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761394141/6_ypphq2.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761394138/5_qr7poc.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761394123/12_pqzmgc.png'
-      ]
+      ],
+      alt: 'Luxurious interior design for a legal office in Westbay, Doha.'
     },
     { 
       title: 'Al Jazeera Tower',
@@ -92,7 +96,8 @@ const workItems = [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637876/Untitled_16_x_9_in_15_v8kenj.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637875/Untitled_16_x_9_in_18_n9nsc0.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637875/Untitled_16_x_9_in_16_lxxcfa.png'
-      ]
+      ],
+      alt: 'High-rise office interior fit-out at Al Jazeera Tower in Dafna, Doha.'
     }
 ];
 
@@ -314,6 +319,11 @@ const Header = ({ theme }) => {
 
   return (
     <header className={headerClasses}>
+      <div className="logo">
+        <AppLink href="/index.html">
+          <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Design Consultancy Logo - Architectural Firm in Qatar" className="logo-image" />
+        </AppLink>
+      </div>
       <nav className="main-nav" aria-label="Main navigation">
         <ul>
           {navLinks.map((link) => (
@@ -363,11 +373,6 @@ const Header = ({ theme }) => {
           ))}
         </ul>
       </nav>
-      <div className="logo">
-        <AppLink href="/index.html">
-          <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Design Consult Logo" className="logo-image" />
-        </AppLink>
-      </div>
       <button
         ref={burgerMenuRef}
         className={`burger-menu ${isMobileNavOpen ? 'open' : ''}`}
@@ -612,7 +617,7 @@ const ProjectGalleryModal = ({ project, onClose }) => {
                 <button onClick={onClose} className="project-modal-close" aria-label="Close project gallery">&times;</button>
                 <div className="project-modal-gallery">
                     <div className="gallery-main-image">
-                        <img src={project.gallery[currentIndex]} alt={`${project.title} - Image ${currentIndex + 1}`} />
+                        <img src={project.gallery[currentIndex]} alt={`${project.alt} - Image ${currentIndex + 1}`} />
                         {project.gallery.length >= 2 && (
                             <>
                                 <button onClick={goToPrevious} className="gallery-nav-btn prev" aria-label="Previous image"><i className="fas fa-chevron-left"></i></button>
@@ -692,7 +697,7 @@ const WorksPage = () => {
                                             <h3>{item.title}</h3>
                                             <span className="view-projects-btn">View Project <i className="fas fa-arrow-right" aria-hidden="true"></i></span>
                                         </div>
-                                        <img src={item.mainImage} alt={item.title} />
+                                        <img src={item.mainImage} alt={item.alt} />
                                     </div>
                                     <div className="work-info">
                                         <p className="meta">{item.meta}</p>
