@@ -1365,9 +1365,9 @@ const HomePage = () => {
                     >
                         <div className="grid">
                                 <div className="work-image">
-                                <div className="work-title-overlay" aria-hidden="true">
+                                <div className="work-image-cover" aria-hidden="true">
                                     <h3>{item.title}</h3>
-                                    <span className="view-projects-btn">View Project <i className="fas fa-arrow-right" aria-hidden="true"></i></span>
+                                    <span className="view-project-button">View Project <i className="fas fa-arrow-right" aria-hidden="true"></i></span>
                                 </div>
                                 <img src={item.mainImage} alt={item.title} />
                             </div>
@@ -1375,7 +1375,6 @@ const HomePage = () => {
                                 <p className="meta">{item.meta}</p>
                                 <h3 className="section-title" style={{marginBottom: '20px', fontSize: '28px'}}><strong>{item.title}</strong></h3>
                                 <p className="work-description">{item.description}</p>
-                                <span className="view-projects-btn-mobile">View Project <i className="fas fa-arrow-right" aria-hidden="true"></i></span>
                             </div>
                         </div>
                     </button>
