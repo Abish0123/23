@@ -996,8 +996,9 @@ const ProjectGalleryModal = ({ project, onClose }) => {
                         <img src={project.gallery[currentIndex]} alt={`${project.title} - Image ${currentIndex + 1}`} />
                     </div>
                     {project.gallery.length >= 2 && (
-                        <div className="gallery-controls">
+                        <>
                             <button onClick={goToPrevious} className="gallery-nav-btn prev" aria-label="Previous image"><i className="fas fa-chevron-left"></i></button>
+                            <button onClick={goToNext} className="gallery-nav-btn next" aria-label="Next image"><i className="fas fa-chevron-right"></i></button>
                             <div className="gallery-thumbnails">
                                 {project.gallery.map((img, index) => (
                                     <button 
@@ -1010,8 +1011,7 @@ const ProjectGalleryModal = ({ project, onClose }) => {
                                     </button>
                                 ))}
                             </div>
-                            <button onClick={goToNext} className="gallery-nav-btn next" aria-label="Next image"><i className="fas fa-chevron-right"></i></button>
-                        </div>
+                        </>
                     )}
                 </div>
                 <div className="project-modal-details">
