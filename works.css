@@ -1,3 +1,4 @@
+
 :root {
   --dark-bg: #111111;
   --dark-bg-secondary: #1c1c1c;
@@ -574,38 +575,93 @@ html, body {
     .app, .app a, .app button, .app [role="button"], .app input { cursor: auto !important; }
     
     .works-list {
-        gap: 40px;
+        gap: 30px;
     }
     .work-item, .work-item.reverse {
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-        overflow: hidden;
+        position: relative;
+        height: 450px;
+        display: flex;
+        align-items: flex-end;
+        padding: 0;
+        background-color: var(--dark-bg);
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
-        display: block;
         text-align: left;
+        overflow: hidden;
     }
     .work-item:hover {
         transform: translateY(-5px);
-        box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
     }
-    .work-item .grid, .work-item.reverse .grid { 
-        display: block; 
+
+    .work-item .grid, .work-item.reverse .grid {
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: relative;
         gap: 0;
     }
+
     .work-item.reverse .work-image, .work-item.reverse .work-info {
         order: initial;
     }
+
     .work-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
         padding: 0;
+        z-index: 1;
     }
+    
+    .work-image::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 80%;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 20%, transparent);
+        z-index: 2;
+        transition: background 0.3s ease;
+    }
+
     .work-image img {
-        border-radius: 8px 8px 0 0;
+        border-radius: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
+
     .work-info {
+        position: relative;
+        z-index: 3;
         padding: 25px;
+        width: 100%;
+        color: #fff;
+        align-self: flex-end;
         text-align: left;
     }
+
+    .work-info .work-title {
+      font-size: 24px;
+      color: #fff;
+    }
+    
+    .work-info .work-description {
+        color: #eee;
+        margin-top: 10px;
+        margin-bottom: 15px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
     .work-item.reverse .work-info {
         text-align: left;
     }
@@ -617,15 +673,16 @@ html, body {
         display: none;
     }
     .view-projects-btn-mobile {
-        display: inline-block;
-        margin-top: 20px;
-        color: var(--accent-color-dark-text, var(--accent-color));
+        display: inline-flex;
+        align-items: center;
+        margin-top: 10px;
+        color: var(--accent-color);
         font-weight: 700;
         font-size: 14px;
         text-decoration: none;
     }
     .view-projects-btn-mobile i {
-        margin-left: 5px;
+        margin-left: 8px;
         transition: transform 0.3s ease;
     }
     .work-item:hover .view-projects-btn-mobile i {
@@ -659,7 +716,12 @@ html, body {
     .copyright-section { flex-direction: column; gap: 20px; text-align: center; }
 }
 @media (max-width: 576px) {
-    .work-info .work-title { font-size: 28px; }
+    .work-item, .work-item.reverse {
+        height: 400px;
+    }
+    .work-info .work-title { 
+      font-size: 22px; 
+    }
     .project-modal-content { grid-template-rows: 55vh 45vh; }
     .project-modal-details { padding: 25px; }
     .project-modal-details .modal-title { font-size: 24px; }
