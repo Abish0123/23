@@ -29,7 +29,7 @@ const workItems = [
       title: 'TrustLink office',
       meta: 'Design and Build of Office Interior',
       location: 'Bin Mahmoud',
-      description: 'We provide end-to-end office interior design and on-site supervision—covering space planning, materials and finishes, MEP coordination, and quality control—to deliver functional, branded workplaces on time and within budget. Our team manages contractors, shop drawings, and inspections, ensuring QCDD/NFPA and Baladiya compliance from concept to handover for a smooth, approval-ready fit-out.',
+      description: 'We provide end-to-end office interior design and on-site supervision—covering space planning, materials and finishes, MEP coordination, and quality control—to deliver functional, branded workplaces on time and within budget.',
       mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224706/WhatsApp_Image_2025-10-22_at_23.46.06_e814e5d0_uqphxj.png',
       gallery: [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224706/WhatsApp_Image_2025-10-22_at_23.46.06_e814e5d0_uqphxj.png',
@@ -96,77 +96,6 @@ const workItems = [
 const SkipToContentLink = () => (
     <a href="#main-content" className="skip-to-content-link">
         Skip to main content
-    </a>
-);
-
-
-const WaveAnimation = memo(() => {
-    const canvasRef = useRef<HTMLCanvasElement | null>(null);
-
-    useEffect(() => {
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (prefersReducedMotion) return;
-
-        const canvas = canvasRef.current;
-        if (!canvas) return;
-        const ctx = canvas.getContext('2d');
-        if (!ctx) return;
-        let animationFrameId: number;
-
-        const waves = [
-            { amp: 15, freq: 0.02, phase: 0, color: 'rgba(212, 175, 55, 0.2)', speed: 0.01 },
-            { amp: 20, freq: 0.015, phase: 1, color: 'rgba(212, 175, 55, 0.3)', speed: 0.015 },
-            { amp: 25, freq: 0.01, phase: 2, color: 'rgba(212, 175, 55, 0.4)', speed: 0.02 },
-        ];
-        
-        const resizeCanvas = () => {
-            canvas.width = canvas.offsetWidth;
-            canvas.height = canvas.offsetHeight;
-        };
-
-        const draw = () => {
-            if (!ctx) return;
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            waves.forEach(wave => {
-                wave.phase += wave.speed;
-                ctx.beginPath();
-                ctx.moveTo(0, canvas.height);
-                for (let x = 0; x < canvas.width; x++) {
-                    const y = Math.sin(x * wave.freq + wave.phase) * wave.amp + (canvas.height / 1.5);
-                    ctx.lineTo(x, y);
-                }
-                ctx.lineTo(canvas.width, canvas.height);
-                ctx.closePath();
-                ctx.fillStyle = wave.color;
-                ctx.fill();
-            });
-            animationFrameId = requestAnimationFrame(draw);
-        };
-        
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-        draw();
-
-        return () => {
-            window.removeEventListener('resize', resizeCanvas);
-            cancelAnimationFrame(animationFrameId);
-        };
-    }, []);
-
-    return <canvas ref={canvasRef} id="footer-wave-canvas" aria-hidden="true" />;
-});
-
-const WhatsAppChatWidget = () => (
-    <a
-        href="https://wa.me/97477123400"
-        className="whatsapp-widget"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Chat with us on WhatsApp"
-    >
-        <div className="whatsapp-ring"></div>
-        <div className="whatsapp-ring-delay"></div>
-        <i className="fab fa-whatsapp whatsapp-icon" aria-hidden="true"></i>
     </a>
 );
 
@@ -261,7 +190,7 @@ const MobileNav = ({ isOpen, onClose }) => {
                     {navLinks.map(link => (
                          <li key={link.name}>
                              <AppLink 
-                                href={link.subLinks ? '#' : link.href} 
+                                href={link.subLinks ? '#' : link.href}
                                 onClick={link.subLinks ? handleServicesToggle : onClose}
                                 aria-haspopup={!!link.subLinks}
                                 aria-expanded={link.subLinks ? isServicesOpen : undefined}
@@ -349,9 +278,7 @@ const Header = ({ theme }) => {
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
-    return () => {
-        window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const handleServicesClick = (e: React.MouseEvent) => {
@@ -433,7 +360,7 @@ const Header = ({ theme }) => {
       </nav>
       <div className="logo">
         <AppLink href="/index.html">
-          <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Design Consultancy Logo" className="logo-image" />
+          <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Design Consult Logo" className="logo-image" />
         </AppLink>
       </div>
       <button
@@ -467,11 +394,68 @@ const LeftSidebar = ({ pageName }) => {
         <a href="#" aria-label="LinkedIn"><i className="fab fa-linkedin-in" aria-hidden="true"></i></a>
       </div>
       <div className="sidebar-footer">
-        <p>© Taj Design Consultancy 2024. All rights reserved.</p>
+        <p>© Taj Design Consult 2024. All rights reserved.</p>
       </div>
     </aside>
   );
 };
+
+const WaveAnimation = memo(() => {
+    const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+    useEffect(() => {
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion) return;
+
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+        let animationFrameId: number;
+
+        const waves = [
+            { amp: 15, freq: 0.02, phase: 0, color: 'rgba(212, 175, 55, 0.2)', speed: 0.01 },
+            { amp: 20, freq: 0.015, phase: 1, color: 'rgba(212, 175, 55, 0.3)', speed: 0.015 },
+            { amp: 25, freq: 0.01, phase: 2, color: 'rgba(212, 175, 55, 0.4)', speed: 0.02 },
+        ];
+        
+        const resizeCanvas = () => {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+        };
+
+        const draw = () => {
+            if (!ctx) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            waves.forEach(wave => {
+                wave.phase += wave.speed;
+                ctx.beginPath();
+                ctx.moveTo(0, canvas.height);
+                for (let x = 0; x < canvas.width; x++) {
+                    const y = Math.sin(x * wave.freq + wave.phase) * wave.amp + (canvas.height / 1.5);
+                    ctx.lineTo(x, y);
+                }
+                ctx.lineTo(canvas.width, canvas.height);
+                ctx.closePath();
+                ctx.fillStyle = wave.color;
+                ctx.fill();
+            });
+            animationFrameId = requestAnimationFrame(draw);
+        };
+        
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+        draw();
+
+        return () => {
+            window.removeEventListener('resize', resizeCanvas);
+            cancelAnimationFrame(animationFrameId);
+        };
+    }, []);
+
+    return <canvas ref={canvasRef} id="footer-wave-canvas" aria-hidden="true" />;
+});
+
 
 const Footer = () => {
     const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -481,13 +465,103 @@ const Footer = () => {
             <WaveAnimation />
             <div className="container">
                 <div className="copyright-section">
-                    <span>2024 © Taj Design Consultancy. All rights reserved.</span>
+                    <span>2024 © Taj Design Consult. All rights reserved.</span>
                     <button className="to-top" onClick={scrollToTop} aria-label="Scroll back to top">To Top ↑</button>
                 </div>
             </div>
           </footer>
     )
 }
+
+const CustomCursor = memo(() => {
+    const dotRef = useRef<HTMLDivElement>(null);
+    const outlineRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion) return;
+
+        const dot = dotRef.current;
+        const outline = outlineRef.current;
+        if (!dot || !outline) return;
+
+        gsap.set([dot, outline], { xPercent: -50, yPercent: -50 });
+
+        const dotX = gsap.quickTo(dot, "x", { duration: 0.1, ease: "power3" });
+        const dotY = gsap.quickTo(dot, "y", { duration: 0.1, ease: "power3" });
+        const outlineX = gsap.quickTo(outline, "x", { duration: 0.3, ease: "power3" });
+        const outlineY = gsap.quickTo(outline, "y", { duration: 0.3, ease: "power3" });
+
+        const mouseMove = (e: MouseEvent) => {
+            dotX(e.clientX);
+            dotY(e.clientY);
+            outlineX(e.clientX);
+            outlineY(e.clientY);
+        };
+        
+        const showCursor = () => {
+            dot.classList.add('visible');
+            outline.classList.add('visible');
+        };
+        const hideCursor = () => {
+            dot.classList.remove('visible');
+            outline.classList.remove('visible');
+        };
+        
+        const handleMouseEnterHoverTarget = () => {
+            dot.classList.add('cursor-hover');
+            outline.classList.add('cursor-hover');
+        };
+
+        const handleMouseLeaveHoverTarget = () => {
+            dot.classList.remove('cursor-hover');
+            outline.classList.remove('cursor-hover');
+        };
+        
+        window.addEventListener("mousemove", mouseMove);
+        document.body.addEventListener("mouseleave", hideCursor);
+        document.body.addEventListener("mouseenter", showCursor);
+
+        const hoverTargets = document.querySelectorAll(
+            'a, button, [role="button"], .whatsapp-widget'
+        );
+        hoverTargets.forEach(target => {
+            target.addEventListener('mouseenter', handleMouseEnterHoverTarget);
+            target.addEventListener('mouseleave', handleMouseLeaveHoverTarget);
+        });
+
+        return () => {
+            window.removeEventListener("mousemove", mouseMove);
+            document.body.removeEventListener("mouseleave", hideCursor);
+            document.body.removeEventListener("mouseenter", showCursor);
+            hoverTargets.forEach(target => {
+                target.removeEventListener('mouseenter', handleMouseEnterHoverTarget);
+                target.removeEventListener('mouseleave', handleMouseLeaveHoverTarget);
+            });
+        };
+    }, []);
+
+    return (
+        <>
+            <div ref={outlineRef} className="custom-cursor-outline"></div>
+            <div ref={dotRef} className="custom-cursor-dot"></div>
+        </>
+    );
+});
+
+const WhatsAppChatWidget = () => (
+    <a
+        href="https://wa.me/97477123400"
+        className="whatsapp-widget"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Chat with us on WhatsApp"
+    >
+        <div className="whatsapp-ring"></div>
+        <div className="whatsapp-ring-delay"></div>
+        <i className="fab fa-whatsapp whatsapp-icon" aria-hidden="true"></i>
+    </a>
+);
 
 const ProjectGalleryModal = ({ project, onClose }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -565,69 +639,76 @@ const ProjectGalleryModal = ({ project, onClose }) => {
     );
 };
 
-// --- WORKS PAGE ---
 
 const WorksPage = () => {
-    const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedProject, setSelectedProject] = useState(null);
 
-    useEffect(() => {
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (prefersReducedMotion) { document.querySelectorAll('.scroll-trigger').forEach(el => el.classList.add('visible')); return; }
-        const observer = new IntersectionObserver(
-          (entries, obs) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) { entry.target.classList.add('visible'); obs.unobserve(entry.target); }
-            });
-          }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
-        );
-        const elementsToReveal = document.querySelectorAll('.scroll-trigger');
-        elementsToReveal.forEach((el) => observer.observe(el));
-        return () => elementsToReveal.forEach((el) => observer.unobserve(el));
-      }, []);
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      document.querySelectorAll('.scroll-trigger').forEach(el => el.classList.add('visible'));
+      return;
+    }
 
-    return (
-        <>
-            <ProjectGalleryModal project={selectedProject} onClose={() => setSelectedProject(null)} />
-            
-            <section className="works-hero-section scroll-trigger fade-up">
-                <h1>Our <strong>Works</strong></h1>
-            </section>
-
-            <section id="main-content" className="works-list-section">
-                <div className="container">
-                    <div className="works-list">
-                        {workItems.map((item, index) => (
-                             <button
-                                className={`work-item ${index % 2 === 1 ? 'reverse' : ''} scroll-trigger fade-up`}
-                                key={index}
-                                onClick={() => setSelectedProject(item)}
-                                aria-label={`View project details for ${item.title}`}
-                            >
-                                <div className="grid">
-                                    <div className="work-image">
-                                        <div className="work-title-overlay" aria-hidden="true">
-                                            <h3>{item.title}</h3>
-                                            <span className="view-projects-btn">View Project <i className="fas fa-arrow-right" aria-hidden="true"></i></span>
-                                        </div>
-                                        <img src={item.mainImage} alt={item.title} />
-                                    </div>
-                                    <div className="work-info">
-                                        <p className="meta">{item.meta}</p>
-                                        <h3 className="work-title">{item.title}</h3>
-                                        <p className="work-description">{item.description}</p>
-                                        <span className="view-projects-btn-mobile">View Project <i className="fas fa-arrow-right" aria-hidden="true"></i></span>
-                                    </div>
-                                </div>
-                            </button>
-                        ))}
-                    </div>
-                </div>
-            </section>
-        </>
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
     );
-};
 
-// --- MAIN APP COMPONENT ---
+    const elementsToReveal = document.querySelectorAll('.scroll-trigger');
+    elementsToReveal.forEach((el) => observer.observe(el));
+
+    return () => elementsToReveal.forEach((el) => observer.unobserve(el));
+  }, []);
+
+  return (
+    <>
+      <ProjectGalleryModal project={selectedProject} onClose={() => setSelectedProject(null)} />
+      
+      <section className="works-hero-section scroll-trigger fade-up">
+        <h1>Our <strong>Works & Projects</strong></h1>
+      </section>
+
+      <section id="main-content" className="works-list-section">
+        <div className="container">
+            <div className="works-list">
+                {workItems.map((item, index) => (
+                    <button
+                        className={`work-item ${index % 2 === 1 ? 'reverse' : ''} scroll-trigger fade-up`}
+                        key={item.title}
+                        onClick={() => setSelectedProject(item)}
+                        aria-label={`View project details for ${item.title}`}
+                    >
+                        <div className="grid">
+                            <div className="work-image">
+                                <img src={item.mainImage} alt={item.title} />
+                                <div className="work-title-overlay" aria-hidden="true">
+                                    <h3>{item.title}</h3>
+                                    <span className="view-projects-btn">View Project <i className="fas fa-arrow-right" aria-hidden="true"></i></span>
+                                </div>
+                            </div>
+                            <div className="work-info">
+                                <p className="meta">{item.meta}</p>
+                                <h2 className="work-title">{item.title}</h2>
+                                <p className="work-description">{item.description}</p>
+                                <span className="view-projects-btn-mobile">View Project <i className="fas fa-arrow-right" aria-hidden="true"></i></span>
+                            </div>
+                        </div>
+                    </button>
+                ))}
+            </div>
+        </div>
+      </section>
+    </>
+  );
+};
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -638,18 +719,19 @@ const App = () => {
   }, []);
 
   return (
-      <div className={`app ${loading ? 'loading' : ''}`}>
-        <SkipToContentLink />
-        <WhatsAppChatWidget />
-        <Header theme="light" />
-        <div className="main-container">
-          <LeftSidebar pageName="WORKS" />
-          <main className="main-content" id="main-content" tabIndex={-1}>
-            <WorksPage />
-            <Footer />
-          </main>
-        </div>
+    <div className={`app ${loading ? 'loading' : ''}`}>
+      <SkipToContentLink />
+      <CustomCursor />
+      <WhatsAppChatWidget />
+      <Header theme="light" />
+      <div className="main-container">
+        <LeftSidebar pageName="WORKS" />
+        <main className="main-content" id="main-content" tabIndex={-1}>
+          <WorksPage />
+          <Footer />
+        </main>
       </div>
+    </div>
   );
 };
 
