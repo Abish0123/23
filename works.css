@@ -1,3 +1,4 @@
+
 :root {
   --dark-bg: #111111;
   --dark-bg-secondary: #1c1c1c;
@@ -333,26 +334,44 @@ html, body {
 
 .works-list-section {
     padding: 100px 60px;
+    background: var(--bg-light);
 }
-.container { max-width: 1200px; margin: 0 auto; }
-.works-list { display: flex; flex-direction: column; gap: 80px; }
+.container { max-width: 1400px; margin: 0 auto; }
 
-.work-item {
-    background: none; border: none; padding: 0; margin: 0; font: inherit; cursor: pointer; text-align: left; width: 100%;
+.works-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
 }
-.work-item .grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; align-items: center; }
-.work-item.reverse .grid { grid-template-columns: 1fr 1.2fr; }
-.work-item.reverse .work-info { order: -1; }
 
-.work-image { position: relative; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.1); border-radius: 8px; }
-.work-image img { width: 100%; display: block; transition: transform 0.4s ease-out; }
-.work-image-overlay {
+.project-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+}
+
+.project-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.project-card-cover {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(17, 17, 17, 0.6);
+    background: rgba(17, 17, 17, 0.7);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -362,15 +381,24 @@ html, body {
     padding: 20px;
     transition: background-color 0.4s ease;
 }
-.work-image-overlay h3 { font-size: 24px; margin-bottom: 20px; }
-.work-image-overlay .view-projects-btn {
-    display: inline-block; padding: 10px 25px; border: 1px solid var(--accent-color); color: var(--accent-color); text-decoration: none; font-weight: 700; transition: all 0.3s ease; background-color: transparent; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;
+
+.project-card-cover h3 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 15px;
 }
 
-.work-info .meta { font-size: 12px; color: #777; margin-bottom: 10px; letter-spacing: 1px; text-transform: uppercase; }
-.work-info .work-title { font-size: 32px; font-weight: 700; margin-bottom: 20px; color: var(--text-dark); }
-.work-info .work-description { line-height: 1.8; color: #555; }
-.view-projects-btn-mobile { display: none; }
+.project-card-cover .view-project-button {
+    padding: 10px 25px;
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
+    background-color: transparent;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
 
 .app-footer { background-color: var(--dark-bg-secondary); color: #aaa; padding: 80px 60px 40px; position: relative; overflow: hidden; }
 #footer-wave-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.5; z-index: 0; }
@@ -455,7 +483,6 @@ html, body {
     object-fit: contain;
 }
 
-/* Default styles for arrows (Mobile-first: ALWAYS VISIBLE) */
 .gallery-nav-btn {
     position: absolute;
     top: 50%;
@@ -475,12 +502,11 @@ html, body {
     justify-content: center;
     -webkit-backdrop-filter: blur(2px);
     backdrop-filter: blur(2px);
-    opacity: 1; /* Visible by default */
+    opacity: 1;
 }
 .gallery-nav-btn.prev { left: 10px; }
 .gallery-nav-btn.next { right: 10px; }
 
-/* General hover for touch feedback and desktop */
 .gallery-nav-btn:hover { 
     background-color: var(--accent-color);
 }
@@ -520,7 +546,7 @@ html, body {
 .project-modal-details .modal-description { line-height: 1.8; color: #ddd; }
 
 /* Custom Cursor */
-.custom-cursor-dot, .custom-cursor-outline { display: none; } /* Simplified for this page */
+.custom-cursor-dot, .custom-cursor-outline { display: none; }
 
 /* Hover States */
 @media (hover: hover) and (pointer: fine) {
@@ -529,15 +555,20 @@ html, body {
     .main-nav a:hover, .main-nav a:focus { color: var(--accent-color); text-shadow: var(--accent-color-shadow); outline: none; }
     .dropdown-link-item:hover, .dropdown-link-item:focus { background-color: rgba(255, 255, 255, 0.08); color: #fff; }
     .mobile-submenu li a:hover { color: var(--accent-color); }
-    .work-item:hover .work-image img { transform: scale(1.05); }
-    .work-item:hover .work-image-overlay { background: rgba(17, 17, 17, 0.8); }
-    .work-item:hover .work-image-overlay .view-projects-btn {
-        background-color: var(--accent-color);
-        color: var(--text-dark);
-    }
     .to-top:hover { text-shadow: var(--accent-color-shadow); }
     .whatsapp-widget:hover { transform: scale(1.1); }
     .project-modal-close:hover { color: var(--accent-color); transform: rotate(90deg); }
+
+    .project-card:hover .project-card-image {
+        transform: scale(1.05);
+    }
+    .project-card:hover .project-card-cover {
+        background-color: rgba(17, 17, 17, 0.85);
+    }
+    .project-card:hover .project-card-cover .view-project-button {
+        background-color: var(--accent-color);
+        color: var(--text-dark);
+    }
 
     .gallery-nav-btn {
         opacity: 0;
@@ -573,29 +604,4 @@ html, body {
     .logo { order: 1; }
     .burger-menu { order: 2; }
     .logo-image { height: 60px; }
-    .work-item .grid, .work-item.reverse .grid { grid-template-columns: 1fr; }
-    .work-item.reverse .work-info { order: 0; }
-    .work-image { margin-bottom: 30px; }
-    .project-modal-content { grid-template-columns: 1fr; grid-template-rows: 1fr auto; width: 100%; height: 100%; max-width: none; max-height: none; border-radius: 0; }
-    .project-modal-details { border-top: 1px solid var(--border-light); }
-}
-
-@media (max-width: 768px) {
-    .app-header { padding: 20px; }
-    .works-hero-section { padding: 140px 20px 80px; }
-    .works-hero-section h1 { font-size: 32px; }
-    .works-list-section { padding: 80px 20px; }
-    .copyright-section { flex-direction: column; gap: 20px; text-align: center; }
-    .logo-image { height: 50px; }
-}
-
-@media (max-width: 576px) {
-    .project-modal-content { grid-template-rows: 55vh auto; }
-    .project-modal-details { padding: 25px; }
-    .project-modal-details .modal-title { font-size: 24px; }
-    .thumbnail-item { height: 60px; }
-}
-
-@media (max-width: 480px) {
-    .app-header { padding: 15px; }
-}
+    .project-modal-content { grid-template-columns: 1fr; grid-template-rows: 1fr auto; width: 100%; height: 100%; max-width: none; max-height: none
