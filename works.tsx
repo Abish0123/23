@@ -184,7 +184,7 @@ const MobileNav = ({ isOpen, onClose }) => {
     }
     
     return (
-        <div ref={navContainerRef} className={'mobile-nav-overlay ${isOpen ? 'open' : ''}'} role="dialog" aria-modal="true" aria-hidden={!isOpen} id="mobile-nav">
+        <div ref={navContainerRef} className={`mobile-nav-overlay ${isOpen ? 'open' : ''}`} role="dialog" aria-modal="true" aria-hidden={!isOpen} id="mobile-nav">
             <nav className="mobile-nav">
                 <ul>
                     {navLinks.map(link => (
@@ -198,10 +198,10 @@ const MobileNav = ({ isOpen, onClose }) => {
                                 id={link.subLinks ? `mobile-${link.name}-toggle` : undefined}
                              >
                                  {link.name}
-                                 {link.subLinks && <i className={'fas fa-chevron-down dropdown-indicator ${isServicesOpen ? 'open' : ''}'} aria-hidden="true"></i>}
+                                 {link.subLinks && <i className={`fas fa-chevron-down dropdown-indicator ${isServicesOpen ? 'open' : ''}`} aria-hidden="true"></i>}
                              </AppLink>
                              {link.subLinks && (
-                                 <ul id={`mobile-${link.name}-submenu`} className={'mobile-submenu ${isServicesOpen ? 'open' : ''}'} aria-hidden={!isServicesOpen}>
+                                 <ul id={`mobile-${link.name}-submenu`} className={`mobile-submenu ${isServicesOpen ? 'open' : ''}`} aria-hidden={!isServicesOpen}>
                                      {link.subLinks.map(subLink => (
                                          <li key={subLink.name}>
                                             <AppLink href={subLink.href} onClick={onClose}>
@@ -599,7 +599,7 @@ const ProjectGalleryModal = ({ project, onClose }) => {
     if (!project) return null;
 
     const goToPrevious = () => setCurrentIndex(prev => (prev === 0 ? project.gallery.length - 1 : prev - 1));
-    const goToNext = () => setCurrentIndex(prev => (prev === project.gallery.length - 1 ? 0 : prev + 1));
+    const goToNext = () => setCurrentIndex(prev => (prev === project.gallery.length - 1 ? prev + 1));
 
     return (
         <div className="project-modal-overlay" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="modal-title">
