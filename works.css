@@ -649,8 +649,15 @@ html, body {
         font-size: 18px;
         background: rgba(0,0,0,0.3);
     }
-    .project-modal-gallery .gallery-nav-btn.prev { left: 10px; }
-    .project-modal-gallery .gallery-nav-btn.next { right: 10px; }
+    .project-modal-gallery .gallery-nav-btn:hover {
+        background: var(--accent-color);
+    }
+    .project-modal-gallery .gallery-nav-btn.prev {
+        left: 10px;
+    }
+    .project-modal-gallery .gallery-nav-btn.next {
+        right: 10px;
+    }
 }
 @media (max-width: 768px) {
     .works-list-section { padding: 80px 20px; }
