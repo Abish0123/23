@@ -394,10 +394,10 @@ const LeftSidebar = ({ pageName }) => {
         <div className="home-text">{pageName}</div>
       </div>
       <div className="social-icons">
-        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook (opens in a new tab)"><i className="fab fa-facebook-f" aria-hidden="true"></i></a>
-        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter (opens in a new tab)"><i className="fab fa-twitter" aria-hidden="true"></i></a>
-        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram (opens in a new tab)"><i className="fab fa-instagram" aria-hidden="true"></i></a>
-        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn (opens in a new tab)"><i className="fab fa-linkedin-in" aria-hidden="true"></i></a>
+        <a href="#" aria-label="Facebook"><i className="fab fa-facebook-f" aria-hidden="true"></i></a>
+        <a href="#" aria-label="Twitter"><i className="fab fa-twitter" aria-hidden="true"></i></a>
+        <a href="#" aria-label="Instagram"><i className="fab fa-instagram" aria-hidden="true"></i></a>
+        <a href="#" aria-label="LinkedIn"><i className="fab fa-linkedin-in" aria-hidden="true"></i></a>
       </div>
       <div className="sidebar-footer">
         <p>© Taj Design Consult 2024. All rights reserved.</p>
@@ -729,7 +729,7 @@ const App = () => {
       <SkipToContentLink />
       <CustomCursor />
       <WhatsAppChatWidget />
-      <Header theme="light" />
+      <Header theme="dark" />
       <div className="main-container">
         <LeftSidebar pageName="WORKS" />
         <main className="main-content" id="main-content" tabIndex={-1}>
