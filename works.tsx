@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef, memo, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -201,7 +202,7 @@ const MobileNav = ({ isOpen, onClose }) => {
                          <li key={link.name}>
                              <AppLink 
                                 href={link.subLinks ? '#' : link.href}
-                                onClick={link.subLinks ? handleServicesToggle : onClose}
+                                onClick={link.subLinks ? handleServicesToggle : () => onClose()}
                                 aria-haspopup={!!link.subLinks}
                                 aria-expanded={link.subLinks ? isServicesOpen : undefined}
                                 aria-controls={link.subLinks ? `mobile-${link.name}-submenu` : undefined}
@@ -214,7 +215,7 @@ const MobileNav = ({ isOpen, onClose }) => {
                                  <ul id={`mobile-${link.name}-submenu`} className={`mobile-submenu ${isServicesOpen ? 'open' : ''}`} aria-hidden={!isServicesOpen}>
                                      {link.subLinks.map(subLink => (
                                          <li key={subLink.name}>
-                                            <AppLink href={subLink.href} onClick={onClose}>
+                                            <AppLink href={subLink.href} onClick={() => onClose()}>
                                                 {subLink.name}
                                             </AppLink>
                                         </li>
@@ -483,82 +484,6 @@ const Footer = () => {
     )
 }
 
-const CustomCursor = memo(() => {
-    const dotRef = useRef<HTMLDivElement>(null);
-    const outlineRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (prefersReducedMotion) return;
-
-        const dot = dotRef.current;
-        const outline = outlineRef.current;
-        if (!dot || !outline) return;
-
-        gsap.set([dot, outline], { xPercent: -50, yPercent: -50 });
-
-        const dotX = gsap.quickTo(dot, "x", { duration: 0.1, ease: "power3" });
-        const dotY = gsap.quickTo(dot, "y", { duration: 0.1, ease: "power3" });
-        const outlineX = gsap.quickTo(outline, "x", { duration: 0.3, ease: "power3" });
-        const outlineY = gsap.quickTo(outline, "y", { duration: 0.3, ease: "power3" });
-
-        const mouseMove = (e: MouseEvent) => {
-            dotX(e.clientX);
-            dotY(e.clientY);
-            outlineX(e.clientX);
-            outlineY(e.clientY);
-        };
-        
-        const showCursor = () => {
-            dot.classList.add('visible');
-            outline.classList.add('visible');
-        };
-        const hideCursor = () => {
-            dot.classList.remove('visible');
-            outline.classList.remove('visible');
-        };
-        
-        const handleMouseEnterHoverTarget = () => {
-            dot.classList.add('cursor-hover');
-            outline.classList.add('cursor-hover');
-        };
-
-        const handleMouseLeaveHoverTarget = () => {
-            dot.classList.remove('cursor-hover');
-            outline.classList.remove('cursor-hover');
-        };
-        
-        window.addEventListener("mousemove", mouseMove);
-        document.body.addEventListener("mouseleave", hideCursor);
-        document.body.addEventListener("mouseenter", showCursor);
-
-        const hoverTargets = document.querySelectorAll(
-            'a, button, [role="button"], .whatsapp-widget'
-        );
-        hoverTargets.forEach(target => {
-            target.addEventListener('mouseenter', handleMouseEnterHoverTarget);
-            target.addEventListener('mouseleave', handleMouseLeaveHoverTarget);
-        });
-
-        return () => {
-            window.removeEventListener("mousemove", mouseMove);
-            document.body.removeEventListener("mouseleave", hideCursor);
-            document.body.removeEventListener("mouseenter", showCursor);
-            hoverTargets.forEach(target => {
-                target.removeEventListener('mouseenter', handleMouseEnterHoverTarget);
-                target.removeEventListener('mouseleave', handleMouseLeaveHoverTarget);
-            });
-        };
-    }, []);
-
-    return (
-        <>
-            <div ref={outlineRef} className="custom-cursor-outline"></div>
-            <div ref={dotRef} className="custom-cursor-dot"></div>
-        </>
-    );
-});
-
 const WhatsAppChatWidget = () => (
     <a
         href="https://wa.me/97477123400"
@@ -617,27 +542,25 @@ const ProjectGalleryModal = ({ project, onClose }) => {
                 <button onClick={onClose} className="project-modal-close" aria-label="Close project gallery">&times;</button>
                 <div className="project-modal-gallery">
                     <div className="gallery-main-image">
-                        <img src={project.gallery[currentIndex]} alt={`${project.alt} - Image ${currentIndex + 1}`} />
-                        {project.gallery.length >= 2 && (
-                            <>
-                                <button onClick={goToPrevious} className="gallery-nav-btn prev" aria-label="Previous image"><i className="fas fa-chevron-left"></i></button>
-                                <button onClick={goToNext} className="gallery-nav-btn next" aria-label="Next image"><i className="fas fa-chevron-right"></i></button>
-                            </>
-                        )}
+                        <img src={project.gallery[currentIndex]} alt={`${project.title} - Image ${currentIndex + 1}`} />
                     </div>
                     {project.gallery.length >= 2 && (
-                        <div className="gallery-thumbnails">
-                            {project.gallery.map((img, index) => (
-                                <button 
-                                  key={index} 
-                                  className={`thumbnail-item ${index === currentIndex ? 'active' : ''}`} 
-                                  onClick={() => setCurrentIndex(index)}
-                                  aria-label={`View image ${index + 1}`}
-                                >
-                                    <img src={img} alt={`Thumbnail ${index + 1}`} />
-                                </button>
-                            ))}
-                        </div>
+                        <>
+                            <button onClick={goToPrevious} className="gallery-nav-btn prev" aria-label="Previous image"><i className="fas fa-chevron-left"></i></button>
+                            <button onClick={goToNext} className="gallery-nav-btn next" aria-label="Next image"><i className="fas fa-chevron-right"></i></button>
+                            <div className="gallery-thumbnails">
+                                {project.gallery.map((img, index) => (
+                                    <button 
+                                      key={index} 
+                                      className={`thumbnail-item ${index === currentIndex ? 'active' : ''}`} 
+                                      onClick={() => setCurrentIndex(index)}
+                                      aria-label={`View image ${index + 1}`}
+                                    >
+                                        <img src={img} alt={`Thumbnail ${index + 1}`} />
+                                    </button>
+                                ))}
+                            </div>
+                        </>
                     )}
                 </div>
                 <div className="project-modal-details">
@@ -651,60 +574,29 @@ const ProjectGalleryModal = ({ project, onClose }) => {
     );
 };
 
-
 const WorksPage = () => {
     const [selectedProject, setSelectedProject] = useState(null);
-
-    useEffect(() => {
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (prefersReducedMotion) return;
-
-        const handleMouseMove = (e: MouseEvent) => {
-            document.querySelectorAll<HTMLElement>('.work-item').forEach(item => {
-                const rect = item.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                item.style.setProperty('--mouse-x', `${x}px`);
-                item.style.setProperty('--mouse-y', `${y}px`);
-            });
-        };
-
-        window.addEventListener('mousemove', handleMouseMove);
-        return () => window.removeEventListener('mousemove', handleMouseMove);
-    }, []);
 
     return (
         <>
             <ProjectGalleryModal project={selectedProject} onClose={() => setSelectedProject(null)} />
-
             <section className="works-hero-section">
-                <h1>Our <strong>Works</strong></h1>
+                <h1>Our <strong>Projects</strong></h1>
             </section>
-            
-            <section className="works-list-section" id="main-content">
+            <section id="works-grid-section" className="works-list-section">
                 <div className="container">
-                    <div className="works-list">
+                    <div className="works-grid">
                         {workItems.map((item, index) => (
                             <button
-                                className={`work-item ${index % 2 === 1 ? 'reverse' : ''}`}
                                 key={index}
+                                className="project-card"
                                 onClick={() => setSelectedProject(item)}
                                 aria-label={`View project details for ${item.title}`}
                             >
-                                <div className="grid">
-                                    <div className="work-image">
-                                        <div className="work-title-overlay" aria-hidden="true">
-                                            <h3>{item.title}</h3>
-                                            <span className="view-projects-btn">View Project <i className="fas fa-arrow-right" aria-hidden="true"></i></span>
-                                        </div>
-                                        <img src={item.mainImage} alt={item.alt} />
-                                    </div>
-                                    <div className="work-info">
-                                        <p className="meta">{item.meta}</p>
-                                        <h2 className="work-title">{item.title}</h2>
-                                        <p className="work-description">{item.description}</p>
-                                        <span className="view-projects-btn-mobile">View Project <i className="fas fa-arrow-right" aria-hidden="true"></i></span>
-                                    </div>
+                                <img src={item.mainImage} alt={item.alt || item.title} className="project-card-image" />
+                                <div className="project-card-cover">
+                                    <h3>{item.title}</h3>
+                                    <span className="view-project-button">View Project</span>
                                 </div>
                             </button>
                         ))}
@@ -713,7 +605,8 @@ const WorksPage = () => {
             </section>
         </>
     );
-};
+}
+
 
 const App = () => {
     const [loading, setLoading] = useState(true);
@@ -726,7 +619,6 @@ const App = () => {
     return (
         <div className={`app ${loading ? 'loading' : ''}`}>
             <SkipToContentLink />
-            <CustomCursor />
             <WhatsAppChatWidget />
             <Header theme="dark" />
             <div className="main-container">
@@ -741,5 +633,7 @@ const App = () => {
 };
 
 const container = document.getElementById('root');
-const root = createRoot(container!);
-root.render(<App />);
+if (container) {
+    const root = createRoot(container);
+    root.render(<App />);
+}
