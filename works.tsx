@@ -614,24 +614,26 @@ const ProjectGalleryModal = ({ project, onClose }) => {
                 <div className="project-modal-gallery">
                     <div className="gallery-main-image">
                         <img src={project.gallery[currentIndex]} alt={`${project.title} - Image ${currentIndex + 1}`} />
+                        {project.gallery.length >= 2 && (
+                            <>
+                                <button onClick={goToPrevious} className="gallery-nav-btn prev" aria-label="Previous image"><i className="fas fa-chevron-left"></i></button>
+                                <button onClick={goToNext} className="gallery-nav-btn next" aria-label="Next image"><i className="fas fa-chevron-right"></i></button>
+                            </>
+                        )}
                     </div>
                     {project.gallery.length >= 2 && (
-                        <>
-                            <button onClick={goToPrevious} className="gallery-nav-btn prev" aria-label="Previous image"><i className="fas fa-chevron-left"></i></button>
-                            <button onClick={goToNext} className="gallery-nav-btn next" aria-label="Next image"><i className="fas fa-chevron-right"></i></button>
-                            <div className="gallery-thumbnails">
-                                {project.gallery.map((img, index) => (
-                                    <button 
-                                      key={index} 
-                                      className={`thumbnail-item ${index === currentIndex ? 'active' : ''}`} 
-                                      onClick={() => setCurrentIndex(index)}
-                                      aria-label={`View image ${index + 1}`}
-                                    >
-                                        <img src={img} alt={`Thumbnail ${index + 1}`} />
-                                    </button>
-                                ))}
-                            </div>
-                        </>
+                        <div className="gallery-thumbnails">
+                            {project.gallery.map((img, index) => (
+                                <button 
+                                  key={index} 
+                                  className={`thumbnail-item ${index === currentIndex ? 'active' : ''}`} 
+                                  onClick={() => setCurrentIndex(index)}
+                                  aria-label={`View image ${index + 1}`}
+                                >
+                                    <img src={img} alt={`Thumbnail ${index + 1}`} />
+                                </button>
+                            ))}
+                        </div>
                     )}
                 </div>
                 <div className="project-modal-details">
