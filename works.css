@@ -1,3 +1,4 @@
+
 :root {
   --dark-bg: #111111;
   --dark-bg-secondary: #1c1c1c;
@@ -408,6 +409,85 @@ html, body {
     color: #666;
     margin-top: 20px;
 }
+.work-title-overlay {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    padding: 40px; z-index: 3;
+    background: rgba(17, 17, 17, 0.7);
+    opacity: 0; transition: opacity 0.4s ease;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center;
+}
+.work-item:hover .work-title-overlay { opacity: 1; }
+.work-title-overlay h3 {
+    font-size: 28px; font-weight: 700;
+    margin-bottom: 20px; color: white;
+    transform: translateY(20px); opacity: 0;
+    transition: opacity 0.4s 0.2s ease, transform 0.4s 0.2s ease;
+}
+.view-projects-btn {
+    display: inline-block;
+    padding: 12px 30px;
+    border: 1px solid #fff;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    background-color: transparent;
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: opacity 0.4s 0.3s ease, transform 0.4s 0.3s ease;
+}
+.view-projects-btn:hover { background-color: #fff; color: #111; }
+.work-item:hover .work-title-overlay h3,
+.work-item:hover .work-title-overlay .view-projects-btn {
+    transform: translateY(0); opacity: 1;
+}
+
+.work-image .gallery-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.4);
+    border: none;
+    color: white;
+    font-size: 20px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+    z-index: 4;
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+}
+
+.work-image:hover .gallery-nav-btn, .work-image:focus-within .gallery-nav-btn {
+    opacity: 1;
+}
+
+.work-image .gallery-nav-btn:hover {
+    background-color: var(--accent-color);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.work-image .gallery-nav-btn.prev {
+    left: 20px;
+}
+
+.work-image .gallery-nav-btn.next {
+    right: 20px;
+}
 
 /* Project Gallery Modal */
 .project-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); display: flex; align-items: center; justify-content: center; z-index: 9998; animation: fadeIn 0.3s ease; }
@@ -437,10 +517,10 @@ html, body {
 .project-modal-gallery { position: relative; background: #000; display: flex; flex-direction: column; }
 .gallery-main-image { flex-grow: 1; display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .gallery-main-image img { width: 100%; height: 100%; object-fit: contain; }
-.project-modal-gallery .gallery-nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255, 255, 255, 0.1); border: none; color: white; font-size: 24px; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; transition: background-color 0.3s ease; z-index: 10; display: flex; align-items: center; justify-content: center; }
-.project-modal-gallery .gallery-nav-btn:hover { background: var(--accent-color); }
-.project-modal-gallery .gallery-nav-btn.prev { left: 20px; }
-.project-modal-gallery .gallery-nav-btn.next { right: 20px; }
+.gallery-nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255, 255, 255, 0.1); border: none; color: white; font-size: 24px; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; transition: background-color 0.3s ease; z-index: 10; display: flex; align-items: center; justify-content: center; }
+.gallery-nav-btn:hover { background: var(--accent-color); }
+.gallery-nav-btn.prev { left: 20px; }
+.gallery-nav-btn.next { right: 20px; }
 
 .gallery-thumbnails { background: rgba(0,0,0,0.4); padding: 10px; display: flex; gap: 10px; overflow-x: auto; flex-shrink: 0; }
 .thumbnail-item { background: none; border: 2px solid transparent; border-radius: 4px; padding: 0; height: 70px; aspect-ratio: 16/9; overflow: hidden; cursor: pointer; transition: border-color 0.3s, opacity 0.3s; opacity: 0.6; }
@@ -534,7 +614,9 @@ html, body {
         left: 0;
         right: auto;
     }
-
+    .work-title-overlay {
+        display: none;
+    }
     .view-projects-btn-mobile {
         display: inline-block;
         margin-top: 20px;
@@ -551,48 +633,19 @@ html, body {
         transform: translateX(5px);
     }
 
-    .project-modal-content { grid-template-columns: 1fr; grid-template-rows: auto auto; max-height: 90vh; }
+    .project-modal-content { grid-template-columns: 1fr; grid-template-rows: 60vh auto; max-height: 90vh; }
     .project-modal-details { border-top: 1px solid var(--border-light); }
-    .project-modal-gallery {
-        min-height: 0;
-    }
-    .gallery-main-image {
-        height: 60vh;
-        min-height: 0;
-    }
-    
-    /* Mobile Gallery Controls */
-    .gallery-controls {
+    .gallery-nav-btn {
         display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 10px;
-        background-color: var(--dark-bg);
-        flex-shrink: 0;
-    }
-
-    .project-modal-gallery .gallery-nav-btn {
-        position: static;
-        transform: none;
-        top: auto;
-        left: auto;
-        right: auto;
-        flex-shrink: 0;
-        width: 44px;
-        height: 44px;
-        background-color: rgba(255, 255, 255, 0.1);
+        top: 30vh; /* Position in vertical center of 60vh image area */
+        transform: translateY(-50%);
+        width: 40px;
+        height: 40px;
         font-size: 18px;
+        background: rgba(0,0,0,0.3);
     }
-    .project-modal-gallery .gallery-nav-btn:hover {
-        background: var(--accent-color);
-    }
-    
-    .gallery-thumbnails {
-        flex-grow: 1;
-        min-width: 0; /* For flexbox to allow scrolling */
-        background-color: transparent;
-        padding: 0;
-    }
+    .gallery-nav-btn.prev { left: 10px; }
+    .gallery-nav-btn.next { right: 10px; }
 }
 @media (max-width: 768px) {
     .works-list-section { padding: 80px 20px; }
@@ -602,8 +655,7 @@ html, body {
 }
 @media (max-width: 576px) {
     .work-info .work-title { font-size: 28px; }
-    .gallery-main-image { height: 55vh; }
-    .project-modal-content { grid-template-rows: auto auto; } /* Let content define height */
+    .project-modal-content { grid-template-rows: 55vh 45vh; }
     .project-modal-details { padding: 25px; }
     .project-modal-details .modal-title { font-size: 24px; }
     .thumbnail-item { height: 60px; }
