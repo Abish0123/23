@@ -2081,7 +2081,30 @@
     .blog-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
     .project-modal-content { grid-template-columns: 1fr; grid-template-rows: 60vh auto; max-height: 90vh; }
     .project-modal-details { border-top: 1px solid var(--border-light); }
-    .gallery-nav-btn { display: none; }
+    .project-modal-gallery {
+      min-height: 0;
+    }
+    .gallery-main-image {
+      min-height: 0;
+    }
+    .project-modal-gallery .gallery-nav-btn {
+        display: flex;
+        top: 30vh;
+        transform: translateY(-50%);
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+        background: rgba(0,0,0,0.3);
+    }
+    .project-modal-gallery .gallery-nav-btn:hover {
+        background: var(--accent-color);
+    }
+    .project-modal-gallery .gallery-nav-btn.prev {
+        left: 10px;
+    }
+    .project-modal-gallery .gallery-nav-btn.next {
+        right: 10px;
+    }
 }
   
 @media (max-width: 768px) {
