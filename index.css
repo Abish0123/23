@@ -1,3 +1,4 @@
+
 :root {
     --dark-bg: #111111;
     --dark-bg-secondary: #1c1c1c;
@@ -1268,7 +1269,7 @@
   .work-image img {
       width: 100%;
       transform: scale(1.15) translateY(var(--parallax-y, 0px));
-      transition: transform 0.1s linear;
+      transition: transform 0.4s ease;
       will-change: transform;
   }
   
@@ -1312,7 +1313,7 @@
       margin-top: 20px;
   }
   
-  .work-title-overlay {
+  .work-image-cover {
       position: absolute;
       top: 0;
       left: 0;
@@ -1320,39 +1321,35 @@
       height: 100%;
       padding: 40px;
       z-index: 3;
-      background: rgba(17, 17, 17, 0.9);
-      transform: translateY(100%);
-      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      background: rgba(17, 17, 17, 0.7);
       display: flex;
       flex-direction: column;
-      justify-content: flex-end;
-      align-items: flex-start;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      transition: background-color 0.4s ease;
   }
   
-  .work-title-overlay h3 {
+  .work-image-cover h3 {
       font-size: 28px;
       font-weight: 700;
       margin-bottom: 20px;
-      color: white; /* initial color */
-      transform: translateY(20px);
-      opacity: 0;
-      transition: opacity 0.4s 0.25s ease, transform 0.4s 0.25s ease, color 0.4s 0.25s ease, text-shadow 0.4s 0.25s ease;
+      color: white;
   }
   
-  .work-title-overlay .view-projects-btn {
-      transform: translateY(20px);
-      opacity: 0;
-      transition: opacity 0.4s 0.35s ease, transform 0.4s 0.35s ease, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, text-shadow 0.3s ease;
+  .work-image-cover .view-project-button {
+      padding: 10px 25px;
+      border: 1px solid var(--accent-color);
+      color: var(--accent-color);
+      background-color: transparent;
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
   }
-  
-  .work-item.reverse .work-title-overlay {
-      align-items: flex-end;
-      text-align: right;
-  }
-  
-  .view-projects-btn-mobile {
-      display: none;
-  }
+
+  .view-projects-btn-mobile { display: none; }
 
   /* Blog Section */
   #blog .blog-grid {
@@ -1924,22 +1921,15 @@
         background-color: rgba(34, 34, 34, 0.7);
         border-color: #444;
     }
-    .work-image:hover .work-title-overlay {
-        transform: translateY(0);
+    .work-item:hover .work-image img {
+      transform: scale(1.1) translateY(var(--parallax-y, 0px));
     }
-    .work-image:hover .work-title-overlay h3,
-    .work-image:hover .work-title-overlay .view-projects-btn {
-        transform: translateY(0);
-        opacity: 1;
+    .work-item:hover .work-image-cover {
+      background-color: rgba(17, 17, 17, 0.85);
     }
-    .work-image:hover .work-title-overlay h3 {
-        color: var(--accent-color);
-        text-shadow: var(--accent-color-shadow-small);
-    }
-    .work-image:hover .work-title-overlay .view-projects-btn {
+    .work-item:hover .work-image-cover .view-project-button {
         background-color: var(--accent-color);
         color: var(--text-dark);
-        border-color: var(--accent-color);
     }
     .blog-item:hover {
         transform: translateY(-10px);
@@ -2065,17 +2055,6 @@
     .work-item .work-info .work-description { color: #ddd; }
     .work-item .work-info .section-title { color: var(--text-light); }
     .work-item .work-info .section-title strong { color: var(--text-light); }
-    .work-title-overlay { display: none; }
-    .view-projects-btn-mobile {
-        display: inline-block;
-        margin-top: 20px;
-        color: var(--accent-color);
-        font-weight: 700;
-        font-size: 14px;
-        text-decoration: none;
-    }
-    .view-projects-btn-mobile i { margin-left: 5px; transition: transform 0.3s ease; }
-    .work-item:hover .view-projects-btn-mobile i { transform: translateX(5px); }
     .work-item.reverse .work-info .meta::after { left: 0; right: auto; }
 
     .blog-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
