@@ -449,45 +449,6 @@ html, body {
     transform: translateY(0); opacity: 1;
 }
 
-.work-image .gallery-nav-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.4);
-    border: none;
-    color: white;
-    font-size: 20px;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background-color 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
-    z-index: 4;
-    opacity: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    -webkit-backdrop-filter: blur(2px);
-    backdrop-filter: blur(2px);
-}
-
-.work-image:hover .gallery-nav-btn, .work-image:focus-within .gallery-nav-btn {
-    opacity: 1;
-}
-
-.work-image .gallery-nav-btn:hover {
-    background-color: var(--accent-color);
-    transform: translateY(-50%) scale(1.1);
-}
-
-.work-image .gallery-nav-btn.prev {
-    left: 20px;
-}
-
-.work-image .gallery-nav-btn.next {
-    right: 20px;
-}
-
 /* Project Gallery Modal */
 .project-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); display: flex; align-items: center; justify-content: center; z-index: 9998; animation: fadeIn 0.3s ease; }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -515,7 +476,7 @@ html, body {
 
 .project-modal-gallery { position: relative; background: #000; display: flex; flex-direction: column; }
 .gallery-main-image { flex-grow: 1; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-.gallery-main-image img { width: 100%; height: 100%;}
+.gallery-main-image img { width: 100%; height: 100%; object-fit: contain; }
 .project-modal-gallery .gallery-nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255, 255, 255, 0.1); border: none; color: white; font-size: 24px; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; transition: background-color 0.3s ease; z-index: 10; display: flex; align-items: center; justify-content: center; }
 .project-modal-gallery .gallery-nav-btn:hover { background: var(--accent-color); }
 .project-modal-gallery .gallery-nav-btn.prev { left: 20px; }
@@ -649,15 +610,8 @@ html, body {
         font-size: 18px;
         background: rgba(0,0,0,0.3);
     }
-    .project-modal-gallery .gallery-nav-btn:hover {
-        background: var(--accent-color);
-    }
-    .project-modal-gallery .gallery-nav-btn.prev {
-        left: 10px;
-    }
-    .project-modal-gallery .gallery-nav-btn.next {
-        right: 10px;
-    }
+    .project-modal-gallery .gallery-nav-btn.prev { left: 10px; }
+    .project-modal-gallery .gallery-nav-btn.next { right: 10px; }
 }
 @media (max-width: 768px) {
     .works-list-section { padding: 80px 20px; }
