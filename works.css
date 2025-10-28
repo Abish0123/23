@@ -1,3 +1,4 @@
+
 :root {
   --dark-bg: #111111;
   --dark-bg-secondary: #1c1c1c;
@@ -632,9 +633,19 @@ html, body {
         transform: translateX(5px);
     }
 
-    .project-modal-content { grid-template-columns: 1fr; grid-template-rows: 60vh 40vh; max-height: 90vh; }
+    .project-modal-content { grid-template-columns: 1fr; grid-template-rows: 60vh auto; max-height: 90vh; }
     .project-modal-details { border-top: 1px solid var(--border-light); }
-    .gallery-nav-btn { display: none; }
+    .gallery-nav-btn {
+        display: flex;
+        top: 30vh; /* Position in vertical center of 60vh image area */
+        transform: translateY(-50%);
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+        background: rgba(0,0,0,0.3);
+    }
+    .gallery-nav-btn.prev { left: 10px; }
+    .gallery-nav-btn.next { right: 10px; }
 }
 @media (max-width: 768px) {
     .works-list-section { padding: 80px 20px; }
