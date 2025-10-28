@@ -1,662 +1,748 @@
 
-:root {
-  --dark-bg: #111111;
-  --dark-bg-secondary: #1c1c1c;
-  --text-light: #ffffff;
-  --text-dark: #111111;
-  --accent-color: #D4AF37;
-  --accent-color-shadow: 0 0 10px #D4AF37, 0 0 20px #B89B32, 0 0 30px #9C822A;
-  --accent-color-shadow-small: 0 0 5px #D4AF37, 0 0 10px #B89B32;
-  --accent-gray: #888;
-  --border-light: #333;
-  --bg-light: #f9f9f9;
-}
+import React, { useState, useEffect, useRef, memo, MouseEventHandler } from 'react';
+import { createRoot } from 'react-dom/client';
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+declare const gsap: any;
 
-html, body {
-  font-family: 'Roboto', sans-serif;
-  color: var(--text-dark);
-  scroll-behavior: smooth;
-  overflow-x: hidden;
-  background-color: var(--bg-light);
-}
+// --- DATA & CONFIG ---
 
-#root {
-  display: flex;
-  flex-direction: column;
-}
+const servicesSubLinks = [
+  { name: 'Architectural Design', href: 'architectural-design.html', icon: 'fas fa-archway' },
+  { name: 'Engineering Consultancy', href: 'engineering-consultancy.html', icon: 'fas fa-cogs' },
+  { name: 'Project Management Consultancy', href: 'project-management.html', icon: 'fas fa-tasks' },
+  { name: 'Sustainability & Energy', href: 'sustainability-energy.html', icon: 'fas fa-leaf' },
+  { name: 'Construction Approval', href: 'construction-approval.html', icon: 'fas fa-check-double' },
+];
 
-/* Accessibility Helpers */
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
-}
+const navLinks = [
+  { name: 'Home', href: '/index.html' },
+  { name: 'About Us', href: '/about.html' },
+  { name: 'Works/Projects', href: '/works.html' },
+  { name: 'Services', href: '/index.html#our-services', subLinks: servicesSubLinks },
+  { name: 'Blog', href: '/index.html#blog' },
+  { name: 'Careers', href: '/careers.html' },
+  { name: 'Contact', href: '/contact.html' },
+];
 
-.skip-to-content-link {
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: 15px;
-    background-color: var(--accent-color);
-    color: white;
-    text-decoration: none;
-    font-weight: 700;
-    z-index: 9999;
-    transform: translateY(-120%);
-    transition: transform 0.3s ease;
-}
+const workItems = [
+    { 
+      title: 'TrustLink office',
+      meta: 'Design and Build of Office Interior',
+      location: 'Bin Mahmoud',
+      description: 'We provide end-to-end office interior design and on-site supervision—covering space planning, materials and finishes, MEP coordination, and quality control—to deliver functional, branded workplaces on time and within budget.',
+      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761224706/WhatsApp_Image_2025-10-22_at_23.46.06_e814e5d0_uqphxj.png',
+      gallery: [
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761224706/WhatsApp_Image_2025-10-22_at_23.46.06_e814e5d0_uqphxj.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761224698/WhatsApp_Image_2025-10-22_at_23.46.07_714b8d87_1_eljwpn.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761224698/WhatsApp_Image_2025-10-22_at_23.46.07_d6db18c5_tovqbt.png'
+      ]
+    },
+    { 
+      title: 'World Wide Business Center',
+      meta: 'Design and Supervision of Office Interior',
+      location: 'D Ring Road',
+      description: 'World Wide Business Center — a 2,000 sqm office interior designed and supervised by our team — blends elegant aesthetics with high functionality, featuring a welcoming reception, multiple meeting rooms, a fully equipped conference room, collaborative zones, and a dedicated games area.',
+      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304504/_DSC9859_sx03dr.jpg',
+      gallery: [
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304504/_DSC9859_sx03dr.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304501/_DSC9888_rkhjis.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304500/_DSC9901_beo4mx.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304498/_DSC9870_hyaor0.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304498/_DSC9893_ocqnlg.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304497/_DSC9866_aq8w9n.jpg'
+      ]
+    },
+    { 
+      title: 'Al Jabor Building',
+      meta: 'Design and Municipality Approvals for Commercial Building',
+      location: 'Al Hilal',
+      description: 'Designed and delivered to meet the client’s specific requirements, this project involved a full interior reconfiguration of the commercial building based on a targeted market-demand analysis.',
+      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761425803/Untitled_16_x_9_in_2_aypzfx.png',
+      gallery: [
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761425803/Untitled_16_x_9_in_2_aypzfx.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761425803/Untitled_16_x_9_in_3_m7smfu.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761425803/Untitled_16_x_9_in_1_ht1iux.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761425806/Untitled_16_x_9_in_mi6glx.png'
+      ]
+    },
+    {
+      title: 'Legal office for Shaiek Jassim Al Thani',
+      meta: 'End-to-end interior design and fit-out supervision',
+      location: 'Westbay',
+      description: 'Interior design and supervision for turnkey fit-out works—covering concept to handover—with full life-safety compliance to QCDD/NFPA codes. Services include 3D renders and visualizations, coordinated MEP layouts, furniture and finishes selection, technical specifications, detailed BOQs, and on-site supervision/QA to ensure quality, budget control, and timely delivery.',
+      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761394147/10_gtnarf.png',
+      gallery: [
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761394147/10_gtnarf.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761394141/6_ypphq2.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761394138/5_qr7poc.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761394123/12_pqzmgc.png'
+      ]
+    },
+    { 
+      title: 'Al Jazeera Tower',
+      meta: 'End-to-end interior design and fit-out supervision',
+      location: 'Dafna',
+      description: 'Office space design, supervision, and photorealistic renders for a high-rise project in Dafna (4 floors)—including workplace planning, detailed interiors, coordinated MEP, QCDD/NFPA life-safety compliance, supervision for design compliance, adherence to tower standards/procedures, full snagging/rectification, QA/QC, and handover—plus contractor pre-qualification and selection, tendering support, quotation/bid evaluation with comparative summaries, value engineering, and award recommendations.',
+      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637877/Untitled_16_x_9_in_13_pd7hre.png',
+      gallery: [
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637877/Untitled_16_x_9_in_13_pd7hre.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637877/Untitled_16_x_9_in_14_mxzymr.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637876/Untitled_16_x_9_in_19_kqzxdr.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637875/Untitled_16_x_9_in_17_x98cqb.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637875/Untitled_16_x_9_in_12_npf9j9.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637876/Untitled_16_x_9_in_15_v8kenj.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637875/Untitled_16_x_9_in_18_n9nsc0.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637875/Untitled_16_x_9_in_16_lxxcfa.png'
+      ]
+    }
+];
 
-.skip-to-content-link:focus {
-    transform: translateY(0);
-}
+// --- SHARED & LAYOUT COMPONENTS ---
 
-.app {
-  opacity: 1;
-  transition: opacity 0.8s ease-in;
-}
+const SkipToContentLink = () => (
+    <a href="#main-content" className="skip-to-content-link">
+        Skip to main content
+    </a>
+);
 
-.app.loading {
-  opacity: 0;
-}
+const AppLink = React.forwardRef<HTMLAnchorElement, {
+  href: string;
+  className?: string;
+  children: React.ReactNode;
+  onClick?: MouseEventHandler<HTMLAnchorElement>;
+  [key: string]: any;
+}>(({ href, className = '', children, onClick, ...props }, ref) => {
+    const isToggle = href === '#';
 
-.main-container {
-  display: flex;
-  width: 100%;
-}
+    const handleClick: MouseEventHandler<HTMLAnchorElement> = (e) => {
+        if (isToggle) {
+            e.preventDefault();
+        }
 
-.left-sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 30px;
-  background-color: var(--dark-bg);
-  border-right: 1px solid var(--border-light);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  z-index: 1001;
-}
+        if (onClick) {
+            onClick(e);
+        }
+    };
 
-.sidebar-top {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 35px;
-  padding-top: 60px;
-}
-
-.sidebar-top .divider {
-  width: 20px;
-  height: 1px;
-  background-color: var(--accent-gray);
-}
-
-.left-sidebar .home-text {
-  transform: rotate(-90deg);
-  white-space: nowrap;
-  letter-spacing: 2px;
-  font-weight: 300;
-  font-size: 14px;
-  color: var(--text-light);
-}
-
-.social-icons {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  justify-content: center;
-  padding: 40px 0;
-}
-
-.social-icons a {
-  color: var(--text-light);
-  font-size: 16px;
-  transition: color 0.3s ease, text-shadow 0.3s ease;
-}
-
-.social-icons a:hover {
-  color: var(--accent-color);
-  text-shadow: var(--accent-color-shadow);
-}
-
-.sidebar-footer {
-  width: 100%;
-  background-color: var(--accent-color);
-  color: var(--text-dark);
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  flex-grow: 1;
-}
-
-.sidebar-footer p {
-  transform: rotate(-90deg);
-  white-space: nowrap;
-  letter-spacing: 1px;
-}
-
-.main-content {
-  margin-left: 30px;
-  width: calc(100% - 30px);
-  position: relative;
-  background-color: #fff;
-}
-
-.main-content:focus {
-    outline: none;
-}
-
-.app-header {
-  position: fixed;
-  top: 0;
-  left: 30px;
-  width: calc(100% - 30px);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 40px;
-  z-index: 1000;
-  transition: background-color 0.4s ease, box-shadow 0.4s ease;
-}
-
-.logo { order: 1; }
-.main-nav { order: 2; }
-.burger-menu { order: 3; }
-
-.app-header.scrolled.on-light {
-    background-color: #fff;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-}
-.app-header.on-dark {
-    background-color: #000;
-}
-.app-header.scrolled.on-dark {
-    background-color: rgba(0, 0, 0, 0.9);
-}
-
-.logo-image {
-    height: 60px;
-    width: auto;
-}
-
-.app-header.on-dark .main-nav a { color: var(--text-light); }
-.app-header.on-light .main-nav a { color: var(--text-dark); }
-
-.main-nav ul { list-style: none; display: flex; gap: 25px; }
-.main-nav ul li { position: relative; }
-.main-nav a { text-decoration: none; text-transform: uppercase; font-size: 12px; letter-spacing: 1px; font-weight: 400; position: relative; padding-bottom: 5px; transition: color 0.3s ease, text-shadow 0.3s ease; }
-.main-nav a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background-color: var(--accent-color); transition: width 0.3s ease; }
-.main-nav a:hover::after, .main-nav a:focus::after { width: 100%; }
-.app-header.on-dark .main-nav a:hover, .app-header.on-dark .main-nav a:focus { color: var(--accent-color); text-shadow: var(--accent-color-shadow); outline: none; }
-.app-header.on-light .main-nav a:hover, .app-header.on-light .main-nav a:focus { color: var(--accent-color); text-shadow: none; }
-
-.main-nav ul li.has-dropdown > a { display: flex; align-items: center; gap: 5px; top: 4px; }
-.dropdown-indicator { font-size: 10px; transition: transform 0.3s ease; }
-.has-dropdown.open .dropdown-indicator { transform: rotate(180deg); }
-
-.dropdown-menu { position: absolute; top: calc(100% + 10px); left: -20px; border-radius: 8px; padding: 8px; list-style: none; min-width: 280px; z-index: 1001; opacity: 0; visibility: hidden; transform: translateY(10px); transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s; box-shadow: 0 8px 16px rgba(0,0,0,0.1); }
-.has-dropdown.open .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
-.app-header.on-dark .dropdown-menu { background-color: #1a1a1a; border: 1px solid var(--border-light); }
-.app-header.on-light .dropdown-menu { background-color: #fff; border: 1px solid #eee; }
-.dropdown-links { padding: 0; margin: 0; list-style: none; display: flex; flex-direction: column; gap: 2px; }
-.dropdown-link-item { display: flex; align-items: center; padding: 8px 12px; border-radius: 6px; text-decoration: none; transition: background-color 0.2s ease, color 0.2s ease; font-weight: 400; text-transform: none; font-size: 14px; letter-spacing: 0; white-space: nowrap; }
-.dropdown-link-item::after { display: none; }
-.dropdown-link-icon { margin-right: 10px; font-size: 16px; width: 20px; text-align: center; color: var(--accent-color); }
-.app-header.on-dark .dropdown-link-item { color: #ccc; }
-.app-header.on-light .dropdown-link-item { color: var(--text-dark); }
-.app-header.on-dark .dropdown-link-item:hover, .app-header.on-dark .dropdown-link-item:focus { background-color: rgba(255, 255, 255, 0.08); color: #fff; }
-.app-header.on-light .dropdown-link-item:hover, .app-header.on-light .dropdown-link-item:focus { background-color: #f0f0f0; color: #111; }
-
-.burger-menu {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    width: 48px;
-    height: 48px;
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 6px;
-    z-index: 1002;
-    transition: transform 0.2s ease;
-}
-.burger-menu:active {
-    transform: scale(0.9);
-}
-.burger-bar {
-    display: block;
-    width: 28px;
-    height: 3px;
-    background-color: var(--text-light);
-    border-radius: 3px;
-    transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
-    transform-origin: center;
-}
-.app-header.on-light .burger-bar {
-    background-color: var(--text-dark);
-}
-.burger-menu.open .burger-bar {
-    background-color: var(--text-light);
-}
-.burger-menu.open .burger-bar:nth-child(1) {
-    transform: translateY(9px) rotate(45deg);
-}
-.burger-menu.open .burger-bar:nth-child(2) {
-    opacity: 0;
-}
-.burger-menu.open .burger-bar:nth-child(3) {
-    transform: translateY(-9px) rotate(-45deg);
-}
-
-.mobile-nav-overlay { position: fixed; top: 0; right: 0; width: 100%; height: 100%; background-color: rgba(17, 17, 17, 0.98); z-index: 1001; transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.645, 0.045, 0.355, 1); display: flex; flex-direction: column; align-items: center; justify-content: center; }
-.mobile-nav-overlay.open { transform: translateX(0); }
-.mobile-nav ul { list-style: none; text-align: center; }
-.mobile-nav ul li { margin: 20px 0; opacity: 0; transform: translateY(20px); transition: opacity 0.3s ease, transform 0.3s ease; }
-.mobile-nav-overlay.open .mobile-nav ul li { opacity: 1; transform: translateY(0); }
-.mobile-nav-overlay.open .mobile-nav ul li:nth-child(1) { transition-delay: 0.2s; }
-.mobile-nav-overlay.open .mobile-nav ul li:nth-child(2) { transition-delay: 0.25s; }
-.mobile-nav-overlay.open .mobile-nav ul li:nth-child(3) { transition-delay: 0.3s; }
-.mobile-nav-overlay.open .mobile-nav ul li:nth-child(4) { transition-delay: 0.35s; }
-.mobile-nav-overlay.open .mobile-nav ul li:nth-child(5) { transition-delay: 0.4s; }
-.mobile-nav-overlay.open .mobile-nav ul li:nth-child(6) { transition-delay: 0.45s; }
-.mobile-nav ul li a { color: var(--text-light); text-decoration: none; font-size: 24px; font-weight: 300; text-transform: uppercase; letter-spacing: 2px; position: relative; padding: 10px; }
-.mobile-nav ul li a .dropdown-indicator { font-size: 16px; margin-left: 10px; transition: transform 0.3s ease; }
-.mobile-nav ul li a .dropdown-indicator.open { transform: rotate(180deg); }
-.mobile-submenu { list-style: none; padding-left: 0; max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out, margin-top 0.4s ease-out; }
-.mobile-submenu.open { max-height: 500px; margin-top: 15px; }
-.mobile-submenu li a { font-size: 16px; font-weight: 400; text-transform: none; color: #ccc; }
-
-/* Works Page Hero */
-.works-hero-section {
-    padding: 180px 60px 100px;
-    text-align: center;
-    background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&auto=format&fit=crop&q=60');
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    overflow: hidden;
-}
-.works-hero-section::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background-color: rgba(17, 17, 17, 0.6);
-    z-index: 1;
-}
-.works-hero-section h1 {
-    font-size: 48px;
-    font-weight: 300;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: var(--text-light);
-    position: relative;
-    z-index: 3;
-}
-.works-hero-section h1 strong {
-    font-weight: 700;
-    color: var(--accent-color);
-    text-shadow: var(--accent-color-shadow-small);
-}
-
-/* Works List */
-.works-list-section {
-    padding: 120px 60px;
-}
-.works-list {
-    display: flex;
-    flex-direction: column;
-    gap: 80px;
-}
-
-.work-item {
-    background: none;
-    border: none;
-    padding: 0;
-    margin: 0;
-    font: inherit;
-    color: inherit;
-    cursor: pointer;
-    text-align: inherit;
-    width: 100%;
-    display: block;
-}
-.work-item:focus {
-    outline: 2px solid var(--accent-color);
-    outline-offset: 4px;
-    border-radius: 8px;
-}
-.view-projects-btn-mobile {
-    display: none;
-}
-
-.work-item .grid {
-    display: grid;
-    gap: 60px;
-    align-items: center;
-    width: 100%;
-    max-width: 1200px;
-}
-.work-item:not(.reverse) .grid { grid-template-columns: 1.2fr 0.8fr; }
-.work-item.reverse .grid { grid-template-columns: 0.8fr 1.2fr; }
-.work-item.reverse .work-image { order: 2; }
-.work-item.reverse .work-info { order: 1; }
-
-.work-image {
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    border-radius: 8px;
-    border: none;
-    background: transparent;
-    padding: 0;
-    width: 100%;
-    text-align: left;
-    display: block;
-}
-.work-image img {
-    width: 100%;
-    display: block;
-    transition: transform 0.4s ease-out;
-}
-.work-item:hover .work-image img {
-    transform: scale(1.05);
-}
-.work-info .meta {
-    font-size: 12px;
-    color: var(--accent-gray);
-    margin-bottom: 20px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    position: relative;
-    padding-bottom: 20px;
-}
-.work-info .meta::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 50px;
-    height: 3px;
-    background-color: var(--accent-color);
-}
-.work-info .work-title {
-    font-size: 32px;
-    font-weight: 700;
-    margin-bottom: 20px;
-    color: var(--text-dark);
-}
-.work-info .work-description {
-    line-height: 1.7;
-    color: #666;
-    margin-top: 20px;
-}
-.work-title-overlay {
-    position: absolute; top: 0; left: 0;
-    width: 100%; height: 100%;
-    padding: 40px; z-index: 3;
-    background: rgba(17, 17, 17, 0.7);
-    opacity: 0; transition: opacity 0.4s ease;
-    display: flex; flex-direction: column;
-    justify-content: center; align-items: center;
-    text-align: center;
-}
-.work-item:hover .work-title-overlay { opacity: 1; }
-.work-title-overlay h3 {
-    font-size: 28px; font-weight: 700;
-    margin-bottom: 20px; color: white;
-    transform: translateY(20px); opacity: 0;
-    transition: opacity 0.4s 0.2s ease, transform 0.4s 0.2s ease;
-}
-.view-projects-btn {
-    display: inline-block;
-    padding: 12px 30px;
-    border: 1px solid #fff;
-    color: #fff;
-    text-decoration: none;
-    font-weight: 700;
-    transition: all 0.3s ease;
-    background-color: transparent;
-    font-family: inherit;
-    font-size: 14px;
-    cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transform: translateY(20px);
-    opacity: 0;
-    transition: opacity 0.4s 0.3s ease, transform 0.4s 0.3s ease;
-}
-.view-projects-btn:hover { background-color: #fff; color: #111; }
-.work-item:hover .work-title-overlay h3,
-.work-item:hover .work-title-overlay .view-projects-btn {
-    transform: translateY(0); opacity: 1;
-}
-
-.work-image .gallery-nav-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.4);
-    border: none;
-    color: white;
-    font-size: 20px;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background-color 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
-    z-index: 4;
-    opacity: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    -webkit-backdrop-filter: blur(2px);
-    backdrop-filter: blur(2px);
-}
-
-.work-image:hover .gallery-nav-btn, .work-image:focus-within .gallery-nav-btn {
-    opacity: 1;
-}
-
-.work-image .gallery-nav-btn:hover {
-    background-color: var(--accent-color);
-    transform: translateY(-50%) scale(1.1);
-}
-
-.work-image .gallery-nav-btn.prev {
-    left: 20px;
-}
-
-.work-image .gallery-nav-btn.next {
-    right: 20px;
-}
-
-/* Project Gallery Modal */
-.project-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); display: flex; align-items: center; justify-content: center; z-index: 9998; animation: fadeIn 0.3s ease; }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-.project-modal-content {
-    position: relative;
-    width: 90vw;
-    height: 90vh;
-    max-width: 1400px;
-    max-height: 800px;
-    background: var(--dark-bg-secondary);
-    color: var(--text-light);
-    border-radius: 8px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-    display: grid;
-    grid-template-columns: 1fr 400px;
-    overflow: hidden;
-    animation: zoomIn 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-.project-modal-content:focus { outline: none; }
-@keyframes zoomIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-
-.project-modal-close { position: absolute; top: 15px; right: 20px; background: transparent; border: none; color: white; font-size: 36px; font-weight: 300; cursor: pointer; transition: color 0.3s ease, transform 0.3s ease; z-index: 10; padding: 0 10px; }
-.project-modal-close:hover { color: var(--accent-color); transform: rotate(90deg); }
-
-.project-modal-gallery { position: relative; background: #000; display: flex; flex-direction: column; }
-.gallery-main-image { flex-grow: 1; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-.gallery-main-image img { width: 100%; height: 100%; object-fit: contain; }
-.gallery-nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255, 255, 255, 0.1); border: none; color: white; font-size: 24px; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; transition: background-color 0.3s ease; z-index: 10; display: flex; align-items: center; justify-content: center; }
-.gallery-nav-btn:hover { background: var(--accent-color); }
-.gallery-nav-btn.prev { left: 20px; }
-.gallery-nav-btn.next { right: 20px; }
-
-.gallery-thumbnails { background: rgba(0,0,0,0.4); padding: 10px; display: flex; gap: 10px; overflow-x: auto; flex-shrink: 0; }
-.thumbnail-item { background: none; border: 2px solid transparent; border-radius: 4px; padding: 0; height: 70px; aspect-ratio: 16/9; overflow: hidden; cursor: pointer; transition: border-color 0.3s, opacity 0.3s; opacity: 0.6; }
-.thumbnail-item img { width: 100%; height: 100%; object-fit: cover; }
-.thumbnail-item:hover, .thumbnail-item:focus { opacity: 1; border-color: var(--accent-gray); }
-.thumbnail-item.active { opacity: 1; border-color: var(--accent-color); }
-
-.project-modal-details { padding: 40px; overflow-y: auto; }
-.project-modal-details .modal-meta { font-size: 12px; color: var(--accent-gray); margin-bottom: 10px; letter-spacing: 1px; text-transform: uppercase; }
-.project-modal-details .modal-title { font-size: 28px; font-weight: 700; margin-bottom: 15px; color: var(--accent-color); }
-.project-modal-details .modal-location { display: flex; align-items: center; gap: 10px; margin-bottom: 25px; color: #ccc; }
-.project-modal-details .modal-description { line-height: 1.8; color: #ddd; }
+    return (
+        <a
+            ref={ref}
+            href={href}
+            className={className}
+            onClick={onClick ? handleClick : undefined}
+            {...props}
+        >
+            {children}
+        </a>
+    );
+});
 
 
-/* Other shared components */
-.app-footer { background-color: var(--dark-bg-secondary); color: #aaa; padding: 80px 60px 40px; position: relative; overflow: hidden; }
-#footer-wave-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.5; z-index: 0; }
-.app-footer .container { position: relative; z-index: 1; }
-.copyright-section { border-top: 1px solid var(--border-light); padding-top: 30px; display: flex; justify-content: space-between; align-items: center; font-size: 14px; }
-.to-top { background: none; border: none; color: var(--accent-color); font-size: 14px; font-weight: 700; cursor: pointer; transition: text-shadow 0.3s ease; }
-.to-top:hover { text-shadow: var(--accent-color-shadow); }
+const MobileNav = ({ isOpen, onClose }) => {
+    const [isServicesOpen, setIsServicesOpen] = useState(false);
+    const navContainerRef = useRef<HTMLDivElement>(null);
 
-.custom-cursor-dot, .custom-cursor-outline { position: fixed; top: 0; left: 0; transform: translate(-50%, -50%); pointer-events: none; z-index: 9999; border-radius: 50%; will-change: transform, opacity; opacity: 0; transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, width 0.3s ease, height 0.3s ease; }
-.custom-cursor-dot.visible, .custom-cursor-outline.visible { opacity: 1; }
-.custom-cursor-dot { width: 8px; height: 8px; background-color: var(--accent-color); }
-.custom-cursor-outline { width: 40px; height: 40px; border: 2px solid var(--accent-color); }
-.custom-cursor-outline.cursor-hover { transform: translate(-50%, -50%) scale(1.6); background-color: var(--accent-color); border-color: transparent; opacity: 0.25 !important; }
-.custom-cursor-dot.cursor-hover { transform: translate(-50%, -50%) scale(0); }
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+            const focusableElements = navContainerRef.current?.querySelectorAll<HTMLElement>(
+                'a[href], button, [tabindex]:not([tabindex="-1"])'
+            );
+            if (!focusableElements || focusableElements.length === 0) return;
 
-.whatsapp-widget { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background-color: #25D366; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.2); z-index: 1000; text-decoration: none; transition: transform 0.3s ease; }
-.whatsapp-widget:hover { transform: scale(1.1); }
-.whatsapp-icon { font-size: 32px; color: white; z-index: 2; }
-.whatsapp-ring, .whatsapp-ring-delay { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%; border: 2px solid #25D366; opacity: 0.7; animation: whatsapp-pulse 2s infinite ease-out; z-index: 1; }
-.whatsapp-ring-delay { animation-delay: 1s; }
-@keyframes whatsapp-pulse { 0% { transform: scale(1); opacity: 0.7; } 100% { transform: scale(2.5); opacity: 0; } }
+            const firstElement = focusableElements[0];
+            const lastElement = focusableElements[focusableElements.length - 1];
 
-.scroll-trigger { opacity: 0; transition: opacity 1s cubic-bezier(0.645, 0.045, 0.355, 1), transform 1s cubic-bezier(0.645, 0.045, 0.355, 1); }
-.scroll-trigger.fade-up { transform: translateY(50px); }
-.scroll-trigger.visible { opacity: 1; transform: none; }
+            setTimeout(() => firstElement.focus(), 100);
 
-@media (max-width: 1200px) {
-    .main-content { margin-left: 0; width: 100%; }
-    .left-sidebar { display: none; }
-    .app-header { left: 0; width: 100%; }
-    .works-list-section { padding: 100px 40px; }
-    .project-modal-content { grid-template-columns: 1fr 320px; }
-}
-@media (max-width: 992px) {
-    .main-nav { display: none; }
-    .burger-menu { display: flex; }
-    .custom-cursor-dot, .custom-cursor-outline { display: none; }
-    .app, .app a, .app button, .app [role="button"], .app input { cursor: auto !important; }
+            const handleKeyDown = (e: KeyboardEvent) => {
+                if (e.key === 'Escape') {
+                    onClose();
+                    return;
+                }
+                if (e.key === 'Tab') {
+                    if (e.shiftKey) { 
+                        if (document.activeElement === firstElement) {
+                            lastElement.focus();
+                            e.preventDefault();
+                        }
+                    } else { 
+                        if (document.activeElement === lastElement) {
+                            firstElement.focus();
+                            e.preventDefault();
+                        }
+                    }
+                }
+            };
+            
+            const container = navContainerRef.current;
+            container?.addEventListener('keydown', handleKeyDown);
+            return () => container?.removeEventListener('keydown', handleKeyDown);
+
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => { document.body.style.overflow = ''; };
+    }, [isOpen, onClose]);
+
+    const handleServicesToggle = () => {
+        setIsServicesOpen(prev => !prev);
+    }
     
-    .works-list {
-        gap: 40px;
+    return (
+        <div ref={navContainerRef} className={`mobile-nav-overlay ${isOpen ? 'open' : ''}`} role="dialog" aria-modal="true" aria-hidden={!isOpen} id="mobile-nav">
+            <nav className="mobile-nav">
+                <ul>
+                    {navLinks.map(link => (
+                         <li key={link.name}>
+                             <AppLink 
+                                href={link.subLinks ? '#' : link.href}
+                                onClick={link.subLinks ? handleServicesToggle : onClose}
+                                aria-haspopup={!!link.subLinks}
+                                aria-expanded={link.subLinks ? isServicesOpen : undefined}
+                                aria-controls={link.subLinks ? `mobile-${link.name}-submenu` : undefined}
+                                id={link.subLinks ? `mobile-${link.name}-toggle` : undefined}
+                             >
+                                 {link.name}
+                                 {link.subLinks && <i className={`fas fa-chevron-down dropdown-indicator ${isServicesOpen ? 'open' : ''}`} aria-hidden="true"></i>}
+                             </AppLink>
+                             {link.subLinks && (
+                                 <ul id={`mobile-${link.name}-submenu`} className={`mobile-submenu ${isServicesOpen ? 'open' : ''}`} aria-hidden={!isServicesOpen}>
+                                     {link.subLinks.map(subLink => (
+                                         <li key={subLink.name}>
+                                            <AppLink href={subLink.href} onClick={onClose}>
+                                                {subLink.name}
+                                            </AppLink>
+                                        </li>
+                                     ))}
+                                 </ul>
+                             )}
+                         </li>
+                    ))}
+                </ul>
+            </nav>
+        </div>
+    );
+};
+
+const Header = ({ theme }) => {
+  const [scrolled, setScrolled] = useState(false);
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
+  
+  const burgerMenuRef = useRef<HTMLButtonElement>(null);
+  const servicesToggleRef = useRef<HTMLAnchorElement>(null);
+  const servicesDropdownContainerRef = useRef<HTMLLIElement>(null);
+
+  const toggleMobileNav = () => {
+    setIsMobileNavOpen(prev => !prev);
+  };
+
+  const closeMobileNav = () => {
+    setIsMobileNavOpen(false);
+    burgerMenuRef.current?.focus();
+  };
+
+  const closeServicesDropdown = (shouldFocusToggle = true) => {
+    if (isServicesDropdownOpen) {
+      setIsServicesDropdownOpen(false);
+      if (shouldFocusToggle) {
+        servicesToggleRef.current?.focus();
+      }
     }
-    .work-item, .work-item.reverse {
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-        overflow: hidden;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        display: block;
-        text-align: left;
+  };
+
+  useEffect(() => {
+    if (isServicesDropdownOpen) {
+      const firstItem = servicesDropdownContainerRef.current?.querySelector<HTMLAnchorElement>('.dropdown-menu a');
+      firstItem?.focus();
     }
-    .work-item:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+  }, [isServicesDropdownOpen]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        closeServicesDropdown();
+      }
+    };
+    const handleClickOutside = (event: MouseEvent) => {
+      if (servicesDropdownContainerRef.current && !servicesDropdownContainerRef.current.contains(event.target as Node)) {
+        closeServicesDropdown(false);
+      }
+    };
+
+    if (isServicesDropdownOpen) {
+      document.addEventListener('keydown', handleKeyDown);
+      document.addEventListener('mousedown', handleClickOutside);
     }
-    .work-item .grid, .work-item.reverse .grid { 
-        display: block; 
-        gap: 0;
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isServicesDropdownOpen]);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const handleServicesClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsServicesDropdownOpen(prev => !prev);
+  };
+  
+  const handleDropdownItemKeyDown = (e: React.KeyboardEvent<HTMLAnchorElement>) => {
+    const items = Array.from(
+      servicesDropdownContainerRef.current?.querySelectorAll<HTMLAnchorElement>('.dropdown-link-item') || []
+    );
+    const currentIndex = items.indexOf(e.currentTarget);
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      items[(currentIndex + 1) % items.length]?.focus();
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      items[(currentIndex - 1 + items.length) % items.length]?.focus();
+    } else if (e.key === 'Tab' && !e.shiftKey && currentIndex === items.length - 1) {
+      closeServicesDropdown(false);
+    } else if (e.key === 'Tab' && e.shiftKey && currentIndex === 0) {
+      closeServicesDropdown(false);
     }
-    .work-item.reverse .work-image, .work-item.reverse .work-info {
-        order: initial;
-    }
-    .work-image {
-        padding: 0;
-    }
-    .work-image img {
-        border-radius: 8px 8px 0 0;
-    }
-    .work-info {
-        padding: 25px;
-        text-align: left;
-    }
-    .work-item.reverse .work-info {
-        text-align: left;
-    }
-    .work-item.reverse .work-info .meta::after {
-        left: 0;
-        right: auto;
-    }
-    .work-title-overlay {
-        display: none;
-    }
-    .view-projects-btn-mobile {
-        display: inline-block;
-        margin-top: 20px;
-        color: var(--accent-color-dark-text, var(--accent-color));
-        font-weight: 700;
-        font-size: 14px;
-        text-decoration: none;
-    }
-    .view-projects-btn-mobile i {
-        margin-left: 5px;
-        transition: transform 0.3s ease;
-    }
-    .work-item:hover .view-projects-btn-mobile i {
-        transform: translateX(5px);
+  };
+
+  const headerClasses = `app-header ${scrolled ? 'scrolled' : ''} on-${theme}`;
+
+  return (
+    <header className={headerClasses}>
+      <nav className="main-nav" aria-label="Main navigation">
+        <ul>
+          {navLinks.map((link) => (
+            <li 
+              key={link.name} 
+              className={`${link.subLinks ? 'has-dropdown' : ''} ${link.name === 'Services' && isServicesDropdownOpen ? 'open' : ''}`}
+              ref={link.name === 'Services' ? servicesDropdownContainerRef : null}
+            >
+              <AppLink 
+                ref={link.name === 'Services' ? servicesToggleRef : null}
+                href={link.href}
+                id={link.name === 'Services' ? 'services-menu-toggle' : undefined}
+                onClick={link.name === 'Services' ? handleServicesClick : undefined}
+                aria-haspopup={!!link.subLinks}
+                aria-expanded={link.name === 'Services' ? isServicesDropdownOpen : undefined}
+                aria-controls={link.name === 'Services' ? 'services-dropdown-menu' : undefined}
+              >
+                {link.name}
+                {link.subLinks && (
+                  <span className="dropdown-indicator-wrapper">
+                    <i className="fas fa-chevron-down dropdown-indicator" aria-hidden="true"></i>
+                  </span>
+                )}
+              </AppLink>
+              {link.subLinks && (
+                <div id="services-dropdown-menu" className="dropdown-menu" role="menu" aria-labelledby="services-menu-toggle">
+                  <ul className="dropdown-links" role="none">
+                      {link.subLinks.map((subLink, index) => (
+                          <li role="presentation" key={subLink.name}>
+                              <AppLink
+                                  href={subLink.href}
+                                  role="menuitem"
+                                  onKeyDown={handleDropdownItemKeyDown}
+                                  className="dropdown-link-item"
+                                  onClick={() => setIsServicesDropdownOpen(false)}
+                                  style={{ '--delay': `${index * 0.05}s` } as React.CSSProperties}
+                              >
+                                  <i className={`${subLink.icon} dropdown-link-icon`} aria-hidden="true"></i>
+                                  <span>{subLink.name}</span>
+                              </AppLink>
+                          </li>
+                      ))}
+                  </ul>
+                </div>
+              )}
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <div className="logo">
+        <AppLink href="/index.html">
+          <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Design Consult Logo" className="logo-image" />
+        </AppLink>
+      </div>
+      <button
+        ref={burgerMenuRef}
+        className={`burger-menu ${isMobileNavOpen ? 'open' : ''}`}
+        onClick={toggleMobileNav}
+        aria-label={isMobileNavOpen ? "Close navigation menu" : "Open navigation menu"}
+        aria-controls="mobile-nav"
+        aria-expanded={isMobileNavOpen}
+      >
+        <span className="burger-bar"></span>
+        <span className="burger-bar"></span>
+        <span className="burger-bar"></span>
+      </button>
+      <MobileNav isOpen={isMobileNavOpen} onClose={closeMobileNav} />
+    </header>
+  );
+};
+
+const LeftSidebar = ({ pageName }) => {
+  return (
+    <aside className="left-sidebar">
+      <div className="sidebar-top">
+        <div className="divider" />
+        <div className="home-text">{pageName}</div>
+      </div>
+      <div className="social-icons">
+        <a href="#" aria-label="Facebook"><i className="fab fa-facebook-f" aria-hidden="true"></i></a>
+        <a href="#" aria-label="Twitter"><i className="fab fa-twitter" aria-hidden="true"></i></a>
+        <a href="#" aria-label="Instagram"><i className="fab fa-instagram" aria-hidden="true"></i></a>
+        <a href="#" aria-label="LinkedIn"><i className="fab fa-linkedin-in" aria-hidden="true"></i></a>
+      </div>
+      <div className="sidebar-footer">
+        <p>© Taj Design Consult 2024. All rights reserved.</p>
+      </div>
+    </aside>
+  );
+};
+
+const WaveAnimation = memo(() => {
+    const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+    useEffect(() => {
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion) return;
+
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+        let animationFrameId: number;
+
+        const waves = [
+            { amp: 15, freq: 0.02, phase: 0, color: 'rgba(212, 175, 55, 0.2)', speed: 0.01 },
+            { amp: 20, freq: 0.015, phase: 1, color: 'rgba(212, 175, 55, 0.3)', speed: 0.015 },
+            { amp: 25, freq: 0.01, phase: 2, color: 'rgba(212, 175, 55, 0.4)', speed: 0.02 },
+        ];
+        
+        const resizeCanvas = () => {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+        };
+
+        const draw = () => {
+            if (!ctx) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            waves.forEach(wave => {
+                wave.phase += wave.speed;
+                ctx.beginPath();
+                ctx.moveTo(0, canvas.height);
+                for (let x = 0; x < canvas.width; x++) {
+                    const y = Math.sin(x * wave.freq + wave.phase) * wave.amp + (canvas.height / 1.5);
+                    ctx.lineTo(x, y);
+                }
+                ctx.lineTo(canvas.width, canvas.height);
+                ctx.closePath();
+                ctx.fillStyle = wave.color;
+                ctx.fill();
+            });
+            animationFrameId = requestAnimationFrame(draw);
+        };
+        
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+        draw();
+
+        return () => {
+            window.removeEventListener('resize', resizeCanvas);
+            cancelAnimationFrame(animationFrameId);
+        };
+    }, []);
+
+    return <canvas ref={canvasRef} id="footer-wave-canvas" aria-hidden="true" />;
+});
+
+
+const Footer = () => {
+    const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    return (
+        <footer id="footer" className="app-footer">
+            <WaveAnimation />
+            <div className="container">
+                <div className="copyright-section">
+                    <span>2024 © Taj Design Consult. All rights reserved.</span>
+                    <button className="to-top" onClick={scrollToTop} aria-label="Scroll back to top">To Top ↑</button>
+                </div>
+            </div>
+          </footer>
+    )
+}
+
+const CustomCursor = memo(() => {
+    const dotRef = useRef<HTMLDivElement>(null);
+    const outlineRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion) return;
+
+        const dot = dotRef.current;
+        const outline = outlineRef.current;
+        if (!dot || !outline) return;
+
+        gsap.set([dot, outline], { xPercent: -50, yPercent: -50 });
+
+        const dotX = gsap.quickTo(dot, "x", { duration: 0.1, ease: "power3" });
+        const dotY = gsap.quickTo(dot, "y", { duration: 0.1, ease: "power3" });
+        const outlineX = gsap.quickTo(outline, "x", { duration: 0.3, ease: "power3" });
+        const outlineY = gsap.quickTo(outline, "y", { duration: 0.3, ease: "power3" });
+
+        const mouseMove = (e: MouseEvent) => {
+            dotX(e.clientX);
+            dotY(e.clientY);
+            outlineX(e.clientX);
+            outlineY(e.clientY);
+        };
+        
+        const showCursor = () => {
+            dot.classList.add('visible');
+            outline.classList.add('visible');
+        };
+        const hideCursor = () => {
+            dot.classList.remove('visible');
+            outline.classList.remove('visible');
+        };
+        
+        const handleMouseEnterHoverTarget = () => {
+            dot.classList.add('cursor-hover');
+            outline.classList.add('cursor-hover');
+        };
+
+        const handleMouseLeaveHoverTarget = () => {
+            dot.classList.remove('cursor-hover');
+            outline.classList.remove('cursor-hover');
+        };
+        
+        window.addEventListener("mousemove", mouseMove);
+        document.body.addEventListener("mouseleave", hideCursor);
+        document.body.addEventListener("mouseenter", showCursor);
+
+        const hoverTargets = document.querySelectorAll(
+            'a, button, [role="button"], .whatsapp-widget'
+        );
+        hoverTargets.forEach(target => {
+            target.addEventListener('mouseenter', handleMouseEnterHoverTarget);
+            target.addEventListener('mouseleave', handleMouseLeaveHoverTarget);
+        });
+
+        return () => {
+            window.removeEventListener("mousemove", mouseMove);
+            document.body.removeEventListener("mouseleave", hideCursor);
+            document.body.removeEventListener("mouseenter", showCursor);
+            hoverTargets.forEach(target => {
+                target.removeEventListener('mouseenter', handleMouseEnterHoverTarget);
+                target.removeEventListener('mouseleave', handleMouseLeaveHoverTarget);
+            });
+        };
+    }, []);
+
+    return (
+        <>
+            <div ref={outlineRef} className="custom-cursor-outline"></div>
+            <div ref={dotRef} className="custom-cursor-dot"></div>
+        </>
+    );
+});
+
+const WhatsAppChatWidget = () => (
+    <a
+        href="https://wa.me/97477123400"
+        className="whatsapp-widget"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Chat with us on WhatsApp"
+    >
+        <div className="whatsapp-ring"></div>
+        <div className="whatsapp-ring-delay"></div>
+        <i className="fab fa-whatsapp whatsapp-icon" aria-hidden="true"></i>
+    </a>
+);
+
+const ProjectGalleryModal = ({ project, onClose }) => {
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const modalRef = useRef<HTMLDivElement>(null);
+    const lastFocusedElement = useRef<HTMLElement | null>(null);
+
+    useEffect(() => {
+        if (project) {
+            setCurrentIndex(0);
+            lastFocusedElement.current = document.activeElement as HTMLElement;
+            setTimeout(() => modalRef.current?.focus(), 100);
+
+            const handleKeyDown = (e: KeyboardEvent) => {
+                if (e.key === 'Escape') onClose();
+                else if (e.key === 'ArrowRight') goToNext();
+                else if (e.key === 'ArrowLeft') goToPrevious();
+                else if (e.key === 'Tab') {
+                     const focusableElements = modalRef.current?.querySelectorAll<HTMLElement>('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+                    if (!focusableElements || focusableElements.length === 0) return;
+                    const firstElement = focusableElements[0];
+                    const lastElement = focusableElements[focusableElements.length - 1];
+                    if (e.shiftKey) { if (document.activeElement === firstElement) { lastElement.focus(); e.preventDefault(); }}
+                    else { if (document.activeElement === lastElement) { firstElement.focus(); e.preventDefault(); }}
+                }
+            };
+
+            document.addEventListener('keydown', handleKeyDown);
+            return () => { 
+                document.removeEventListener('keydown', handleKeyDown);
+                lastFocusedElement.current?.focus();
+            };
+        }
+    }, [project, onClose]);
+
+    if (!project) return null;
+
+    const goToPrevious = () => setCurrentIndex(prev => (prev === 0 ? project.gallery.length - 1 : prev - 1));
+    const goToNext = () => setCurrentIndex(prev => (prev === project.gallery.length - 1 ? 0 : prev + 1));
+
+    return (
+        <div className="project-modal-overlay" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <div ref={modalRef} className="project-modal-content" onClick={e => e.stopPropagation()} tabIndex={-1}>
+                <button onClick={onClose} className="project-modal-close" aria-label="Close project gallery">&times;</button>
+                <div className="project-modal-gallery">
+                    <div className="gallery-main-image">
+                        <img src={project.gallery[currentIndex]} alt={`${project.title} - Image ${currentIndex + 1}`} />
+                    </div>
+                    {project.gallery.length >= 2 && (
+                        <>
+                            <button onClick={goToPrevious} className="gallery-nav-btn prev" aria-label="Previous image"><i className="fas fa-chevron-left"></i></button>
+                            <button onClick={goToNext} className="gallery-nav-btn next" aria-label="Next image"><i className="fas fa-chevron-right"></i></button>
+                            <div className="gallery-thumbnails">
+                                {project.gallery.map((img, index) => (
+                                    <button 
+                                      key={index} 
+                                      className={`thumbnail-item ${index === currentIndex ? 'active' : ''}`} 
+                                      onClick={() => setCurrentIndex(index)}
+                                      aria-label={`View image ${index + 1}`}
+                                    >
+                                        <img src={img} alt={`Thumbnail ${index + 1}`} />
+                                    </button>
+                                ))}
+                            </div>
+                        </>
+                    )}
+                </div>
+                <div className="project-modal-details">
+                    <p className="modal-meta">{project.meta}</p>
+                    <h3 id="modal-title" className="modal-title">{project.title}</h3>
+                    <p className="modal-location"><i className="fas fa-map-marker-alt" aria-hidden="true"></i> {project.location}</p>
+                    <p className="modal-description">{project.description}</p>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+
+const WorksPage = () => {
+  const [selectedProject, setSelectedProject] = useState(null);
+
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      document.querySelectorAll('.scroll-trigger').forEach(el => el.classList.add('visible'));
+      return;
     }
 
-    .project-modal-content { grid-template-columns: 1fr; grid-template-rows: 60vh auto; max-height: 90vh; }
-    .project-modal-details { border-top: 1px solid var(--border-light); }
-    .gallery-nav-btn {
-        display: flex;
-        top: 30vh; /* Position in vertical center of 60vh image area */
-        transform: translateY(-50%);
-        width: 40px;
-        height: 40px;
-        font-size: 18px;
-        background: rgba(0,0,0,0.3);
-    }
-    .gallery-nav-btn.prev { left: 10px; }
-    .gallery-nav-btn.next { right: 10px; }
-}
-@media (max-width: 768px) {
-    .works-list-section { padding: 80px 20px; }
-    .works-hero-section { padding: 140px 20px 80px; }
-    .works-hero-section h1 { font-size: 36px; }
-    .copyright-section { flex-direction: column; gap: 20px; text-align: center; }
-}
-@media (max-width: 576px) {
-    .work-info .work-title { font-size: 28px; }
-    .project-modal-content { grid-template-rows: 55vh 45vh; }
-    .project-modal-details { padding: 25px; }
-    .project-modal-details .modal-title { font-size: 24px; }
-    .thumbnail-item { height: 60px; }
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+    );
+
+    const elementsToReveal = document.querySelectorAll('.scroll-trigger');
+    elementsToReveal.forEach((el) => observer.observe(el));
+
+    return () => elementsToReveal.forEach((el) => observer.unobserve(el));
+  }, []);
+
+  return (
+    <>
+      <ProjectGalleryModal project={selectedProject} onClose={() => setSelectedProject(null)} />
+      
+      <section className="works-hero-section scroll-trigger fade-up">
+        <h1>Our <strong>Works & Projects</strong></h1>
+      </section>
+
+      <section id="main-content" className="works-list-section">
+        <div className="container">
+            <div className="works-list">
+                {workItems.map((item, index) => (
+                    <button
+                        className={`work-item ${index % 2 === 1 ? 'reverse' : ''} scroll-trigger fade-up`}
+                        key={item.title}
+                        onClick={() => setSelectedProject(item)}
+                        aria-label={`View project details for ${item.title}`}
+                    >
+                        <div className="grid">
+                            <div className="work-image">
+                                <img src={item.mainImage} alt={item.title} />
+                                <div className="work-title-overlay" aria-hidden="true">
+                                    <h3>{item.title}</h3>
+                                    <span className="view-projects-btn">View Project <i className="fas fa-arrow-right" aria-hidden="true"></i></span>
+                                </div>
+                            </div>
+                            <div className="work-info">
+                                <p className="meta">{item.meta}</p>
+                                <h2 className="work-title">{item.title}</h2>
+                                <p className="work-description">{item.description}</p>
+                                <span className="view-projects-btn-mobile">View Project <i className="fas fa-arrow-right" aria-hidden="true"></i></span>
+                            </div>
+                        </div>
+                    </button>
+                ))}
+            </div>
+        </div>
+      </section>
+    </>
+  );
+};
+
+const App = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 200);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <div className={`app ${loading ? 'loading' : ''}`}>
+      <SkipToContentLink />
+      <CustomCursor />
+      <WhatsAppChatWidget />
+      <Header theme="dark" />
+      <div className="main-container">
+        <LeftSidebar pageName="WORKS" />
+        <main className="main-content" id="main-content" tabIndex={-1}>
+          <WorksPage />
+          <Footer />
+        </main>
+      </div>
+    </div>
+  );
+};
+
+const container = document.getElementById('root');
+if (container) {
+    const root = createRoot(container);
+    root.render(<App />);
 }
