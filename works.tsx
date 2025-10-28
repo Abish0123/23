@@ -695,6 +695,7 @@ const WorksPage = () => {
                         <div className="grid">
                             <div className="work-image">
                                 <img src={item.mainImage} alt={item.title} />
+                                <div className="work-image-meta-badge">{item.meta}</div>
                                 <div className="work-title-overlay" aria-hidden="true">
                                     <h3>{item.title}</h3>
                                     <span className="view-projects-btn">View Project <i className="fas fa-arrow-right" aria-hidden="true"></i></span>
@@ -729,7 +730,7 @@ const App = () => {
       <SkipToContentLink />
       <CustomCursor />
       <WhatsAppChatWidget />
-      <Header theme="dark" />
+      <Header theme="light" />
       <div className="main-container">
         <LeftSidebar pageName="WORKS" />
         <main className="main-content" id="main-content" tabIndex={-1}>
