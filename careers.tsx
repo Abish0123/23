@@ -1,5 +1,4 @@
 
-
 import React, { useState, useEffect, useRef, memo, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -25,16 +24,16 @@ const navLinks = [
 
 const careerOpenings = [
     {
-      title: 'Senior Architect',
-      description: 'Lead design projects from concept to completion. Must have 8+ years of experience in large-scale commercial and residential projects.',
+      title: 'Junior Architect',
+      description: 'Support design and drafting from concept to detail; 1–3 years’ experience with Revit/AutoCAD/SketchUp and a strong portfolio.',
     },
     {
-      title: 'BIM Specialist',
-      description: 'Develop and manage BIM models, ensuring clash detection and coordination across disciplines. Proficiency in Revit is essential.',
+      title: 'MEP Engineer (UPDA)',
+      description: 'UPDA-certified Mechanical/Electrical/Plumbing engineer to handle design, coordination, and site supervision; Revit MEP and Qatar codes experience required.',
     },
     {
-      title: 'Lead Interior Designer',
-      description: 'Create innovative and functional interior spaces for high-end hospitality and corporate clients. Strong portfolio required.',
+      title: 'Structural Engineer (UPDA)',
+      description: 'UPDA-certified structural engineer for concrete/steel design, calculations, and shop drawings; proficiency in ETABS/SAP2000/SAFE and local standards.',
     },
 ];
 
@@ -190,7 +189,8 @@ const Header = () => {
 
   useEffect(() => {
     if (isServicesDropdownOpen) {
-      const firstItem = servicesDropdownContainerRef.current?.querySelector<HTMLAnchorElement>('.dropdown-link-item');
+      // @Fix: Added explicit type to assist TypeScript's type inference.
+      const firstItem: HTMLAnchorElement | null = servicesDropdownContainerRef.current?.querySelector<HTMLAnchorElement>('.dropdown-link-item');
       firstItem?.focus();
     }
   }, [isServicesDropdownOpen]);
@@ -234,7 +234,8 @@ const Header = () => {
   };
 
   const handleDropdownItemKeyDown = (e: React.KeyboardEvent<HTMLAnchorElement>) => {
-    const items = Array.from(
+    // @Fix: Added explicit type to assist TypeScript's type inference.
+    const items: HTMLAnchorElement[] = Array.from(
       servicesDropdownContainerRef.current?.querySelectorAll<HTMLAnchorElement>('.dropdown-link-item') || []
     );
     const currentIndex = items.indexOf(e.currentTarget);
@@ -307,8 +308,8 @@ const Header = () => {
       </nav>
       <div className="logo">
         <AppLink href="/index.html">
-          <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Design Consultancy Logo" className="logo-image desktop-logo" />
-          <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Design Consultancy Logo" className="logo-image mobile-logo" />
+          <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Design Consultancy Logo - Architectural Firm in Qatar" className="logo-image desktop-logo" />
+          <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Design Consultancy Logo - Architectural Firm in Qatar" className="logo-image mobile-logo" />
         </AppLink>
       </div>
       <button
@@ -342,7 +343,7 @@ const LeftSidebar = () => {
           <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i className="fab fa-linkedin-in" aria-hidden="true"></i></a>
         </div>
         <div className="sidebar-footer">
-          <p>© Taj Design Consultancy 2024. All rights reserved.</p>
+          <p>© Taj Design Consult 2024. All rights reserved.</p>
         </div>
       </aside>
     );
@@ -412,7 +413,7 @@ const Footer = () => {
             <WaveAnimation />
             <div className="container">
                 <div className="copyright-section">
-                    <span>2024 © Taj Design Consultancy. All rights reserved.</span>
+                    <span>2024 © Taj Design Consult. All rights reserved.</span>
                     <button className="to-top" onClick={scrollToTop} aria-label="Scroll back to top">To Top ↑</button>
                 </div>
             </div>
@@ -539,12 +540,12 @@ const CareersPage = () => {
     <>
       <section id="careers-hero" className="careers-hero-section scroll-trigger fade-up">
         <h1>Join Our <strong>Team</strong></h1>
-        <p>We are always looking for passionate and talented individuals to join our growing team. Explore our open positions and find your place at Taj Design Consultancy.</p>
+        <p>We are always looking for passionate and talented individuals to join our growing team. Explore our open positions and find your place at Taj Design Consult.</p>
       </section>
 
       <section id="open-positions" className="content-section">
         <div className="container">
-            <h2 className="section-title scroll-trigger fade-up">Current <strong>Openings</strong></h2>
+            <h2 className="section-title scroll-trigger fade-up" style={{textAlign: 'center'}}>Current <strong>Openings</strong></h2>
             <div className="openings-list">
                 {careerOpenings.map((job, index) => (
                     <div className="opening-item scroll-trigger fade-up" key={index} style={{ transitionDelay: `${index * 0.1}s` }}>
