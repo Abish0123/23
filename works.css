@@ -1,3 +1,4 @@
+
 :root {
   --dark-bg: #111111;
   --dark-bg-secondary: #1c1c1c;
@@ -515,11 +516,11 @@ html, body {
 
 .project-modal-gallery { position: relative; background: #000; display: flex; flex-direction: column; }
 .gallery-main-image { flex-grow: 1; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-.gallery-main-image img { width: 100%; height: 100%;}
-.project-modal-gallery .gallery-nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255, 255, 255, 0.1); border: none; color: white; font-size: 24px; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; transition: background-color 0.3s ease; z-index: 10; display: flex; align-items: center; justify-content: center; }
-.project-modal-gallery .gallery-nav-btn:hover { background: var(--accent-color); }
-.project-modal-gallery .gallery-nav-btn.prev { left: 20px; }
-.project-modal-gallery .gallery-nav-btn.next { right: 20px; }
+.gallery-main-image img { width: 100%; height: 100%; object-fit: contain; }
+.project-modal-overlay .project-modal-gallery .gallery-nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255, 255, 255, 0.1); border: none; color: white; font-size: 24px; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; transition: background-color 0.3s ease; z-index: 10; display: flex; align-items: center; justify-content: center; }
+.project-modal-overlay .project-modal-gallery .gallery-nav-btn:hover { background: var(--accent-color); }
+.project-modal-overlay .project-modal-gallery .gallery-nav-btn.prev { left: 20px; }
+.project-modal-overlay .project-modal-gallery .gallery-nav-btn.next { right: 20px; }
 
 .gallery-thumbnails { background: rgba(0,0,0,0.4); padding: 10px; display: flex; gap: 10px; overflow-x: auto; flex-shrink: 0; }
 .thumbnail-item { background: none; border: 2px solid transparent; border-radius: 4px; padding: 0; height: 70px; aspect-ratio: 16/9; overflow: hidden; cursor: pointer; transition: border-color 0.3s, opacity 0.3s; opacity: 0.6; }
@@ -640,7 +641,7 @@ html, body {
     .gallery-main-image {
         min-height: 0;
     }
-    .project-modal-gallery .gallery-nav-btn {
+    .project-modal-overlay .project-modal-gallery .gallery-nav-btn {
         display: flex;
         top: 30vh; /* Position in vertical center of 60vh image area */
         transform: translateY(-50%);
@@ -649,8 +650,8 @@ html, body {
         font-size: 18px;
         background: rgba(0,0,0,0.3);
     }
-    .project-modal-gallery .gallery-nav-btn.prev { left: 10px; }
-    .project-modal-gallery .gallery-nav-btn.next { right: 10px; }
+    .project-modal-overlay .project-modal-gallery .gallery-nav-btn.prev { left: 10px; }
+    .project-modal-overlay .project-modal-gallery .gallery-nav-btn.next { right: 10px; }
 }
 @media (max-width: 768px) {
     .works-list-section { padding: 80px 20px; }
