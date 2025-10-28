@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect, useRef, memo, createContext, useContext, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -781,7 +782,7 @@ const BlueprintAnimation = memo(() => {
 const HeroSection = () => {
     const [offsetY, setOffsetY] = useState(0);
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-    const titleLines = ["DESIGN WITH", "PURPOSE"];
+    const titleLines = ["STRUCTURES WITH", "PURPOSE"];
     const fullTitle = titleLines.join(' ');
 
     useEffect(() => {
@@ -1074,24 +1075,23 @@ const HomePage = () => {
       mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224706/WhatsApp_Image_2025-10-22_at_23.46.06_e814e5d0_uqphxj.png',
       gallery: [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224706/WhatsApp_Image_2025-10-22_at_23.46.06_e814e5d0_uqphxj.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761475471/Untitled_16_x_9_in_4_kd0ayk.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224698/WhatsApp_Image_2025-10-22_at_23.46.07_714b8d87_1_eljwpn.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761224698/WhatsApp_Image_2025-10-22_at_23.46.07_d6db18c5_tovqbt.png'
       ]
     },
     { 
       title: 'World Wide Business Center',
-      meta: 'End-to-end interior design and fit-out supervision',
+      meta: 'Design and Supervision of Office Interior',
       location: 'D Ring Road',
-      description: 'Interior design and supervision for the turnkey fit-out of a 2,000 sqm business center. The scope covered concept to handover, ensuring full compliance with QCDD/NFPA life-safety codes. Our services included detailed space planning for reception, meeting rooms, and collaborative zones, plus 3D visualizations, coordinated MEP layouts, furniture and finishes selection, technical specifications, and on-site supervision to guarantee quality, budget adherence, and timely authority approvals.',
-      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761477630/Untitled_16_x_9_in_7_aobiqs.png',
+      description: 'World Wide Business Center — a 2,000 sqm office interior designed and supervised by our team — blends elegant aesthetics with high functionality, featuring a welcoming reception, multiple meeting rooms, a fully equipped conference room, collaborative zones, and a dedicated games area.',
+      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304504/_DSC9859_sx03dr.jpg',
       gallery: [
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761477630/Untitled_16_x_9_in_7_aobiqs.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761477623/Untitled_16_x_9_in_5_gvzrrq.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761477622/Untitled_16_x_9_in_8_rqjpju.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761477621/Untitled_16_x_9_in_10_qmtzvb.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761477621/Untitled_16_x_9_in_9_ifc2tb.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761477621/Untitled_16_x_9_in_6_b2jcxh.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761477618/Untitled_16_x_9_in_11_kpt2er.png'
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304504/_DSC9859_sx03dr.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304501/_DSC9888_rkhjis.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304500/_DSC9901_beo4mx.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304498/_DSC9870_hyaor0.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304498/_DSC9893_ocqnlg.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761304497/_DSC9866_aq8w9n.jpg'
       ]
     },
     { 
@@ -1105,6 +1105,30 @@ const HomePage = () => {
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761425803/Untitled_16_x_9_in_3_m7smfu.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761425803/Untitled_16_x_9_in_1_ht1iux.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761425806/Untitled_16_x_9_in_mi6glx.png'
+      ]
+    },
+    {
+      title: 'Legal office for Shaiek Jassim Al Thani',
+      meta: 'End-to-end interior design and fit-out supervision',
+      location: 'Westbay',
+      description: 'Interior design and supervision for turnkey fit-out works—covering concept to handover—with full life-safety compliance to QCDD/NFPA codes. Services include 3D renders and visualizations, coordinated MEP layouts, furniture and finishes selection, technical specifications, detailed BOQs, and on-site supervision/QA to ensure quality, budget control, and timely delivery.',
+      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761394147/10_gtnarf.png',
+      gallery: [
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761394147/10_gtnarf.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761394141/6_ypphq2.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761394138/5_qr7poc.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761394123/12_pqzmgc.png'
+      ]
+    },
+    { 
+      title: 'Al Jazeera Tower',
+      meta: 'End-to-end interior design and fit-out supervision',
+      location: 'Dafna',
+      description: 'Office space design, supervision, and photorealistic renders for a high-rise project in Dafna (4 floors)—including workplace planning, detailed interiors, coordinated MEP, QCDD/NFPA life-safety compliance, supervision for design compliance, adherence to tower standards/procedures, full snagging/rectification, QA/QC, and handover—plus contractor pre-qualification and selection, tendering support, quotation/bid evaluation with comparative summaries, value engineering, and award recommendations.',
+      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761403731/WhatsApp_Image_2025-05-10_at_15.22.46_2_k989qm.jpg',
+      gallery: [
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761403731/WhatsApp_Image_2025-05-10_at_15.22.46_2_k989qm.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761403731/WhatsApp_Image_2025-05-07_at_00.29.27_2_nbi4dd.jpg'
       ]
     }
   ];
@@ -1328,22 +1352,28 @@ const HomePage = () => {
             <h2 className="section-title scroll-trigger fade-up" style={{textAlign: 'right'}}>Our Featured <strong>Projects</strong></h2>
             <div className="works-list">
                 {workItems.map((item, index) => (
-                    <div className={`work-item ${index % 2 === 1 ? 'reverse' : ''} scroll-trigger fade-up`} key={index}>
+                    <button 
+                        className={`work-item ${index % 2 === 1 ? 'reverse' : ''} scroll-trigger fade-up`} 
+                        key={index}
+                        onClick={() => setSelectedProject(item)}
+                        aria-label={`View project details for ${item.title}`}
+                    >
                         <div className="grid">
-                             <button className="work-image" onClick={() => setSelectedProject(item)} aria-label={`View project details for ${item.title}`}>
+                                <div className="work-image">
                                 <div className="work-title-overlay" aria-hidden="true">
                                     <h3>{item.title}</h3>
                                     <span className="view-projects-btn">View Project <i className="fas fa-arrow-right" aria-hidden="true"></i></span>
                                 </div>
-                                <img src={item.mainImage} alt={item.description} />
-                            </button>
+                                <img src={item.mainImage} alt={item.title} />
+                            </div>
                             <div className="work-info">
                                 <p className="meta">{item.meta}</p>
                                 <h3 className="section-title" style={{marginBottom: '20px', fontSize: '28px'}}><strong>{item.title}</strong></h3>
                                 <p className="work-description">{item.description}</p>
+                                <span className="view-projects-btn-mobile">View Project <i className="fas fa-arrow-right" aria-hidden="true"></i></span>
                             </div>
                         </div>
-                    </div>
+                    </button>
                 ))}
             </div>
         </div>
