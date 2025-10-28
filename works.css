@@ -1,4 +1,3 @@
-
 :root {
   --dark-bg: #111111;
   --dark-bg-secondary: #1c1c1c;
@@ -635,6 +634,12 @@ html, body {
 
     .project-modal-content { grid-template-columns: 1fr; grid-template-rows: 60vh auto; max-height: 90vh; }
     .project-modal-details { border-top: 1px solid var(--border-light); }
+    .project-modal-gallery {
+        min-height: 0;
+    }
+    .gallery-main-image {
+        min-height: 0;
+    }
     .project-modal-gallery .gallery-nav-btn {
         display: flex;
         top: 30vh; /* Position in vertical center of 60vh image area */
