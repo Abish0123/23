@@ -23,13 +23,14 @@ const navLinks = [
   { name: 'Contact', href: '/contact.html' },
 ];
 
-const AppLink = ({ href, className = '', children, onClick, ...props }: {
+// @Fix: Converted AppLink to use React.forwardRef to properly handle refs passed from parent components like Header.
+const AppLink = React.forwardRef<HTMLAnchorElement, {
   href: string;
   className?: string;
   children: React.ReactNode;
   onClick?: MouseEventHandler<HTMLAnchorElement>;
   [key: string]: any;
-}) => {
+}>(({ href, className = '', children, onClick, ...props }, ref) => {
     const isToggle = href === '#';
 
     const handleClick: MouseEventHandler<HTMLAnchorElement> = (e) => {
@@ -44,6 +45,7 @@ const AppLink = ({ href, className = '', children, onClick, ...props }: {
 
     return (
         <a 
+            ref={ref}
             href={href} 
             className={className} 
             onClick={onClick ? handleClick : undefined} 
@@ -52,7 +54,7 @@ const AppLink = ({ href, className = '', children, onClick, ...props }: {
             {children}
         </a>
     );
-};
+});
 
 const MobileNav = ({ isOpen, onClose }) => {
     const [isServicesOpen, setIsServicesOpen] = useState(false);
@@ -113,7 +115,8 @@ const MobileNav = ({ isOpen, onClose }) => {
                          <li key={link.name}>
                              <AppLink 
                                 href={link.subLinks ? '#' : link.href} 
-                                onClick={link.subLinks ? handleServicesToggle : onClose}
+                                // @Fix: Wrapped parameter-less event handlers in arrow functions to match expected signature and added missing children.
+                                onClick={link.subLinks ? handleServicesToggle : () => onClose()}
                                 aria-haspopup={!!link.subLinks}
                                 aria-expanded={link.subLinks ? isServicesOpen : undefined}
                                 aria-controls={link.subLinks ? `mobile-${link.name}-submenu` : undefined}
@@ -125,7 +128,8 @@ const MobileNav = ({ isOpen, onClose }) => {
                              {link.subLinks && (
                                  <ul id={`mobile-${link.name}-submenu`} className={`mobile-submenu ${isServicesOpen ? 'open' : ''}`} aria-hidden={!isServicesOpen}>
                                      {link.subLinks.map(subLink => (
-                                         <li key={subLink.name}><AppLink href={subLink.href} onClick={onClose}>{subLink.name}</AppLink></li>
+                                         // @Fix: Wrapped parameter-less event handlers in arrow functions to match expected signature.
+                                         <li key={subLink.name}><AppLink href={subLink.href} onClick={() => onClose()}>{subLink.name}</AppLink></li>
                                      ))}
                                  </ul>
                              )}
@@ -172,7 +176,8 @@ const Header = ({ theme }) => {
 
   useEffect(() => {
     if (isServicesDropdownOpen) {
-      const firstItem = servicesDropdownContainerRef.current?.querySelector<HTMLAnchorElement>('.dropdown-menu a');
+      // @Fix: Added explicit type to assist TypeScript's type inference.
+      const firstItem: HTMLAnchorElement | null = servicesDropdownContainerRef.current?.querySelector('.dropdown-menu a');
       firstItem?.focus();
     }
   }, [isServicesDropdownOpen]);
@@ -216,7 +221,8 @@ const Header = ({ theme }) => {
   };
 
   const handleDropdownItemKeyDown = (e: React.KeyboardEvent<HTMLAnchorElement>) => {
-    const items = Array.from(
+    // @Fix: Added explicit type to assist TypeScript's type inference.
+    const items: HTMLAnchorElement[] = Array.from(
       servicesDropdownContainerRef.current?.querySelectorAll<HTMLAnchorElement>('.dropdown-link-item') || []
     );
     const currentIndex = items.indexOf(e.currentTarget);
@@ -240,7 +246,7 @@ const Header = ({ theme }) => {
     <header className={headerClasses}>
       <div className="logo">
         <AppLink href="/index.html">
-          <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Design Consultancy Logo" className="logo-image" />
+          <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Design Consult Logo" className="logo-image" />
         </AppLink>
       </div>
       <nav className="main-nav" aria-label="Main navigation">
@@ -323,7 +329,7 @@ const LeftSidebar = () => {
         <a href="#" aria-label="LinkedIn"><i className="fab fa-linkedin-in" aria-hidden="true"></i></a>
       </div>
       <div className="sidebar-footer">
-        <p>© Taj Design Consultancy 2024. All rights reserved.</p>
+        <p>© Taj Design Consult 2024. All rights reserved.</p>
       </div>
     </aside>
   );
@@ -580,7 +586,7 @@ const ServicePage = () => {
                   </p>
                 </div>
                 <div className="service-sidebar-image">
-                  <img src="https://media.istockphoto.com/id/1387565694/photo/digital-technology-used-for-construction-work.jpg?s=612x612&w=0&k=20&c=4JaaPwyqAcjD-cq90Jbecyz1T5K2ZJgIRA5PWcqd_BU=" alt="Engineers collaborating on a blueprint." />
+                  <img src="https://media.istockphoto.com/id/1387565694/photo/digital-technology-used-for-construction-work.jpg?s=612x612&w=0&k=20&c=4JaaPwyqAcjD-cq90Jbecyz1T5K2ZJgIRA5PWcqd_BU=" alt="Expert engineers in Qatar collaborating on a blueprint for a major construction project." />
                 </div>
               </div>
 
@@ -606,7 +612,7 @@ const ServicePage = () => {
             <WaveAnimation />
             <div className="container">
                 <div className="copyright-section">
-                    <span>2024 © Taj Design Consultancy. All rights reserved.</span>
+                    <span>2024 © Taj Design Consult. All rights reserved.</span>
                     <button className="to-top" onClick={scrollToTop} aria-label="Scroll back to top">To Top ↑</button>
                 </div>
             </div>
