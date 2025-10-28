@@ -2136,6 +2136,7 @@
     .sectors-grid { grid-template-columns: repeat(3, 1fr); }
     
     #works .works-list { gap: 40px; }
+    
     .work-item, .work-item.reverse {
         background-color: var(--dark-bg-secondary);
         border-radius: 8px;
@@ -2151,8 +2152,8 @@
         box-shadow: 0 12px 30px rgba(0,0,0,0.3);
     }
     .work-item .grid, .work-item.reverse .grid {
-        grid-template-columns: 1fr;
-        display: block;
+        display: flex;
+        flex-direction: column;
         padding: 0;
         gap: 0;
         background-color: transparent;
@@ -2187,8 +2188,11 @@
         text-decoration: none;
     }
     .view-projects-btn-mobile i { margin-left: 5px; transition: transform 0.3s ease; }
-    .work-item:hover .view-projects-btn-mobile i { transform: translateX(5px); }
-    .work-item.reverse .work-info .meta::after { left: 0; right: auto; }
+    #works .work-item:hover .view-projects-btn-mobile i { transform: translateX(5px); }
+    .work-item.reverse .work-info .meta::after {
+        left: 0;
+        right: auto;
+    }
 
     .blog-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
 }
