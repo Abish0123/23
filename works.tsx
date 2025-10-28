@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef, memo, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -82,10 +83,16 @@ const workItems = [
       meta: 'End-to-end interior design and fit-out supervision',
       location: 'Dafna',
       description: 'Office space design, supervision, and photorealistic renders for a high-rise project in Dafna (4 floors)—including workplace planning, detailed interiors, coordinated MEP, QCDD/NFPA life-safety compliance, supervision for design compliance, adherence to tower standards/procedures, full snagging/rectification, QA/QC, and handover—plus contractor pre-qualification and selection, tendering support, quotation/bid evaluation with comparative summaries, value engineering, and award recommendations.',
-      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761403731/WhatsApp_Image_2025-05-10_at_15.22.46_2_k989qm.jpg',
+      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761637877/Untitled_16_x_9_in_13_pd7hre.png',
       gallery: [
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761403731/WhatsApp_Image_2025-05-10_at_15.22.46_2_k989qm.jpg',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761403731/WhatsApp_Image_2025-05-07_at_00.29.27_2_nbi4dd.jpg'
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761637877/Untitled_16_x_9_in_13_pd7hre.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761637877/Untitled_16_x_9_in_14_mxzymr.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761637876/Untitled_16_x_9_in_19_kqzxdr.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761637875/Untitled_16_x_9_in_17_x98cqb.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761637875/Untitled_16_x_9_in_12_npf9j9.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761637876/Untitled_16_x_9_in_15_v8kenj.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761637875/Untitled_16_x_9_in_18_n9nsc0.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/v1761637875/Untitled_16_x_9_in_16_lxxcfa.png'
       ]
     }
 ];
