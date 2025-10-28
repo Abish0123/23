@@ -681,6 +681,8 @@ const ParticleCanvas = memo(() => {
     useEffect(() => {
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         if (prefersReducedMotion) return;
+
+        if (window.innerWidth <= 768) return;
         
         const canvas = canvasRef.current;
         if (!canvas) return;
@@ -782,11 +784,19 @@ const HeroSection = () => {
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         if (prefersReducedMotion) return;
 
-        const handleScroll = () => setOffsetY(window.pageYOffset);
+        const isMobile = window.innerWidth <= 768;
+
+        const handleScroll = () => {
+            if (!isMobile) {
+                setOffsetY(window.pageYOffset);
+            }
+        };
         const handleMouseMove = (e: MouseEvent) => {
-            const { clientX, clientY } = e; const { innerWidth, innerHeight } = window;
-            const x = (clientX / innerWidth) - 0.5; const y = (clientY / innerHeight) - 0.5;
-            setMousePos({ x, y });
+            if (!isMobile) {
+                const { clientX, clientY } = e; const { innerWidth, innerHeight } = window;
+                const x = (clientX / innerWidth) - 0.5; const y = (clientY / innerHeight) - 0.5;
+                setMousePos({ x, y });
+            }
         };
 
         window.addEventListener('scroll', handleScroll); window.addEventListener('mousemove', handleMouseMove);
