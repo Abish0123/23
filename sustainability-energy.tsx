@@ -240,7 +240,7 @@ const Header = ({ theme }) => {
     <header className={headerClasses}>
       <div className="logo">
         <AppLink href="/index.html">
-          <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Design Consultancy Logo" className="logo-image" />
+          <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Design Consult Logo" className="logo-image" />
         </AppLink>
       </div>
       <nav className="main-nav" aria-label="Main navigation">
@@ -323,7 +323,7 @@ const LeftSidebar = () => {
         <a href="#" aria-label="LinkedIn"><i className="fab fa-linkedin-in" aria-hidden="true"></i></a>
       </div>
       <div className="sidebar-footer">
-        <p>© Taj Design Consultancy 2024. All rights reserved.</p>
+        <p>© Taj Design Consult 2024. All rights reserved.</p>
       </div>
     </aside>
   );
@@ -582,7 +582,7 @@ const ServicePage = () => {
                     <p>Our specialists develop tailored solutions in energy auditing, retrofitting, and sustainable design integration. We implement strategies like advanced commissioning, renewable energy integration, and smart building controls to maximize efficiency. These efforts regularly reduce building operating costs by over 50% without compromising comfort, safety, or compliance – delivering tangible savings alongside environmental benefits. With a finger on the pulse of global best practices and local regulations, Taj Consultancy’s sustainability experts ensure each project not only meets today’s goals but also contributes to a greener, more energy-efficient future.</p>
                 </div>
                 <div className="service-sidebar-image">
-                  <img src="https://static.wixstatic.com/media/6a1985_74be50b54f2045528931e2f3278cb581~mv2.jpg/v1/fill/w_1000,h_700,al_c,q_85/6a1985_74be50b54f2045528931e2f3278cb581~mv2.jpg" alt="Sustainable energy solutions like solar panels on a modern building" />
+                  <img src="https://static.wixstatic.com/media/6a1985_74be50b54f2045528931e2f3278cb581~mv2.jpg/v1/fill/w_1000,h_700,al_c,q_85/6a1985_74be50b54f2045528931e2f3278cb581~mv2.jpg" alt="Sustainable energy solutions like solar panels on a modern building in Doha, Qatar" />
                 </div>
               </div>
 
@@ -608,7 +608,7 @@ const ServicePage = () => {
             <WaveAnimation />
             <div className="container">
                 <div className="copyright-section">
-                    <span>2024 © Taj Design Consultancy. All rights reserved.</span>
+                    <span>2024 © Taj Design Consult. All rights reserved.</span>
                     <button className="to-top" onClick={scrollToTop} aria-label="Scroll back to top">To Top ↑</button>
                 </div>
             </div>
