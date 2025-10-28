@@ -202,7 +202,48 @@ const careerOpenings = [
     },
 ];
 
-// --- SHARED & LAYOUT COMPONENTS ---
+// --- SEO & SHARED COMPONENTS ---
+
+const SchemaMarkup = () => {
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Taj Design Consultancy",
+      "image": "https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png",
+      "url": "https://www.tajdc-qatar.com/", 
+      "telephone": "+974 7712 3400",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "14th floor, Al Jazeera tower, Westbay",
+        "addressLocality": "Doha",
+        "addressCountry": "QA"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 25.3218,
+        "longitude": 51.5218
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"],
+        "opens": "08:00",
+        "closes": "18:00"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Qatar"
+      },
+      "description": "A leading multidisciplinary firm in Doha, Qatar, delivering excellence in Architectural Design, Engineering, Project Management, and Sustainability services."
+    };
+
+    return (
+        <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+    );
+};
+
 
 const SkipToContentLink = () => (
     <a href="#main-content" className="skip-to-content-link">
@@ -777,8 +818,8 @@ const BlueprintAnimation = memo(() => {
 const HeroSection = () => {
     const [offsetY, setOffsetY] = useState(0);
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-    const titleLines = ["STRUCTURES WITH", "PURPOSE"];
-    const fullTitle = titleLines.join(' ');
+    const titleLines = ["DESIGNING QATAR'S", "FUTURE"];
+    const fullTitle = "Designing Qatar's Future";
 
     useEffect(() => {
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1236,235 +1277,245 @@ const HomePage = () => {
       <ProjectGalleryModal project={selectedProject} onClose={() => setSelectedProject(null)} />
       <HeroSection />
       
-      <section id="about" className="content-section section-bg-white scroll-trigger fade-up">
-        <div className="section-decorator decorator-right scroll-trigger" aria-hidden="true">
-            <span className="decorator-text">01</span>
-        </div>
-        <div className="container">
-          <div className="about-section">
-            <div className="grid">
-              <div className="about-image scroll-trigger fade-up">
-                <img src="https://images.pexels.com/photos/256150/pexels-photo-256150.jpeg?cs=srgb&dl=pexels-pixabay-256150.jpg&fm=jpg" alt="A modern residential building with a swimming pool and patio." />
+      <main id="main-content" tabIndex={-1}>
+        <section id="about" className="content-section section-bg-white scroll-trigger fade-up">
+          <div className="section-decorator decorator-right scroll-trigger" aria-hidden="true">
+              <span className="decorator-text">01</span>
+          </div>
+          <div className="container">
+            <div className="about-section">
+              <div className="grid">
+                <div className="about-image scroll-trigger fade-up">
+                  <img src="https://images.pexels.com/photos/256150/pexels-photo-256150.jpeg?cs=srgb&dl=pexels-pixabay-256150.jpg&fm=jpg" alt="A modern residential building with a swimming pool and patio, showcasing architectural design excellence in Qatar." />
+                </div>
+                <div className="about-text">
+                  <h2 className="section-title scroll-trigger fade-up">WHO <strong>WE ARE</strong></h2>
+                  <p className="scroll-trigger fade-up" style={{transitionDelay: '0.1s'}}>
+                    From our base in Doha, Taj Design Consultancy is a leading multidisciplinary firm in Qatar, delivering excellence in Architectural Design, Engineering, Project Management, and Sustainability. Our evidence-led design approach ensures every project is a testament to quality, innovation, and technical precision.
+                  </p>
+                  <p className="scroll-trigger fade-up" style={{transitionDelay: '0.2s'}}>
+                    We transform ambitious ideas into tangible realities. Our team is dedicated to navigating the complexities of modern construction, ensuring your vision is realized on time, on budget, and beyond expectation. We are not just building structures; we are shaping the future of Qatar's built environment.
+                  </p>
+                  <a href="about.html" className="view-projects-btn scroll-trigger fade-up" style={{transitionDelay: '0.3s'}}>Learn More About Us</a>
+
+                  <div className="sub-section-title scroll-trigger fade-up" style={{transitionDelay: '0.4s'}}>Our Process</div>
+                   <p className="process-section scroll-trigger fade-up" style={{transitionDelay: '0.5s'}}>
+                      Our six-step process ensures a seamless journey from the initial vision to the final handover, guaranteeing clarity, quality, and client satisfaction at every stage.
+                  </p>
+                </div>
               </div>
-              <div className="about-text">
-                <h2 className="section-title scroll-trigger fade-up">WHO <strong>WE ARE</strong></h2>
-                <p className="scroll-trigger fade-up" style={{transitionDelay: '0.1s'}}>
-                  Taj Consultancy is a leading multidisciplinary firm in Qatar, delivering excellence in Architectural Design, Engineering, Project Management, and Sustainability. With decades of experience and a diverse expert team, we create landmark projects that blend innovation, integrity, and technical precision. From concept to completion, we turn ambitious ideas into sustainable, high-quality realities on time and on budget.
-                </p>
-                <div className="process-section scroll-trigger fade-up" style={{transitionDelay: '0.3s'}}>
-                  <h3 className="sub-section-title">Our Process</h3>
-                  <p>A transparent and collaborative path from your first idea to project handover.</p>
-                  <div className="process-grid">
-                    {processSteps.map((step, index) => (
-                       <div className="process-item scroll-trigger fade-up" key={index} style={{ transitionDelay: `${index * 0.1}s` }}>
+               <div className="process-grid scroll-trigger fade-up" style={{transitionDelay: '0.6s'}}>
+                  {processSteps.map((step, index) => (
+                      <div className="process-item" key={index}>
                           <div className="process-icon-wrapper">
-                            <i className={`process-icon ${step.icon}`} aria-hidden="true"></i>
+                              <i className={`process-icon ${step.icon}`} aria-hidden="true"></i>
                           </div>
-                          <h4><span>0{index + 1}.</span> {step.title}</h4>
+                          <h4><span>0{index+1}</span>{step.title}</h4>
                           <p className="process-description">{step.description}</p>
-                       </div>
-                    ))}
+                      </div>
+                  ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <SectionDivider />
+        
+        <section id="facts" className="content-section section-bg-dark scroll-trigger fade-up" style={{backgroundImage: "url('https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=1600&auto=format&fit=crop&q=60')"}}>
+           <div className="section-decorator decorator-left scroll-trigger" aria-hidden="true">
+              <span className="decorator-text">02</span>
+          </div>
+          <div className="container" ref={factsContainerRef}>
+            <div className="facts-section">
+              <div className="grid">
+                <div className="facts-text">
+                  <h2 className="section-title scroll-trigger fade-up">OUR <strong>IMPACT</strong></h2>
+                  <p className="scroll-trigger fade-up" style={{transitionDelay: '0.1s'}}>
+                      Our commitment to excellence is reflected in the numbers. With years of dedicated work in Qatar, we have successfully delivered a diverse portfolio of projects, earning the trust of our clients and shaping the architectural landscape of the nation.
+                  </p>
+                  <div className="facts-counters">
+                    <div className="counter-item scroll-trigger fade-up" style={{transitionDelay: '0.2s'}}>
+                      <i className="fas fa-building counter-icon" aria-hidden="true"></i>
+                      <AnimatedCounter end={150} />
+                      <p>Projects Completed</p>
+                    </div>
+                    <div className="counter-item scroll-trigger fade-up" style={{transitionDelay: '0.3s'}}>
+                       <i className="fas fa-users counter-icon" aria-hidden="true"></i>
+                      <AnimatedCounter end={50} />
+                      <p>Happy Clients</p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section id="facts" className="content-section section-bg-dark scroll-trigger fade-up has-divider" style={{backgroundImage: `url(https://images.pexels.com/photos/157811/pexels-photo-157811.jpeg?cs=srgb&dl=pexels-yentl-jacobs-43020-157811.jpg&fm=jpg)`}}>
         <SectionDivider />
-        <div className="section-decorator decorator-left scroll-trigger" aria-hidden="true">
-            <span className="decorator-text">02</span>
-        </div>
-        <div className="container" ref={factsContainerRef}>
-            <div className="facts-section">
-                <div className="grid">
-                    <div className="facts-title">
-                         <h2 className="section-title scroll-trigger fade-up">Some Interesting <strong>Facts</strong></h2>
-                    </div>
-                    <div className="facts-text">
-                        <p className="scroll-trigger fade-up" style={{transitionDelay: '0.1s'}}><strong>Taj Design Consultancy</strong> operates on the belief that evidence-led design and technical precision create lasting value.</p>
-                        <p className="scroll-trigger fade-up" style={{transitionDelay: '0.2s'}}>Our integrated teams bring together architecture, interiors, landscape, and urban design under one roof — ensuring seamless collaboration and faster delivery.</p>
-                         <div className="facts-counters">
-                            <div className="counter-item scroll-trigger fade-up" style={{ transitionDelay: '0.3s' }}>
-                                <i className="fas fa-building-circle-check counter-icon" aria-hidden="true"></i>
-                                <AnimatedCounter end={265} />
-                                <p>Finished projects</p>
-                            </div>
-                            <div className="counter-item scroll-trigger fade-up" style={{ transitionDelay: '0.4s' }}>
-                                <i className="fas fa-users-line counter-icon" aria-hidden="true"></i>
-                                <AnimatedCounter end={240} />
-                                <p>Happy customers</p>
-                            </div>
-                            <div className="counter-item scroll-trigger fade-up" style={{ transitionDelay: '0.5s' }}>
-                                <i className="fas fa-helmet-safety counter-icon" aria-hidden="true"></i>
-                                <AnimatedCounter end={36} />
-                                <p>Opening Projects</p>
-                            </div>
-                        </div>
-                    </div>
+
+        <section id="our-services" className="content-section section-bg-light scroll-trigger fade-up">
+           <div className="section-decorator decorator-right scroll-trigger" aria-hidden="true">
+              <span className="decorator-text">03</span>
+          </div>
+          <div className="container">
+            <h2 className="section-title scroll-trigger fade-up" style={{textAlign: 'center'}}>OUR <strong>SERVICES</strong></h2>
+            <div className="services-grid">
+              {services.map((service, index) => (
+                <div className="service-item scroll-trigger fade-up" key={service.title} style={{ transitionDelay: `${index * 0.1}s` }}>
+                  <svg className="service-border-svg" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                    <rect className="service-border-rect" width="100%" height="100%" rx="8" ry="8" pathLength="1"/>
+                  </svg>
+                  <div className="service-icon-wrapper"><i className={`service-icon ${service.icon}`} aria-hidden="true"></i></div>
+                  <h3>{service.title}</h3>
+                  <p>{service.description}</p>
+                   <a href={service.href} className="read-more-btn">Read More <i className="fas fa-arrow-right" aria-hidden="true"></i></a>
                 </div>
+              ))}
             </div>
-        </div>
-      </section>
-
-      <section id="our-services" className="content-section section-bg-white scroll-trigger fade-up has-divider">
-        <SectionDivider />
-        <div className="section-decorator decorator-right decorator-03 scroll-trigger" aria-hidden="true">
-            <span className="decorator-text">03</span>
-        </div>
-        <div className="container">
-          <h2 className="section-title scroll-trigger fade-up" style={{ textAlign: 'center' }}>Our <strong>Services</strong></h2>
-          <div className="services-grid">
-            {services.map((service, index) => (
-              <div className="service-item scroll-trigger fade-up" style={{ transitionDelay: `${index * 0.1}s` }} key={index}>
-                <svg className="service-border-svg" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <rect className="service-border-rect" x="1" y="1" width="calc(100% - 2px)" height="calc(100% - 2px)" rx="7" pathLength="1" />
-                </svg>
-                <div className="service-icon-wrapper">
-                  <i className={`service-icon ${service.icon}`} aria-hidden="true"></i>
-                </div>
-                <h3>{service.title}</h3>
-                <p>{service.description}</p>
-                <AppLink href={service.href} className="read-more-btn">Read More<span className="sr-only"> about {service.title}</span> <i className="fas fa-arrow-right" aria-hidden="true"></i></AppLink>
-              </div>
-            ))}
           </div>
-        </div>
-      </section>
-
-      <section id="sectors" className="content-section section-bg-white scroll-trigger fade-up has-divider">
+        </section>
+        
         <SectionDivider />
-        <div className="container">
-          <h2 className="section-title scroll-trigger fade-up" style={{ textAlign: 'center' }}>Sectors <strong>We Serve</strong></h2>
-          <div className="sectors-grid">
-            {sectors.map((sector, index) => (
-              <div className="sector-item scroll-trigger fade-up" style={{ transitionDelay: `${index * 0.1}s` }} key={index}>
-                <svg className="service-border-svg" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <rect className="service-border-rect" x="1" y="1" width="calc(100% - 2px)" height="calc(100% - 2px)" rx="7" pathLength="1" />
-                </svg>
-                <div className="service-icon-wrapper">
-                  <i className={`service-icon ${sector.icon}`} aria-hidden="true"></i>
-                </div>
-                <h3>{sector.name}</h3>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="works" className="content-section section-bg-dark scroll-trigger fade-up has-divider" style={{backgroundImage: `url(https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&auto=format&fit=crop&q=60)`}}>
-        <SectionDivider />
-        <div className="section-decorator decorator-left scroll-trigger" aria-hidden="true">
+        
+        <section id="works" className="content-section section-bg-dark scroll-trigger fade-up">
+          <div className="section-decorator decorator-left scroll-trigger" aria-hidden="true">
             <span className="decorator-text">04</span>
-        </div>
-        <div className="container">
-            <h2 className="section-title scroll-trigger fade-up" style={{textAlign: 'right'}}>Our Featured <strong>Projects</strong></h2>
-            <div className="works-list">
-                {workItems.map((item, index) => (
-                    <button 
-                        className={`work-item ${index % 2 === 1 ? 'reverse' : ''} scroll-trigger fade-up`} 
-                        key={index}
-                        onClick={() => setSelectedProject(item)}
-                        aria-label={`View project details for ${item.title}`}
-                    >
-                        <div className="grid">
-                                <div className="work-image">
-                                <div className="work-title-overlay" aria-hidden="true">
-                                    <h3>{item.title}</h3>
-                                    <span className="view-projects-btn">View Project <i className="fas fa-arrow-right" aria-hidden="true"></i></span>
-                                </div>
-                                <img src={item.mainImage} alt={item.title} />
-                            </div>
-                            <div className="work-info">
-                                <p className="meta">{item.meta}</p>
-                                <h3 className="section-title" style={{marginBottom: '20px', fontSize: '28px'}}><strong>{item.title}</strong></h3>
-                                <p className="work-description">{item.description}</p>
-                                <span className="view-projects-btn-mobile">View Project <i className="fas fa-arrow-right" aria-hidden="true"></i></span>
-                            </div>
-                        </div>
-                    </button>
-                ))}
-            </div>
-        </div>
-    </section>
-
-      <section id="clients" className="content-section section-bg-white scroll-trigger fade-up has-divider">
-        <SectionDivider />
-        <div className="container">
-          <h2 className="section-title scroll-trigger fade-up" style={{ textAlign: 'center' }}>Our <strong>Clients</strong></h2>
-           <ClientsCarousel />
-        </div>
-      </section>
-
-      <section id="blog" className="content-section section-bg-white scroll-trigger fade-up has-divider">
-        <SectionDivider />
-        <div className="section-decorator decorator-left decorator-06 scroll-trigger" aria-hidden="true">
-            <span className="decorator-text">06</span>
-        </div>
-        <div className="container">
-          <h2 className="section-title scroll-trigger fade-up">From <strong>The Blog</strong></h2>
-          <div className="blog-grid">
-            {blogPosts.map((post, index) => (
-                <div className="blog-item scroll-trigger fade-up" key={index} style={{ transitionDelay: `${index * 0.1}s` }}>
-                    <div className="blog-item-image" style={{backgroundImage: `url(${post.image})`}} />
-                    <div className="blog-item-content">
-                        <p className="blog-item-meta">{post.category} / {post.date}</p>
-                        <h3 className="blog-item-title"><AppLink href={post.href}>{post.title}</AppLink></h3>
-                        <AppLink href={post.href} className="blog-item-link">Read More <i className="fas fa-arrow-right" aria-hidden="true"></i></AppLink>
-                    </div>
-                </div>
-            ))}
           </div>
-        </div>
-      </section>
+          <div className="container">
+            <h2 className="section-title scroll-trigger fade-up" style={{textAlign: 'center'}}>FEATURED <strong>PROJECTS</strong></h2>
+            <div className="works-list">
+              {workItems.slice(0, 3).map((item, index) => (
+                <button
+                  className={`work-item scroll-trigger fade-up ${index % 2 === 1 ? 'reverse' : ''}`}
+                  key={index}
+                  onClick={() => setSelectedProject(item)}
+                  style={{ transitionDelay: `${index * 0.15}s` }}
+                  aria-label={`View project details for ${item.title}`}
+                >
+                  <div className="grid">
+                    <div className="work-image">
+                        <div className="work-title-overlay" aria-hidden="true">
+                          <h3>{item.title}</h3>
+                          <span className="view-projects-btn">View Project <i className="fas fa-arrow-right" aria-hidden="true"></i></span>
+                        </div>
+                        <img src={item.mainImage} alt={item.title} />
+                    </div>
+                    <div className="work-info">
+                      <p className="meta">{item.meta}</p>
+                      <h3 className="section-title"><strong>{item.title}</strong></h3>
+                      <p className="work-description">{item.description}</p>
+                      <span className="view-projects-btn-mobile">View Project <i className="fas fa-arrow-right" aria-hidden="true"></i></span>
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
+             <div style={{textAlign: 'center', marginTop: '60px'}}>
+              <a href="works.html" className="view-projects-btn scroll-trigger fade-up" style={{transitionDelay: '0.3s'}}>View All Projects</a>
+            </div>
+          </div>
+        </section>
 
-      <section id="testimonials" className="content-section section-bg-dark scroll-trigger fade-up has-divider" style={{backgroundImage: `url(https://images.pexels.com/photos/157811/pexels-photo-157811.jpeg?cs=srgb&dl=pexels-yentl-jacobs-43020-157811.jpg&fm=jpg)`}}>
         <SectionDivider />
-        <div className="section-decorator decorator-right decorator-05" aria-hidden="true">
-            <span className="decorator-text scroll-trigger">05</span>
-        </div>
-        <div className="container">
-          <h2 className="section-title scroll-trigger fade-up" style={{ textAlign: 'center' }}>What Our <strong>Clients Say</strong></h2>
-            <TestimonialsCarousel testimonials={testimonials} />
-        </div>
-      </section>
 
+        <section id="sectors" className="content-section section-bg-light scroll-trigger fade-up">
+            <div className="section-decorator decorator-right scroll-trigger" aria-hidden="true">
+                <span className="decorator-text">05</span>
+            </div>
+            <div className="container">
+                <h2 className="section-title scroll-trigger fade-up" style={{ textAlign: 'center' }}>SECTORS <strong>WE SERVE</strong></h2>
+                <div className="sectors-grid">
+                    {sectors.map((sector, index) => (
+                        <div className="sector-item scroll-trigger fade-up" key={index} style={{ transitionDelay: `${index * 0.05}s` }}>
+                           <svg className="service-border-svg" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                                <rect className="service-border-rect" width="100%" height="100%" rx="8" ry="8" pathLength="1"/>
+                            </svg>
+                            <div className="service-icon-wrapper"><i className={`service-icon ${sector.icon}`} aria-hidden="true"></i></div>
+                            <h3>{sector.name}</h3>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+
+        <SectionDivider />
+
+        <section id="testimonials" className="content-section section-bg-dark scroll-trigger fade-up">
+           <div className="section-decorator decorator-left scroll-trigger decorator-06" aria-hidden="true">
+              <span className="decorator-text">06</span>
+          </div>
+          <div className="container" ref={clientsContainerRef}>
+            <h2 className="section-title scroll-trigger fade-up" style={{textAlign: 'center'}}>CLIENT <strong>TESTIMONIALS</strong></h2>
+            <TestimonialsCarousel testimonials={testimonials} />
+            <h2 className="section-title scroll-trigger fade-up" style={{textAlign: 'center', marginTop: '100px'}}>OUR <strong>CLIENTS</strong></h2>
+            <ClientsCarousel />
+          </div>
+        </section>
+        
+        <SectionDivider />
+
+        <section id="blog" className="content-section section-bg-light scroll-trigger fade-up">
+          <div className="section-decorator decorator-right scroll-trigger" aria-hidden="true">
+            <span className="decorator-text">07</span>
+          </div>
+          <div className="container">
+            <h2 className="section-title scroll-trigger fade-up" style={{textAlign: 'center'}}>FROM <strong>OUR BLOG</strong></h2>
+            <div className="blog-grid">
+              {blogPosts.map((post, index) => (
+                <div className="blog-item scroll-trigger fade-up" key={index} style={{ transitionDelay: `${index * 0.1}s` }}>
+                   <a href={post.href} aria-label={`Read more about ${post.title}`}>
+                    <div className="blog-item-image" style={{ backgroundImage: `url(${post.image})` }}></div>
+                  </a>
+                  <div className="blog-item-content">
+                    <p className="blog-item-meta">{post.category} / {post.date}</p>
+                    <h3 className="blog-item-title"><a href={post.href}>{post.title}</a></h3>
+                    <a href={post.href} className="blog-item-link">Read More <i className="fas fa-arrow-right" aria-hidden="true"></i></a>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <Footer />
+      
     </>
   );
 };
-
-// --- MAIN APP COMPONENT ---
 
 const App = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 200);
+    // Prevent flash of unstyled content
+    document.body.style.backgroundColor = '#111';
+    const timer = setTimeout(() => {
+      setLoading(false);
+      document.body.style.backgroundColor = '';
+    }, 200);
     return () => clearTimeout(timer);
   }, []);
 
-  const headerTheme = 'dark';
-
   return (
       <div className={`app ${loading ? 'loading' : ''}`}>
-        <SkipToContentLink />
-        <WhatsAppChatWidget />
-        <Header theme={headerTheme} />
-        <div className="main-container">
-          <LeftSidebar pageName="HOME" />
-          <main className="main-content" id="main-content" tabIndex={-1}>
-            <HomePage />
-            <Footer />
-          </main>
-        </div>
+          <SchemaMarkup />
+          <SkipToContentLink />
+          <Header theme="dark" />
+          <div className="main-container">
+              <LeftSidebar pageName="HOME" />
+              <main className="main-content">
+                  <HomePage />
+              </main>
+          </div>
+          <WhatsAppChatWidget />
       </div>
   );
 };
 
+
 const container = document.getElementById('root');
 if (container) {
-    const root = createRoot(container);
-    root.render(<App />);
+  const root = createRoot(container);
+  root.render(<App />);
 }
