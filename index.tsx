@@ -1354,31 +1354,26 @@ const HomePage = () => {
             <span className="decorator-text">04</span>
         </div>
         <div className="container">
-            <h2 className="section-title scroll-trigger fade-up" style={{textAlign: 'right'}}>Our Featured <strong>Projects</strong></h2>
-            <div className="works-list">
-                {workItems.map((item, index) => (
-                    <button 
-                        className={`work-item ${index % 2 === 1 ? 'reverse' : ''} scroll-trigger fade-up`} 
+            <h2 className="section-title scroll-trigger fade-up" style={{textAlign: 'center'}}>Our Featured <strong>Projects</strong></h2>
+            <div className="works-grid">
+                {workItems.slice(0, 3).map((item, index) => (
+                    <button
                         key={index}
+                        className="project-card scroll-trigger fade-up"
+                        style={{ transitionDelay: `${index * 0.1}s` }}
                         onClick={() => setSelectedProject(item)}
                         aria-label={`View project details for ${item.title}`}
                     >
-                        <div className="grid">
-                                <div className="work-image">
-                                <div className="work-image-cover" aria-hidden="true">
-                                    <h3>{item.title}</h3>
-                                    <span className="view-project-button">View Project <i className="fas fa-arrow-right" aria-hidden="true"></i></span>
-                                </div>
-                                <img src={item.mainImage} alt={item.title} />
-                            </div>
-                            <div className="work-info">
-                                <p className="meta">{item.meta}</p>
-                                <h3 className="section-title" style={{marginBottom: '20px', fontSize: '28px'}}><strong>{item.title}</strong></h3>
-                                <p className="work-description">{item.description}</p>
-                            </div>
+                        <img src={item.mainImage} alt={item.title} className="project-card-image" />
+                        <div className="project-card-cover">
+                            <h3>{item.title}</h3>
+                            <span className="view-project-button">View Project</span>
                         </div>
                     </button>
                 ))}
+            </div>
+            <div className="view-all-projects-wrapper">
+                <AppLink href="/works.html" className="view-all-projects-btn">View All Projects</AppLink>
             </div>
         </div>
     </section>
