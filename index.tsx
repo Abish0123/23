@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef, memo, createContext, useContext, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -202,48 +203,7 @@ const careerOpenings = [
     },
 ];
 
-// --- SEO & SHARED COMPONENTS ---
-
-const SchemaMarkup = () => {
-    const schema = {
-      "@context": "https://schema.org",
-      "@type": "ProfessionalService",
-      "name": "Taj Design Consultancy",
-      "image": "https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png",
-      "url": "https://www.tajdc-qatar.com/", 
-      "telephone": "+974 7712 3400",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "14th floor, Al Jazeera tower, Westbay",
-        "addressLocality": "Doha",
-        "addressCountry": "QA"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 25.3218,
-        "longitude": 51.5218
-      },
-      "openingHoursSpecification": {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"],
-        "opens": "08:00",
-        "closes": "18:00"
-      },
-      "areaServed": {
-        "@type": "Country",
-        "name": "Qatar"
-      },
-      "description": "A leading multidisciplinary firm in Doha, Qatar, delivering excellence in Architectural Design, Engineering, Project Management, and Sustainability services."
-    };
-
-    return (
-        <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-        />
-    );
-};
-
+// --- SHARED & LAYOUT COMPONENTS ---
 
 const SkipToContentLink = () => (
     <a href="#main-content" className="skip-to-content-link">
@@ -322,6 +282,7 @@ const WhatsAppChatWidget = () => (
     </a>
 );
 
+// @Fix: Converted AppLink to use React.forwardRef to properly handle refs passed from parent components like Header.
 const AppLink = React.forwardRef<HTMLAnchorElement, {
   href: string;
   className?: string;
@@ -413,7 +374,8 @@ const MobileNav = ({ isOpen, onClose }) => {
                     {navLinks.map(link => (
                          <li key={link.name}>
                              <AppLink 
-                                href={link.subLinks ? '#' : link.href}
+                                href={link.subLinks ? '#' : link.href} 
+                                // @Fix: Wrapped parameter-less event handlers in arrow functions to match expected signature.
                                 onClick={link.subLinks ? handleServicesToggle : () => onClose()}
                                 aria-haspopup={!!link.subLinks}
                                 aria-expanded={link.subLinks ? isServicesOpen : undefined}
@@ -427,6 +389,7 @@ const MobileNav = ({ isOpen, onClose }) => {
                                  <ul id={`mobile-${link.name}-submenu`} className={`mobile-submenu ${isServicesOpen ? 'open' : ''}`} aria-hidden={!isServicesOpen}>
                                      {link.subLinks.map(subLink => (
                                          <li key={subLink.name}>
+                                            {/* @Fix: Wrapped parameter-less event handlers in arrow functions to match expected signature. */}
                                             <AppLink href={subLink.href} onClick={() => onClose()}>
                                                 {subLink.name}
                                             </AppLink>
@@ -472,6 +435,7 @@ const Header = ({ theme }) => {
 
   useEffect(() => {
     if (isServicesDropdownOpen) {
+      // @Fix: Added explicit type to assist TypeScript's type inference.
       const firstItem: HTMLAnchorElement | null = servicesDropdownContainerRef.current?.querySelector('.dropdown-menu a');
       firstItem?.focus();
     }
@@ -515,6 +479,7 @@ const Header = ({ theme }) => {
   };
   
   const handleDropdownItemKeyDown = (e: React.KeyboardEvent<HTMLAnchorElement>) => {
+    // @Fix: Added explicit type to assist TypeScript's type inference.
     const items: HTMLAnchorElement[] = Array.from(
       servicesDropdownContainerRef.current?.querySelectorAll('.dropdown-link-item') || []
     );
@@ -588,7 +553,7 @@ const Header = ({ theme }) => {
       </nav>
       <div className="logo">
         <AppLink href="/index.html">
-          <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Design Consultancy Logo - Architectural Firm in Qatar" className="logo-image" />
+          <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Design Consultancy Logo" className="logo-image" />
         </AppLink>
       </div>
       <button
@@ -722,8 +687,6 @@ const ParticleCanvas = memo(() => {
     useEffect(() => {
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         if (prefersReducedMotion) return;
-
-        if (window.innerWidth <= 768) return;
         
         const canvas = canvasRef.current;
         if (!canvas) return;
@@ -818,26 +781,18 @@ const BlueprintAnimation = memo(() => {
 const HeroSection = () => {
     const [offsetY, setOffsetY] = useState(0);
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-    const titleLines = ["DESIGNING QATAR'S", "FUTURE"];
-    const fullTitle = "Designing Qatar's Future";
+    const titleLines = ["STRUCTURES WITH", "PURPOSE"];
+    const fullTitle = titleLines.join(' ');
 
     useEffect(() => {
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         if (prefersReducedMotion) return;
 
-        const isMobile = window.innerWidth <= 768;
-
-        const handleScroll = () => {
-            if (!isMobile) {
-                setOffsetY(window.pageYOffset);
-            }
-        };
+        const handleScroll = () => setOffsetY(window.pageYOffset);
         const handleMouseMove = (e: MouseEvent) => {
-            if (!isMobile) {
-                const { clientX, clientY } = e; const { innerWidth, innerHeight } = window;
-                const x = (clientX / innerWidth) - 0.5; const y = (clientY / innerHeight) - 0.5;
-                setMousePos({ x, y });
-            }
+            const { clientX, clientY } = e; const { innerWidth, innerHeight } = window;
+            const x = (clientX / innerWidth) - 0.5; const y = (clientY / innerHeight) - 0.5;
+            setMousePos({ x, y });
         };
 
         window.addEventListener('scroll', handleScroll); window.addEventListener('mousemove', handleMouseMove);
@@ -856,504 +811,143 @@ const HeroSection = () => {
             { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', stagger: 0.05, delay: 0.8 }
         );
     }, []);
-    
+
+    const contentMouseParallax = 60;
+
     return (
         <section className="hero-section">
-            <video
-                className="hero-video"
-                src="https://res.cloudinary.com/dj3vhocuf/video/upload/v1760897003/pexels-tima-miroshnichenko-5317374_2160p_r6tqya.mp4"
-                autoPlay
-                loop
-                muted
-                playsInline
-            ></video>
+            <video autoPlay loop muted playsInline className="hero-video" src="https://videos.pexels.com/video-files/4120241/4120241-uhd_3840_2160_25fps.mp4" aria-hidden="true" />
             <BlueprintAnimation />
             <ParticleCanvas />
-            <div
-                className="hero-content"
-                style={{
-                    transform: `translate(${mousePos.x * 20}px, ${mousePos.y * 20}px)`,
-                    opacity: 1 - (offsetY * 0.0015)
-                }}
-            >
+            <div className="hero-content" style={{
+                transform: `translate(${mousePos.x * contentMouseParallax}px, ${(offsetY * 0.7) + (mousePos.y * contentMouseParallax)}px)`,
+                opacity: Math.max(0, 1 - offsetY / (window.innerHeight * 0.8))
+            }}>
                 <h1 className="reveal-text" aria-label={fullTitle}>
                     {titleLines.map((line, lineIndex) => (
-                        <span className="hero-title-line" key={lineIndex} aria-hidden="true">
-                            {line.split('').map((char, charIndex) => (
-                                <span className="letter" key={charIndex}>{char === ' ' ? '\u00A0' : char}</span>
+                        <div className="hero-title-line" key={lineIndex}>
+                            {line.split('').map((char, index) => (
+                                <span className="letter" key={`${char}-${index}`} aria-hidden="true">
+                                    {char === ' ' ? '\u00A0' : char}
+                                </span>
                             ))}
-                        </span>
+                        </div>
                     ))}
                 </h1>
-                <a href="#about" className="explore-btn">Explore Our Vision</a>
+                <a href="#works" className="explore-btn">Explore Our Work</a>
             </div>
-            <a href="#about" className="scroll-down-indicator" aria-label="Scroll down to learn more">
-                <i className="fas fa-chevron-down" aria-hidden="true"></i>
+             <a href="#about" className="scroll-down-indicator" aria-label="Scroll down to about section">
+                <i className="fas fa-arrow-down" aria-hidden="true"></i>
             </a>
         </section>
     );
 };
-const AboutSection = () => {
-    return (
-        <section id="about" className="content-section section-bg-white">
-            <div className="section-decorator decorator-right scroll-trigger" aria-hidden="true">
-                <span className="decorator-text">TAJ</span>
-            </div>
-            <div className="container">
-                <div className="about-section">
-                    <div className="grid">
-                        <div className="about-image scroll-trigger fade-up" style={{transitionDelay: '0.2s'}}>
-                           <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&auto=format&fit=crop&q=60" alt="Team of architects and engineers collaborating in a modern office in Doha, Qatar." />
-                        </div>
-                        <div className="about-text scroll-trigger fade-up" style={{transitionDelay: '0.1s'}}>
-                            <h2 className="section-title">Evidence-Led Design, <strong>Technical Precision</strong></h2>
-                            <p>
-                                Established in 2021, Taj Design Consultancy is a premier multidisciplinary firm delivering excellence across architecture, engineering, project management, and sustainability services.
-                            </p>
-                            <p>
-                                At the heart of our philosophy is a commitment to evidence-led design, ensuring every decision is informed by rigorous analysis and technical precision. We pride ourselves on turning ambitious ideas into tangible realities, delivered on time and within budget.
-                            </p>
-                            <a href="about.html" className="view-projects-btn">Learn More About Us</a>
-                            
-                            <h3 className="sub-section-title">Our Integrated Process</h3>
-                            <div className="process-section">
-                                <p>We follow a comprehensive four-step process to ensure quality and clarity from start to finish.</p>
-                                <div className="process-grid">
-                                    <div className="process-item">
-                                        <div className="process-icon-wrapper"><i className="fas fa-lightbulb process-icon"></i></div>
-                                        <h4><span>01</span> Concept & Feasibility</h4>
-                                    </div>
-                                    <div className="process-item">
-                                        <div className="process-icon-wrapper"><i className="fas fa-drafting-compass process-icon"></i></div>
-                                        <h4><span>02</span> Design & Documentation</h4>
-                                    </div>
-                                    <div className="process-item">
-                                        <div className="process-icon-wrapper"><i className="fas fa-hard-hat process-icon"></i></div>
-                                        <h4><span>03</span> Tendering & Construction</h4>
-                                    </div>
-                                    <div className="process-item">
-                                        <div className="process-icon-wrapper"><i className="fas fa-check-double process-icon"></i></div>
-                                        <h4><span>04</span> Handover & Completion</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    );
-};
-const FactsSection = () => {
-    const countersRef = useRef<HTMLDivElement>(null);
+
+const AnimatedCounter = ({ end, duration = 2000 }) => {
+    const [count, setCount] = useState(0);
+    const ref = useRef<HTMLDivElement | null>(null);
+    const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
     useEffect(() => {
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (prefersReducedMotion) return;
-
         const observer = new IntersectionObserver(
-            (entries) => {
-                if (entries[0].isIntersecting) {
-                    const counters = countersRef.current?.querySelectorAll<HTMLElement>('.num');
-                    counters?.forEach(counter => {
-                        const target = +counter.getAttribute('data-target')!;
-                        gsap.to(counter, {
-                            innerText: target,
-                            duration: 2,
-                            ease: 'power2.out',
-                            snap: { innerText: 1 },
-                            onUpdate: () => {
-                                counter.innerText = Math.ceil(parseFloat(counter.innerText)).toLocaleString();
-                            }
-                        });
-                    });
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    let start = 0;
+                    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                    if (prefersReducedMotion) { setCount(end); return; }
+                    const stepTime = Math.abs(Math.floor(duration / end));
+                    timerRef.current = setInterval(() => {
+                        start += 1; setCount(start);
+                        if (start === end) { if (timerRef.current) clearInterval(timerRef.current); }
+                    }, stepTime);
                     observer.disconnect();
                 }
             }, { threshold: 0.5 }
         );
-        if (countersRef.current) observer.observe(countersRef.current);
-        return () => observer.disconnect();
-    }, []);
 
-    return (
-        <section id="facts" className="content-section section-bg-dark" style={{backgroundImage: "url('https://images.unsplash.com/photo-1604147706283-d7119b5b822c?w=1600&auto=format&fit=crop&q=60')"}}>
-             <div className="section-decorator decorator-left scroll-trigger" aria-hidden="true">
-                <span className="decorator-text">2021</span>
-            </div>
-            <div className="container">
-                <div className="facts-section">
-                    <div className="grid">
-                        <div className="facts-text scroll-trigger fade-up" style={{transitionDelay: '0.1s'}}>
-                            <h2 className="section-title">Delivering <strong>Excellence</strong></h2>
-                            <p>Our commitment to quality, innovation, and client satisfaction has established us as a trusted partner in Qatar's development. Our numbers speak for themselves, reflecting a portfolio of diverse and successful projects that shape the nation's landscape.</p>
-                        </div>
-                         <div ref={countersRef} className="facts-counters scroll-trigger fade-up" style={{transitionDelay: '0.2s'}}>
-                            <div className="counter-item">
-                                <i className="fas fa-building counter-icon" aria-hidden="true"></i>
-                                <div className="num" data-target="150">0</div>
-                                <p>Projects Completed</p>
-                            </div>
-                            <div className="counter-item">
-                                <i className="fas fa-users counter-icon" aria-hidden="true"></i>
-                                <div className="num" data-target="50">0</div>
-                                <p>Happy Clients</p>
-                            </div>
-                            <div className="counter-item">
-                                <i className="fas fa-award counter-icon" aria-hidden="true"></i>
-                                <div className="num" data-target="5">0</div>
-                                <p>Years of Experience</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    );
-};
-const ServicesSection = () => {
-    return (
-        <section id="our-services" className="content-section">
-            <div className="container">
-                <h2 className="section-title scroll-trigger fade-up" style={{textAlign: 'center'}}>Our Core <strong>Services</strong></h2>
-                <div className="services-grid">
-                    {servicesSubLinks.map((service, index) => (
-                        <div className="service-item scroll-trigger fade-up" key={service.name} style={{ transitionDelay: `${index * 0.1}s` }}>
-                           <div className="service-icon-wrapper">
-                                <i className={`service-icon ${service.icon}`} aria-hidden="true"></i>
-                           </div>
-                           <h3>{service.name}</h3>
-                           <p>{service.description}</p>
-                           <a href={service.href} className="read-more-btn">Read More <i className="fas fa-arrow-right" aria-hidden="true"></i></a>
-                           <svg className="service-border-svg" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-                                <rect className="service-border-rect" width="100%" height="100%" />
-                           </svg>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </section>
-    )
-}
-const SectorsSection = () => {
-    const sectors = [
-        { name: "Residential", icon: "fas fa-home" },
-        { name: "Commercial", icon: "fas fa-store-alt" },
-        { name: "Hospitality", icon: "fas fa-concierge-bell" },
-        { name: "Healthcare", icon: "fas fa-clinic-medical" },
-        { name: "Educational", icon: "fas fa-school" },
-        { name: "Industrial", icon: "fas fa-industry" },
-    ];
-    return (
-        <section id="sectors" className="content-section section-bg-dark" style={{backgroundImage: "url('https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1600&auto=format&fit=crop&q=60')"}}>
-            <div className="container">
-                <h2 className="section-title scroll-trigger fade-up" style={{textAlign: 'center'}}>Sectors <strong>We Serve</strong></h2>
-                <div className="sectors-grid">
-                    {sectors.map((sector, index) => (
-                         <div className="sector-item scroll-trigger fade-up" key={sector.name} style={{ transitionDelay: `${index * 0.1}s`, backgroundColor: 'rgba(28, 28, 28, 0.7)', border: '1px solid var(--border-light)' }}>
-                           <div className="service-icon-wrapper" style={{backgroundColor: 'rgba(255,255,255,0.1)'}}>
-                                <i className={`service-icon ${sector.icon}`} aria-hidden="true"></i>
-                           </div>
-                           <h3 style={{color: '#fff'}}>{sector.name}</h3>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </section>
-    )
-}
+        const currentRef = ref.current;
+        if (currentRef) observer.observe(currentRef);
+        return () => { if (currentRef) observer.unobserve(currentRef); if (timerRef.current) clearInterval(timerRef.current); };
+    }, [end, duration]);
 
-const FeaturedProjects = () => {
-    const workItems = [
-        { 
-          title: 'World Wide Business Center',
-          meta: 'Design and Supervision of Office Interior',
-          location: 'D Ring Road',
-          description: 'A 2,000 sqm office interior featuring a welcoming reception, multiple meeting rooms, a conference room, collaborative zones, and a dedicated games area.',
-          mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304504/_DSC9859_sx03dr.jpg',
-          gallery: [
-            'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304504/_DSC9859_sx03dr.jpg',
-            'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304501/_DSC9888_rkhjis.jpg',
-            'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304500/_DSC9901_beo4mx.jpg',
-          ],
-          alt: 'Spacious and modern interior of World Wide Business Center on D Ring Road, Doha.'
-        },
-        { 
-          title: 'Al Jabor Building',
-          meta: 'Design and Municipality Approvals for Commercial Building',
-          location: 'Al Hilal',
-          description: 'This project involved a full interior reconfiguration of the commercial building based on a targeted market-demand analysis.',
-          mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761425803/Untitled_16_x_9_in_2_aypzfx.png',
-          gallery: [
-            'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761425803/Untitled_16_x_9_in_2_aypzfx.png',
-            'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761425803/Untitled_16_x_9_in_3_m7smfu.png',
-          ],
-          alt: 'Architectural redesign of the Al Jabor commercial building in Al Hilal, Qatar.'
-        }
-    ];
-
-    const [selectedProject, setSelectedProject] = useState(null);
-
-    useEffect(() => {
-        const parallaxItems = document.querySelectorAll<HTMLElement>('.work-item');
-        const handleScroll = () => {
-            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || window.innerWidth <= 992) return;
-            parallaxItems.forEach(item => {
-                const rect = item.getBoundingClientRect();
-                const speed = 0.1;
-                const offset = (window.innerHeight - rect.top) * speed;
-                if (rect.top < window.innerHeight && rect.bottom > 0) {
-                    item.style.setProperty('--parallax-y', `${offset}px`);
-                }
-            });
-        };
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-    
-    return (
-        <section id="works" className="content-section section-bg-dark" style={{backgroundImage: "url('https://images.unsplash.com/photo-1542892945-931502763527?w=1600&auto=format&fit=crop&q=60')"}}>
-            <ProjectGalleryModal project={selectedProject} onClose={() => setSelectedProject(null)} />
-            <div className="container">
-                <h2 className="section-title scroll-trigger fade-up" style={{textAlign: 'center'}}>Our <strong>Featured Projects</strong></h2>
-                 <div className="works-list">
-                    {workItems.map((item, index) => (
-                         <button
-                            className={`work-item scroll-trigger fade-up ${index % 2 === 1 ? 'reverse' : ''}`}
-                            key={index}
-                            onClick={() => setSelectedProject(item)}
-                            aria-label={`View project details for ${item.title}`}
-                        >
-                            <div className="grid">
-                                <div className="work-image">
-                                    <img src={item.mainImage} alt={item.alt} style={{ transform: `translateY(var(--parallax-y))` }} />
-                                    <div className="work-image-overlay" aria-hidden="true">
-                                        <h3>{item.title}</h3>
-                                        <span className="view-projects-btn">View Project</span>
-                                    </div>
-                                </div>
-                                <div className="work-info">
-                                    <p className="meta">{item.meta}</p>
-                                    <h2 className="section-title"><strong>{item.title}</strong></h2>
-                                    <p className="work-description">{item.description}</p>
-                                </div>
-                            </div>
-                        </button>
-                    ))}
-                </div>
-            </div>
-        </section>
-    );
-}
-
-const BlogSection = () => {
-    const blogPosts = [
-      {
-        title: 'The Future of BIM: AI and Generative Design',
-        image: 'https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800&auto=format&fit=crop&q=60',
-        meta: 'Aug 15, 2024 · Technology',
-        link: 'blog-bim-ai.html'
-      },
-      {
-        title: 'Sustainable Materials in Modern Construction',
-        image: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&auto=format&fit=crop&q=60',
-        meta: 'Aug 10, 2024 · Architecture',
-        link: 'blog-sustainable-materials.html'
-      },
-      {
-        title: 'Minimalism and Light: Crafting Serene Spaces',
-        image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&auto=format&fit=crop&q=60',
-        meta: 'Aug 05, 2024 · Interior Design',
-        link: 'blog-minimalism-light.html'
-      },
-    ];
-  
-    return (
-      <section id="blog" className="content-section section-bg-white">
-        <div className="container">
-          <h2 className="section-title scroll-trigger fade-up" style={{ textAlign: 'center' }}>From <strong>Our Blog</strong></h2>
-          <div className="blog-grid">
-            {blogPosts.map((post, index) => (
-              <div className="blog-item scroll-trigger fade-up" key={post.title} style={{ transitionDelay: `${index * 0.1}s` }}>
-                <div className="blog-item-image" style={{ backgroundImage: `url(${post.image})` }}></div>
-                <div className="blog-item-content">
-                  <p className="blog-item-meta">{post.meta}</p>
-                  <h3 className="blog-item-title">
-                    <a href={post.link}>{post.title}</a>
-                  </h3>
-                  <a href={post.link} className="blog-item-link">Read More <i className="fas fa-arrow-right"></i></a>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    );
+    return <div ref={ref} className="num">{count}</div>;
 };
 
-const TestimonialsSection = () => {
-    const testimonials = [
-      {
-        quote: "Taj Design Consult transformed our vision into a stunning reality. Their attention to detail and commitment to quality were evident in every phase of the project. Highly recommended!",
-        author: "Ahmed Al-Baker, CEO of Qatar Innovations",
-        avatar: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=400&auto=format&fit=crop&q=60"
-      },
-      {
-        quote: "Working with Taj's team was a seamless experience. Their professionalism and expertise in navigating local regulations saved us invaluable time and resources.",
-        author: "Fatima Al-Kuwari, Real Estate Developer",
-        avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop&q=60"
-      },
-      {
-        quote: "The final result exceeded all our expectations. The design is not only beautiful but also incredibly functional. Their integrated approach makes all the difference.",
-        author: "Yousef Al-Malki, Hospitality Group",
-        avatar: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&auto=format&fit=crop&q=60"
-      }
-    ];
-
+const TestimonialsCarousel = ({ testimonials }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
-
-    const goToSlide = (index: number) => {
-        setCurrentIndex(index);
-    };
-
-    const goToNext = () => {
-        setCurrentIndex(prev => prev === testimonials.length - 1 ? 0 : prev + 1);
-    };
-
-    const goToPrev = () => {
-        setCurrentIndex(prev => prev === 0 ? testimonials.length - 1 : prev - 1);
-    };
-
-    return (
-        <section id="testimonials" className="content-section section-bg-dark" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1549439589-36f882436384?w=1600&auto=format&fit=crop&q=60')" }}>
-            <div className="container scroll-trigger fade-up">
-                <h2 className="section-title" style={{ textAlign: 'center' }}>What Our <strong>Clients Say</strong></h2>
-                <div className="testimonials-carousel">
-                    <div className="testimonials-wrapper">
-                         <div className="testimonials-track" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
-                            {testimonials.map((t, index) => (
-                                <div className="testimonial-slide" key={index}>
-                                    <div className="testimonial-card">
-                                        <img src={t.avatar} alt={`Avatar of ${t.author}`} className="testimonial-avatar" />
-                                        <p className="testimonial-quote">"{t.quote}"</p>
-                                        <p className="testimonial-author">- {t.author}</p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                    <button className="carousel-btn prev" onClick={goToPrev} aria-label="Previous testimonial"><i className="fas fa-chevron-left"></i></button>
-                    <button className="carousel-btn next" onClick={goToNext} aria-label="Next testimonial"><i className="fas fa-chevron-right"></i></button>
-                    <div className="carousel-dots">
-                        {testimonials.map((_, index) => (
-                            <button key={index} className={`dot ${currentIndex === index ? 'active' : ''}`} onClick={() => goToSlide(index)} aria-label={`Go to testimonial ${index + 1}`}></button>
-                        ))}
-                    </div>
-                </div>
-            </div>
-        </section>
-    );
-};
-
-const ClientsSection = () => {
-    const clients = [
-        "https://res.cloudinary.com/dj3vhocuf/image/upload/v1761400262/download-1_h8xuyj.png",
-        "https://res.cloudinary.com/dj3vhocuf/image/upload/v1761400261/download-2_v3bcyi.png",
-        "https://res.cloudinary.com/dj3vhocuf/image/upload/v1761400260/download_h1xxdt.png",
-        "https://res.cloudinary.com/dj3vhocuf/image/upload/v1761400260/images_f9a94j.png",
-        "https://res.cloudinary.com/dj3vhocuf/image/upload/v1761400259/download-3_qimvyc.png",
-    ];
-    const doubledClients = [...clients, ...clients];
-
-    return (
-        <section id="clients" className="content-section section-bg-white">
-            <div className="container">
-                <h2 className="section-title scroll-trigger fade-up" style={{textAlign: 'center'}}>Our <strong>Valued Clients</strong></h2>
-                 <div className="clients-scroller scroll-trigger fade-up">
-                    <div className="clients-scroller-inner">
-                        {doubledClients.map((client, index) => (
-                            <div className="client-logo" key={index}>
-                                <img src={client} alt={`Client logo ${index + 1}`} />
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
-        </section>
-    )
-}
-const CustomCursor = memo(() => {
-    const dotRef = useRef<HTMLDivElement>(null);
-    const outlineRef = useRef<HTMLDivElement>(null);
+    const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const resetTimeout = () => { if (timeoutRef.current) clearTimeout(timeoutRef.current); };
 
     useEffect(() => {
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (prefersReducedMotion || window.innerWidth <= 992) return;
+        if (prefersReducedMotion) return;
+        resetTimeout();
+        timeoutRef.current = setTimeout(() => setCurrentIndex((prev) => prev === testimonials.length - 1 ? 0 : prev + 1), 5000);
+        return () => resetTimeout();
+    }, [currentIndex, testimonials.length]);
 
-        const dot = dotRef.current;
-        const outline = outlineRef.current;
-        if (!dot || !outline) return;
-
-        gsap.set([dot, outline], { xPercent: -50, yPercent: -50 });
-
-        const dotX = gsap.quickTo(dot, "x", { duration: 0.1, ease: "power3" });
-        const dotY = gsap.quickTo(dot, "y", { duration: 0.1, ease: "power3" });
-        const outlineX = gsap.quickTo(outline, "x", { duration: 0.3, ease: "power3" });
-        const outlineY = gsap.quickTo(outline, "y", { duration: 0.3, ease: "power3" });
-
-        const mouseMove = (e: MouseEvent) => {
-            dotX(e.clientX);
-            dotY(e.clientY);
-            outlineX(e.clientX);
-            outlineY(e.clientY);
-        };
-        
-        const showCursor = () => {
-            gsap.to([dot, outline], { autoAlpha: 1, duration: 0.3 });
-        };
-        const hideCursor = () => {
-            gsap.to([dot, outline], { autoAlpha: 0, duration: 0.3 });
-        };
-        
-        const handleMouseEnterHoverTarget = () => {
-            gsap.to(outline, { scale: 1.6, backgroundColor: 'var(--accent-color)', borderColor: 'transparent', opacity: 0.25, duration: 0.3 });
-            gsap.to(dot, { scale: 0, duration: 0.3 });
-        };
-
-        const handleMouseLeaveHoverTarget = () => {
-            gsap.to(outline, { scale: 1, backgroundColor: 'transparent', borderColor: 'var(--accent-color)', opacity: 1, duration: 0.3 });
-            gsap.to(dot, { scale: 1, duration: 0.3 });
-        };
-        
-        window.addEventListener("mousemove", mouseMove);
-        document.body.addEventListener("mouseleave", hideCursor);
-        document.body.addEventListener("mouseenter", showCursor);
-
-        const hoverTargets = document.querySelectorAll(
-            'a, button, [role="button"], .work-item, .service-item, .blog-item, .whatsapp-widget, .carousel-dot, .carousel-nav-btn, .about-image'
-        );
-        hoverTargets.forEach(target => {
-            target.addEventListener('mouseenter', handleMouseEnterHoverTarget);
-            target.addEventListener('mouseleave', handleMouseLeaveHoverTarget);
-        });
-
-        return () => {
-            window.removeEventListener("mousemove", mouseMove);
-            document.body.removeEventListener("mouseleave", hideCursor);
-            document.body.removeEventListener("mouseenter", showCursor);
-            hoverTargets.forEach(target => {
-                target.removeEventListener('mouseenter', handleMouseEnterHoverTarget);
-                target.removeEventListener('mouseleave', handleMouseLeaveHoverTarget);
-            });
-        };
-    }, []);
+    const goToPrev = () => setCurrentIndex(currentIndex === 0 ? testimonials.length - 1 : currentIndex - 1);
+    const goToNext = () => setCurrentIndex(currentIndex === testimonials.length - 1 ? 0 : currentIndex + 1);
+    const goToSlide = (slideIndex) => setCurrentIndex(slideIndex);
 
     return (
-        <>
-            <div ref={outlineRef} className="custom-cursor-outline" style={{ opacity: 0 }}></div>
-            <div ref={dotRef} className="custom-cursor-dot" style={{ opacity: 0 }}></div>
-        </>
+        <div className="testimonials-carousel" aria-roledescription="carousel" aria-label="Customer testimonials">
+             <div className="sr-only" aria-live="polite" aria-atomic="true">
+                Showing testimonial {currentIndex + 1} of {testimonials.length}
+            </div>
+            <div className="testimonials-wrapper">
+                <div className="testimonials-track" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
+                    {testimonials.map((testimonial, index) => (
+                        <div className="testimonial-slide" key={index} role="group" aria-roledescription="slide" aria-hidden={currentIndex !== index}>
+                            <div className="testimonial-card">
+                                <img src={testimonial.image} alt={testimonial.author} className="testimonial-avatar" />
+                                <p className="testimonial-quote">"{testimonial.quote}"</p>
+                                <span className="testimonial-author">{testimonial.author}</span>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+            <button onClick={goToPrev} className="carousel-btn prev" aria-label="Previous testimonial"><i className="fas fa-chevron-left" aria-hidden="true"></i></button>
+            <button onClick={goToNext} className="carousel-btn next" aria-label="Next testimonial"><i className="fas fa-chevron-right" aria-hidden="true"></i></button>
+            <div className="carousel-dots">
+                {testimonials.map((_, slideIndex) => (
+                    <div
+                        key={slideIndex} role="button" tabIndex={0} aria-label={`Go to testimonial ${slideIndex + 1}`}
+                        className={`dot ${currentIndex === slideIndex ? 'active' : ''}`}
+                        onClick={() => goToSlide(slideIndex)}
+                        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { goToSlide(slideIndex); }}}
+                    ></div>
+                ))}
+            </div>
+        </div>
     );
-});
+};
+
+const ClientsCarousel = () => {
+    const clientLogos = [
+        { url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPTwxAXnyJ94XVj2GIYoPuZtQ0I5MJGpmreA&s", name: "Ministry of Interior, Qatar" },
+        { url: "https://www.trustlinkqatar.com/assets/images/trustlinkqatar-logo-colored.png", name: "TrustLink Qatar" },
+        { url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRayiNTv2-vuoIvjHtg0Y0TwwUX0ZzaPTqT5g&s", name: "Qatar Foundation" },
+        { url: "https://pbs.twimg.com/profile_images/1508776406137856008/57PHPv7w_400x400.jpg", name: "Kahramaa" },
+    ];
+    
+    // Duplicate logos for seamless scrolling effect
+    const duplicatedLogos = [...clientLogos, ...clientLogos, ...clientLogos, ...clientLogos];
+
+    return (
+        <div className="clients-scroller">
+            <div className="clients-scroller-inner">
+                {duplicatedLogos.map((logo, index) => (
+                    <div className="client-logo" key={index}>
+                        <img src={logo.url} alt={`${logo.name} Logo`} />
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+};
+
 
 const ProjectGalleryModal = ({ project, onClose }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -1399,27 +993,25 @@ const ProjectGalleryModal = ({ project, onClose }) => {
                 <button onClick={onClose} className="project-modal-close" aria-label="Close project gallery">&times;</button>
                 <div className="project-modal-gallery">
                     <div className="gallery-main-image">
-                        <img src={project.gallery[currentIndex]} alt={`${project.alt} - Image ${currentIndex + 1}`} />
-                        {project.gallery.length >= 2 && (
-                            <>
-                                <button onClick={goToPrevious} className="gallery-nav-btn prev" aria-label="Previous image"><i className="fas fa-chevron-left"></i></button>
-                                <button onClick={goToNext} className="gallery-nav-btn next" aria-label="Next image"><i className="fas fa-chevron-right"></i></button>
-                            </>
-                        )}
+                        <img src={project.gallery[currentIndex]} alt={`${project.title} - Image ${currentIndex + 1}`} />
                     </div>
                     {project.gallery.length >= 2 && (
-                        <div className="gallery-thumbnails">
-                            {project.gallery.map((img, index) => (
-                                <button 
-                                  key={index} 
-                                  className={`thumbnail-item ${index === currentIndex ? 'active' : ''}`} 
-                                  onClick={() => setCurrentIndex(index)}
-                                  aria-label={`View image ${index + 1}`}
-                                >
-                                    <img src={img} alt={`Thumbnail ${index + 1}`} />
-                                </button>
-                            ))}
-                        </div>
+                        <>
+                            <button onClick={goToPrevious} className="gallery-nav-btn prev" aria-label="Previous image"><i className="fas fa-chevron-left"></i></button>
+                            <button onClick={goToNext} className="gallery-nav-btn next" aria-label="Next image"><i className="fas fa-chevron-right"></i></button>
+                            <div className="gallery-thumbnails">
+                                {project.gallery.map((img, index) => (
+                                    <button 
+                                      key={index} 
+                                      className={`thumbnail-item ${index === currentIndex ? 'active' : ''}`} 
+                                      onClick={() => setCurrentIndex(index)}
+                                      aria-label={`View image ${index + 1}`}
+                                    >
+                                        <img src={img} alt={`Thumbnail ${index + 1}`} />
+                                    </button>
+                                ))}
+                            </div>
+                        </>
                     )}
                 </div>
                 <div className="project-modal-details">
@@ -1432,67 +1024,438 @@ const ProjectGalleryModal = ({ project, onClose }) => {
         </div>
     );
 };
-const App = () => {
-    const [loading, setLoading] = useState(true);
 
+const SectionDivider = () => (
+    <div className="section-divider-wrapper">
+        <div className="section-divider" />
+    </div>
+);
+
+const useSmoothScroll = () => {
     useEffect(() => {
-        const timer = setTimeout(() => setLoading(false), 500); // Slight delay for content to be ready
-        return () => clearTimeout(timer);
+        const handleAnchorClick = (e: MouseEvent) => {
+            const anchor = (e.target as HTMLElement).closest('a');
+            if (anchor && anchor.hash && new URL(anchor.href).pathname === window.location.pathname) {
+                const targetId = anchor.hash.substring(1);
+                if (!targetId) {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    return;
+                }
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    e.preventDefault();
+                    const header = document.querySelector<HTMLElement>('.app-header');
+                    const headerOffset = header ? header.offsetHeight + 10 : 90;
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                }
+            }
+        };
+        document.addEventListener('click', handleAnchorClick);
+        return () => document.removeEventListener('click', handleAnchorClick);
     }, []);
-
-    useEffect(() => {
-        if (loading) return;
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (prefersReducedMotion) {
-            document.querySelectorAll('.scroll-trigger').forEach(el => el.classList.add('visible'));
-            return;
-        }
-
-        const observer = new IntersectionObserver(
-            (entries, obs) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        obs.unobserve(entry.target);
-                    }
-                });
-            },
-            { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
-        );
-
-        const elementsToReveal = document.querySelectorAll('.scroll-trigger');
-        elementsToReveal.forEach((el) => observer.observe(el));
-
-        return () => elementsToReveal.forEach((el) => observer.unobserve(el));
-    }, [loading]);
-
-
-    return (
-        <div className={`app ${loading ? 'loading' : ''}`}>
-            <SchemaMarkup />
-            <SkipToContentLink />
-            <CustomCursor />
-            <WhatsAppChatWidget />
-            <Header theme="dark"/>
-            <div className="main-container">
-                <LeftSidebar pageName="HOME" />
-                <main className="main-content" id="main-content" tabIndex={-1}>
-                    <HeroSection />
-                    <AboutSection />
-                    <FactsSection />
-                    <ServicesSection />
-                    <SectorsSection />
-                    <FeaturedProjects />
-                    <BlogSection />
-                    <TestimonialsSection />
-                    <ClientsSection />
-                    <Footer />
-                </main>
-            </div>
-        </div>
-    );
 };
 
+const HomePage = () => {
+  const [selectedProject, setSelectedProject] = useState(null);
+  const factsContainerRef = useRef<HTMLDivElement | null>(null);
+  const clientsContainerRef = useRef<HTMLDivElement | null>(null);
+  
+  useSmoothScroll();
+  
+  const workItems = [
+    { 
+      title: 'TrustLink office',
+      meta: 'Design and Build of Office Interior',
+      location: 'Bin Mahmoud',
+      description: 'We provide end-to-end office interior design and on-site supervision—covering space planning, materials and finishes, MEP coordination, and quality control—to deliver functional, branded workplaces on time and within budget.',
+      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761224706/WhatsApp_Image_2025-10-22_at_23.46.06_e814e5d0_uqphxj.png',
+      gallery: [
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761224706/WhatsApp_Image_2025-10-22_at_23.46.06_e814e5d0_uqphxj.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761224698/WhatsApp_Image_2025-10-22_at_23.46.07_714b8d87_1_eljwpn.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761224698/WhatsApp_Image_2025-10-22_at_23.46.07_d6db18c5_tovqbt.png'
+      ]
+    },
+    { 
+      title: 'World Wide Business Center',
+      meta: 'Design and Supervision of Office Interior',
+      location: 'D Ring Road',
+      description: 'World Wide Business Center — a 2,000 sqm office interior designed and supervised by our team — blends elegant aesthetics with high functionality, featuring a welcoming reception, multiple meeting rooms, a fully equipped conference room, collaborative zones, and a dedicated games area.',
+      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304504/_DSC9859_sx03dr.jpg',
+      gallery: [
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304504/_DSC9859_sx03dr.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304501/_DSC9888_rkhjis.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304500/_DSC9901_beo4mx.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304498/_DSC9870_hyaor0.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304498/_DSC9893_ocqnlg.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304497/_DSC9866_aq8w9n.jpg'
+      ]
+    },
+    { 
+      title: 'Al Jabor Building',
+      meta: 'Design and Municipality Approvals for Commercial Building',
+      location: 'Al Hilal',
+      description: 'Designed and delivered to meet the client’s specific requirements, this project involved a full interior reconfiguration of the commercial building based on a targeted market-demand analysis.',
+      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761425803/Untitled_16_x_9_in_2_aypzfx.png',
+      gallery: [
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761425803/Untitled_16_x_9_in_2_aypzfx.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761425803/Untitled_16_x_9_in_3_m7smfu.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761425803/Untitled_16_x_9_in_1_ht1iux.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761425806/Untitled_16_x_9_in_mi6glx.png'
+      ]
+    },
+    {
+      title: 'Legal office for Shaiek Jassim Al Thani',
+      meta: 'End-to-end interior design and fit-out supervision',
+      location: 'Westbay',
+      description: 'Interior design and supervision for turnkey fit-out works—covering concept to handover—with full life-safety compliance to QCDD/NFPA codes. Services include 3D renders and visualizations, coordinated MEP layouts, furniture and finishes selection, technical specifications, detailed BOQs, and on-site supervision/QA to ensure quality, budget control, and timely delivery.',
+      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761394147/10_gtnarf.png',
+      gallery: [
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761394147/10_gtnarf.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761394141/6_ypphq2.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761394138/5_qr7poc.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761394123/12_pqzmgc.png'
+      ]
+    },
+    { 
+      title: 'Al Jazeera Tower',
+      meta: 'End-to-end interior design and fit-out supervision',
+      location: 'Dafna',
+      description: 'Office space design, supervision, and photorealistic renders for a high-rise project in Dafna (4 floors)—including workplace planning, detailed interiors, coordinated MEP, QCDD/NFPA life-safety compliance, supervision for design compliance, adherence to tower standards/procedures, full snagging/rectification, QA/QC, and handover—plus contractor pre-qualification and selection, tendering support, quotation/bid evaluation with comparative summaries, value engineering, and award recommendations.',
+      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637877/Untitled_16_x_9_in_13_pd7hre.png',
+      gallery: [
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637877/Untitled_16_x_9_in_13_pd7hre.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637877/Untitled_16_x_9_in_14_mxzymr.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637876/Untitled_16_x_9_in_19_kqzxdr.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637875/Untitled_16_x_9_in_17_x98cqb.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637875/Untitled_16_x_9_in_12_npf9j9.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637876/Untitled_16_x_9_in_15_v8kenj.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637875/Untitled_16_x_9_in_18_n9nsc0.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637875/Untitled_16_x_9_in_16_lxxcfa.png'
+      ]
+    }
+  ];
+
+  const testimonials = [
+    { quote: "The design was flawless. Their attention to detail and coordination saved us significant time and budget on our high-rise project.", author: "Project Manager, High-Rise Development", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&h=500&auto=format&fit=crop&q=60", },
+    { quote: "The supervision and management for our villa were exceptional. The team was professional, transparent, and delivered beyond our expectations.", author: "Private Villa Owner, Doha", image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=500&h=500&auto=format&fit=crop&q=60", },
+    { quote: "Their innovative approach to engineering challenges is commendable. Taj Design Consultancy is a reliable partner for any complex construction endeavor.", author: "Lead Architect, Hospitality Project", image: "https://images.unsplash.com/photo-1556157382-97eda2d62296?w=500&h=500&auto=format&fit=crop&q=60", }
+  ];
+
+  const processSteps = [
+    { title: 'Consult & Brief', icon: 'fas fa-clipboard-list', description: 'We start by listening. Understanding your vision, goals, and constraints is the foundation of our partnership.' },
+    { title: 'Concept Options', icon: 'fas fa-lightbulb', description: 'Exploring possibilities. We develop multiple design concepts, presenting creative solutions that align with the brief.' },
+    { title: 'Design Development', icon: 'fas fa-ruler-combined', description: 'Refining the vision. We flesh out the chosen concept with detailed drawings, material selections, and 3D models.' },
+    { title: 'Docs & Tender', icon: 'fas fa-file-signature', description: 'Precision in planning. We produce comprehensive construction documents and manage the tendering process.' },
+    { title: 'Construction Support', icon: 'fas fa-hard-hat', description: 'Ensuring quality. Our team provides site supervision and support to ensure the design is executed flawlessly.' },
+    { title: 'Post-Occupancy', icon: 'fas fa-key', description: 'Beyond completion. We conduct a final review and handover, ensuring you are delighted with the final result.' },
+  ];
+  
+  const services = [
+    { icon: 'fas fa-archway', title: 'Architectural Design', description: 'Creating innovative and functional spaces from concept to construction, ensuring aesthetic appeal and structural integrity.', href: 'architectural-design.html' },
+    { icon: 'fas fa-cogs', title: 'Engineering Consultancy', description: 'Providing expert technical advice and solutions across various engineering disciplines for robust and efficient project outcomes.', href: 'engineering-consultancy.html' },
+    { icon: 'fas fa-tasks', title: 'Project Management Consultancy', description: 'Overseeing projects from inception to completion, ensuring they are delivered on time, within budget, and to the highest quality standards.', href: 'project-management.html' },
+    { icon: 'fas fa-leaf', title: 'Sustainability & Energy', description: 'Integrating green building principles and energy-efficient solutions to create environmentally responsible and cost-effective designs.', href: 'sustainability-energy.html' },
+    { icon: 'fas fa-check-double', title: 'Construction Approval', description: 'Navigating regulatory hurdles to secure all necessary construction permits and approvals efficiently.', href: 'construction-approval.html' },
+  ];
+
+  const sectors = [
+    { name: 'Private Sector', icon: 'fas fa-building' }, { name: 'Refurbishment & Small Works', icon: 'fas fa-hammer' }, { name: 'Commercial & Mixed-Use', icon: 'fas fa-store-alt' }, 
+    { name: 'Residential', icon: 'fas fa-home' }, { name: 'Industrial', icon: 'fas fa-industry' }, { name: 'Sports & Entertainment', icon: 'fas fa-futbol' }, 
+    { name: 'Hospitality & Leisure', icon: 'fas fa-concierge-bell' }, { name: 'Education & Healthcare', icon: 'fas fa-graduation-cap' }, { name: 'Government & Public Sector', icon: 'fas fa-landmark' },
+  ];
+
+  const blogPosts = [
+    { image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800&auto=format&fit=crop&q=60", category: "Technology", date: "August 15, 2024", title: "The Future of BIM: AI and Generative Design", href: "blog-bim-ai.html", },
+    { image: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&auto=format&fit=crop&q=60", category: "Architecture", date: "August 10, 2024", title: "Sustainable Materials in Modern Construction", href: "blog-sustainable-materials.html", },
+    { image: "https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&auto=format&fit=crop&q=60", category: "Interior Design", date: "August 05, 2024", title: "Minimalism and Light: Crafting Serene Spaces", href: "blog-minimalism-light.html", }
+  ];
+
+   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) { document.querySelectorAll('.scroll-trigger').forEach(el => el.classList.add('visible')); return; }
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) { entry.target.classList.add('visible'); obs.unobserve(entry.target); }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+    );
+    const elementsToReveal = document.querySelectorAll('.scroll-trigger');
+    elementsToReveal.forEach((el) => observer.observe(el));
+    return () => elementsToReveal.forEach((el) => observer.unobserve(el));
+  }, []);
+
+  // Simplified Parallax Effects
+  useEffect(() => {
+    const projectImageParallaxSpeed = 0.2;
+    const workImageContainers = document.querySelectorAll<HTMLElement>('.work-image');
+    const servicesSection = document.getElementById('our-services');
+
+    const handleScroll = () => {
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion) return;
+
+        // Work image parallax
+        workImageContainers.forEach(container => {
+            const image = container.querySelector('img');
+            if (!image) return;
+            const rect = container.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                const yOffset = -rect.top * projectImageParallaxSpeed;
+                image.style.setProperty('--parallax-y', `${yOffset}px`);
+            }
+        });
+
+        // Services BG parallax
+        if(servicesSection) {
+            const rect = servicesSection.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                const speed = 0.25;
+                const yOffset = rect.top * speed;
+                servicesSection.style.setProperty('--bg-parallax-y', `${yOffset}px`);
+            }
+        }
+    };
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return (
+    <>
+      <ProjectGalleryModal project={selectedProject} onClose={() => setSelectedProject(null)} />
+      <HeroSection />
+      
+      <section id="about" className="content-section section-bg-white scroll-trigger fade-up">
+        <div className="section-decorator decorator-right scroll-trigger" aria-hidden="true">
+            <span className="decorator-text">01</span>
+        </div>
+        <div className="container">
+          <div className="about-section">
+            <div className="grid">
+              <div className="about-image scroll-trigger fade-up">
+                <img src="https://images.pexels.com/photos/256150/pexels-photo-256150.jpeg?cs=srgb&dl=pexels-pixabay-256150.jpg&fm=jpg" alt="A modern residential building with a swimming pool and patio." />
+              </div>
+              <div className="about-text">
+                <h2 className="section-title scroll-trigger fade-up">WHO <strong>WE ARE</strong></h2>
+                <p className="scroll-trigger fade-up" style={{transitionDelay: '0.1s'}}>
+                  Taj Consultancy is a leading multidisciplinary firm in Qatar, delivering excellence in Architectural Design, Engineering, Project Management, and Sustainability. With decades of experience and a diverse expert team, we create landmark projects that blend innovation, integrity, and technical precision. From concept to completion, we turn ambitious ideas into sustainable, high-quality realities on time and on budget.
+                </p>
+                <div className="process-section scroll-trigger fade-up" style={{transitionDelay: '0.3s'}}>
+                  <h3 className="sub-section-title">Our Process</h3>
+                  <p>A transparent and collaborative path from your first idea to project handover.</p>
+                  <div className="process-grid">
+                    {processSteps.map((step, index) => (
+                       <div className="process-item scroll-trigger fade-up" key={index} style={{ transitionDelay: `${index * 0.1}s` }}>
+                          <div className="process-icon-wrapper">
+                            <i className={`process-icon ${step.icon}`} aria-hidden="true"></i>
+                          </div>
+                          <h4><span>0{index + 1}.</span> {step.title}</h4>
+                          <p className="process-description">{step.description}</p>
+                       </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="facts" className="content-section section-bg-dark scroll-trigger fade-up has-divider" style={{backgroundImage: `url(https://images.pexels.com/photos/157811/pexels-photo-157811.jpeg?cs=srgb&dl=pexels-yentl-jacobs-43020-157811.jpg&fm=jpg)`}}>
+        <SectionDivider />
+        <div className="section-decorator decorator-left scroll-trigger" aria-hidden="true">
+            <span className="decorator-text">02</span>
+        </div>
+        <div className="container" ref={factsContainerRef}>
+            <div className="facts-section">
+                <div className="grid">
+                    <div className="facts-title">
+                         <h2 className="section-title scroll-trigger fade-up">Some Interesting <strong>Facts</strong></h2>
+                    </div>
+                    <div className="facts-text">
+                        <p className="scroll-trigger fade-up" style={{transitionDelay: '0.1s'}}><strong>Taj Design Consultancy</strong> operates on the belief that evidence-led design and technical precision create lasting value.</p>
+                        <p className="scroll-trigger fade-up" style={{transitionDelay: '0.2s'}}>Our integrated teams bring together architecture, interiors, landscape, and urban design under one roof — ensuring seamless collaboration and faster delivery.</p>
+                         <div className="facts-counters">
+                            <div className="counter-item scroll-trigger fade-up" style={{ transitionDelay: '0.3s' }}>
+                                <i className="fas fa-building-circle-check counter-icon" aria-hidden="true"></i>
+                                <AnimatedCounter end={265} />
+                                <p>Finished projects</p>
+                            </div>
+                            <div className="counter-item scroll-trigger fade-up" style={{ transitionDelay: '0.4s' }}>
+                                <i className="fas fa-users-line counter-icon" aria-hidden="true"></i>
+                                <AnimatedCounter end={240} />
+                                <p>Happy customers</p>
+                            </div>
+                            <div className="counter-item scroll-trigger fade-up" style={{ transitionDelay: '0.5s' }}>
+                                <i className="fas fa-helmet-safety counter-icon" aria-hidden="true"></i>
+                                <AnimatedCounter end={36} />
+                                <p>Opening Projects</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </section>
+
+      <section id="our-services" className="content-section section-bg-white scroll-trigger fade-up has-divider">
+        <SectionDivider />
+        <div className="section-decorator decorator-right decorator-03 scroll-trigger" aria-hidden="true">
+            <span className="decorator-text">03</span>
+        </div>
+        <div className="container">
+          <h2 className="section-title scroll-trigger fade-up" style={{ textAlign: 'center' }}>Our <strong>Services</strong></h2>
+          <div className="services-grid">
+            {services.map((service, index) => (
+              <div className="service-item scroll-trigger fade-up" style={{ transitionDelay: `${index * 0.1}s` }} key={index}>
+                <svg className="service-border-svg" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <rect className="service-border-rect" x="1" y="1" width="calc(100% - 2px)" height="calc(100% - 2px)" rx="7" pathLength="1" />
+                </svg>
+                <div className="service-icon-wrapper">
+                  <i className={`service-icon ${service.icon}`} aria-hidden="true"></i>
+                </div>
+                <h3>{service.title}</h3>
+                <p>{service.description}</p>
+                <AppLink href={service.href} className="read-more-btn">Read More<span className="sr-only"> about {service.title}</span> <i className="fas fa-arrow-right" aria-hidden="true"></i></AppLink>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="sectors" className="content-section section-bg-white scroll-trigger fade-up has-divider">
+        <SectionDivider />
+        <div className="container">
+          <h2 className="section-title scroll-trigger fade-up" style={{ textAlign: 'center' }}>Sectors <strong>We Serve</strong></h2>
+          <div className="sectors-grid">
+            {sectors.map((sector, index) => (
+              <div className="sector-item scroll-trigger fade-up" style={{ transitionDelay: `${index * 0.1}s` }} key={index}>
+                <svg className="service-border-svg" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <rect className="service-border-rect" x="1" y="1" width="calc(100% - 2px)" height="calc(100% - 2px)" rx="7" pathLength="1" />
+                </svg>
+                <div className="service-icon-wrapper">
+                  <i className={`service-icon ${sector.icon}`} aria-hidden="true"></i>
+                </div>
+                <h3>{sector.name}</h3>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="works" className="content-section section-bg-dark scroll-trigger fade-up has-divider" style={{backgroundImage: `url(https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&auto=format&fit=crop&q=60)`}}>
+        <SectionDivider />
+        <div className="section-decorator decorator-left scroll-trigger" aria-hidden="true">
+            <span className="decorator-text">04</span>
+        </div>
+        <div className="container">
+            <h2 className="section-title scroll-trigger fade-up" style={{textAlign: 'right'}}>Our Featured <strong>Projects</strong></h2>
+            <div className="works-list">
+                {workItems.map((item, index) => (
+                    <button 
+                        className={`work-item ${index % 2 === 1 ? 'reverse' : ''} scroll-trigger fade-up`} 
+                        key={index}
+                        onClick={() => setSelectedProject(item)}
+                        aria-label={`View project details for ${item.title}`}
+                    >
+                        <div className="grid">
+                                <div className="work-image">
+                                <div className="work-title-overlay" aria-hidden="true">
+                                    <h3>{item.title}</h3>
+                                    <span className="view-projects-btn">View Project <i className="fas fa-arrow-right" aria-hidden="true"></i></span>
+                                </div>
+                                <img src={item.mainImage} alt={item.title} />
+                            </div>
+                            <div className="work-info">
+                                <p className="meta">{item.meta}</p>
+                                <h3 className="section-title" style={{marginBottom: '20px', fontSize: '28px'}}><strong>{item.title}</strong></h3>
+                                <p className="work-description">{item.description}</p>
+                                <span className="view-projects-btn-mobile">View Project <i className="fas fa-arrow-right" aria-hidden="true"></i></span>
+                            </div>
+                        </div>
+                    </button>
+                ))}
+            </div>
+        </div>
+    </section>
+
+      <section id="clients" className="content-section section-bg-white scroll-trigger fade-up has-divider">
+        <SectionDivider />
+        <div className="container">
+          <h2 className="section-title scroll-trigger fade-up" style={{ textAlign: 'center' }}>Our <strong>Clients</strong></h2>
+           <ClientsCarousel />
+        </div>
+      </section>
+
+      <section id="blog" className="content-section section-bg-white scroll-trigger fade-up has-divider">
+        <SectionDivider />
+        <div className="section-decorator decorator-left decorator-06 scroll-trigger" aria-hidden="true">
+            <span className="decorator-text">06</span>
+        </div>
+        <div className="container">
+          <h2 className="section-title scroll-trigger fade-up">From <strong>The Blog</strong></h2>
+          <div className="blog-grid">
+            {blogPosts.map((post, index) => (
+                <div className="blog-item scroll-trigger fade-up" key={index} style={{ transitionDelay: `${index * 0.1}s` }}>
+                    <div className="blog-item-image" style={{backgroundImage: `url(${post.image})`}} />
+                    <div className="blog-item-content">
+                        <p className="blog-item-meta">{post.category} / {post.date}</p>
+                        <h3 className="blog-item-title"><AppLink href={post.href}>{post.title}</AppLink></h3>
+                        <AppLink href={post.href} className="blog-item-link">Read More <i className="fas fa-arrow-right" aria-hidden="true"></i></AppLink>
+                    </div>
+                </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="testimonials" className="content-section section-bg-dark scroll-trigger fade-up has-divider" style={{backgroundImage: `url(https://images.pexels.com/photos/157811/pexels-photo-157811.jpeg?cs=srgb&dl=pexels-yentl-jacobs-43020-157811.jpg&fm=jpg)`}}>
+        <SectionDivider />
+        <div className="section-decorator decorator-right decorator-05" aria-hidden="true">
+            <span className="decorator-text scroll-trigger">05</span>
+        </div>
+        <div className="container">
+          <h2 className="section-title scroll-trigger fade-up" style={{ textAlign: 'center' }}>What Our <strong>Clients Say</strong></h2>
+            <TestimonialsCarousel testimonials={testimonials} />
+        </div>
+      </section>
+
+    </>
+  );
+};
+
+// --- MAIN APP COMPONENT ---
+
+const App = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 200);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const headerTheme = 'dark';
+
+  return (
+      <div className={`app ${loading ? 'loading' : ''}`}>
+        <SkipToContentLink />
+        <WhatsAppChatWidget />
+        <Header theme={headerTheme} />
+        <div className="main-container">
+          <LeftSidebar pageName="HOME" />
+          <main className="main-content" id="main-content" tabIndex={-1}>
+            <HomePage />
+            <Footer />
+          </main>
+        </div>
+      </div>
+  );
+};
 
 const container = document.getElementById('root');
 if (container) {
