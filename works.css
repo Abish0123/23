@@ -195,6 +195,7 @@ html, body {
 
 .app-header.on-dark .main-nav a { color: var(--text-light); }
 .app-header.on-light .main-nav a { color: var(--text-dark); }
+.app-header.on-light .burger-bar { background-color: var(--text-dark); }
 
 .main-nav ul { list-style: none; display: flex; gap: 25px; }
 .main-nav ul li { position: relative; }
@@ -371,6 +372,23 @@ html, body {
     text-align: left;
     display: block;
 }
+.work-image-meta-badge {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 2;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
 .work-image img {
     width: 100%;
     display: block;
@@ -419,6 +437,8 @@ html, body {
     text-align: center;
 }
 .work-item:hover .work-title-overlay { opacity: 1; }
+.work-item:hover .work-image-meta-badge { opacity: 0; }
+
 .work-title-overlay h3 {
     font-size: 28px; font-weight: 700;
     margin-bottom: 20px; color: white;
@@ -574,20 +594,20 @@ html, body {
     .app, .app a, .app button, .app [role="button"], .app input { cursor: auto !important; }
     
     .works-list {
-        gap: 40px;
+        gap: 30px;
     }
     .work-item, .work-item.reverse {
         background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.06);
         overflow: hidden;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
         display: block;
         text-align: left;
     }
-    .work-item:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+    .work-item:active {
+        transform: scale(0.98);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
     }
     .work-item .grid, .work-item.reverse .grid { 
         display: block; 
@@ -598,38 +618,54 @@ html, body {
     }
     .work-image {
         padding: 0;
+        border-radius: 0;
+        box-shadow: none;
     }
     .work-image img {
-        border-radius: 8px 8px 0 0;
+        border-radius: 0;
     }
     .work-info {
-        padding: 25px;
+        padding: 20px 25px 25px;
         text-align: left;
+    }
+    .work-info .meta {
+        display: none;
     }
     .work-item.reverse .work-info {
         text-align: left;
     }
-    .work-item.reverse .work-info .meta::after {
-        left: 0;
-        right: auto;
+    .work-info .work-title {
+        font-size: 22px;
+        margin-bottom: 10px;
+    }
+    .work-info .work-description {
+        font-size: 15px;
+        margin-top: 10px;
+        color: #555;
     }
     .work-title-overlay {
         display: none;
     }
     .view-projects-btn-mobile {
-        display: inline-block;
-        margin-top: 20px;
-        color: var(--accent-color-dark-text, var(--accent-color));
-        font-weight: 700;
-        font-size: 14px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 15px;
+        padding: 8px 16px;
+        border-radius: 20px;
+        background-color: #f8f8f8;
+        border: 1px solid #eee;
+        color: var(--text-dark);
+        font-weight: 500;
+        font-size: 13px;
         text-decoration: none;
     }
     .view-projects-btn-mobile i {
-        margin-left: 5px;
-        transition: transform 0.3s ease;
+        color: var(--accent-color);
+        transition: transform 0.2s ease;
     }
-    .work-item:hover .view-projects-btn-mobile i {
-        transform: translateX(5px);
+    .work-item:active .view-projects-btn-mobile i {
+        transform: translateX(4px);
     }
 
     .project-modal-content { grid-template-columns: 1fr; grid-template-rows: 60vh auto; max-height: 90vh; }
