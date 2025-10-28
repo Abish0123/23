@@ -1,16 +1,17 @@
 
-
 import React, { useState, useEffect, useRef, memo, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
 
 declare const gsap: any;
 
+// --- DATA & CONFIG ---
+
 const servicesSubLinks = [
-  { name: 'Architectural Design', href: 'architectural-design.html', icon: 'fas fa-archway', description: 'Innovative and functional spaces from concept to construction.', image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&auto=format&fit=crop&q=60' },
-  { name: 'Engineering Consultancy', href: 'engineering-consultancy.html', icon: 'fas fa-cogs', description: 'Expert technical advice and solutions for robust project outcomes.', image: 'https://images.unsplash.com/photo-1518692113669-e34fa251a37c?w=800&auto=format&fit=crop&q=60' },
-  { name: 'Project Management Consultancy', href: 'project-management.html', icon: 'fas fa-tasks', description: 'Overseeing projects from inception to completion on time and budget.', image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&auto=format&fit=crop&q=60' },
-  { name: 'Sustainability & Energy', href: 'sustainability-energy.html', icon: 'fas fa-leaf', description: 'Integrating green principles for environmentally responsible designs.', image: 'https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=800&auto=format&fit=crop&q=60' },
-  { name: 'Construction Approval', href: 'construction-approval.html', icon: 'fas fa-check-double', description: 'Navigating regulatory hurdles to secure all necessary construction permits and approvals efficiently.', image: 'https://images.unsplash.com/photo-1563291074-2bf8677ac0e5?w=800&auto=format&fit=crop&q=60' },
+  { name: 'Architectural Design', href: 'architectural-design.html', icon: 'fas fa-archway' },
+  { name: 'Engineering Consultancy', href: 'engineering-consultancy.html', icon: 'fas fa-cogs' },
+  { name: 'Project Management Consultancy', href: 'project-management.html', icon: 'fas fa-tasks' },
+  { name: 'Sustainability & Energy', href: 'sustainability-energy.html', icon: 'fas fa-leaf' },
+  { name: 'Construction Approval', href: 'construction-approval.html', icon: 'fas fa-check-double' },
 ];
 
 const navLinks = [
@@ -23,36 +24,124 @@ const navLinks = [
   { name: 'Contact', href: '/contact.html' },
 ];
 
-const AppLink = ({ href, className = '', children, onClick, ...props }: {
+const workItems = [
+    { 
+      title: 'TrustLink office',
+      meta: 'Design and Build of Office Interior',
+      location: 'Bin Mahmoud',
+      description: 'We provide end-to-end office interior design and on-site supervision—covering space planning, materials and finishes, MEP coordination, and quality control—to deliver functional, branded workplaces on time and within budget.',
+      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761224706/WhatsApp_Image_2025-10-22_at_23.46.06_e814e5d0_uqphxj.png',
+      gallery: [
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761224706/WhatsApp_Image_2025-10-22_at_23.46.06_e814e5d0_uqphxj.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761224698/WhatsApp_Image_2025-10-22_at_23.46.07_714b8d87_1_eljwpn.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761224698/WhatsApp_Image_2025-10-22_at_23.46.07_d6db18c5_tovqbt.png'
+      ],
+      alt: 'Interior design of the modern TrustLink office in Bin Mahmoud, Doha.'
+    },
+    { 
+      title: 'World Wide Business Center',
+      meta: 'Design and Supervision of Office Interior',
+      location: 'D Ring Road',
+      description: 'World Wide Business Center — a 2,000 sqm office interior designed and supervised by our team — blends elegant aesthetics with high functionality, featuring a welcoming reception, multiple meeting rooms, a fully equipped conference room, collaborative zones, and a dedicated games area.',
+      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304504/_DSC9859_sx03dr.jpg',
+      gallery: [
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304504/_DSC9859_sx03dr.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304501/_DSC9888_rkhjis.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304500/_DSC9901_beo4mx.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304498/_DSC9870_hyaor0.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304498/_DSC9893_ocqnlg.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304497/_DSC9866_aq8w9n.jpg'
+      ],
+      alt: 'Spacious and modern interior of World Wide Business Center on D Ring Road, Doha.'
+    },
+    { 
+      title: 'Al Jabor Building',
+      meta: 'Design and Municipality Approvals for Commercial Building',
+      location: 'Al Hilal',
+      description: 'Designed and delivered to meet the client’s specific requirements, this project involved a full interior reconfiguration of the commercial building based on a targeted market-demand analysis.',
+      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761425803/Untitled_16_x_9_in_2_aypzfx.png',
+      gallery: [
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761425803/Untitled_16_x_9_in_2_aypzfx.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761425803/Untitled_16_x_9_in_3_m7smfu.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761425803/Untitled_16_x_9_in_1_ht1iux.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761425806/Untitled_16_x_9_in_mi6glx.png'
+      ],
+      alt: 'Architectural redesign of the Al Jabor commercial building in Al Hilal, Qatar.'
+    },
+    {
+      title: 'Legal office for Shaiek Jassim Al Thani',
+      meta: 'End-to-end interior design and fit-out supervision',
+      location: 'Westbay',
+      description: 'Interior design and supervision for turnkey fit-out works—covering concept to handover—with full life-safety compliance to QCDD/NFPA codes. Services include 3D renders and visualizations, coordinated MEP layouts, furniture and finishes selection, technical specifications, detailed BOQs, and on-site supervision/QA to ensure quality, budget control, and timely delivery.',
+      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761394147/10_gtnarf.png',
+      gallery: [
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761394147/10_gtnarf.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761394141/6_ypphq2.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761394138/5_qr7poc.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761394123/12_pqzmgc.png'
+      ],
+      alt: 'Luxurious interior design for a legal office in Westbay, Doha.'
+    },
+    { 
+      title: 'Al Jazeera Tower',
+      meta: 'End-to-end interior design and fit-out supervision',
+      location: 'Dafna',
+      description: 'Office space design, supervision, and photorealistic renders for a high-rise project in Dafna (4 floors)—including workplace planning, detailed interiors, coordinated MEP, QCDD/NFPA life-safety compliance, supervision for design compliance, adherence to tower standards/procedures, full snagging/rectification, QA/QC, and handover—plus contractor pre-qualification and selection, tendering support, quotation/bid evaluation with comparative summaries, value engineering, and award recommendations.',
+      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637877/Untitled_16_x_9_in_13_pd7hre.png',
+      gallery: [
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637877/Untitled_16_x_9_in_13_pd7hre.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637877/Untitled_16_x_9_in_14_mxzymr.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637876/Untitled_16_x_9_in_19_kqzxdr.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637875/Untitled_16_x_9_in_17_x98cqb.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637875/Untitled_16_x_9_in_12_npf9j9.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637876/Untitled_16_x_9_in_15_v8kenj.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637875/Untitled_16_x_9_in_18_n9nsc0.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637875/Untitled_16_x_9_in_16_lxxcfa.png'
+      ],
+      alt: 'High-rise office interior fit-out at Al Jazeera Tower in Dafna, Doha.'
+    }
+];
+
+// --- SHARED & LAYOUT COMPONENTS ---
+
+const SkipToContentLink = () => (
+    <a href="#main-content" className="skip-to-content-link">
+        Skip to main content
+    </a>
+);
+
+const AppLink = React.forwardRef<HTMLAnchorElement, {
   href: string;
   className?: string;
   children: React.ReactNode;
   onClick?: MouseEventHandler<HTMLAnchorElement>;
   [key: string]: any;
-}) => {
+}>(({ href, className = '', children, onClick, ...props }, ref) => {
     const isToggle = href === '#';
 
     const handleClick: MouseEventHandler<HTMLAnchorElement> = (e) => {
         if (isToggle) {
             e.preventDefault();
         }
-        
+
         if (onClick) {
             onClick(e);
         }
     };
 
     return (
-        <a 
-            href={href} 
-            className={className} 
-            onClick={onClick ? handleClick : undefined} 
+        <a
+            ref={ref}
+            href={href}
+            className={className}
+            onClick={onClick ? handleClick : undefined}
             {...props}
         >
             {children}
         </a>
     );
-};
+});
+
 
 const MobileNav = ({ isOpen, onClose }) => {
     const [isServicesOpen, setIsServicesOpen] = useState(false);
@@ -112,7 +201,7 @@ const MobileNav = ({ isOpen, onClose }) => {
                     {navLinks.map(link => (
                          <li key={link.name}>
                              <AppLink 
-                                href={link.subLinks ? '#' : link.href} 
+                                href={link.subLinks ? '#' : link.href}
                                 onClick={link.subLinks ? handleServicesToggle : onClose}
                                 aria-haspopup={!!link.subLinks}
                                 aria-expanded={link.subLinks ? isServicesOpen : undefined}
@@ -125,7 +214,11 @@ const MobileNav = ({ isOpen, onClose }) => {
                              {link.subLinks && (
                                  <ul id={`mobile-${link.name}-submenu`} className={`mobile-submenu ${isServicesOpen ? 'open' : ''}`} aria-hidden={!isServicesOpen}>
                                      {link.subLinks.map(subLink => (
-                                         <li key={subLink.name}><AppLink href={subLink.href} onClick={onClose}>{subLink.name}</AppLink></li>
+                                         <li key={subLink.name}>
+                                            <AppLink href={subLink.href} onClick={onClose}>
+                                                {subLink.name}
+                                            </AppLink>
+                                        </li>
                                      ))}
                                  </ul>
                              )}
@@ -136,12 +229,6 @@ const MobileNav = ({ isOpen, onClose }) => {
         </div>
     );
 };
-
-const SkipToContentLink = () => (
-    <a href="#main-content" className="skip-to-content-link">
-        Skip to main content
-    </a>
-);
 
 const Header = ({ theme }) => {
   const [scrolled, setScrolled] = useState(false);
@@ -200,21 +287,16 @@ const Header = ({ theme }) => {
   }, [isServicesDropdownOpen]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
-
-    return () => {
-        window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const handleServicesClick = (e: React.MouseEvent) => {
     e.preventDefault();
     setIsServicesDropdownOpen(prev => !prev);
   };
-
+  
   const handleDropdownItemKeyDown = (e: React.KeyboardEvent<HTMLAnchorElement>) => {
     const items = Array.from(
       servicesDropdownContainerRef.current?.querySelectorAll<HTMLAnchorElement>('.dropdown-link-item') || []
@@ -238,11 +320,6 @@ const Header = ({ theme }) => {
 
   return (
     <header className={headerClasses}>
-      <div className="logo">
-        <AppLink href="/index.html">
-          <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Design Consult Logo" className="logo-image" />
-        </AppLink>
-      </div>
       <nav className="main-nav" aria-label="Main navigation">
         <ul>
           {navLinks.map((link) => (
@@ -292,6 +369,11 @@ const Header = ({ theme }) => {
           ))}
         </ul>
       </nav>
+      <div className="logo">
+        <AppLink href="/index.html">
+          <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Design Consult Logo" className="logo-image" />
+        </AppLink>
+      </div>
       <button
         ref={burgerMenuRef}
         className={`burger-menu ${isMobileNavOpen ? 'open' : ''}`}
@@ -309,12 +391,12 @@ const Header = ({ theme }) => {
   );
 };
 
-const LeftSidebar = () => {
+const LeftSidebar = ({ pageName }) => {
   return (
     <aside className="left-sidebar">
       <div className="sidebar-top">
         <div className="divider" />
-        <div className="home-text">SERVICES</div>
+        <div className="home-text">{pageName}</div>
       </div>
       <div className="social-icons">
         <a href="#" aria-label="Facebook"><i className="fab fa-facebook-f" aria-hidden="true"></i></a>
@@ -385,6 +467,23 @@ const WaveAnimation = memo(() => {
     return <canvas ref={canvasRef} id="footer-wave-canvas" aria-hidden="true" />;
 });
 
+
+const Footer = () => {
+    const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    return (
+        <footer id="footer" className="app-footer">
+            <WaveAnimation />
+            <div className="container">
+                <div className="copyright-section">
+                    <span>2024 © Taj Design Consult. All rights reserved.</span>
+                    <button className="to-top" onClick={scrollToTop} aria-label="Scroll back to top">To Top ↑</button>
+                </div>
+            </div>
+          </footer>
+    )
+}
+
 const CustomCursor = memo(() => {
     const dotRef = useRef<HTMLDivElement>(null);
     const outlineRef = useRef<HTMLDivElement>(null);
@@ -435,7 +534,7 @@ const CustomCursor = memo(() => {
         document.body.addEventListener("mouseenter", showCursor);
 
         const hoverTargets = document.querySelectorAll(
-            'a, button, [role="button"], .whatsapp-widget, .project-card'
+            'a, button, [role="button"], .whatsapp-widget'
         );
         hoverTargets.forEach(target => {
             target.addEventListener('mouseenter', handleMouseEnterHoverTarget);
@@ -475,150 +574,173 @@ const WhatsAppChatWidget = () => (
     </a>
 );
 
-const RelatedProjects = ({ projects, title }) => (
-    <section className="related-projects-section content-section scroll-trigger fade-up">
-        <div className="container">
-            <h2 className="section-title" style={{ textAlign: 'center' }}>Our Work in <strong>{title}</strong></h2>
-            <div className="project-grid">
-                {projects.map((project, index) => (
-                    <div className="project-card scroll-trigger fade-up" key={index} style={{ transitionDelay: `${index * 0.1}s` }}>
-                        <div className="project-card-image">
-                            <img src={project.image} alt={project.title} />
-                        </div>
-                        <div className="project-card-content">
-                            <h3>{project.title}</h3>
-                            <p>{project.category}</p>
-                        </div>
+const ProjectGalleryModal = ({ project, onClose }) => {
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const modalRef = useRef<HTMLDivElement>(null);
+    const lastFocusedElement = useRef<HTMLElement | null>(null);
+
+    useEffect(() => {
+        if (project) {
+            setCurrentIndex(0);
+            lastFocusedElement.current = document.activeElement as HTMLElement;
+            setTimeout(() => modalRef.current?.focus(), 100);
+
+            const handleKeyDown = (e: KeyboardEvent) => {
+                if (e.key === 'Escape') onClose();
+                else if (e.key === 'ArrowRight') goToNext();
+                else if (e.key === 'ArrowLeft') goToPrevious();
+                else if (e.key === 'Tab') {
+                     const focusableElements = modalRef.current?.querySelectorAll<HTMLElement>('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+                    if (!focusableElements || focusableElements.length === 0) return;
+                    const firstElement = focusableElements[0];
+                    const lastElement = focusableElements[focusableElements.length - 1];
+                    if (e.shiftKey) { if (document.activeElement === firstElement) { lastElement.focus(); e.preventDefault(); }}
+                    else { if (document.activeElement === lastElement) { firstElement.focus(); e.preventDefault(); }}
+                }
+            };
+
+            document.addEventListener('keydown', handleKeyDown);
+            return () => { 
+                document.removeEventListener('keydown', handleKeyDown);
+                lastFocusedElement.current?.focus();
+            };
+        }
+    }, [project, onClose]);
+
+    if (!project) return null;
+
+    const goToPrevious = () => setCurrentIndex(prev => (prev === 0 ? project.gallery.length - 1 : prev - 1));
+    const goToNext = () => setCurrentIndex(prev => (prev === project.gallery.length - 1 ? 0 : prev + 1));
+
+    return (
+        <div className="project-modal-overlay" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <div ref={modalRef} className="project-modal-content" onClick={e => e.stopPropagation()} tabIndex={-1}>
+                <button onClick={onClose} className="project-modal-close" aria-label="Close project gallery">&times;</button>
+                <div className="project-modal-gallery">
+                    <div className="gallery-main-image">
+                        <img src={project.gallery[currentIndex]} alt={`${project.alt} - Image ${currentIndex + 1}`} />
+                        {project.gallery.length >= 2 && (
+                            <>
+                                <button onClick={goToPrevious} className="gallery-nav-btn prev" aria-label="Previous image"><i className="fas fa-chevron-left"></i></button>
+                                <button onClick={goToNext} className="gallery-nav-btn next" aria-label="Next image"><i className="fas fa-chevron-right"></i></button>
+                            </>
+                        )}
                     </div>
-                ))}
+                    {project.gallery.length >= 2 && (
+                        <div className="gallery-thumbnails">
+                            {project.gallery.map((img, index) => (
+                                <button 
+                                  key={index} 
+                                  className={`thumbnail-item ${index === currentIndex ? 'active' : ''}`} 
+                                  onClick={() => setCurrentIndex(index)}
+                                  aria-label={`View image ${index + 1}`}
+                                >
+                                    <img src={img} alt={`Thumbnail ${index + 1}`} />
+                                </button>
+                            ))}
+                        </div>
+                    )}
+                </div>
+                <div className="project-modal-details">
+                    <p className="modal-meta">{project.meta}</p>
+                    <h3 id="modal-title" className="modal-title">{project.title}</h3>
+                    <p className="modal-location"><i className="fas fa-map-marker-alt" aria-hidden="true"></i> {project.location}</p>
+                    <p className="modal-description">{project.description}</p>
+                </div>
             </div>
         </div>
-    </section>
-);
-
-const CallToAction = () => (
-    <section className="cta-section scroll-trigger fade-up">
-        <div className="container">
-            <h2 className="scroll-trigger fade-up" style={{ transitionDelay: '0.1s' }}>Let's Build the Future Together</h2>
-            <p className="scroll-trigger fade-up" style={{ transitionDelay: '0.2s' }}>
-                Have a vision for your next project? Our team of experts is ready to help you bring it to life. Contact us today to discuss your ideas.
-            </p>
-            <a href="contact.html" className="cta-button scroll-trigger fade-up" style={{ transitionDelay: '0.3s' }}>Get in Touch</a>
-        </div>
-    </section>
-);
-
-const ServicePage = () => {
-  const [loading, setLoading] = useState(true);
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
-
-  useEffect(() => {
-    document.body.style.backgroundColor = '#fff';
-    const timer = setTimeout(() => setLoading(false), 200);
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) { document.querySelectorAll('.scroll-trigger').forEach(el => el.classList.add('visible')); return; }
-    const observer = new IntersectionObserver(
-      (entries, obs) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) { entry.target.classList.add('visible'); obs.unobserve(entry.target); }
-        });
-      }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
     );
-    const elementsToReveal = document.querySelectorAll('.scroll-trigger');
-    elementsToReveal.forEach((el) => observer.observe(el));
-    
-    return () => {
-        document.body.style.backgroundColor = '';
-        clearTimeout(timer);
-        elementsToReveal.forEach((el) => observer.unobserve(el));
-    }
-  }, []);
+};
 
-  const services = [
-    'Energy Audits & Savings Roadmaps',
-    'Retro-Commissioning & Continuous Commissioning',
-    'HVAC Optimization',
-    'Building Management System (BMS) Optimization',
-    'Lighting Redesign & Smart Controls',
-    'Solar PV Feasibility & Design',
-    'Water Efficiency Solutions',
-    'Utility Tariff Optimization',
-    'Measurement & Verification (M&V)',
-    'Indoor Air Quality Improvements',
-    'Waste Minimization & Circular Materials',
-    'Carbon Accounting & Net-Zero Roadmaps',
-    'Sustainability Reporting & Certification',
-    'Environmental Impact Assessments (EIA/ESIA)',
-    'Contractor Sustainability Compliance',
-    'Training & Change Management',
-  ];
 
-  const relatedProjects = [
-    { image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&auto=format&fit=crop&q=60", title: "Net-Zero Corporate Campus", category: "Sustainable Design" },
-    { image: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800&auto=format&fit=crop&q=60", title: "Urban Solar Farm", category: "Renewable Energy" },
-    { image: "https://energyassist.ca/wp-content/uploads/2023/11/are-home-energy-audits-worth-it.jpg", title: "LEED Platinum Tower Retrofit", category: "Energy Auditing & Retrofitting" },
-  ];
+const WorksPage = () => {
+    const [selectedProject, setSelectedProject] = useState(null);
 
-  return (
-    <div className={`app ${loading ? 'loading' : ''}`}>
-      <SkipToContentLink />
-      <CustomCursor />
-      <WhatsAppChatWidget />
-      <Header theme="light" />
-      <div className="main-container">
-        <LeftSidebar />
-        <main className="main-content" id="main-content" tabIndex={-1}>
-          <section className="service-hero-section scroll-trigger fade-up" style={{ backgroundImage: `url('https://www.crbgroup.com/wp-content/uploads/2018/09/Sustainable-Site-Energy-Solutions-Header-m.jpg')`}}>
-            <div className="container">
-              <h1 className="scroll-trigger fade-up" style={{transitionDelay: '0.1s'}}>Sustainability &amp; <strong>Energy</strong></h1>
-            </div>
-          </section>
+    useEffect(() => {
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion) return;
 
-          <section className="content-section">
-            <div className="container">
-              <div className="service-content-grid scroll-trigger fade-up" style={{transitionDelay: '0.2s'}}>
-                <div className="service-main-content">
-                    <p>Aligned with our clients’ objectives, we deliver projects safely and sustainably – meeting cost, schedule, and quality targets every time. Our Sustainability & Energy team provides end-to-end environmental consulting and energy management services for both public and private clients. We guide projects through Environmental Impact Assessments and regulatory approvals, embedding practical strategies for energy efficiency, resource conservation, and low-carbon design to achieve compliant and resilient outcomes. By clarifying environmental impacts and cutting energy consumption, we help clients meet green building standards and future-proof their investments.</p>
-                    <p>Our specialists develop tailored solutions in energy auditing, retrofitting, and sustainable design integration. We implement strategies like advanced commissioning, renewable energy integration, and smart building controls to maximize efficiency. These efforts regularly reduce building operating costs by over 50% without compromising comfort, safety, or compliance – delivering tangible savings alongside environmental benefits. With a finger on the pulse of global best practices and local regulations, Taj Consultancy’s sustainability experts ensure each project not only meets today’s goals but also contributes to a greener, more energy-efficient future.</p>
+        const handleMouseMove = (e: MouseEvent) => {
+            document.querySelectorAll<HTMLElement>('.work-item').forEach(item => {
+                const rect = item.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                item.style.setProperty('--mouse-x', `${x}px`);
+                item.style.setProperty('--mouse-y', `${y}px`);
+            });
+        };
+
+        window.addEventListener('mousemove', handleMouseMove);
+        return () => window.removeEventListener('mousemove', handleMouseMove);
+    }, []);
+
+    return (
+        <>
+            <ProjectGalleryModal project={selectedProject} onClose={() => setSelectedProject(null)} />
+
+            <section className="works-hero-section">
+                <h1>Our <strong>Works</strong></h1>
+            </section>
+            
+            <section className="works-list-section" id="main-content">
+                <div className="container">
+                    <div className="works-list">
+                        {workItems.map((item, index) => (
+                            <button
+                                className={`work-item ${index % 2 === 1 ? 'reverse' : ''}`}
+                                key={index}
+                                onClick={() => setSelectedProject(item)}
+                                aria-label={`View project details for ${item.title}`}
+                            >
+                                <div className="grid">
+                                    <div className="work-image">
+                                        <div className="work-title-overlay" aria-hidden="true">
+                                            <h3>{item.title}</h3>
+                                            <span className="view-projects-btn">View Project <i className="fas fa-arrow-right" aria-hidden="true"></i></span>
+                                        </div>
+                                        <img src={item.mainImage} alt={item.alt} />
+                                    </div>
+                                    <div className="work-info">
+                                        <p className="meta">{item.meta}</p>
+                                        <h2 className="work-title">{item.title}</h2>
+                                        <p className="work-description">{item.description}</p>
+                                        <span className="view-projects-btn-mobile">View Project <i className="fas fa-arrow-right" aria-hidden="true"></i></span>
+                                    </div>
+                                </div>
+                            </button>
+                        ))}
+                    </div>
                 </div>
-                <div className="service-sidebar-image">
-                  <img src="https://static.wixstatic.com/media/6a1985_74be50b54f2045528931e2f3278cb581~mv2.jpg/v1/fill/w_1000,h_700,al_c,q_85/6a1985_74be50b54f2045528931e2f3278cb581~mv2.jpg" alt="Sustainable energy solutions like solar panels on a modern building in Doha, Qatar" />
-                </div>
-              </div>
+            </section>
+        </>
+    );
+};
 
-              <div className="service-list-section scroll-trigger fade-up" style={{transitionDelay: '0.3s'}}>
-                <h2 className="section-title">Our Sustainability & Energy services include:</h2>
-                <ul className="service-list">
-                  {services.map((service, index) => (
-                    <li key={index}>
-                      <i className="fas fa-check-circle" aria-hidden="true"></i>
-                      <span>{service}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+const App = () => {
+    const [loading, setLoading] = useState(true);
 
+    useEffect(() => {
+        const timer = setTimeout(() => setLoading(false), 200);
+        return () => clearTimeout(timer);
+    }, []);
+
+    return (
+        <div className={`app ${loading ? 'loading' : ''}`}>
+            <SkipToContentLink />
+            <CustomCursor />
+            <WhatsAppChatWidget />
+            <Header theme="dark" />
+            <div className="main-container">
+                <LeftSidebar pageName="WORKS" />
+                <main className="main-content" id="main-content" tabIndex={-1}>
+                    <WorksPage />
+                    <Footer />
+                </main>
             </div>
-          </section>
-
-          <RelatedProjects projects={relatedProjects} title="Sustainability" />
-          <CallToAction />
-
-          <footer id="footer" className="app-footer">
-            <WaveAnimation />
-            <div className="container">
-                <div className="copyright-section">
-                    <span>2024 © Taj Design Consult. All rights reserved.</span>
-                    <button className="to-top" onClick={scrollToTop} aria-label="Scroll back to top">To Top ↑</button>
-                </div>
-            </div>
-          </footer>
-        </main>
-      </div>
-    </div>
-  );
+        </div>
+    );
 };
 
 const container = document.getElementById('root');
 const root = createRoot(container!);
-root.render(<ServicePage />);
+root.render(<App />);
