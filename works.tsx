@@ -599,7 +599,7 @@ const ProjectGalleryModal = ({ project, onClose }) => {
     if (!project) return null;
 
     const goToPrevious = () => setCurrentIndex(prev => (prev === 0 ? project.gallery.length - 1 : prev - 1));
-    const goToNext = () => setCurrentIndex(prev => (prev === project.gallery.length - 1 ? 0 : prev + 1));
+    const goToNext = () => setCurrentIndex(prev => (prev === project.gallery.length - 1 ? prev + 1));
 
     return (
         <div className="project-modal-overlay" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="modal-title">
@@ -723,7 +723,7 @@ const App = () => {
       <SkipToContentLink />
       <CustomCursor />
       <WhatsAppChatWidget />
-      <Header theme="light" />
+      <Header theme="dark" />
       <div className="main-container">
         <LeftSidebar pageName="WORKS" />
         <main className="main-content" id="main-content" tabIndex={-1}>
