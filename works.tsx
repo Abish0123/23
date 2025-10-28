@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef, memo, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -34,7 +35,8 @@ const workItems = [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761224706/WhatsApp_Image_2025-10-22_at_23.46.06_e814e5d0_uqphxj.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761224698/WhatsApp_Image_2025-10-22_at_23.46.07_714b8d87_1_eljwpn.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761224698/WhatsApp_Image_2025-10-22_at_23.46.07_d6db18c5_tovqbt.png'
-      ]
+      ],
+      alt: 'Interior design of the modern TrustLink office in Bin Mahmoud, Doha.'
     },
     { 
       title: 'World Wide Business Center',
@@ -49,7 +51,8 @@ const workItems = [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304498/_DSC9870_hyaor0.jpg',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304498/_DSC9893_ocqnlg.jpg',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304497/_DSC9866_aq8w9n.jpg'
-      ]
+      ],
+      alt: 'Spacious and modern interior of World Wide Business Center on D Ring Road, Doha.'
     },
     { 
       title: 'Al Jabor Building',
@@ -62,7 +65,8 @@ const workItems = [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761425803/Untitled_16_x_9_in_3_m7smfu.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761425803/Untitled_16_x_9_in_1_ht1iux.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761425806/Untitled_16_x_9_in_mi6glx.png'
-      ]
+      ],
+      alt: 'Architectural redesign of the Al Jabor commercial building in Al Hilal, Qatar.'
     },
     {
       title: 'Legal office for Shaiek Jassim Al Thani',
@@ -75,7 +79,8 @@ const workItems = [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761394141/6_ypphq2.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761394138/5_qr7poc.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761394123/12_pqzmgc.png'
-      ]
+      ],
+      alt: 'Luxurious interior design for a legal office in Westbay, Doha.'
     },
     { 
       title: 'Al Jazeera Tower',
@@ -92,7 +97,8 @@ const workItems = [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637876/Untitled_16_x_9_in_15_v8kenj.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637875/Untitled_16_x_9_in_18_n9nsc0.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637875/Untitled_16_x_9_in_16_lxxcfa.png'
-      ]
+      ],
+      alt: 'High-rise office interior fit-out at Al Jazeera Tower in Dafna, Doha.'
     }
 ];
 
@@ -612,7 +618,7 @@ const ProjectGalleryModal = ({ project, onClose }) => {
                 <button onClick={onClose} className="project-modal-close" aria-label="Close project gallery">&times;</button>
                 <div className="project-modal-gallery">
                     <div className="gallery-main-image">
-                        <img src={project.gallery[currentIndex]} alt={`${project.title} - Image ${currentIndex + 1}`} />
+                        <img src={project.gallery[currentIndex]} alt={`${project.alt} - Image ${currentIndex + 1}`} />
                         {project.gallery.length >= 2 && (
                             <>
                                 <button onClick={goToPrevious} className="gallery-nav-btn prev" aria-label="Previous image"><i className="fas fa-chevron-left"></i></button>
@@ -648,102 +654,93 @@ const ProjectGalleryModal = ({ project, onClose }) => {
 
 
 const WorksPage = () => {
-  const [selectedProject, setSelectedProject] = useState(null);
+    const [selectedProject, setSelectedProject] = useState(null);
 
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) {
-      document.querySelectorAll('.scroll-trigger').forEach(el => el.classList.add('visible'));
-      return;
-    }
+    useEffect(() => {
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion) return;
 
-    const observer = new IntersectionObserver(
-      (entries, obs) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            obs.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
-    );
+        const handleMouseMove = (e: MouseEvent) => {
+            document.querySelectorAll<HTMLElement>('.work-item').forEach(item => {
+                const rect = item.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                item.style.setProperty('--mouse-x', `${x}px`);
+                item.style.setProperty('--mouse-y', `${y}px`);
+            });
+        };
 
-    const elementsToReveal = document.querySelectorAll('.scroll-trigger');
-    elementsToReveal.forEach((el) => observer.observe(el));
+        window.addEventListener('mousemove', handleMouseMove);
+        return () => window.removeEventListener('mousemove', handleMouseMove);
+    }, []);
 
-    return () => elementsToReveal.forEach((el) => observer.unobserve(el));
-  }, []);
+    return (
+        <>
+            <ProjectGalleryModal project={selectedProject} onClose={() => setSelectedProject(null)} />
 
-  return (
-    <>
-      <ProjectGalleryModal project={selectedProject} onClose={() => setSelectedProject(null)} />
-      
-      <section className="works-hero-section scroll-trigger fade-up">
-        <h1>Our <strong>Works & Projects</strong></h1>
-      </section>
-
-      <section id="main-content" className="works-list-section">
-        <div className="container">
-            <div className="works-list">
-                {workItems.map((item, index) => (
-                    <button
-                        className={`work-item ${index % 2 === 1 ? 'reverse' : ''} scroll-trigger fade-up`}
-                        key={item.title}
-                        onClick={() => setSelectedProject(item)}
-                        aria-label={`View project details for ${item.title}`}
-                    >
-                        <div className="grid">
-                            <div className="work-image">
-                                <img src={item.mainImage} alt={item.title} />
-                                <div className="work-title-overlay" aria-hidden="true">
-                                    <h3>{item.title}</h3>
-                                    <span className="view-projects-btn">View Project <i className="fas fa-arrow-right" aria-hidden="true"></i></span>
+            <section className="works-hero-section">
+                <h1>Our <strong>Works</strong></h1>
+            </section>
+            
+            <section className="works-list-section" id="main-content">
+                <div className="container">
+                    <div className="works-list">
+                        {workItems.map((item, index) => (
+                            <button
+                                className={`work-item ${index % 2 === 1 ? 'reverse' : ''}`}
+                                key={index}
+                                onClick={() => setSelectedProject(item)}
+                                aria-label={`View project details for ${item.title}`}
+                            >
+                                <div className="grid">
+                                    <div className="work-image">
+                                        <div className="work-title-overlay" aria-hidden="true">
+                                            <h3>{item.title}</h3>
+                                            <span className="view-projects-btn">View Project <i className="fas fa-arrow-right" aria-hidden="true"></i></span>
+                                        </div>
+                                        <img src={item.mainImage} alt={item.alt} />
+                                    </div>
+                                    <div className="work-info">
+                                        <p className="meta">{item.meta}</p>
+                                        <h2 className="work-title">{item.title}</h2>
+                                        <p className="work-description">{item.description}</p>
+                                        <span className="view-projects-btn-mobile">View Project <i className="fas fa-arrow-right" aria-hidden="true"></i></span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="work-info">
-                                <p className="meta">{item.meta}</p>
-                                <h2 className="work-title">{item.title}</h2>
-                                <p className="work-description">{item.description}</p>
-                                <span className="view-projects-btn-mobile">View Project <i className="fas fa-arrow-right" aria-hidden="true"></i></span>
-                            </div>
-                        </div>
-                    </button>
-                ))}
-            </div>
-        </div>
-      </section>
-    </>
-  );
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            </section>
+        </>
+    );
 };
 
 const App = () => {
-  const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 200);
-    return () => clearTimeout(timer);
-  }, []);
+    useEffect(() => {
+        const timer = setTimeout(() => setLoading(false), 200);
+        return () => clearTimeout(timer);
+    }, []);
 
-  return (
-    <div className={`app ${loading ? 'loading' : ''}`}>
-      <SkipToContentLink />
-      <CustomCursor />
-      <WhatsAppChatWidget />
-      <Header theme="dark" />
-      <div className="main-container">
-        <LeftSidebar pageName="WORKS" />
-        <main className="main-content" id="main-content" tabIndex={-1}>
-          <WorksPage />
-          <Footer />
-        </main>
-      </div>
-    </div>
-  );
+    return (
+        <div className={`app ${loading ? 'loading' : ''}`}>
+            <SkipToContentLink />
+            <CustomCursor />
+            <WhatsAppChatWidget />
+            <Header theme="dark" />
+            <div className="main-container">
+                <LeftSidebar pageName="WORKS" />
+                <main className="main-content" id="main-content" tabIndex={-1}>
+                    <WorksPage />
+                    <Footer />
+                </main>
+            </div>
+        </div>
+    );
 };
 
 const container = document.getElementById('root');
-if (container) {
-    const root = createRoot(container);
-    root.render(<App />);
-}
+const root = createRoot(container!);
+root.render(<App />);
