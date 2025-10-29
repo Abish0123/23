@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect, useRef, memo, createContext, useContext, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -954,6 +955,20 @@ const ProjectGalleryModal = ({ project, onClose }) => {
     const modalRef = useRef<HTMLDivElement>(null);
     const lastFocusedElement = useRef<HTMLElement | null>(null);
 
+    // For swipe functionality
+    const [touchStart, setTouchStart] = useState<number | null>(null);
+    const [touchEnd, setTouchEnd] = useState<number | null>(null);
+    const minSwipeDistance = 50;
+
+    const goToPrevious = () => {
+        if (!project) return;
+        setCurrentIndex(prev => (prev === 0 ? project.gallery.length - 1 : prev - 1));
+    };
+    const goToNext = () => {
+        if (!project) return;
+        setCurrentIndex(prev => (prev === project.gallery.length - 1 ? 0 : prev + 1));
+    };
+
     useEffect(() => {
         if (project) {
             setCurrentIndex(0);
@@ -984,15 +999,37 @@ const ProjectGalleryModal = ({ project, onClose }) => {
 
     if (!project) return null;
 
-    const goToPrevious = () => setCurrentIndex(prev => (prev === 0 ? project.gallery.length - 1 : prev - 1));
-    const goToNext = () => setCurrentIndex(prev => (prev === project.gallery.length - 1 ? 0 : prev + 1));
+    const onTouchStart = (e: React.TouchEvent) => {
+        setTouchEnd(null);
+        setTouchStart(e.targetTouches[0].clientX);
+    };
+
+    const onTouchMove = (e: React.TouchEvent) => {
+        setTouchEnd(e.targetTouches[0].clientX);
+    };
+
+    const onTouchEnd = () => {
+        if (!touchStart || !touchEnd) return;
+        const distance = touchStart - touchEnd;
+        const isLeftSwipe = distance > minSwipeDistance;
+        const isRightSwipe = distance < -minSwipeDistance;
+        if (project.gallery.length > 1) {
+            if (isLeftSwipe) {
+                goToNext();
+            } else if (isRightSwipe) {
+                goToPrevious();
+            }
+        }
+        setTouchStart(null);
+        setTouchEnd(null);
+    };
 
     return (
         <div className="project-modal-overlay" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="modal-title">
             <div ref={modalRef} className="project-modal-content" onClick={e => e.stopPropagation()} tabIndex={-1}>
                 <button onClick={onClose} className="project-modal-close" aria-label="Close project gallery">&times;</button>
                 <div className="project-modal-gallery">
-                    <div className="gallery-main-image">
+                    <div className="gallery-main-image" onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
                         <img src={project.gallery[currentIndex]} alt={`${project.title} - Image ${currentIndex + 1}`} />
                     </div>
                     {project.gallery.length >= 2 && (
