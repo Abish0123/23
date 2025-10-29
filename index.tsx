@@ -1,5 +1,4 @@
 
-
 import React, { useState, useEffect, useRef, memo, createContext, useContext, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -1031,24 +1030,26 @@ const ProjectGalleryModal = ({ project, onClose }) => {
                 <div className="project-modal-gallery">
                     <div className="gallery-main-image" onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
                         <img src={project.gallery[currentIndex]} alt={`${project.title} - Image ${currentIndex + 1}`} />
+                        {project.gallery.length > 1 && (
+                            <>
+                                <button onClick={goToPrevious} className="gallery-nav-btn prev" aria-label="Previous image"><i className="fas fa-chevron-left"></i></button>
+                                <button onClick={goToNext} className="gallery-nav-btn next" aria-label="Next image"><i className="fas fa-chevron-right"></i></button>
+                            </>
+                        )}
                     </div>
-                    {project.gallery.length >= 2 && (
-                        <>
-                            <button onClick={goToPrevious} className="gallery-nav-btn prev" aria-label="Previous image"><i className="fas fa-chevron-left"></i></button>
-                            <button onClick={goToNext} className="gallery-nav-btn next" aria-label="Next image"><i className="fas fa-chevron-right"></i></button>
-                            <div className="gallery-thumbnails">
-                                {project.gallery.map((img, index) => (
-                                    <button 
-                                      key={index} 
-                                      className={`thumbnail-item ${index === currentIndex ? 'active' : ''}`} 
-                                      onClick={() => setCurrentIndex(index)}
-                                      aria-label={`View image ${index + 1}`}
-                                    >
-                                        <img src={img} alt={`Thumbnail ${index + 1}`} />
-                                    </button>
-                                ))}
-                            </div>
-                        </>
+                    {project.gallery.length > 1 && (
+                        <div className="gallery-thumbnails">
+                            {project.gallery.map((img, index) => (
+                                <button 
+                                  key={index} 
+                                  className={`thumbnail-item ${index === currentIndex ? 'active' : ''}`} 
+                                  onClick={() => setCurrentIndex(index)}
+                                  aria-label={`View image ${index + 1}`}
+                                >
+                                    <img src={img} alt={`Thumbnail ${index + 1}`} />
+                                </button>
+                            ))}
+                        </div>
                     )}
                 </div>
                 <div className="project-modal-details">
@@ -1120,14 +1121,15 @@ const HomePage = () => {
       meta: 'Design and Supervision of Office Interior',
       location: 'D Ring Road',
       description: 'World Wide Business Center — a 2,000 sqm office interior designed and supervised by our team — blends elegant aesthetics with high functionality, featuring a welcoming reception, multiple meeting rooms, a fully equipped conference room, collaborative zones, and a dedicated games area.',
-      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304504/_DSC9859_sx03dr.jpg',
+      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761733626/Untitled_design_-_2025-10-29T155509.760_nzctlr.png',
       gallery: [
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304504/_DSC9859_sx03dr.jpg',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304501/_DSC9888_rkhjis.jpg',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304500/_DSC9901_beo4mx.jpg',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304498/_DSC9870_hyaor0.jpg',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304498/_DSC9893_ocqnlg.jpg',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304497/_DSC9866_aq8w9n.jpg'
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761733626/Untitled_design_-_2025-10-29T155509.760_nzctlr.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761733626/Untitled_design_-_2025-10-29T155459.346_basulg.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761733625/Untitled_design_-_2025-10-29T155452.800_jhx5w7.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761733625/Untitled_design_-_2025-10-29T155518.651_btziq9.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761733626/Untitled_design_-_2025-10-29T155448.743_eciho2.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761733624/Untitled_design_-_2025-10-29T155527.788_v5gops.png',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761733613/Untitled_design_-_2025-10-29T155606.164_rv7jcv.png'
       ]
     },
     { 
