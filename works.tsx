@@ -7,11 +7,11 @@ declare const gsap: any;
 // --- DATA & CONFIG ---
 
 const servicesSubLinks = [
-  { name: 'Architectural Design', href: 'architectural-design.html', icon: 'fas fa-archway', description: 'Innovative and functional spaces from concept to construction.', image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&auto=format&fit=crop&q=60' },
-  { name: 'Engineering Consultancy', href: 'engineering-consultancy.html', icon: 'fas fa-cogs', description: 'Expert technical advice and solutions for robust project outcomes.', image: 'https://images.unsplash.com/photo-1518692113669-e34fa251a37c?w=800&auto=format&fit=crop&q=60' },
-  { name: 'Project Management Consultancy', href: 'project-management.html', icon: 'fas fa-tasks', description: 'Overseeing projects from inception to completion on time and budget.', image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&auto=format&fit=crop&q=60' },
-  { name: 'Sustainability & Energy', href: 'sustainability-energy.html', icon: 'fas fa-leaf', description: 'Integrating green principles for environmentally responsible designs.', image: 'https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=800&auto=format&fit=crop&q=60' },
-  { name: 'Construction Approval', href: 'construction-approval.html', icon: 'fas fa-check-double', description: 'Navigating regulatory hurdles to secure all necessary construction permits and approvals efficiently.', image: 'https://images.unsplash.com/photo-1563291074-2bf8677ac0e5?w=800&auto=format&fit=crop&q=60' },
+  { name: 'Architectural Design', href: 'architectural-design.html', icon: 'fas fa-archway' },
+  { name: 'Engineering Consultancy', href: 'engineering-consultancy.html', icon: 'fas fa-cogs' },
+  { name: 'Project Management Consultancy', href: 'project-management.html', icon: 'fas fa-tasks' },
+  { name: 'Sustainability & Energy', href: 'sustainability-energy.html', icon: 'fas fa-leaf' },
+  { name: 'Construction Approval', href: 'construction-approval.html', icon: 'fas fa-check-double' },
 ];
 
 const navLinks = [
@@ -321,73 +321,73 @@ const Header = ({ theme }) => {
 
   return (
     <header className={headerClasses}>
-        <nav className="main-nav" aria-label="Main navigation">
-            <ul>
-                {navLinks.map((link) => (
-                    <li
-                        key={link.name}
-                        className={`${link.subLinks ? 'has-dropdown' : ''} ${link.name === 'Services' && isServicesDropdownOpen ? 'open' : ''}`}
-                        ref={link.name === 'Services' ? servicesDropdownContainerRef : null}
-                    >
-                        <AppLink
-                            ref={link.name === 'Services' ? servicesToggleRef : null}
-                            href={link.href}
-                            id={link.name === 'Services' ? 'services-menu-toggle' : undefined}
-                            onClick={link.name === 'Services' ? handleServicesClick : undefined}
-                            aria-haspopup={!!link.subLinks}
-                            aria-expanded={link.name === 'Services' ? isServicesDropdownOpen : undefined}
-                            aria-controls={link.name === 'Services' ? 'services-dropdown-menu' : undefined}
-                        >
-                            {link.name}
-                            {link.subLinks && (
-                                <span className="dropdown-indicator-wrapper">
-                                    <i className="fas fa-chevron-down dropdown-indicator" aria-hidden="true"></i>
-                                </span>
-                            )}
-                        </AppLink>
-                        {link.subLinks && (
-                            <div id="services-dropdown-menu" className="dropdown-menu" role="menu" aria-labelledby="services-menu-toggle">
-                                <ul className="dropdown-links" role="none">
-                                    {link.subLinks.map((subLink, index) => (
-                                        <li role="presentation" key={subLink.name}>
-                                            <AppLink
-                                                href={subLink.href}
-                                                role="menuitem"
-                                                onKeyDown={handleDropdownItemKeyDown}
-                                                className="dropdown-link-item"
-                                                onClick={() => setIsServicesDropdownOpen(false)}
-                                                style={{ '--delay': `${index * 0.05}s` } as React.CSSProperties}
-                                            >
-                                                <i className={`${subLink.icon} dropdown-link-icon`} aria-hidden="true"></i>
-                                                <span>{subLink.name}</span>
-                                            </AppLink>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        )}
-                    </li>
-                ))}
-            </ul>
-        </nav>
-        <div className="logo">
-            <AppLink href="/index.html">
-                <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Design Consultancy Logo - Architectural Firm in Qatar" className="logo-image" />
-            </AppLink>
-        </div>
-        <button
-            ref={burgerMenuRef}
-            className={`burger-menu ${isMobileNavOpen ? 'open' : ''}`}
-            onClick={toggleMobileNav}
-            aria-label={isMobileNavOpen ? "Close navigation menu" : "Open navigation menu"}
-            aria-controls="mobile-nav"
-            aria-expanded={isMobileNavOpen}
-        >
-            <span className="burger-bar"></span>
-            <span className="burger-bar"></span>
-            <span className="burger-bar"></span>
-        </button>
-        <MobileNav isOpen={isMobileNavOpen} onClose={closeMobileNav} />
+      <div className="logo">
+        <AppLink href="/index.html">
+          <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Design Consultancy Logo - Architectural Firm in Qatar" className="logo-image" />
+        </AppLink>
+      </div>
+      <nav className="main-nav" aria-label="Main navigation">
+        <ul>
+          {navLinks.map((link) => (
+            <li 
+              key={link.name} 
+              className={`${link.subLinks ? 'has-dropdown' : ''} ${link.name === 'Services' && isServicesDropdownOpen ? 'open' : ''}`}
+              ref={link.name === 'Services' ? servicesDropdownContainerRef : null}
+            >
+              <AppLink 
+                ref={link.name === 'Services' ? servicesToggleRef : null}
+                href={link.href}
+                id={link.name === 'Services' ? 'services-menu-toggle' : undefined}
+                onClick={link.name === 'Services' ? handleServicesClick : undefined}
+                aria-haspopup={!!link.subLinks}
+                aria-expanded={link.name === 'Services' ? isServicesDropdownOpen : undefined}
+                aria-controls={link.name === 'Services' ? 'services-dropdown-menu' : undefined}
+              >
+                {link.name}
+                {link.subLinks && (
+                  <span className="dropdown-indicator-wrapper">
+                    <i className="fas fa-chevron-down dropdown-indicator" aria-hidden="true"></i>
+                  </span>
+                )}
+              </AppLink>
+              {link.subLinks && (
+                <div id="services-dropdown-menu" className="dropdown-menu" role="menu" aria-labelledby="services-menu-toggle">
+                  <ul className="dropdown-links" role="none">
+                      {link.subLinks.map((subLink, index) => (
+                          <li role="presentation" key={subLink.name}>
+                              <AppLink
+                                  href={subLink.href}
+                                  role="menuitem"
+                                  onKeyDown={handleDropdownItemKeyDown}
+                                  className="dropdown-link-item"
+                                  onClick={() => setIsServicesDropdownOpen(false)}
+                                  style={{ '--delay': `${index * 0.05}s` } as React.CSSProperties}
+                              >
+                                  <i className={`${subLink.icon} dropdown-link-icon`} aria-hidden="true"></i>
+                                  <span>{subLink.name}</span>
+                              </AppLink>
+                          </li>
+                      ))}
+                  </ul>
+                </div>
+              )}
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <button
+        ref={burgerMenuRef}
+        className={`burger-menu ${isMobileNavOpen ? 'open' : ''}`}
+        onClick={toggleMobileNav}
+        aria-label={isMobileNavOpen ? "Close navigation menu" : "Open navigation menu"}
+        aria-controls="mobile-nav"
+        aria-expanded={isMobileNavOpen}
+      >
+        <span className="burger-bar"></span>
+        <span className="burger-bar"></span>
+        <span className="burger-bar"></span>
+      </button>
+      <MobileNav isOpen={isMobileNavOpen} onClose={closeMobileNav} />
     </header>
   );
 };
