@@ -246,6 +246,8 @@ html, body {
     opacity: 1; 
     visibility: visible; 
     transform: translateY(0); 
+    left: 550px;
+    top: revert-layer;
 }
 .dropdown-links { padding: 0; margin: 0; list-style: none; display: flex; flex-direction: column; gap: 2px; }
 .dropdown-link-item { 
