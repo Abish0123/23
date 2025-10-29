@@ -1,3 +1,5 @@
+
+
 :root {
     --dark-bg: #111111;
     --dark-bg-secondary: #1c1c1c;
@@ -1924,6 +1926,7 @@
         width: 40px;
         height: 40px;
         font-size: 18px;
+        background: rgba(0,0,0,0.3);
     }
     .gallery-nav-btn.prev { left: 10px; }
     .gallery-nav-btn.next { right: 10px; }
