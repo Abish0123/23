@@ -1936,7 +1936,7 @@
       .process-grid::before { display: none; }
       .process-item { width: 40%; }
       .process-description { max-height: 100px; opacity: 1; margin-top: 15px; }
-      #works .works-grid { grid-template-columns: repeat(2, 1fr); }
+      #works { display: none; }
   }
   
   @media (max-width: 768px) {
@@ -1945,7 +1945,6 @@
       .content-section { padding: 80px 20px; }
       .services-grid, .sectors-grid { grid-template-columns: 1fr; }
       .facts-counters { flex-direction: column; gap: 40px; }
-      #works .works-grid { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr; }
       .copyright-section { flex-direction: column; gap: 20px; text-align: center; }
       .carousel-btn { display: none; } /* Hide on mobile, rely on swipe */
