@@ -248,7 +248,9 @@ html, body {
 .has-dropdown.open .dropdown-menu { 
     opacity: 1; 
     visibility: visible; 
-    transform: translateY(0); 
+    transform: translateY(0);
+    left: 550px;
+    top: revert-layer;
 }
 .dropdown-links { padding: 0; margin: 0; list-style: none; display: flex; flex-direction: column; gap: 2px; }
 .dropdown-link-item { 
