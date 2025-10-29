@@ -2,7 +2,7 @@
     --dark-bg: #111111;
     --dark-bg-secondary: #1c1c1c;
     --text-light: #ffffff;
-    --text-dark: #FFFFFF;
+    --text-dark: #111111;
     --accent-color: #D4AF37;
     --accent-color-shadow: 0 0 10px #D4AF37, 0 0 20px #B89B32, 0 0 30px #9C822A;
     --accent-color-shadow-small: 0 0 5px #D4AF37, 0 0 10px #B89B32;
@@ -80,7 +80,7 @@
     top: 0;
     left: 0;
     height: 100vh;
-    width: 80px;
+    width: 30px;
     background-color: var(--dark-bg);
     border-right: 1px solid var(--border-light);
     display: flex;
@@ -98,7 +98,7 @@
   }
   
   .sidebar-top .divider {
-    width: 30px;
+    width: 20px;
     height: 1px;
     background-color: var(--accent-gray);
   }
@@ -126,15 +126,10 @@
     transition: color 0.3s ease, text-shadow 0.3s ease;
   }
   
-  .social-icons a:hover {
-    color: var(--accent-color);
-    text-shadow: var(--accent-color-shadow);
-  }
-  
   .sidebar-footer {
     width: 100%;
     background-color: var(--accent-color);
-    color: var(--text-dark);
+    color: #111;
     font-size: 12px;
     display: flex;
     align-items: center;
@@ -150,8 +145,8 @@
   }
   
   .main-content {
-    margin-left: 80px;
-    width: calc(100% - 80px);
+    margin-left: 30px;
+    width: calc(100% - 30px);
     position: relative;
     background-color: #fff;
   }
@@ -163,8 +158,8 @@
   .app-header {
     position: fixed;
     top: 0;
-    left: 80px;
-    width: calc(100% - 80px);
+    left: 30px;
+    width: calc(100% - 30px);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -175,9 +170,23 @@
   }
 
   .app-header.scrolled.on-light {
-    background-color:#000000;
+    background-color: #fff;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
   }
+
+  .app-header.scrolled.on-light .main-nav a {
+      color: #111;
+  }
+  .app-header.scrolled.on-light .burger-bar {
+      background-color: #111;
+  }
+   .app-header.scrolled.on-light .dropdown-menu {
+      background-color: #fff;
+   }
+   .app-header.scrolled.on-light .dropdown-link-item {
+      color: #111;
+   }
+
 
   .logo {
       order: 1;
@@ -222,10 +231,7 @@
     position: relative;
     padding-bottom: 5px;
     transition: color 0.3s ease, text-shadow 0.3s ease;
-  }
-
-  .app-header.on-light .main-nav a {
-      color: var(--text-dark);
+    color: var(--text-light)
   }
   
   .main-nav a::after {
@@ -237,18 +243,6 @@
     height: 1px;
     background-color: var(--accent-color);
     transition: width 0.3s ease;
-  }
-  
-  .main-nav a:hover::after,
-  .main-nav a:focus::after {
-    width: 100%;
-  }
-
-  .app-header.on-light .main-nav a:hover,
-  .app-header.on-light .main-nav a:focus {
-      color: var(--accent-color);
-      text-shadow: none;
-      outline: none;
   }
   
 .main-nav ul li.has-dropdown > a {
@@ -335,18 +329,7 @@
 }
 
 .app-header.on-dark .dropdown-link-item { color: #ccc; }
-.app-header.on-light .dropdown-link-item { color: #555; }
-
-.app-header.on-dark .dropdown-link-item:hover,
-.app-header.on-dark .dropdown-link-item:focus {
-  background-color: rgba(255, 255, 255, 0.08);
-  color: #fff;
-}
-.app-header.on-light .dropdown-link-item:hover,
-.app-header.on-light .dropdown-link-item:focus {
-  background-color: #e9e9e9;
-  color: #111;
-}
+.app-header.on-light .dropdown-link-item { color: #ccc; }
 
   
   /* Burger Menu */
@@ -376,9 +359,6 @@
     border-radius: 3px;
     transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
     transform-origin: center;
-}
-.app-header.on-light .burger-bar {
-    background-color: var(--text-dark);
 }
 .burger-menu.open .burger-bar {
     background-color: var(--text-light);
@@ -486,10 +466,6 @@
       transition: color 0.3s ease;
   }
   
-  .mobile-submenu li a:hover {
-      color: var(--accent-color);
-  }
-  
   /* General Section Styling */
   .content-section {
       padding: 100px 60px;
@@ -505,7 +481,6 @@
       text-transform: uppercase;
       letter-spacing: 2px;
       color: var(--text-dark);
-      margin-left: 280px;
   }
   .section-title strong {
       font-weight: 700;
@@ -554,7 +529,7 @@
   .opening-item h3 {
       font-size: 24px;
       margin-bottom: 10px;
-      color: #000
+      color: #111;
   }
   .opening-item p {
       line-height: 1.7;
@@ -581,7 +556,7 @@
   .application-form .form-row {
       display: flex;
       gap: 20px;
-      margin-bottom: 0;
+      margin-bottom: 20px;
   }
   .application-form .form-group {
       flex: 1;
@@ -642,13 +617,7 @@
       transition: border-color 0.3s;
       color: #555;
   }
-  .custom-file-upload:hover {
-      border-color: var(--accent-color);
-  }
-  .custom-file-upload:focus {
-      outline: 2px solid var(--accent-color);
-      outline-offset: 2px;
-  }
+  
   .custom-file-upload i {
       margin-right: 10px;
       color: var(--accent-color);
@@ -686,11 +655,6 @@
       font-weight: 700;
       cursor: pointer;
       margin: 0 auto;
-  }
-  .submit-btn:hover {
-      background-color: transparent;
-      color: var(--accent-color);
-      box-shadow: var(--accent-color-shadow-small);
   }
   .submit-btn:disabled {
       background-color: #ccc;
@@ -732,7 +696,7 @@
   }
   .success-message h3 {
       font-size: 22px;
-      color: var(--text-dark);
+      color: #111;
       margin-bottom: 10px;
   }
   .success-message p {
@@ -777,9 +741,6 @@
       cursor: pointer;
       transition: text-shadow 0.3s ease;
   }
-  .to-top:hover {
-      text-shadow: var(--accent-color-shadow);
-  }
   /* WhatsApp Widget */
   .whatsapp-widget {
       position: fixed;
@@ -797,9 +758,6 @@
       z-index: 1002;
       text-decoration: none;
       transition: transform 0.3s ease;
-  }
-  .whatsapp-widget:hover {
-      transform: scale(1.1);
   }
   .whatsapp-icon {
       font-size: 32px;
@@ -843,8 +801,45 @@
   .scroll-trigger.visible {
     opacity: 1;
     transform: none;
-    color: #000;
   }
+
+@media (hover: hover) and (pointer: fine) {
+    .social-icons a:hover {
+      color: var(--accent-color);
+      text-shadow: var(--accent-color-shadow);
+    }
+    .main-nav a:hover::after,
+    .main-nav a:focus::after {
+      width: 100%;
+    }
+    .custom-file-upload:hover {
+      border-color: var(--accent-color);
+    }
+    .submit-btn:hover {
+      background-color: transparent;
+      color: var(--accent-color);
+      box-shadow: var(--accent-color-shadow-small);
+    }
+    .to-top:hover {
+      text-shadow: var(--accent-color-shadow);
+    }
+    .whatsapp-widget:hover {
+      transform: scale(1.1);
+    }
+    .mobile-submenu li a:hover {
+      color: var(--accent-color);
+    }
+    .app-header.on-dark .dropdown-link-item:hover,
+    .app-header.on-dark .dropdown-link-item:focus {
+      background-color: rgba(255, 255, 255, 0.08);
+      color: #fff;
+    }
+    .app-header.scrolled.on-light .dropdown-link-item:hover,
+    .app-header.scrolled.on-light .dropdown-link-item:focus {
+      background-color: #e9e9e9;
+    }
+  }
+
   /* Responsive Styles */
   @media (max-width: 1200px) {
       .content-section { padding: 100px 40px; }
@@ -871,8 +866,9 @@
       .app-header { padding: 20px; }
       .content-section { padding: 80px 20px; }
       .careers-hero-section { padding: 140px 20px 80px; }
-      .careers-hero-section h1 { font-size: 36px; }
-      .application-form .form-row { flex-direction: column; gap: 0; margin-bottom: 0; }
+      .careers-hero-section h1 { font-size: 32px; }
+      .section-title { font-size: 28px; }
+      .application-form .form-row { flex-direction: column; gap: 20px; margin-bottom: 0; }
       .copyright-section { flex-direction: column; gap: 20px; text-align: center; }
       .logo-image {
         height: 60px;
@@ -884,6 +880,10 @@
       .main-content { margin-left: 0; width: 100%; }
       .app-header { left: 0; width: 100%; padding: 20px; }
   }
+
+#open-positions .section-title {
+  text-align: center;
+}
 
 #application-form .section-title {
   text-align: center;
