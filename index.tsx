@@ -1120,15 +1120,14 @@ const HomePage = () => {
       meta: 'Design and Supervision of Office Interior',
       location: 'D Ring Road',
       description: 'World Wide Business Center — a 2,000 sqm office interior designed and supervised by our team — blends elegant aesthetics with high functionality, featuring a welcoming reception, multiple meeting rooms, a fully equipped conference room, collaborative zones, and a dedicated games area.',
-      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761733626/Untitled_design_-_2025-10-29T155509.760_nzctlr.png',
+      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304504/_DSC9859_sx03dr.jpg',
       gallery: [
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761733626/Untitled_design_-_2025-10-29T155509.760_nzctlr.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761733626/Untitled_design_-_2025-10-29T155459.346_basulg.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761733625/Untitled_design_-_2025-10-29T155452.800_jhx5w7.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761733625/Untitled_design_-_2025-10-29T155518.651_btziq9.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761733626/Untitled_design_-_2025-10-29T155448.743_eciho2.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761733624/Untitled_design_-_2025-10-29T155527.788_v5gops.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761733613/Untitled_design_-_2025-10-29T155606.164_rv7jcv.png'
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304504/_DSC9859_sx03dr.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304501/_DSC9888_rkhjis.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304500/_DSC9901_beo4mx.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304498/_DSC9870_hyaor0.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304498/_DSC9893_ocqnlg.jpg',
+        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761304497/_DSC9866_aq8w9n.jpg'
       ]
     },
     { 
