@@ -216,7 +216,6 @@ html, body {
     display: flex;
     align-items: center;
     gap: 5px;
-    top: 4px;
 }
 .dropdown-indicator {
     font-size: 10px;
@@ -225,11 +224,12 @@ html, body {
 .has-dropdown.open .dropdown-indicator {
     transform: rotate(180deg);
 }
-
 .dropdown-menu { 
     position: absolute; 
     top: calc(100% + 10px); 
     left: -20px; 
+    background-color: #222;
+    border: 1px solid var(--border-light);
     border-radius: 8px; 
     padding: 8px; 
     list-style: none; 
@@ -241,17 +241,10 @@ html, body {
     transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s; 
     box-shadow: 0 8px 16px rgba(0,0,0,0.1); 
 }
-.app-header.on-dark .dropdown-menu {
-    background-color: #222;
-    border: 1px solid var(--border-light);
-}
-
 .has-dropdown.open .dropdown-menu { 
     opacity: 1; 
     visibility: visible; 
-    transform: translateY(0);
-    left: 550px;
-    top: revert-layer;
+    transform: translateY(0); 
 }
 .dropdown-links { padding: 0; margin: 0; list-style: none; display: flex; flex-direction: column; gap: 2px; }
 .dropdown-link-item { 
@@ -266,8 +259,6 @@ html, body {
     font-size: 14px; 
     letter-spacing: 0; 
     white-space: nowrap; 
-}
-.app-header.on-dark .dropdown-link-item { 
     color: #ccc;
 }
 .dropdown-link-item::after { display: none; }
