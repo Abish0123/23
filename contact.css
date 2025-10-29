@@ -1,4 +1,5 @@
 
+
 :root {
   --dark-bg: #111111;
   --dark-bg-secondary: #1c1c1c;
@@ -132,13 +133,9 @@ html, body {
     order: 3;
 }
 
-.app-header.on-light .main-nav a {
-    color: var(--text-light);
-}
-
 .main-nav ul { list-style: none; display: flex; gap: 25px; }
 .main-nav ul li { position: relative; }
-.main-nav a { text-decoration: none; text-transform: uppercase; font-size: 12px; letter-spacing: 1px; font-weight: 400; position: relative; padding-bottom: 5px; transition: color 0.3s ease, text-shadow 0.3s ease; }
+.main-nav a { color: var(--text-light); text-decoration: none; text-transform: uppercase; font-size: 12px; letter-spacing: 1px; font-weight: 400; position: relative; padding-bottom: 5px; transition: color 0.3s ease, text-shadow 0.3s ease; }
 .main-nav a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background-color: var(--accent-color); transition: width 0.3s ease; }
 .main-nav ul li.has-dropdown > a { display: flex; align-items: center; gap: 5px; position: relative; top: 4px; }
 .dropdown-indicator { font-size: 10px; transition: transform 0.3s ease; }
@@ -316,10 +313,10 @@ html, body {
 .scroll-trigger.visible { opacity: 1; transform: none; }
 
 @media (hover: hover) and (pointer: fine) {
-    .app-header.on-light .main-nav a:hover,
-    .app-header.on-light .main-nav a:focus {
+    .main-nav a:hover,
+    .main-nav a:focus {
         color: var(--accent-color);
-        text-shadow: none;
+        text-shadow: var(--accent-color-shadow);
         outline: none;
     }
     .main-nav a:hover::after, .main-nav a:focus::after { width: 100%; }
