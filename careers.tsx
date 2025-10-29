@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect, useRef, memo, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -129,7 +130,8 @@ const MobileNav = ({ isOpen, onClose }) => {
                          <li key={link.name}>
                              <AppLink 
                                 href={link.subLinks ? '#' : link.href} 
-                                onClick={link.subLinks ? handleServicesToggle : onClose}
+                                // FIX: Wrapped parameter-less event handlers in arrow functions to match expected signature.
+                                onClick={link.subLinks ? handleServicesToggle : () => onClose()}
                                 aria-haspopup={!!link.subLinks}
                                 aria-expanded={link.subLinks ? isServicesOpen : undefined}
                                 aria-controls={link.subLinks ? `mobile-${link.name}-submenu` : undefined}
@@ -141,7 +143,8 @@ const MobileNav = ({ isOpen, onClose }) => {
                              {link.subLinks && (
                                  <ul id={`mobile-${link.name}-submenu`} className={`mobile-submenu ${isServicesOpen ? 'open' : ''}`} aria-hidden={!isServicesOpen}>
                                      {link.subLinks.map(subLink => (
-                                         <li key={subLink.name}><AppLink href={subLink.href} onClick={onClose}>{subLink.name}</AppLink></li>
+                                         // FIX: Wrapped parameter-less event handlers in arrow functions to match expected signature.
+                                         <li key={subLink.name}><AppLink href={subLink.href} onClick={() => onClose()}>{subLink.name}</AppLink></li>
                                      ))}
                                  </ul>
                              )}
@@ -545,7 +548,7 @@ const CareersPage = () => {
 
       <section id="open-positions" className="content-section">
         <div className="container">
-            <h2 className="section-title scroll-trigger fade-up" style={{textAlign: 'center'}}>Current <strong>Openings</strong></h2>
+            <h2 className="section-title scroll-trigger fade-up">Current <strong>Openings</strong></h2>
             <div className="openings-list">
                 {careerOpenings.map((job, index) => (
                     <div className="opening-item scroll-trigger fade-up" key={index} style={{ transitionDelay: `${index * 0.1}s` }}>
@@ -559,7 +562,7 @@ const CareersPage = () => {
 
       <section id="application-form" className="content-section" style={{backgroundColor: '#f9f9f9'}}>
           <div className="container">
-              <h2 className="section-title scroll-trigger fade-up" style={{textAlign: 'center'}}>Apply <strong>Now</strong></h2>
+              <h2 className="section-title scroll-trigger fade-up">Apply <strong>Now</strong></h2>
               <div className="application-form-container scroll-trigger fade-up" style={{transitionDelay: '0.1s'}}>
                   <form onSubmit={handleSubmit} className={`application-form ${isSubmitted ? 'submitted' : ''}`} aria-hidden={isSubmitted}>
                       <div className="form-row">
