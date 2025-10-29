@@ -1,5 +1,4 @@
 
-
 import React, { useState, useEffect, useRef, memo, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -256,7 +255,7 @@ const Header = () => {
     }
   };
 
-  const headerClasses = `app-header ${scrolled ? 'scrolled' : ''} on-light`;
+  const headerClasses = `app-header ${scrolled ? 'scrolled' : ''} on-dark`;
 
   return (
     <header className={headerClasses}>
