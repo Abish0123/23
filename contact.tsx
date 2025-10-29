@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect, useRef, memo, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -111,7 +112,8 @@ const MobileNav = ({ isOpen, onClose }) => {
                          <li key={link.name}>
                              <AppLink 
                                 href={link.subLinks ? '#' : link.href} 
-                                onClick={link.subLinks ? handleServicesToggle : onClose}
+                                // FIX: Wrapped parameter-less event handlers in arrow functions to match expected signature.
+                                onClick={link.subLinks ? handleServicesToggle : () => onClose()}
                                 aria-haspopup={!!link.subLinks}
                                 aria-expanded={link.subLinks ? isServicesOpen : undefined}
                                 aria-controls={link.subLinks ? `mobile-${link.name}-submenu` : undefined}
@@ -123,7 +125,8 @@ const MobileNav = ({ isOpen, onClose }) => {
                              {link.subLinks && (
                                  <ul id={`mobile-${link.name}-submenu`} className={`mobile-submenu ${isServicesOpen ? 'open' : ''}`} aria-hidden={!isServicesOpen}>
                                      {link.subLinks.map(subLink => (
-                                         <li key={subLink.name}><AppLink href={subLink.href} onClick={onClose}>{subLink.name}</AppLink></li>
+                                         // FIX: Wrapped parameter-less event handlers in arrow functions to match expected signature.
+                                         <li key={subLink.name}><AppLink href={subLink.href} onClick={() => onClose()}>{subLink.name}</AppLink></li>
                                      ))}
                                  </ul>
                              )}
@@ -513,68 +516,41 @@ const ContactForm = () => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (validate()) {
-            const { name, email, message } = formData;
-            const subject = encodeURIComponent(`Contact Form Inquiry from ${name}`);
+            const subject = encodeURIComponent(`Contact Form Inquiry from ${formData.name}`);
             const body = encodeURIComponent(
-                `Name: ${name}\n` +
-                `Email: ${email}\n\n` +
-                `Message:\n${message}`
+                `Name: ${formData.name}\n` +
+                `Email: ${formData.email}\n\n` +
+                `Message:\n${formData.message}`
             );
+
             window.location.href = `mailto:info@tajdc.com?subject=${subject}&body=${body}`;
             setIsSubmitted(true);
         }
     };
-
+    
     return (
-        <div className="contact-form-container">
+        <div className="contact-form-container scroll-trigger fade-up" style={{transitionDelay: '0.2s'}}>
             <form onSubmit={handleSubmit} className={`contact-form ${isSubmitted ? 'submitted' : ''}`} aria-hidden={isSubmitted} noValidate>
-                <div className="form-row">
+                 <div className="form-row">
                     <div className="form-group">
                         <label htmlFor="name">Full Name</label>
-                        <input
-                            type="text"
-                            id="name"
-                            name="name"
-                            value={formData.name}
-                            onChange={handleChange}
-                            className={errors.name ? 'invalid' : ''}
-                            aria-invalid={!!errors.name}
-                            aria-describedby="name-error"
-                        />
-                        {errors.name && <span id="name-error" className="error-message">{errors.name}</span>}
+                        <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required className={errors.name ? 'invalid' : ''} />
+                        {errors.name && <span className="error-message">{errors.name}</span>}
                     </div>
                     <div className="form-group">
                         <label htmlFor="email">Email Address</label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            className={errors.email ? 'invalid' : ''}
-                            aria-invalid={!!errors.email}
-                            aria-describedby="email-error"
-                        />
-                        {errors.email && <span id="email-error" className="error-message">{errors.email}</span>}
+                        <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required className={errors.email ? 'invalid' : ''} />
+                        {errors.email && <span className="error-message">{errors.email}</span>}
                     </div>
                 </div>
                 <div className="form-group">
                     <label htmlFor="message">Message</label>
-                    <textarea
-                        id="message"
-                        name="message"
-                        rows={5}
-                        value={formData.message}
-                        onChange={handleChange}
-                        className={errors.message ? 'invalid' : ''}
-                        aria-invalid={!!errors.message}
-                        aria-describedby="message-error"
-                    ></textarea>
-                    {errors.message && <span id="message-error" className="error-message">{errors.message}</span>}
+                    <textarea id="message" name="message" rows={5} value={formData.message} onChange={handleChange} required className={errors.message ? 'invalid' : ''}></textarea>
+                    {errors.message && <span className="error-message">{errors.message}</span>}
                 </div>
-                <button type="submit" className="submit-btn">Send Message</button>
+                <button type="submit" className="submit-btn">Send us a message</button>
             </form>
-            <div className={`success-message ${isSubmitted ? 'visible' : ''}`} aria-hidden={!isSubmitted} aria-live="polite">
+             <div className={`success-message ${isSubmitted ? 'visible' : ''}`} aria-hidden={!isSubmitted} aria-live="polite">
                 <i className="fas fa-check-circle" aria-hidden="true"></i>
                 <h3 ref={successMessageRef} tabIndex={-1}>Thank You!</h3>
                 <p>Please complete sending your message in your email client.</p>
@@ -584,56 +560,53 @@ const ContactForm = () => {
 };
 
 
-const ContactPage = () => {
-    return (
+const ContactPage = () => (
     <>
       <section className="contact-hero-section scroll-trigger fade-up">
         <div className="container">
-          <h1>Get In <strong>Touch</strong></h1>
-          <p>We're here to answer any questions you may have about our services. Reach out to us and we'll respond as soon as we can.</p>
+            <h1>Get In <strong>Touch</strong></h1>
+            <p>We're here to help and answer any question you might have. We look forward to hearing from you and we'll respond as soon as we can.</p>
         </div>
       </section>
 
-      <section id="contact-details" className="content-section">
+      <section className="content-section">
         <div className="container">
-            <div className="contact-grid">
-                <div className="contact-info scroll-trigger fade-up" style={{transitionDelay: '0.1s'}}>
-                    <h2 className="section-title">Contact <strong>Details</strong></h2>
-                    <div className="contact-info-items">
-                        <div className="contact-info-item">
-                            <div className="icon-wrapper"><i className="fas fa-map-marker-alt" aria-hidden="true"></i></div>
-                            <div>
-                                <h4>Our Office</h4>
-                                <p>14th floor, Al Jazeera tower, Westbay, Doha, Qatar</p>
-                            </div>
+          <div className="contact-grid">
+            <div className="contact-details">
+                <h2 className="section-title scroll-trigger fade-up">Contact <strong>Details</strong></h2>
+                <div className="contact-info-items">
+                    <div className="contact-info-item scroll-trigger fade-up" style={{transitionDelay: '0.1s'}}>
+                        <div className="icon-wrapper"><i className="fas fa-map-marker-alt" aria-hidden="true"></i></div>
+                        <div>
+                            <h4>Our Office</h4>
+                            <p>14th floor, Al Jazeera tower, Westbay, Doha, Qatar</p>
                         </div>
-                        <div className="contact-info-item">
-                            <div className="icon-wrapper"><i className="fas fa-envelope" aria-hidden="true"></i></div>
-                            <div>
-                                <h4>Email Us</h4>
-                                <a href="mailto:info@tajdc.com">info@tajdc.com</a>
-                            </div>
+                    </div>
+                    <div className="contact-info-item scroll-trigger fade-up" style={{transitionDelay: '0.2s'}}>
+                        <div className="icon-wrapper"><i className="fas fa-envelope" aria-hidden="true"></i></div>
+                        <div>
+                            <h4>Email Us</h4>
+                            <p><a href="mailto:info@tajdc.com">info@tajdc.com</a></p>
                         </div>
-                        <div className="contact-info-item">
-                            <div className="icon-wrapper"><i className="fas fa-phone" aria-hidden="true"></i></div>
-                            <div>
-                                <h4>Call Us</h4>
-                                <a href="tel:+97477123400">+974 7712 3400</a>
-                            </div>
+                    </div>
+                    <div className="contact-info-item scroll-trigger fade-up" style={{transitionDelay: '0.3s'}}>
+                        <div className="icon-wrapper"><i className="fas fa-phone" aria-hidden="true"></i></div>
+                        <div>
+                            <h4>Call Us</h4>
+                            <p><a href="tel:+97477123400">+974 7712 3400</a></p>
                         </div>
                     </div>
                 </div>
-                <div className="contact-form-section scroll-trigger fade-up" style={{transitionDelay: '0.2s'}}>
-                    <h2 className="section-title">Send Us a <strong>Message</strong></h2>
-                    <ContactForm />
-                </div>
             </div>
+            <div className="contact-form-wrapper">
+                <h2 className="section-title scroll-trigger fade-up">Send Us a <strong>Message</strong></h2>
+                <ContactForm />
+            </div>
+          </div>
         </div>
       </section>
     </>
-  );
-};
-
+);
 
 const App = () => {
     const [loading, setLoading] = useState(true);
@@ -659,7 +632,7 @@ const App = () => {
         );
         const elementsToReveal = document.querySelectorAll('.scroll-trigger');
         elementsToReveal.forEach((el) => observer.observe(el));
-
+        
         return () => {
             document.body.style.backgroundColor = '';
             clearTimeout(timer);
@@ -672,7 +645,7 @@ const App = () => {
             <SkipToContentLink />
             <CustomCursor />
             <WhatsAppChatWidget />
-            <Header theme="light" />
+            <Header theme="dark" />
             <main className="main-content" id="main-content" tabIndex={-1}>
                 <ContactPage />
                 <Footer />
