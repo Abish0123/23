@@ -1728,22 +1728,22 @@
 }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-/* Default mobile, stacked layout */
+/* Desktop-first layout definition for robustness */
 .project-modal-content {
     position: relative;
-    width: 100vw;
-    height: 100vh;
+    width: 90vw;
+    height: 90vh;
     max-width: 1400px;
     max-height: 800px;
     background: var(--dark-bg-secondary);
     color: var(--text-light);
     box-shadow: 0 10px 40px rgba(0,0,0,0.5);
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: minmax(0, 55vh) auto;
+    grid-template-columns: 1fr 400px; /* Default to large desktop */
+    grid-template-rows: 1fr;
     overflow: hidden;
     animation: zoomIn 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-    border-radius: 0;
+    border-radius: 8px;
 }
 .project-modal-content:focus { outline: none; }
 @keyframes zoomIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
@@ -1812,62 +1812,57 @@
     border: 2px solid transparent; 
     border-radius: 4px; 
     padding: 0; 
-    height: 60px; 
+    height: 70px; 
     aspect-ratio: 16/9; 
     overflow: hidden; 
     cursor: pointer; 
     transition: border-color 0.3s, opacity 0.3s; 
     opacity: 0.6; 
 }
-.thumbnail-item:hover, .thumbnail-item:focus { opacity: 1; border-color: var(--accent-gray); }
 .thumbnail-item img { width: 100%; height: 100%; object-fit: cover; }
 .thumbnail-item.active { opacity: 1; border-color: var(--accent-color); }
 
 .project-modal-details { 
-    padding: 25px; 
+    padding: 40px; 
     overflow-y: auto; 
-    border-top: 1px solid var(--border-light);
 }
 .modal-meta { font-size: 12px; color: var(--accent-gray); margin-bottom: 10px; letter-spacing: 1px; text-transform: uppercase; }
-.modal-title { font-size: 24px; font-weight: 700; margin-bottom: 15px; color: var(--accent-color); }
+.modal-title { font-size: 28px; font-weight: 700; margin-bottom: 15px; color: var(--accent-color); }
 .modal-location { display: flex; align-items: center; gap: 10px; margin-bottom: 25px; color: #ccc; }
 .modal-description { line-height: 1.8; color: #ddd; }
-  
-/* Tablet and upwards */
-@media (min-width: 768px) {
-    .project-modal-content {
-        width: 90vw;
-        height: 90vh;
-        border-radius: 8px;
-    }
-    .project-modal-details {
-        padding: 40px;
-    }
-     .modal-title {
-        font-size: 28px;
-    }
-    .thumbnail-item {
-        height: 70px;
-    }
-}
 
-/* Desktop and upwards */
-@media (min-width: 993px) {
+/* --- RESPONSIVE OVERRIDES FOR MODAL --- */
+
+/* Medium Desktop */
+@media (max-width: 1200px) {
     .project-modal-content {
         grid-template-columns: 1fr 320px;
-        grid-template-rows: 1fr;
-    }
-    .project-modal-details {
-        border-top: none;
     }
 }
 
-/* Large Desktop */
-@media (min-width: 1201px) {
+/* Tablet & Mobile - Force stacked layout */
+@media (max-width: 992px) {
     .project-modal-content {
-        grid-template-columns: 1fr 400px;
+        width: 100vw;
+        height: 100vh;
+        max-width: 100vw;
+        max-height: 100vh;
+        border-radius: 0;
+        grid-template-columns: 1fr; /* Force single column */
+        grid-template-rows: minmax(0, 55vh) auto; /* Stacked rows */
+    }
+    .project-modal-details {
+        padding: 25px;
+        border-top: 1px solid var(--border-light);
+    }
+    .modal-title {
+        font-size: 24px;
+    }
+    .thumbnail-item {
+        height: 60px;
     }
 }
+
   
   /* Media Queries */
   @media (hover: hover) and (pointer: fine) {
@@ -1902,9 +1897,6 @@
       .submit-btn:hover { background-color: transparent; color: var(--accent-color); box-shadow: var(--accent-color-shadow-small); }
       .to-top:hover { text-shadow: var(--accent-color-shadow); }
       .whatsapp-widget:hover { transform: scale(1.1); }
-      .project-modal-gallery:hover .gallery-nav-btn, .gallery-nav-btn:focus {
-        opacity: 1;
-      }
       .gallery-nav-btn:hover, .gallery-nav-btn:focus {
         background: var(--accent-color);
         opacity: 1;
