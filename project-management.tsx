@@ -1,5 +1,7 @@
 
 
+
+
 import React, { useState, useEffect, useRef, memo, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -23,13 +25,13 @@ const navLinks = [
   { name: 'Contact', href: '/contact.html' },
 ];
 
-const AppLink = ({ href, className = '', children, onClick, ...props }: {
+const AppLink = React.forwardRef<HTMLAnchorElement, {
   href: string;
   className?: string;
   children: React.ReactNode;
   onClick?: MouseEventHandler<HTMLAnchorElement>;
   [key: string]: any;
-}) => {
+}>(({ href, className = '', children, onClick, ...props }, ref) => {
     const isToggle = href === '#';
 
     const handleClick: MouseEventHandler<HTMLAnchorElement> = (e) => {
@@ -44,6 +46,7 @@ const AppLink = ({ href, className = '', children, onClick, ...props }: {
 
     return (
         <a 
+            ref={ref}
             href={href} 
             className={className} 
             onClick={onClick ? handleClick : undefined} 
@@ -52,7 +55,7 @@ const AppLink = ({ href, className = '', children, onClick, ...props }: {
             {children}
         </a>
     );
-};
+});
 
 const MobileNav = ({ isOpen, onClose }) => {
     const [isServicesOpen, setIsServicesOpen] = useState(false);
@@ -112,8 +115,8 @@ const MobileNav = ({ isOpen, onClose }) => {
                     {navLinks.map(link => (
                          <li key={link.name}>
                              <AppLink 
-                                href={link.subLinks ? '#' : link.href} 
-                                onClick={link.subLinks ? handleServicesToggle : onClose}
+                                href={link.subLinks ? '#' : link.href}
+                                onClick={link.subLinks ? handleServicesToggle : () => onClose()}
                                 aria-haspopup={!!link.subLinks}
                                 aria-expanded={link.subLinks ? isServicesOpen : undefined}
                                 aria-controls={link.subLinks ? `mobile-${link.name}-submenu` : undefined}
@@ -125,7 +128,9 @@ const MobileNav = ({ isOpen, onClose }) => {
                              {link.subLinks && (
                                  <ul id={`mobile-${link.name}-submenu`} className={`mobile-submenu ${isServicesOpen ? 'open' : ''}`} aria-hidden={!isServicesOpen}>
                                      {link.subLinks.map(subLink => (
-                                         <li key={subLink.name}><AppLink href={subLink.href} onClick={onClose}>{subLink.name}</AppLink></li>
+                                         <li key={subLink.name}>
+                                            <AppLink href={subLink.href} onClick={() => onClose()}>{subLink.name}</AppLink>
+                                        </li>
                                      ))}
                                  </ul>
                              )}
@@ -172,7 +177,8 @@ const Header = ({ theme }) => {
 
   useEffect(() => {
     if (isServicesDropdownOpen) {
-      const firstItem = servicesDropdownContainerRef.current?.querySelector<HTMLAnchorElement>('.dropdown-menu a');
+      // @Fix: Added explicit type to assist TypeScript's type inference.
+      const firstItem: HTMLAnchorElement | null = servicesDropdownContainerRef.current?.querySelector<HTMLAnchorElement>('.dropdown-menu a');
       firstItem?.focus();
     }
   }, [isServicesDropdownOpen]);
@@ -216,7 +222,8 @@ const Header = ({ theme }) => {
   };
 
   const handleDropdownItemKeyDown = (e: React.KeyboardEvent<HTMLAnchorElement>) => {
-    const items = Array.from(
+    // @Fix: Added explicit type to assist TypeScript's type inference.
+    const items: HTMLAnchorElement[] = Array.from(
       servicesDropdownContainerRef.current?.querySelectorAll<HTMLAnchorElement>('.dropdown-link-item') || []
     );
     const currentIndex = items.indexOf(e.currentTarget);
@@ -240,7 +247,7 @@ const Header = ({ theme }) => {
     <header className={headerClasses}>
       <div className="logo">
         <AppLink href="/index.html">
-          <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Design Consultancy Logo" className="logo-image" />
+          <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Design Consult Logo" className="logo-image" />
         </AppLink>
       </div>
       <nav className="main-nav" aria-label="Main navigation">
@@ -323,7 +330,7 @@ const LeftSidebar = () => {
         <a href="#" aria-label="LinkedIn"><i className="fab fa-linkedin-in" aria-hidden="true"></i></a>
       </div>
       <div className="sidebar-footer">
-        <p>© Taj Design Consultancy 2024. All rights reserved.</p>
+        <p>© Taj Design Consult 2024. All rights reserved.</p>
       </div>
     </aside>
   );
@@ -547,9 +554,15 @@ const ServicePage = () => {
   ];
 
   const relatedProjects = [
-    { image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=800&auto=format&fit=crop&q=60", title: "Metropolis Tower", category: "High-Rise Construction" },
-    { image: "https://media.istockphoto.com/id/154962832/photo/machine-blueprint-outline-design-paperwork-document.jpg?s=612x612&w=0&k=20&c=F9UR8XhvUC3kt-LZjjxpN8pcp_ZT6yKFQ9NFWvAAoFo=", title: "Coastal Resort Complex", category: "Hospitality Project Management" },
-    { image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&auto=format&fit=crop&q=60", title: "Civic Center Redevelopment", category: "Public Sector Projects" },
+    { image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&auto=format&fit=crop&q=60", title: "Doha Skyscraper Complex", category: "High-Rise Project Management" },
+    { image: "https://images.unsplash.com/photo-1511093133973-84a621a25d73?w=800&auto=format&fit=crop&q=60", title: "Luxury Residential Compound", category: "Residential Construction Management" },
+    { image: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=800&auto=format&fit=crop&q=60", title: "5-Star Hotel & Resort", category: "Hospitality Project Supervision" },
+  ];
+
+  const approachSteps = [
+      { icon: 'fas fa-bullseye', title: 'Initiation & Planning', description: 'Defining project scope, objectives, and feasibility to create a robust roadmap for success.'},
+      { icon: 'fas fa-tasks', title: 'Execution & Control', description: 'Managing resources, timelines, and budgets with rigorous oversight and proactive communication.'},
+      { icon: 'fas fa-flag-checkered', title: 'Closing & Handover', description: 'Ensuring all deliverables are met, documentation is complete, and the project is handed over successfully.'},
   ];
 
   return (
@@ -561,7 +574,7 @@ const ServicePage = () => {
       <div className="main-container">
         <LeftSidebar />
         <main className="main-content" id="main-content" tabIndex={-1}>
-          <section className="service-hero-section scroll-trigger fade-up" style={{ backgroundImage: `url('https://4castplus.com/wp-content/uploads/2021/08/Construction-workers-observe-crane-in-early-morning-optimized.jpeg')`}}>
+          <section className="service-hero-section scroll-trigger fade-up" style={{ backgroundImage: `url('https://website-media.com/beacon-hospitality/beacon-hospitality-2024/2023/08/13174251/Structural-engineer-and-architect-working-with-blueprints.jpeg')`}}>
             <div className="container">
               <h1 className="scroll-trigger fade-up" style={{transitionDelay: '0.1s'}}>Project & Construction <strong>Management</strong></h1>
             </div>
@@ -571,16 +584,27 @@ const ServicePage = () => {
             <div className="container">
               <div className="service-content-grid scroll-trigger fade-up" style={{transitionDelay: '0.2s'}}>
                 <div className="service-main-content">
-                  <p>
-                  We provide comprehensive leadership for projects of all sizes, ensuring your vision is realized on time, on budget, and to the highest quality standards. Our Project Management Consultancy (PMC) team serves as a trusted extension of our clients, managing every phase of a project from inception to handover. With a proven track record on some of Qatar’s most iconic developments, we specialize in navigating complex projects with precision and foresight. Our deep local experience gives us an unparalleled understanding of regional regulations and market dynamics, allowing us to proactively mitigate risks and drive project success.
-                  </p>
-                  <p>
-                  Our methodology is built on a foundation of clear communication, rigorous control, and proactive problem-solving. We implement robust systems for planning, cost management, and quality assurance, ensuring complete transparency for all stakeholders. By integrating seamlessly with design teams, contractors, and authorities, we foster a collaborative environment focused on shared goals. Whether managing a single project or a large-scale program, our commitment is to safeguard our clients' interests and deliver outcomes that exceed expectations.
-                  </p>
+                    <p>We provide comprehensive leadership for projects of all sizes, ensuring your vision is realized on time, on budget, and to the highest quality standards. Our Project Management Consultancy (PMC) team serves as a trusted extension of our clients, managing every phase of a project from inception to handover. With a proven track record on some of Qatar’s most iconic developments, we specialize in navigating complex projects with precision and foresight. Our deep local experience gives us an unparalleled understanding of regional regulations and market dynamics, allowing us to proactively mitigate risks and drive project success.</p>
+                    <p>Our methodology is built on a foundation of clear communication, rigorous control, and proactive problem-solving. We implement robust systems for planning, cost management, and quality assurance, ensuring complete transparency for all stakeholders. By integrating seamlessly with design teams, contractors, and authorities, we foster a collaborative environment focused on shared goals. Whether managing a single project or a large-scale program, our commitment is to safeguard our clients' interests and deliver outcomes that exceed expectations.</p>
                 </div>
                 <div className="service-sidebar-image">
-                  <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&auto=format&fit=crop&q=60" alt="Construction site with project managers reviewing plans." />
+                  <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&auto=format&fit=crop&q=60" alt="Project managers from Taj Design Consultancy overseeing a construction site in Doha, reviewing blueprints." />
                 </div>
+              </div>
+              
+              <div className="approach-section scroll-trigger fade-up" style={{transitionDelay: '0.3s'}}>
+                  <h2 className="section-title" style={{textAlign: 'center'}}>Our Management Approach</h2>
+                  <div className="approach-steps">
+                    {approachSteps.map((step, index) => (
+                        <div className="approach-step" key={index}>
+                            <div className="approach-icon-wrapper">
+                                <i className={step.icon}></i>
+                            </div>
+                            <h3>{step.title}</h3>
+                            <p>{step.description}</p>
+                        </div>
+                    ))}
+                  </div>
               </div>
 
               <div className="service-list-section scroll-trigger fade-up" style={{transitionDelay: '0.3s'}}>
@@ -605,7 +629,7 @@ const ServicePage = () => {
             <WaveAnimation />
             <div className="container">
                 <div className="copyright-section">
-                    <span>2024 © Taj Design Consultancy. All rights reserved.</span>
+                    <span>2024 © Taj Design Consult. All rights reserved.</span>
                     <button className="to-top" onClick={scrollToTop} aria-label="Scroll back to top">To Top ↑</button>
                 </div>
             </div>
