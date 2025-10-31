@@ -601,7 +601,8 @@ const ProcessStepper = ({ steps }) => (
     </div>
 );
 
-const InfoCard = ({ title, icon, items, children }: { title: string, icon: string, items?: (string | React.ReactNode)[], children?: React.ReactNode }) => (
+// @Fix: Changed component typing to React.FC to resolve key prop type issue.
+const InfoCard: React.FC<{ title: string, icon: string, items?: (string | React.ReactNode)[], children?: React.ReactNode }> = ({ title, icon, items, children }) => (
     <div className="info-card scroll-trigger fade-up">
         <h4><i className={`fas ${icon}`} aria-hidden="true"></i> {title}</h4>
         {items && (
