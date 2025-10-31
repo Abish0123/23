@@ -1,5 +1,7 @@
 
 
+
+
 import React, { useState, useEffect, useRef, memo, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -173,7 +175,8 @@ const Header = ({ theme }) => {
 
   useEffect(() => {
     if (isServicesDropdownOpen) {
-      const firstItem = servicesDropdownContainerRef.current?.querySelector<HTMLAnchorElement>('.dropdown-link-item');
+      // @Fix: Added explicit type to assist TypeScript's type inference.
+      const firstItem: HTMLAnchorElement | null = servicesDropdownContainerRef.current?.querySelector<HTMLAnchorElement>('.dropdown-link-item');
       firstItem?.focus();
     }
   }, [isServicesDropdownOpen]);
@@ -217,7 +220,8 @@ const Header = ({ theme }) => {
   };
   
   const handleDropdownItemKeyDown = (e: React.KeyboardEvent<HTMLAnchorElement>) => {
-    const items = Array.from(
+    // @Fix: Added explicit type to assist TypeScript's type inference.
+    const items: HTMLAnchorElement[] = Array.from(
       servicesDropdownContainerRef.current?.querySelectorAll<HTMLAnchorElement>('.dropdown-link-item') || []
     );
     const currentIndex = items.indexOf(e.currentTarget);
@@ -569,40 +573,52 @@ const ContactPage = () => (
         </div>
       </section>
 
-      <section className="content-section">
+      <section id="contact-details" className="content-section">
         <div className="container">
-          <div className="contact-grid">
-            <div className="contact-details">
-                <h2 className="section-title scroll-trigger fade-up">Contact <strong>Details</strong></h2>
-                <div className="contact-info-items">
-                    <div className="contact-info-item scroll-trigger fade-up" style={{transitionDelay: '0.1s'}}>
-                        <div className="icon-wrapper"><i className="fas fa-map-marker-alt" aria-hidden="true"></i></div>
-                        <div>
-                            <h4>Our Office</h4>
-                            <p>14th floor, Al Jazeera tower, Westbay, Doha, Qatar</p>
+            <div className="contact-grid">
+                <div>
+                    <h2 className="section-title scroll-trigger fade-up">Contact <strong>Details</strong></h2>
+                    <div className="contact-info-items">
+                        <div className="contact-info-item scroll-trigger fade-up" style={{transitionDelay: '0.1s'}}>
+                            <div className="icon-wrapper"><i className="fas fa-map-marker-alt" aria-hidden="true"></i></div>
+                            <div>
+                                <h4>Our Office</h4>
+                                <p>14th floor, Al Jazeera tower, Westbay, Doha, Qatar</p>
+                            </div>
+                        </div>
+                        <div className="contact-info-item scroll-trigger fade-up" style={{transitionDelay: '0.2s'}}>
+                            <div className="icon-wrapper"><i className="fas fa-envelope" aria-hidden="true"></i></div>
+                            <div>
+                                <h4>Email Us</h4>
+                                <p><a href="mailto:info@tajdc.com">info@tajdc.com</a></p>
+                            </div>
+                        </div>
+                        <div className="contact-info-item scroll-trigger fade-up" style={{transitionDelay: '0.3s'}}>
+                            <div className="icon-wrapper"><i className="fas fa-phone" aria-hidden="true"></i></div>
+                            <div>
+                                <h4>Call Us</h4>
+                                <p><a href="tel:+97477123400">+974 7712 3400</a></p>
+                            </div>
                         </div>
                     </div>
-                    <div className="contact-info-item scroll-trigger fade-up" style={{transitionDelay: '0.2s'}}>
-                        <div className="icon-wrapper"><i className="fas fa-envelope" aria-hidden="true"></i></div>
-                        <div>
-                            <h4>Email Us</h4>
-                            <p><a href="mailto:info@tajdc.com">info@tajdc.com</a></p>
-                        </div>
-                    </div>
-                    <div className="contact-info-item scroll-trigger fade-up" style={{transitionDelay: '0.3s'}}>
-                        <div className="icon-wrapper"><i className="fas fa-phone" aria-hidden="true"></i></div>
-                        <div>
-                            <h4>Call Us</h4>
-                            <p><a href="tel:+97477123400">+974 7712 3400</a></p>
-                        </div>
+                    <div className="map-container scroll-trigger fade-up" style={{transitionDelay: '0.4s'}}>
+                       <iframe
+                            src="https://maps.google.com/maps?q=Al%20Jazeera%20Tower,%20Doha&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                            width="600"
+                            height="450"
+                            style={{ border: 0 }}
+                            allowFullScreen={false}
+                            loading="lazy"
+                            referrerPolicy="no-referrer-when-downgrade"
+                            title="Office Location of Taj Design Consultancy"
+                        ></iframe>
                     </div>
                 </div>
+                <div className="contact-form-wrapper">
+                    <h2 className="section-title scroll-trigger fade-up">Send Us a <strong>Message</strong></h2>
+                    <ContactForm />
+                </div>
             </div>
-            <div className="contact-form-wrapper">
-                <h2 className="section-title scroll-trigger fade-up">Send Us a <strong>Message</strong></h2>
-                <ContactForm />
-            </div>
-          </div>
         </div>
       </section>
     </>
