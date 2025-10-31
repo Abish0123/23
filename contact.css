@@ -143,7 +143,7 @@ html, body {
 .dropdown-menu { position: absolute; top: calc(100% + 10px); left: -20px; border-radius: 8px; padding: 8px; list-style: none; min-width: 280px; z-index: 1001; opacity: 0; visibility: hidden; transform: translateY(10px); transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s; box-shadow: 0 8px 16px rgba(0,0,0,0.1); }
 .app-header.on-light .dropdown-menu { background-color: #fff; border: 1px solid #eee; }
 .has-dropdown.open .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
-.dropdown-links { padding: 0; margin: 0; list-style: none; display: flex; flex-direction: column; gap: 2px; }
+.dropdown-links { padding: 0; margin: 0; list-style: none; display: flex; flex-direction: column; gap: 2px; background: #000; }
 .dropdown-links li { opacity: 0; transform: translateX(-10px); animation: dropdownItemFadeIn 0.3s ease forwards; animation-delay: var(--delay); }
 @keyframes dropdownItemFadeIn { to { opacity: 1; transform: translateX(0); } }
 .dropdown-link-item { display: flex; align-items: center; padding: 8px 12px; border-radius: 6px; text-decoration: none; transition: background-color 0.2s ease, color 0.2s ease; font-weight: 400; text-transform: none; font-size: 14px; letter-spacing: 0; white-space: nowrap; }
