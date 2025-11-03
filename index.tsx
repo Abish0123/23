@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect, useRef, memo, createContext, useContext, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -22,185 +23,6 @@ const navLinks = [
   { name: 'Blog', href: '/index.html#blog' },
   { name: 'Careers', href: '/careers.html' },
   { name: 'Contact', href: '/contact.html' },
-];
-
-const servicePageData = {
-    'architectural-design.html': {
-        title: 'Architectural Design',
-        image: 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=800&auto=format&fit=crop&q=60',
-        alt: 'Architectural design sketch',
-        content: [
-            'From concept sketches to refined details, we craft cohesive spatial narratives where aesthetics, function, and flow work as one. Our Architectural Design division unites multiple studios into one collaborative team, covering every discipline – from urban planning, landscape architecture, and interiors to public/commercial developments, residential projects, industrial facilities, and even stadium and venue design. We leverage a holistic design process that blends creativity with practicality, ensuring spaces are not only visually striking but also highly functional and contextually appropriate.',
-            'We excel in Building Information Modeling (BIM), delivering end-to-end BIM support (3D–5D) from concept through to handover. By using coordinated digital models, we detect and resolve clashes early in the design phase, improving buildability and reducing risk on complex projects. Our team’s integrated approach and attention to detail result in architectural solutions that are innovative, sustainable, and aligned with each client’s vision.',
-        ],
-        services: [
-            'Building Architecture – Complete architectural design for commercial, residential, and institutional buildings.',
-            'Landscape Architecture – Planning and design of outdoor spaces, gardens, and urban landscapes.',
-            'Interiors – Interior architecture and space planning that enhance form and function.',
-            'Site Selection, Evaluation & Analysis – Assessing and selecting optimal sites based on project requirements and feasibility.',
-            'Infrastructure Architecture – Design of support facilities and integration with civil infrastructure.',
-            'Industrial Architecture – Customized design for factories, warehouses, and industrial plants.',
-            'Project Brief & Feasibility Studies – Defining project requirements, scope, and viability analyses.',
-            'Preliminary Design & Concept Presentations – Early-phase design development with reports and client presentations.',
-            'Detailed Design & Documentation – Comprehensive architectural drawings, specifications, and reports.',
-            'Tender Documents & Analysis – Preparation of tender packages and assistance with bid evaluation.',
-            'Presentation Drawings, 3D Walkthroughs & Animations – Visualizations and animations bringing designs to life for stakeholders.',
-            'Architectural Scale Models – Physical and digital scale models for design review and client display.',
-            'Building Information Modeling (up to 5D) – Advanced BIM modeling including 3D geometry, scheduling (4D), and cost estimation (5D).',
-            'Urban Design & Masterplanning – Large-scale urban planning, cityscape design, and master plan development.',
-            'Redevelopment & Refurbishment – Renovation design and adaptive reuse for existing buildings and heritage projects.',
-            'Municipality Approvals – Navigating local authority regulations and obtaining necessary building permits and approvals.',
-        ],
-    },
-    'engineering-consultancy.html': {
-        title: 'Engineering Consultancy',
-        image: 'https://images.unsplash.com/photo-1581092446337-234557050003?w=800&auto=format&fit=crop&q=60',
-        alt: 'Engineers collaborating on a blueprint.',
-        content: [
-            'Our Engineering Consultancy division provides the technical backbone for visionary architecture. We deliver integrated, multidisciplinary engineering solutions that are innovative, efficient, and resilient. Our expert teams in structural, MEP, civil, and specialized engineering disciplines work collaboratively to solve complex challenges and ensure that every design is buildable, sustainable, and optimized for performance. We merge technical excellence with a deep understanding of our clients’ goals to deliver projects that stand the test of time.',
-            'From initial feasibility studies to detailed design and construction support, we are committed to precision and quality. We leverage cutting-edge software and analysis tools to model and test our designs, ensuring they meet the highest standards of safety and efficiency. Our proactive approach to coordination and problem-solving helps streamline the construction process, minimize risks, and deliver exceptional value. We are dedicated to engineering excellence that supports architectural creativity and delivers lasting results.',
-        ],
-        services: [
-            'Structural Engineering – Design of robust and efficient structural systems for buildings and infrastructure.',
-            'MEP (Mechanical, Electrical & Plumbing) Engineering – Integrated design of building services for optimal performance and comfort.',
-            'Civil Engineering – Site development, grading, drainage, and utility design.',
-            'Geotechnical Engineering – Subsurface investigation and foundation design.',
-            'Facade Engineering – Design and analysis of building envelopes for performance and aesthetics.',
-            'Fire & Life Safety Consulting – Code compliance, fire protection system design, and evacuation planning.',
-            'Acoustic Consulting – Design for optimal sound insulation, room acoustics, and noise control.',
-            'Vertical Transportation – Elevator and escalator system design and analysis.',
-            'Value Engineering – Optimizing project value by analyzing function and cost.',
-            'Peer Review & Third-Party Verification – Independent review of engineering designs for quality and compliance.',
-        ],
-    },
-    'project-management.html': {
-        title: 'Project & Construction Management',
-        image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&auto=format&fit=crop&q=60',
-        alt: 'Construction site with project managers reviewing plans.',
-        content: [
-            'We provide comprehensive leadership for projects of all sizes, ensuring your vision is realized on time, on budget, and to the highest quality standards. Our Project Management Consultancy (PMC) team serves as a trusted extension of our clients, managing every phase of a project from inception to handover. With a proven track record on some of Qatar’s most iconic developments, we specialize in navigating complex projects with precision and foresight. Our deep local experience gives us an unparalleled understanding of regional regulations and market dynamics, allowing us to proactively mitigate risks and drive project success.',
-            'Our methodology is built on a foundation of clear communication, rigorous control, and proactive problem-solving. We implement robust systems for planning, cost management, and quality assurance, ensuring complete transparency for all stakeholders. By integrating seamlessly with design teams, contractors, and authorities, we foster a collaborative environment focused on shared goals. Whether managing a single project or a large-scale program, our commitment is to safeguard our clients\' interests and deliver outcomes that exceed expectations.',
-        ],
-        services: [
-            'Project Management – Comprehensive project planning, execution, and closing services representing the client’s interests.',
-            'Construction Management & Supervision – On-site construction supervision, contractor coordination, and quality control.',
-            'Technical Review – Independent technical audits and constructability reviews of designs and plans.',
-            'Cost Estimating & Management – Budget development, cost control, value engineering, and financial reporting throughout the project.',
-            'Construction Claims Consulting – Claims analysis, mitigation strategies, and dispute resolution support during construction.',
-            'Independent Contract Document Review – Thorough review of contracts, drawings, and specifications to ensure clarity and completeness.',
-            'Bid Management & Tender Evaluation – Management of the bidding process, contractor pre-qualification, and tender analysis.',
-            'Quality Assurance & Control (QA/QC) – Establishing and implementing QA/QC protocols to meet project standards.',
-            'Commissioning & Handover Management – Managing the final stages of a project, including system testing, training, and final handover.',
-        ],
-    },
-    'sustainability-energy.html': {
-        title: 'Sustainability & Energy',
-        image: 'https://images.unsplash.com/photo-1579225688258-af53a436a5e1?w=800&auto=format&fit=crop&q=60',
-        alt: 'Sustainable energy solutions like solar panels on a modern building',
-        content: [
-            'Aligned with our clients’ objectives, we deliver projects safely and sustainably – meeting cost, schedule, and quality targets every time. Our Sustainability & Energy team provides end-to-end environmental consulting and energy management services for both public and private clients. We guide projects through Environmental Impact Assessments and regulatory approvals, embedding practical strategies for energy efficiency, resource conservation, and low-carbon design to achieve compliant and resilient outcomes. By clarifying environmental impacts and cutting energy consumption, we help clients meet green building standards and future-proof their investments.',
-            'Our specialists develop tailored solutions in energy auditing, retrofitting, and sustainable design integration. We implement strategies like advanced commissioning, renewable energy integration, and smart building controls to maximize efficiency. These efforts regularly reduce building operating costs by over 50% without compromising comfort, safety, or compliance – delivering tangible savings alongside environmental benefits. With a finger on the pulse of global best practices and local regulations, Taj Consultancy’s sustainability experts ensure each project not only meets today’s goals but also contributes to a greener, more energy-efficient future.',
-        ],
-        services: [
-            'Energy Audits & Savings Roadmaps',
-            'Retro-Commissioning & Continuous Commissioning',
-            'HVAC Optimization',
-            'Building Management System (BMS) Optimization',
-            'Lighting Redesign & Smart Controls',
-            'Solar PV Feasibility & Design',
-            'Water Efficiency Solutions',
-            'Utility Tariff Optimization',
-            'Measurement & Verification (M&V)',
-            'Indoor Air Quality Improvements',
-            'Waste Minimization & Circular Materials',
-            'Carbon Accounting & Net-Zero Roadmaps',
-            'Sustainability Reporting & Certification',
-            'Environmental Impact Assessments (EIA/ESIA)',
-            'Contractor Sustainability Compliance',
-            'Training & Change Management',
-        ],
-    },
-    'construction-approval.html': {
-        title: 'Construction Approval',
-        image: 'https://images.unsplash.com/photo-1563291074-2bf8677ac0e5?w=800&auto=format&fit=crop&q=60',
-        alt: 'Official documents and a hard hat on a blueprint.',
-        content: [
-            'Navigating Qatar’s complex regulatory landscape is one of the most critical challenges in any construction project. Our dedicated Construction Approval team specializes in streamlining this process, acting as your expert liaison with all government authorities. We manage the entire lifecycle of approvals, from initial compliance checks to securing the final Building Completion Certificate (BCC). Our deep understanding of the requirements set by Baladiya (Municipality), the Building Permit Complex (DC1/DC2), Kahramaa, Ooredoo, Ashghal, and the Qatar Civil Defense Department (QCDD) ensures a smooth and predictable path to construction.',
-            'By entrusting us with your project approvals, you mitigate risks, avoid costly delays, and ensure full compliance with all local laws and building codes. Our established relationships with key authorities and our meticulous approach to documentation management allow us to anticipate hurdles and resolve issues proactively. We provide complete transparency throughout the process, giving you the peace of mind to focus on your core project objectives while we handle the critical administrative and regulatory groundwork.',
-        ],
-        services: [
-            'Initial Project Assessment & Regulatory Compliance Check',
-            'Building Permit (BP) Application Management (Baladiya)',
-            'DC1 & DC2 Submission, Tracking, and Follow-up',
-            'Utility Connections & NOCs (Kahramaa, Ooredoo)',
-            'Civil Defense (QCDD) Approval Coordination and Inspection Facilitation',
-            'Roads & Drainage NOCs (Ashghal)',
-            'Environmental Permits (Ministry of Environment and Climate Change)',
-            'Building Completion Certificate (BCC) Application and Acquisition',
-            'Regular Status Reporting and Authority Liaison',
-            'Comprehensive Management of All Required Documentation and Drawings',
-        ],
-    },
-};
-
-const blogPageData = {
-    '/blog-bim-ai.html': {
-        title: 'The Future of BIM: AI and Generative Design',
-        image: 'https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=1200&auto=format&fit=crop&q=60',
-        alt: 'Abstract visualization of AI and design',
-        category: 'Technology',
-        date: 'August 15, 2024',
-        content: [
-            'Building Information Modeling (BIM) has fundamentally transformed the architecture, engineering, and construction (AEC) industry over the past two decades. By creating intelligent 3D models, BIM allows for better collaboration, improved clash detection, and more efficient project delivery. However, we are on the cusp of another revolution, one powered by Artificial Intelligence (AI) and Generative Design.',
-            'AI is moving beyond simple automation and into the realm of creative partnership. In the context of architecture, AI algorithms can analyze vast datasets—from building performance metrics to local climate data and zoning regulations—to inform and optimize the design process. This isn\'t about replacing the architect but augmenting their capabilities, freeing them from repetitive tasks to focus on higher-level creative and strategic thinking.',
-            'This is where Generative Design comes in. It\'s a design exploration process where designers input their goals and constraints (e.g., spatial requirements, material costs, energy performance, structural loads) into an AI system. The system then explores the entire solution space, rapidly generating thousands of potential design options. It learns from each iteration, refining the results to produce high-performing and often unexpected solutions that a human designer might never have conceived.',
-            'The benefits are profound. Generative design can lead to structures that are not only more aesthetically innovative but also lighter, stronger, and more sustainable. By optimizing for material usage, it can significantly reduce construction costs and environmental impact. The ability to simulate performance at an early stage allows for the creation of buildings that are more energy-efficient and comfortable for their occupants.',
-            'While the technology is still evolving, its potential is undeniable. From creating complex, lightweight lattice structures for building facades to optimizing the layout of an entire hospital floor for patient flow and staff efficiency, AI-driven design is set to tackle some of the most complex challenges in the built environment. As computational power grows and algorithms become more sophisticated, the collaboration between human creativity and machine intelligence will define the future of architecture.',
-        ],
-    },
-    '/blog-sustainable-materials.html': {
-        title: 'Sustainable Materials in Modern Construction',
-        image: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1200&auto=format&fit=crop&q=60',
-        alt: 'A modern wooden building showcasing sustainable materials',
-        category: 'Architecture',
-        date: 'August 10, 2024',
-        content: [
-            'As global awareness of climate change and resource depletion grows, the construction industry is under increasing pressure to adopt more sustainable practices. Buildings are responsible for a significant portion of global energy consumption and carbon emissions, making the choice of materials more critical than ever. The shift towards sustainable materials is not just an ethical choice; it\'s becoming an economic and regulatory necessity.',
-            'At the forefront of this movement is mass timber, particularly Cross-Laminated Timber (CLT). CLT panels are made by gluing layers of solid-sawn lumber together at right angles, creating a product that is exceptionally strong, lightweight, and dimensionally stable. It can replace concrete and steel in many applications, significantly reducing the carbon footprint of a building. As a renewable resource, timber sequesters carbon throughout its life, making it a key player in the fight against climate change.',
-            'Beyond timber, a host of innovative materials are gaining traction. Bamboo, a rapidly renewable grass, offers incredible tensile strength. Recycled steel reduces the energy-intensive process of virgin steel production. Hempcrete, a mixture of hemp fibers and lime, is a carbon-negative insulation material. Even more futuristic materials like mycelium (the root structure of fungi) are being explored to grow bricks and insulation with minimal environmental impact.',
-            'Choosing the right material involves more than just its origin. A Life Cycle Assessment (LCA) is a crucial tool that evaluates the environmental impact of a material from cradle to grave—from raw material extraction through manufacturing, use, and eventual disposal or recycling. This holistic view ensures that we make informed decisions that genuinely reduce a project\'s overall environmental footprint.',
-            'At Taj Design Consultancy, we are deeply committed to integrating sustainable materials and practices into our projects. We believe that thoughtful material selection is fundamental to creating resilient, healthy, and environmentally responsible buildings that will stand the test of time and contribute positively to our planet\'s future.',
-        ],
-    },
-    '/blog-minimalism-light.html': {
-        title: 'Minimalism and Light: Crafting Serene Spaces',
-        image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=1200&auto=format&fit=crop&q=60',
-        alt: 'A minimalist interior with abundant natural light',
-        category: 'Interior Design',
-        date: 'August 05, 2024',
-        content: [
-            'In a world of constant noise and clutter, the principles of minimalist design offer a powerful antidote. Rooted in the "less is more" philosophy, interior design is about stripping away the non-essential to create spaces that are calm, intentional, and deeply restorative. It’s not about emptiness, but about making room for what truly matters.',
-            'Natural light is arguably the most important element in a minimalist interior. It breathes life into a space, making it feel larger, cleaner, and more open. The design should work to maximize daylight at every turn. This can be achieved through large, unadorned windows, translucent materials, and strategically placed mirrors. Sheer, simple window treatments are preferred over heavy draperies to allow light to filter through gently.',
-            'The color palette in minimalist design is typically subdued, relying on a foundation of neutrals like white, beige, and grey. This doesn\'t mean the space has to be boring. Interest and warmth are introduced through texture—the rough weave of a linen sofa, the smooth grain of a light wood floor, the soft pile of a wool rug. These tactile elements prevent the space from feeling cold or sterile.',
-            'Every piece of furniture and decor in a minimalist space must earn its place. The focus is on quality over quantity. Each item is chosen for its form, function, and beauty. Clean lines, simple geometries, and high-quality craftsmanship are hallmarks of minimalist furniture. Clutter is eliminated through clever, integrated storage solutions that keep surfaces clear and the mind at ease.',
-            'The result of this intentional approach is more than just an aesthetic; it\'s a feeling. Minimalist spaces have been shown to reduce stress, improve focus, and promote a sense of well-being. By creating an environment free from overwhelming visual stimuli, we create a sanctuary where we can truly relax, recharge, and connect with ourselves.',
-        ],
-    },
-};
-
-const careerOpenings = [
-    {
-      title: 'Senior Architect',
-      description: 'Lead design projects from concept to completion. Must have 8+ years of experience in large-scale commercial and residential projects.',
-    },
-    {
-      title: 'BIM Specialist',
-      description: 'Develop and manage BIM models, ensuring clash detection and coordination across disciplines. Proficiency in Revit is essential.',
-    },
-    {
-      title: 'Lead Interior Designer',
-      description: 'Create innovative and functional interior spaces for high-end hospitality and corporate clients. Strong portfolio required.',
-    },
 ];
 
 // --- SHARED & LAYOUT COMPONENTS ---
@@ -781,8 +603,15 @@ const BlueprintAnimation = memo(() => {
 const HeroSection = () => {
     const [offsetY, setOffsetY] = useState(0);
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 992);
     const titleLines = ["STRUCTURES WITH", "PURPOSE"];
     const fullTitle = titleLines.join(' ');
+
+    useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth < 992);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     useEffect(() => {
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -826,15 +655,24 @@ const HeroSection = () => {
                 <h1 className="reveal-text" aria-label={fullTitle}>
                     {titleLines.map((line, lineIndex) => (
                         <div className="hero-title-line" key={lineIndex}>
-                            {line.split('').map((char, index) => (
-                                <span className="letter" key={`${char}-${index}`} aria-hidden="true">
-                                    {char === ' ' ? '\u00A0' : char}
-                                </span>
+                            {line.split(' ').map((word, wordIndex, words) => (
+                                <React.Fragment key={wordIndex}>
+                                    <span style={{ display: 'inline-block' }}>
+                                        {word.split('').map((char, charIndex) => (
+                                            <span className="letter" key={charIndex} aria-hidden="true">
+                                                {char}
+                                            </span>
+                                        ))}
+                                    </span>
+                                    {wordIndex < words.length - 1 && (
+                                        <span className="letter" aria-hidden="true">{'\u00A0'}</span>
+                                    )}
+                                </React.Fragment>
                             ))}
                         </div>
                     ))}
                 </h1>
-                <a href="#works" className="explore-btn">Explore Our Work</a>
+                <a href={isMobile ? '/works.html' : '#works'} className="explore-btn">Explore Our Work</a>
             </div>
              <a href="#about" className="scroll-down-indicator" aria-label="Scroll down to about section">
                 <i className="fas fa-arrow-down" aria-hidden="true"></i>
@@ -900,7 +738,7 @@ const TestimonialsCarousel = ({ testimonials }) => {
                     {testimonials.map((testimonial, index) => (
                         <div className="testimonial-slide" key={index} role="group" aria-roledescription="slide" aria-hidden={currentIndex !== index}>
                             <div className="testimonial-card">
-                                <img src={testimonial.image} alt={testimonial.author} className="testimonial-avatar" />
+                                <img src={testimonial.image} alt={testimonial.alt} className="testimonial-avatar" />
                                 <p className="testimonial-quote">"{testimonial.quote}"</p>
                                 <span className="testimonial-author">{testimonial.author}</span>
                             </div>
@@ -1114,7 +952,8 @@ const HomePage = () => {
         'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761224706/WhatsApp_Image_2025-10-22_at_23.46.06_e814e5d0_uqphxj.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761224698/WhatsApp_Image_2025-10-22_at_23.46.07_714b8d87_1_eljwpn.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761224698/WhatsApp_Image_2025-10-22_at_23.46.07_d6db18c5_tovqbt.png'
-      ]
+      ],
+      alt: 'Interior design of the modern TrustLink office in Bin Mahmoud, Doha.'
     },
     { 
       title: 'World Wide Business Center',
@@ -1125,12 +964,8 @@ const HomePage = () => {
       gallery: [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761733626/Untitled_design_-_2025-10-29T155509.760_nzctlr.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761733626/Untitled_design_-_2025-10-29T155459.346_basulg.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761733625/Untitled_design_-_2025-10-29T155452.800_jhx5w7.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761733625/Untitled_design_-_2025-10-29T155518.651_btziq9.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761733626/Untitled_design_-_2025-10-29T155448.743_eciho2.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761733624/Untitled_design_-_2025-10-29T155527.788_v5gops.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761733613/Untitled_design_-_2025-10-29T155606.164_rv7jcv.png'
-      ]
+      ],
+      alt: 'Spacious and modern interior of World Wide Business Center on D Ring Road, Doha.'
     },
     { 
       title: 'Al Jabor Building',
@@ -1141,46 +976,15 @@ const HomePage = () => {
       gallery: [
         'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761425803/Untitled_16_x_9_in_2_aypzfx.png',
         'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761425803/Untitled_16_x_9_in_3_m7smfu.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761425803/Untitled_16_x_9_in_1_ht1iux.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761425806/Untitled_16_x_9_in_mi6glx.png'
-      ]
+      ],
+      alt: 'Architectural redesign of the Al Jabor commercial building in Al Hilal, Qatar.'
     },
-    {
-      title: 'Legal office for Shaiek Jassim Al Thani',
-      meta: 'End-to-end interior design and fit-out supervision',
-      location: 'Westbay',
-      description: 'Interior design and supervision for turnkey fit-out works—covering concept to handover—with full life-safety compliance to QCDD/NFPA codes. Services include 3D renders and visualizations, coordinated MEP layouts, furniture and finishes selection, technical specifications, detailed BOQs, and on-site supervision/QA to ensure quality, budget control, and timely delivery.',
-      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761394147/10_gtnarf.png',
-      gallery: [
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761394147/10_gtnarf.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761394141/6_ypphq2.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761394138/5_qr7poc.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761394123/12_pqzmgc.png'
-      ]
-    },
-    { 
-      title: 'Al Jazeera Tower',
-      meta: 'End-to-end interior design and fit-out supervision',
-      location: 'Dafna',
-      description: 'Office space design, supervision, and photorealistic renders for a high-rise project in Dafna (4 floors)—including workplace planning, detailed interiors, coordinated MEP, QCDD/NFPA life-safety compliance, supervision for design compliance, adherence to tower standards/procedures, full snagging/rectification, QA/QC, and handover—plus contractor pre-qualification and selection, tendering support, quotation/bid evaluation with comparative summaries, value engineering, and award recommendations.',
-      mainImage: 'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637877/Untitled_16_x_9_in_13_pd7hre.png',
-      gallery: [
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637877/Untitled_16_x_9_in_13_pd7hre.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637877/Untitled_16_x_9_in_14_mxzymr.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637876/Untitled_16_x_9_in_19_kqzxdr.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637875/Untitled_16_x_9_in_17_x98cqb.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637875/Untitled_16_x_9_in_12_npf9j9.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637876/Untitled_16_x_9_in_15_v8kenj.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637875/Untitled_16_x_9_in_18_n9nsc0.png',
-        'https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_1200/v1761637875/Untitled_16_x_9_in_16_lxxcfa.png'
-      ]
-    }
   ];
 
   const testimonials = [
-    { quote: "The design was flawless. Their attention to detail and coordination saved us significant time and budget on our high-rise project.", author: "Project Manager, High-Rise Development", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&h=500&auto=format&fit=crop&q=60", },
-    { quote: "The supervision and management for our villa were exceptional. The team was professional, transparent, and delivered beyond our expectations.", author: "Private Villa Owner, Doha", image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=500&h=500&auto=format&fit=crop&q=60", },
-    { quote: "Their innovative approach to engineering challenges is commendable. Taj Design Consultancy is a reliable partner for any complex construction endeavor.", author: "Lead Architect, Hospitality Project", image: "https://images.unsplash.com/photo-1556157382-97eda2d62296?w=500&h=500&auto=format&fit=crop&q=60", }
+    { quote: "The design was flawless. Their attention to detail and coordination saved us significant time and budget on our high-rise project.", author: "Project Manager, High-Rise Development", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&h=500&auto=format&fit=crop&q=60", alt: "Portrait of a satisfied female project manager, a client of Taj Design Consultancy." },
+    { quote: "The supervision and management for our villa were exceptional. The team was professional, transparent, and delivered beyond our expectations.", author: "Private Villa Owner, Doha", image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=500&h=500&auto=format&fit=crop&q=60", alt: "Portrait of a satisfied male villa owner, a client of Taj Design Consultancy in Qatar." },
+    { quote: "Their innovative approach to engineering challenges is commendable. Taj Design Consultancy is a reliable partner for any complex construction endeavor.", author: "Lead Architect, Hospitality Project", image: "https://images.unsplash.com/photo-1556157382-97eda2d62296?w=500&h=500&auto=format&fit=crop&q=60", alt: "Portrait of a satisfied lead architect, a client of Taj Design Consultancy." }
   ];
 
   const processSteps = [
@@ -1277,7 +1081,7 @@ const HomePage = () => {
           <div className="about-section">
             <div className="grid">
               <div className="about-image scroll-trigger fade-up">
-                <img src="https://images.pexels.com/photos/256150/pexels-photo-256150.jpeg?cs=srgb&dl=pexels-pixabay-256150.jpg&fm=jpg" alt="A modern residential building with a swimming pool and patio." />
+                <img src="https://images.pexels.com/photos/256150/pexels-photo-256150.jpeg?cs=srgb&dl=pexels-pixabay-256150.jpg&fm=jpg" alt="Modern residential architecture with a pool, designed by Taj Design Consultancy in Qatar." />
               </div>
               <div className="about-text">
                 <h2 className="section-title scroll-trigger fade-up">WHO <strong>WE ARE</strong></h2>
@@ -1305,7 +1109,7 @@ const HomePage = () => {
         </div>
       </section>
 
-      <section id="facts" className="content-section section-bg-dark scroll-trigger fade-up has-divider" style={{backgroundImage: `url(https://images.pexels.com/photos/157811/pexels-photo-157811.jpeg?cs=srgb&dl=pexels-yentl-jacobs-43020-157811.jpg&fm=jpg)`}}>
+      <section id="facts" className="content-section section-bg-dark scroll-trigger fade-up has-divider" style={{'--bg-image': `url(https://images.pexels.com/photos/157811/pexels-photo-157811.jpeg?cs=srgb&dl=pexels-yentl-jacobs-43020-157811.jpg&fm=jpg)`} as React.CSSProperties}>
         <SectionDivider />
         <div className="section-decorator decorator-left scroll-trigger" aria-hidden="true">
             <span className="decorator-text">02</span>
@@ -1387,7 +1191,7 @@ const HomePage = () => {
         </div>
       </section>
 
-      <section id="works" className="content-section section-bg-dark scroll-trigger fade-up has-divider" style={{backgroundImage: `url(https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&auto=format&fit=crop&q=60)`}}>
+      <section id="works" className="content-section section-bg-dark scroll-trigger fade-up has-divider" style={{'--bg-image': `url(https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&auto=format&fit=crop&q=60)`} as React.CSSProperties}>
         <SectionDivider />
         <div className="section-decorator decorator-left scroll-trigger" aria-hidden="true">
             <span className="decorator-text">04</span>
@@ -1403,7 +1207,7 @@ const HomePage = () => {
                         onClick={() => setSelectedProject(item)}
                         aria-label={`View project details for ${item.title}`}
                     >
-                        <img src={item.mainImage} alt={item.title} className="project-card-image" />
+                        <img src={item.mainImage} alt={item.alt} className="project-card-image" />
                         <div className="project-card-cover">
                             <h3>{item.title}</h3>
                             <span className="view-project-button">View Project</span>
@@ -1447,7 +1251,7 @@ const HomePage = () => {
         </div>
       </section>
 
-      <section id="testimonials" className="content-section section-bg-dark scroll-trigger fade-up has-divider" style={{backgroundImage: `url(https://images.pexels.com/photos/157811/pexels-photo-157811.jpeg?cs=srgb&dl=pexels-yentl-jacobs-43020-157811.jpg&fm=jpg)`}}>
+      <section id="testimonials" className="content-section section-bg-dark scroll-trigger fade-up has-divider" style={{'--bg-image': `url(https://images.pexels.com/photos/157811/pexels-photo-157811.jpeg?cs=srgb&dl=pexels-yentl-jacobs-43020-157811.jpg&fm=jpg)`} as React.CSSProperties}>
         <SectionDivider />
         <div className="section-decorator decorator-right decorator-05" aria-hidden="true">
             <span className="decorator-text scroll-trigger">05</span>
