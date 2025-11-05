@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef, memo, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -478,27 +477,6 @@ const WhatsAppChatWidget = () => (
     </a>
 );
 
-const RelatedProjects = ({ projects, title }) => (
-    <section className="related-projects-section content-section scroll-trigger fade-up">
-        <div className="container">
-            <h2 className="section-title" style={{ textAlign: 'center' }}>Our Work in <strong>{title}</strong></h2>
-            <div className="project-grid">
-                {projects.map((project, index) => (
-                    <div className="project-card scroll-trigger fade-up" key={index} style={{ transitionDelay: `${index * 0.1}s` }}>
-                        <div className="project-card-image">
-                            <img src={project.image} alt={project.title} />
-                        </div>
-                        <div className="project-card-content">
-                            <h3>{project.title}</h3>
-                            <p>{project.category}</p>
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </div>
-    </section>
-);
-
 const CallToAction = () => (
     <section className="cta-section scroll-trigger fade-up">
         <div className="container">
@@ -668,12 +646,6 @@ const ServicePage = () => {
       { question: "Can you supply the furniture?", answer: "We can either manage the full process of specifying, procuring, and installing furniture, or we can collaborate with your own preferred vendors." }
   ];
 
-  const relatedProjects = [
-    { image: "https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_800/v1761224706/WhatsApp_Image_2025-10-22_at_23.46.06_e814e5d0_uqphxj.png", title: "TrustLink Office", category: "Office Interior" },
-    { image: "https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_800/v1761733626/Untitled_design_-_2025-10-29T155509.760_nzctlr.png", title: "World Wide Business Center", category: "Commercial Interior" },
-    { image: "https://res.cloudinary.com/dj3vhocuf/image/upload/f_auto,q_auto,w_800/v1761394147/10_gtnarf.png", title: "Legal Office", category: "Corporate Interior" },
-  ];
-
   return (
     <div className={`app ${loading ? 'loading' : ''}`}>
       <SkipToContentLink />
@@ -746,7 +718,6 @@ const ServicePage = () => {
             </div>
           </section>
 
-          <RelatedProjects projects={relatedProjects} title="Interior Design" />
           <CallToAction />
 
           <footer id="footer" className="app-footer">
