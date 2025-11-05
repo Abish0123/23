@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect, useRef, memo, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -601,7 +602,8 @@ const ProcessStepper = ({ steps }) => (
     </div>
 );
 
-const InfoCard = ({ title, icon, items, children }: { title: string, icon: string, items?: (string | React.ReactNode)[], children?: React.ReactNode }) => (
+// FIX: Wrapped InfoCard in React.memo to ensure it's treated as a proper React component, resolving the 'key' prop error.
+const InfoCard = memo(({ title, icon, items, children }: { title: string, icon: string, items?: (string | React.ReactNode)[], children?: React.ReactNode }) => (
     <div className="info-card scroll-trigger fade-up">
         <h4><i className={`fas ${icon}`} aria-hidden="true"></i> {title}</h4>
         {items && (
@@ -613,7 +615,7 @@ const InfoCard = ({ title, icon, items, children }: { title: string, icon: strin
         )}
         {children}
     </div>
-);
+));
 
 const ServicePage = () => {
   const [loading, setLoading] = useState(true);
