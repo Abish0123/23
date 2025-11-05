@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect, useRef, memo, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -8,6 +9,7 @@ declare const gsap: any;
 
 const servicesSubLinks = [
   { name: 'Architectural Design', href: 'architectural-design.html', icon: 'fas fa-archway', description: 'Innovative and functional spaces from concept to construction.', image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&auto=format&fit=crop&q=60' },
+  { name: 'Interior Design & Fit-Out', href: 'interior-design.html', icon: 'fas fa-couch', description: 'From concept to handover: layouts, materials, FF&E, site supervision, and code-compliant delivery.', image: 'https://images.unsplash.com/photo-1618220179428-22790b461013?w=800&auto=format&fit=crop&q=60' },
   { name: 'Engineering Consultancy', href: 'engineering-consultancy.html', icon: 'fas fa-cogs', description: 'Expert technical advice and solutions for robust project outcomes.', image: 'https://images.unsplash.com/photo-1518692113669-e34fa251a37c?w=800&auto=format&fit=crop&q=60' },
   { name: 'Project Management Consultancy', href: 'project-management.html', icon: 'fas fa-tasks', description: 'Overseeing projects from inception to completion on time and budget.', image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&auto=format&fit=crop&q=60' },
   { name: 'Sustainability & Energy', href: 'sustainability-energy.html', icon: 'fas fa-leaf', description: 'Integrating green principles for environmentally responsible designs.', image: 'https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=800&auto=format&fit=crop&q=60' },
@@ -524,6 +526,13 @@ const AboutPage = () => {
         { icon: 'fas fa-star', title: 'Excellence', description: 'We pursue the highest standards in every aspect of our work, from initial concept to final execution and delivery.' },
         { icon: 'fas fa-users', title: 'Collaboration', description: 'We believe the best results come from teamwork, integrating diverse expertise to achieve a unified vision.' },
     ];
+    
+    const teamMembers = [
+        { name: 'John Doe', role: 'Founder & Principal Architect', image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=500&auto=format&fit=crop&q=60', alt: 'Portrait of John Doe, Founder & Principal Architect at Taj Design Consultancy' },
+        { name: 'Jane Smith', role: 'Head of Engineering', image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&auto=format&fit=crop&q=60', alt: 'Portrait of Jane Smith, Head of Engineering at Taj Design Consultancy' },
+        { name: 'Sam Wilson', role: 'Lead Project Manager', image: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?w=500&auto=format&fit=crop&q=60', alt: 'Portrait of Sam Wilson, Lead Project Manager at Taj Design Consultancy' },
+        { name: 'Emily White', role: 'Director of Sustainability', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&auto=format&fit=crop&q=60', alt: 'Portrait of Emily White, Director of Sustainability at Taj Design Consultancy' },
+    ];
 
 
   useEffect(() => {
@@ -581,6 +590,25 @@ const AboutPage = () => {
                 ))}
             </div>
           </div>
+      </section>
+      
+      <section id="our-team" className="content-section">
+        <div className="container">
+            <h2 className="section-title scroll-trigger fade-up" style={{ textAlign: 'center' }}>Meet Our <strong>Team</strong></h2>
+            <div className="team-grid">
+                {teamMembers.map((member, index) => (
+                    <div className="team-member-card scroll-trigger fade-up" key={index} style={{ transitionDelay: `${index * 0.1}s` }}>
+                        <div className="team-member-image">
+                            <img src={member.image} alt={member.alt} />
+                        </div>
+                        <div className="team-member-info">
+                            <h3>{member.name}</h3>
+                            <p>{member.role}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
       </section>
 
       <CallToAction />
