@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect, useRef, memo, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -533,8 +534,10 @@ const ProjectGalleryModal = ({ project, onClose }) => {
                     if (!focusableElements || focusableElements.length === 0) return;
                     const firstElement = focusableElements[0];
                     const lastElement = focusableElements[focusableElements.length - 1];
-                    if (e.shiftKey) { if (document.activeElement === firstElement) { lastElement.focus(); e.preventDefault(); }}
-                    else { if (document.activeElement === lastElement) { firstElement.focus(); e.preventDefault(); }}
+                    // FIX: Explicitly cast to HTMLElement to resolve 'focus' on 'unknown' type error.
+                    if (e.shiftKey) { if (document.activeElement === firstElement) { (lastElement as HTMLElement).focus(); e.preventDefault(); }}
+                    // FIX: Explicitly cast to HTMLElement to resolve 'focus' on 'unknown' type error.
+                    else { if (document.activeElement === lastElement) { (firstElement as HTMLElement).focus(); e.preventDefault(); }}
                 }
             };
 
