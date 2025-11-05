@@ -7,6 +7,7 @@ declare const gsap: any;
 
 const servicesSubLinks = [
   { name: 'Architectural Design', href: 'architectural-design.html', icon: 'fas fa-archway', description: 'Innovative and functional spaces from concept to construction.', image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&auto=format&fit=crop&q=60' },
+  { name: 'Interior Design & Fit-Out', href: 'interior-design.html', icon: 'fas fa-couch', description: 'From concept to handover: layouts, materials, FF&E, site supervision, and code-compliant delivery.', image: 'https://images.unsplash.com/photo-1618220179428-22790b461013?w=800&auto=format&fit=crop&q=60' },
   { name: 'Engineering Consultancy', href: 'engineering-consultancy.html', icon: 'fas fa-cogs', description: 'Expert technical advice and solutions for robust project outcomes.', image: 'https://images.unsplash.com/photo-1518692113669-e34fa251a37c?w=800&auto=format&fit=crop&q=60' },
   { name: 'Project Management Consultancy', href: 'project-management.html', icon: 'fas fa-tasks', description: 'Overseeing projects from inception to completion on time and budget.', image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&auto=format&fit=crop&q=60' },
   { name: 'Sustainability & Energy', href: 'sustainability-energy.html', icon: 'fas fa-leaf', description: 'Integrating green principles for environmentally responsible designs.', image: 'https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=800&auto=format&fit=crop&q=60' },
@@ -159,7 +160,8 @@ const Header = ({ theme }) => {
 
   const closeMobileNav = () => {
     setIsMobileNavOpen(false);
-    burgerMenuRef.current?.focus();
+    // FIX: Explicitly cast to HTMLElement to resolve 'focus' on 'unknown' type error.
+    (burgerMenuRef.current as HTMLElement)?.focus();
   };
 
   const closeServicesDropdown = (shouldFocusToggle = true) => {
@@ -482,7 +484,8 @@ const ContactForm = () => {
 
     useEffect(() => {
         if (isSubmitted) {
-            successMessageRef.current?.focus();
+            // FIX: Explicitly cast to HTMLElement to resolve 'focus' on 'unknown' type error.
+            (successMessageRef.current as HTMLElement)?.focus();
         }
     }, [isSubmitted]);
 
@@ -569,40 +572,52 @@ const ContactPage = () => (
         </div>
       </section>
 
-      <section className="content-section">
+      <section id="contact-details" className="content-section">
         <div className="container">
-          <div className="contact-grid">
-            <div className="contact-details">
-                <h2 className="section-title scroll-trigger fade-up">Contact <strong>Details</strong></h2>
-                <div className="contact-info-items">
-                    <div className="contact-info-item scroll-trigger fade-up" style={{transitionDelay: '0.1s'}}>
-                        <div className="icon-wrapper"><i className="fas fa-map-marker-alt" aria-hidden="true"></i></div>
-                        <div>
-                            <h4>Our Office</h4>
-                            <p>14th floor, Al Jazeera tower, Westbay, Doha, Qatar</p>
+            <div className="contact-grid">
+                <div>
+                    <h2 className="section-title scroll-trigger fade-up">Contact <strong>Details</strong></h2>
+                    <div className="contact-info-items">
+                        <div className="contact-info-item scroll-trigger fade-up" style={{transitionDelay: '0.1s'}}>
+                            <div className="icon-wrapper"><i className="fas fa-map-marker-alt" aria-hidden="true"></i></div>
+                            <div>
+                                <h4>Our Office</h4>
+                                <p>14th floor, Al Jazeera tower, Westbay, Doha, Qatar</p>
+                            </div>
+                        </div>
+                        <div className="contact-info-item scroll-trigger fade-up" style={{transitionDelay: '0.2s'}}>
+                            <div className="icon-wrapper"><i className="fas fa-envelope" aria-hidden="true"></i></div>
+                            <div>
+                                <h4>Email Us</h4>
+                                <p><a href="mailto:info@tajdc.com">info@tajdc.com</a></p>
+                            </div>
+                        </div>
+                        <div className="contact-info-item scroll-trigger fade-up" style={{transitionDelay: '0.3s'}}>
+                            <div className="icon-wrapper"><i className="fas fa-phone" aria-hidden="true"></i></div>
+                            <div>
+                                <h4>Call Us</h4>
+                                <p><a href="tel:+97477123400">+974 7712 3400</a></p>
+                            </div>
                         </div>
                     </div>
-                    <div className="contact-info-item scroll-trigger fade-up" style={{transitionDelay: '0.2s'}}>
-                        <div className="icon-wrapper"><i className="fas fa-envelope" aria-hidden="true"></i></div>
-                        <div>
-                            <h4>Email Us</h4>
-                            <p><a href="mailto:info@tajdc.com">info@tajdc.com</a></p>
-                        </div>
-                    </div>
-                    <div className="contact-info-item scroll-trigger fade-up" style={{transitionDelay: '0.3s'}}>
-                        <div className="icon-wrapper"><i className="fas fa-phone" aria-hidden="true"></i></div>
-                        <div>
-                            <h4>Call Us</h4>
-                            <p><a href="tel:+97477123400">+974 7712 3400</a></p>
-                        </div>
+                    <div className="map-container scroll-trigger fade-up" style={{transitionDelay: '0.4s'}}>
+                       <iframe
+                            src="https://maps.google.com/maps?q=Al%20Jazeera%20Tower,%20Doha&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                            width="600"
+                            height="450"
+                            style={{ border: 0 }}
+                            allowFullScreen={false}
+                            loading="lazy"
+                            referrerPolicy="no-referrer-when-downgrade"
+                            title="Office Location of Taj Design Consultancy"
+                        ></iframe>
                     </div>
                 </div>
+                <div className="contact-form-wrapper">
+                    <h2 className="section-title scroll-trigger fade-up">Send Us a <strong>Message</strong></h2>
+                    <ContactForm />
+                </div>
             </div>
-            <div className="contact-form-wrapper">
-                <h2 className="section-title scroll-trigger fade-up">Send Us a <strong>Message</strong></h2>
-                <ContactForm />
-            </div>
-          </div>
         </div>
       </section>
     </>
