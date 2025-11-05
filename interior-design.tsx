@@ -585,12 +585,12 @@ const ServicePage = () => {
   }, []);
   
   const ourProcess = [
-    { icon: 'fas fa-search', title: 'Discovery & Brief', description: 'We define your goals, headcount, budget, and brand identity to create a tailored project plan.'},
-    { icon: 'fas fa-lightbulb', title: 'Concept Design', description: 'Explore multiple layout options and establish the core look-and-feel with photorealistic 3D views.'},
-    { icon: 'fas fa-ruler-combined', title: 'Technical Design', description: 'Develop coordinated drawings, material specs, and the full package for authority approvals.'},
-    { icon: 'fas fa-file-signature', title: 'Tendering', description: 'Manage RFQs, conduct comparative analysis of bids, and provide a clear award recommendation.'},
-    { icon: 'fas fa-hard-hat', title: 'Fit-Out & Supervision', description: 'Oversee on-site works to ensure strict adherence to quality, safety, schedule, and cost controls.'},
-    { icon: 'fas fa-key', title: 'Handover', description: 'Manage final testing, secure authority sign-offs, and provide O&M manuals for a smooth move-in.'},
+    { icon: 'fa-search', title: 'Discovery & Brief', description: 'We define your goals, headcount, budget, and brand identity to create a tailored project plan.'},
+    { icon: 'fa-lightbulb', title: 'Concept Design', description: 'Explore multiple layout options and establish the core look-and-feel with photorealistic 3D views.'},
+    { icon: 'fa-ruler-combined', title: 'Technical Design', description: 'Develop coordinated drawings, material specs, and the full package for authority approvals.'},
+    { icon: 'fa-file-signature', title: 'Tendering', description: 'Manage RFQs, conduct comparative analysis of bids, and provide a clear award recommendation.'},
+    { icon: 'fa-hard-hat', title: 'Fit-Out & Supervision', description: 'Oversee on-site works to ensure strict adherence to quality, safety, schedule, and cost controls.'},
+    { icon: 'fa-key', title: 'Handover', description: 'Manage final testing, secure authority sign-offs, and provide O&M manuals for a smooth move-in.'},
   ];
 
   const whatWeDo = [
@@ -716,11 +716,11 @@ const ServicePage = () => {
 
               <div className="approach-section scroll-trigger fade-up" style={{transitionDelay: '0.3s'}}>
                   <h2 className="section-title" style={{textAlign: 'center'}}>Our Process</h2>
-                  <div className="approach-steps">
+                  <div className="approach-steps" style={{gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))'}}>
                     {ourProcess.map((step, index) => (
                         <div className="approach-step" key={index}>
                             <div className="approach-icon-wrapper">
-                                <i className={step.icon}></i>
+                                <i className={`fas ${step.icon}`}></i>
                             </div>
                             <h3>{step.title}</h3>
                             <p>{step.description}</p>
@@ -735,6 +735,7 @@ const ServicePage = () => {
                     <InfoCard {...compliance} />
                     <InfoCard {...projectTypes} />
                     <InfoCard {...addOns} />
+                    <InfoCard {...whyUs} />
                 </div>
               </div>
 
