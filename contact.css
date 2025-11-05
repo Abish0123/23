@@ -1,5 +1,7 @@
 
 
+
+
 :root {
   --dark-bg: #111111;
   --dark-bg-secondary: #1c1c1c;
@@ -114,7 +116,7 @@ html, body {
 }
 
 .logo-image {
-    height: 80px;
+    height: 50px;
     width: auto;
 }
 
@@ -143,7 +145,7 @@ html, body {
 .dropdown-menu { position: absolute; top: calc(100% + 10px); left: -20px; border-radius: 8px; padding: 8px; list-style: none; min-width: 280px; z-index: 1001; opacity: 0; visibility: hidden; transform: translateY(10px); transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s; box-shadow: 0 8px 16px rgba(0,0,0,0.1); }
 .app-header.on-light .dropdown-menu { background-color: #fff; border: 1px solid #eee; }
 .has-dropdown.open .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
-.dropdown-links { padding: 0; margin: 0; list-style: none; display: flex; flex-direction: column; gap: 2px; background: #000; }
+.dropdown-links { padding: 0; margin: 0; list-style: none; display: flex; flex-direction: column; gap: 2px; }
 .dropdown-links li { opacity: 0; transform: translateX(-10px); animation: dropdownItemFadeIn 0.3s ease forwards; animation-delay: var(--delay); }
 @keyframes dropdownItemFadeIn { to { opacity: 1; transform: translateX(0); } }
 .dropdown-link-item { display: flex; align-items: center; padding: 8px 12px; border-radius: 6px; text-decoration: none; transition: background-color 0.2s ease, color 0.2s ease; font-weight: 400; text-transform: none; font-size: 14px; letter-spacing: 0; white-space: nowrap; }
@@ -233,14 +235,14 @@ html, body {
 
 /* General Section Styling */
 .content-section { padding: 100px 60px; }
-.container { max-width: 1100px; margin: 0 auto; }
+.container { max-width: 1200px; margin: 0 auto; }
 .section-title { font-size: 36px; font-weight: 300; margin-bottom: 40px; text-transform: uppercase; letter-spacing: 2px; color: #000; }
 .section-title strong { font-weight: 700; }
 
 /* Details Section */
 .contact-grid {
     display: grid;
-    grid-template-columns: 1fr 1.5fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 60px;
     align-items: start;
 }
@@ -249,6 +251,19 @@ html, body {
 .contact-info-item .icon-wrapper { flex-shrink: 0; width: 60px; height: 60px; border-radius: 50%; background-color: #f4f4f4; color: var(--accent-color); display: flex; align-items: center; justify-content: center; font-size: 24px; transition: all 0.3s ease; }
 .contact-info-item h4 { font-size: 18px; font-weight: 700; margin-bottom: 5px; color: var(--text-dark); }
 .contact-info-item p, .contact-info-item a { color: #666; text-decoration: none; transition: color 0.3s ease; }
+
+.map-container {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    height: 450px;
+    margin-top: 10px;
+}
+.map-container iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
 
 /* Contact Form */
 .contact-form-section { background-color: #f9f9f9; }
@@ -338,8 +353,9 @@ html, body {
     .app, .app a, .app button, .app [role="button"], .app input { cursor: auto !important; }
     .desktop-logo { display: none; }
     .mobile-logo { display: block; }
-    .logo-image { height: 60px; }
+    .logo-image { height: 40px; }
     .contact-grid { grid-template-columns: 1fr; gap: 50px; }
+    .map-container { order: -1; } /* Move map to top on smaller screens */
 }
 @media (max-width: 768px) {
     .app-header { padding: 20px; }
@@ -351,5 +367,5 @@ html, body {
     .form-row .form-group { margin-bottom: 20px; }
     .form-row + .form-group { margin-bottom: 20px; }
     .copyright-section { flex-direction: column; gap: 20px; text-align: center; }
-    .logo-image { height: 50px; }
+    .logo-image { height: 35px; }
 }
