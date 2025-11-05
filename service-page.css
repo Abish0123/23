@@ -2,6 +2,7 @@
 
 
 
+
 :root {
   --dark-bg: #111111;
   --dark-bg-secondary: #1c1c1c;
@@ -186,7 +187,7 @@ html, body {
 }
 
 .logo-image {
-    height: 80px;
+    height: 50px;
     width: auto;
 }
 
@@ -1155,7 +1156,7 @@ html, body {
       justify-content: space-between;
     }
     .logo-image {
-      height: 60px;
+      height: 40px;
     }
 
     .process-stepper {
@@ -1188,8 +1189,11 @@ html, body {
     .app-header {
         padding: 15px 20px;
     }
+    .logo-image {
+        height: 35px;
+    }
     .logo-image.mobile-logo {
-        height: 50px;
+        height: 35px;
     }
 }
 @media (max-width: 576px) {
