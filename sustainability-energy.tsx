@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect, useRef, memo, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -160,22 +161,23 @@ const Header = ({ theme }) => {
 
   const closeMobileNav = () => {
     setIsMobileNavOpen(false);
-    burgerMenuRef.current?.focus();
+    // FIX: Explicitly cast to HTMLElement to resolve 'focus' on 'unknown' type error.
+    (burgerMenuRef.current as HTMLElement)?.focus();
   };
 
   const closeServicesDropdown = (shouldFocusToggle = true) => {
     if (isServicesDropdownOpen) {
       setIsServicesDropdownOpen(false);
       if (shouldFocusToggle) {
-        servicesToggleRef.current?.focus();
+        // FIX: Explicitly cast to HTMLElement to resolve 'focus' on 'unknown' type error.
+        (servicesToggleRef.current as HTMLElement)?.focus();
       }
     }
   };
 
   useEffect(() => {
     if (isServicesDropdownOpen) {
-      // @Fix: Added explicit type to assist TypeScript's type inference.
-      const firstItem: HTMLAnchorElement | null = servicesDropdownContainerRef.current?.querySelector<HTMLAnchorElement>('.dropdown-menu a');
+      const firstItem = servicesDropdownContainerRef.current?.querySelector<HTMLAnchorElement>('.dropdown-menu a');
       firstItem?.focus();
     }
   }, [isServicesDropdownOpen]);
@@ -219,8 +221,7 @@ const Header = ({ theme }) => {
   };
 
   const handleDropdownItemKeyDown = (e: React.KeyboardEvent<HTMLAnchorElement>) => {
-    // @Fix: Added explicit type to assist TypeScript's type inference.
-    const items: HTMLAnchorElement[] = Array.from(
+    const items = Array.from(
       servicesDropdownContainerRef.current?.querySelectorAll<HTMLAnchorElement>('.dropdown-link-item') || []
     );
     const currentIndex = items.indexOf(e.currentTarget);
