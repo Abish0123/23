@@ -9,6 +9,7 @@ declare const gsap: any;
 
 const servicesSubLinks = [
   { name: 'Architectural Design', href: 'architectural-design.html', icon: 'fas fa-archway', description: 'Innovative and functional spaces from concept to construction.', image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&auto=format&fit=crop&q=60' },
+  { name: 'Interior Design & Fit-Out', href: 'interior-design.html', icon: 'fas fa-couch', description: 'From concept to handover: layouts, materials, FF&E, site supervision, and code-compliant delivery.', image: 'https://images.unsplash.com/photo-1618220179428-22790b461013?w=800&auto=format&fit=crop&q=60' },
   { name: 'Engineering Consultancy', href: 'engineering-consultancy.html', icon: 'fas fa-cogs', description: 'Expert technical advice and solutions for robust project outcomes.', image: 'https://images.unsplash.com/photo-1518692113669-e34fa251a37c?w=800&auto=format&fit=crop&q=60' },
   { name: 'Project Management Consultancy', href: 'project-management.html', icon: 'fas fa-tasks', description: 'Overseeing projects from inception to completion on time and budget.', image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&auto=format&fit=crop&q=60' },
   { name: 'Sustainability & Energy', href: 'sustainability-energy.html', icon: 'fas fa-leaf', description: 'Integrating green principles for environmentally responsible designs.', image: 'https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=800&auto=format&fit=crop&q=60' },
@@ -998,6 +999,7 @@ const HomePage = () => {
   
   const services = [
     { icon: 'fas fa-archway', title: 'Architectural Design', description: 'Creating innovative and functional spaces from concept to construction, ensuring aesthetic appeal and structural integrity.', href: 'architectural-design.html' },
+    { icon: 'fas fa-couch', title: 'Interior Design & Fit-Out', description: 'From concept to handover: layouts, materials, FF&E, site supervision, and code-compliant delivery.', href: 'interior-design.html' },
     { icon: 'fas fa-cogs', title: 'Engineering Consultancy', description: 'Providing expert technical advice and solutions across various engineering disciplines for robust and efficient project outcomes.', href: 'engineering-consultancy.html' },
     { icon: 'fas fa-tasks', title: 'Project Management Consultancy', description: 'Overseeing projects from inception to completion, ensuring they are delivered on time, within budget, and to the highest quality standards.', href: 'project-management.html' },
     { icon: 'fas fa-leaf', title: 'Sustainability & Energy', description: 'Integrating green building principles and energy-efficient solutions to create environmentally responsible and cost-effective designs.', href: 'sustainability-energy.html' },
@@ -1109,7 +1111,7 @@ const HomePage = () => {
         </div>
       </section>
 
-      <section id="facts" className="content-section section-bg-dark scroll-trigger fade-up has-divider" style={{'--bg-image': `url(https://images.pexels.com/photos/157811/pexels-photo-157811.jpeg?cs=srgb&dl=pexels-yentl-jacobs-43020-157811.jpg&fm=jpg)`} as React.CSSProperties}>
+      <section id="facts" className="content-section section-bg-dark scroll-trigger fade-up has-divider" style={{backgroundImage: `url(https://images.pexels.com/photos/157811/pexels-photo-157811.jpeg?cs=srgb&dl=pexels-yentl-jacobs-43020-157811.jpg&fm=jpg)`}}>
         <SectionDivider />
         <div className="section-decorator decorator-left scroll-trigger" aria-hidden="true">
             <span className="decorator-text">02</span>
@@ -1191,7 +1193,7 @@ const HomePage = () => {
         </div>
       </section>
 
-      <section id="works" className="content-section section-bg-dark scroll-trigger fade-up has-divider" style={{'--bg-image': `url(https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&auto=format&fit=crop&q=60)`} as React.CSSProperties}>
+      <section id="works" className="content-section section-bg-dark scroll-trigger fade-up has-divider" style={{backgroundImage: `url(https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&auto=format&fit=crop&q=60)`}}>
         <SectionDivider />
         <div className="section-decorator decorator-left scroll-trigger" aria-hidden="true">
             <span className="decorator-text">04</span>
@@ -1251,7 +1253,7 @@ const HomePage = () => {
         </div>
       </section>
 
-      <section id="testimonials" className="content-section section-bg-dark scroll-trigger fade-up has-divider" style={{'--bg-image': `url(https://images.pexels.com/photos/157811/pexels-photo-157811.jpeg?cs=srgb&dl=pexels-yentl-jacobs-43020-157811.jpg&fm=jpg)`} as React.CSSProperties}>
+      <section id="testimonials" className="content-section section-bg-dark scroll-trigger fade-up has-divider" style={{backgroundImage: `url(https://images.pexels.com/photos/157811/pexels-photo-157811.jpeg?cs=srgb&dl=pexels-yentl-jacobs-43020-157811.jpg&fm=jpg)`}}>
         <SectionDivider />
         <div className="section-decorator decorator-right decorator-05" aria-hidden="true">
             <span className="decorator-text scroll-trigger">05</span>
