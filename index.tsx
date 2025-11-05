@@ -1,5 +1,4 @@
 
-
 import React, { useState, useEffect, useRef, memo, createContext, useContext, MouseEventHandler } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -376,7 +375,7 @@ const Header = ({ theme }) => {
       </nav>
       <div className="logo">
         <AppLink href="/index.html">
-          <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1760896759/Blue_Bold_Office_Idea_Logo_250_x_80_px_7_uatyqd.png" alt="Taj Design Consultancy Logo" className="logo-image" />
+          <img src="https://res.cloudinary.com/dj3vhocuf/image/upload/v1762341232/DESign_220_x_60_px_abhv5e.png" alt="Taj Design Consultancy Logo" className="logo-image" />
         </AppLink>
       </div>
       <button
@@ -767,8 +766,14 @@ const ClientsCarousel = () => {
     const clientLogos = [
         { url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPTwxAXnyJ94XVj2GIYoPuZtQ0I5MJGpmreA&s", name: "Ministry of Interior, Qatar" },
         { url: "https://www.trustlinkqatar.com/assets/images/trustlinkqatar-logo-colored.png", name: "TrustLink Qatar" },
-        { url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRayiNTv2-vuoIvjHtg0Y0TwwUX0ZzaPTqT5g&s", name: "Qatar Foundation" },
         { url: "https://pbs.twimg.com/profile_images/1508776406137856008/57PHPv7w_400x400.jpg", name: "Kahramaa" },
+        { url: "https://res.cloudinary.com/dj3vhocuf/image/upload/v1762338839/Untitled_bkksjc.png", name: "Regency Group Holding" },
+        { url: "https://res.cloudinary.com/dj3vhocuf/image/upload/v1762338838/Thyssenkrupp_AG_Logo_2015.svg_igmux4.png", name: "Thyssenkrupp" },
+        { url: "https://res.cloudinary.com/dj3vhocuf/image/upload/v1762338828/Maldives_Embassy_1_kwiwt1.png", name: "Embassy of Maldives" },
+        { url: "https://res.cloudinary.com/dj3vhocuf/image/upload/v1762338827/5_fzbier.png", name: "Al Jabor Group" },
+        { url: "https://res.cloudinary.com/dj3vhocuf/image/upload/v1762338827/logo_3_zeqqrp.png", name: "Milaha" },
+        { url: "https://res.cloudinary.com/dj3vhocuf/image/upload/v1762338827/Untitled_design_-_2025-11-05T160138.102_wazfbk.png", name: "World Wide Business Center" },
+        { url: "https://res.cloudinary.com/dj3vhocuf/image/upload/v1762338827/Untitled_design_-_2025-11-05T155948.514_larixu.png", name: "Qatar Foundation" },
     ];
     
     // Duplicate logos for seamless scrolling effect
